@@ -1409,7 +1409,8 @@ function homeinfo_immosearch_details(object_id) {
                 //immosearch_details_element += '<strong>Ausstattungsmerkmale: <br></strong>' + var___immosearch_array_object_ausstatt_beschr;
                 immosearch_details_element += '<p id="list_text_style">AUSSTATTUNGSMERKMALE<br></p>';
                 $.each(immosearch_array_object_ausstatt_beschr_concat.split(','), function(index, value) {
-                  immosearch_details_element += '<input type="button" class="btn btn-default btn-xs" value="' + value + '" id="immo_small_icons" style="border-color:#f89406; color:#FFFFFF; background-color:#f89406; margin-top:3px; cursor:default;"><br>';
+                  //immosearch_details_element += '<input type="button" class="btn btn-default btn-xs" value="' + value + '" id="immo_small_icons" style="border-color:#f89406; color:#FFFFFF; background-color:#f89406; margin-top:3px; cursor:default;"><br>';
+                  immosearch_details_element += '<strong>' + value + '</strong>' + '<br>';
                 });
               }
               immosearch_details_element += '</div>';

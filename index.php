@@ -9,7 +9,6 @@ $cid = $_GET['cid'];
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
@@ -285,9 +284,7 @@ $cid = $_GET['cid'];
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <button type="button" class="btn btn-specialBtnKA btn-xs" id="details_page_back_to_list" style="margin-right:10px;"><i class="fa fa-long-arrow-left"></i>
-
- Zurück zur Liste</button>
+              <button type="button" class="btn btn-specialBtnKA btn-xs" id="details_page_back_to_list" style="margin-right:10px;"><i class="fa fa-long-arrow-left"></i> Zurück zur Liste</button>
               <button type="button" class="btn btn-specialBtnKA btn-xs" id="details_page_print"><i class="fa fa-print"></i> Drucken</button>
             </div>
 
