@@ -32,6 +32,9 @@
    	overflow: hidden;
    }
 
+   #customer_logo {
+     margin-left: 10px;
+   }
 
    /* responsive images */
    /*
@@ -83,6 +86,42 @@
    }
    /* custom K.A. button */
 
+   /* custom K.A. button bgw-bieleld gey with white letters*/
+   .btn-specialBtnKA-bgw {
+     background-color: #f5f5f5;
+     border-color: #CCCCCC;
+     color:#333333;
+   }
+   /*
+   .btn-specialBtnKA:hover,
+   .btn-specialBtnKA:focus,
+   .btn-specialBtnKA:active,
+   .btn-specialBtnKA.active {
+     background-color: #a6a6a6;
+     border-color: #9a9a9a;
+   }
+   */
+   .btn-specialBtnKA-bgw.disabled:hover,
+   .btn-specialBtnKA-bgw.disabled:focus,
+   .btn-specialBtnKA-bgw.disabled:active,
+   .btn-specialBtnKA-bgw.disabled.active,
+   .btn-specialBtnKA-bgw[disabled]:hover,
+   .btn-specialBtnKA-bgw[disabled]:focus,
+   .btn-specialBtnKA-bgw[disabled]:active,
+   .btn-specialBtnKA-bgw[disabled].active,
+   fieldset[disabled] .btn-specialBtnKA-bgw:hover,
+   fieldset[disabled] .btn-specialBtnKA-bgw:focus,
+   fieldset[disabled] .btn-specialBtnKA-bgw:active,
+   fieldset[disabled] .btn-specialBtnKA-bgw.active {
+     background-color: #f5f5f5;
+     border-color: #CCCCCC;
+     color:#333333;
+   }
+   /* custom K.A. button */
+
+   #text_align_right {
+     text-align: right !important;
+   }
 
 
    /* distance between left-right of the plugin */

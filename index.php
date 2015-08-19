@@ -55,6 +55,8 @@ $cid = $_GET['cid'];
         <!-- Fixed navbar -->
         <div class="row" id="immo_header">
 
+          <div id="customer_logo"><img src="img/customers_logos/993301.png"></div>
+
           <div class="col-md-6">
             <h4 id="immo_title_angebote"><strong>Alle Wohnungen: <span id="total_angebote_in_title"></span></strong></h4>
           </div>
@@ -284,8 +286,8 @@ $cid = $_GET['cid'];
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <button type="button" class="btn btn-specialBtnKA btn-xs" id="details_page_back_to_list" style="margin-right:10px;"><i class="fa fa-long-arrow-left"></i> Zurück zur Liste</button>
-              <button type="button" class="btn btn-specialBtnKA btn-xs" id="details_page_print"><i class="fa fa-print"></i> Drucken</button>
+              <button type="button" class="btn btn-specialBtnKA-bgw btn-xs" id="details_page_back_to_list" style="margin-right:10px;"><i class="fa fa-long-arrow-left"></i> Zurück zur Liste</button>
+              <button type="button" class="btn btn-specialBtnKA-bgw btn-xs" id="details_page_print"><i class="fa fa-print"></i> Drucken</button>
             </div>
 
             <!--
