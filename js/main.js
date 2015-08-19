@@ -722,7 +722,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '<div class="row">';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
               if (immosearch_array_details_object_img.length != 0) {
                 immosearch_details_element += '<a href="javascript:void(0);" id="images_modal_click_event" data-toggle="modal" data-target="#imagesGalleryModal">';//link to open image gallery
                   //immosearch_details_element += '<img class="img-thumbnail" id="mypic" src="' + immosearch_array_details_object_img[0] + '" width="350" height="267" style="z-index:98;">';
@@ -830,7 +830,7 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '<\/script>';
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
               if (immosearch_array_details_object_img_floor_plan.length != 0) {
                 immosearch_details_element += '<a href="javascript:void(0);" id="images_modal_click_event_floor_plan" data-toggle="modal" data-target="#imagesGalleryModalFloorPlan">';//link to open image gallery
                 //immosearch_details_element += '<img id="mypic" src="' + immosearch_array_details_object_img_floor_plan[0] + '" width="350" height="267">';
@@ -876,7 +876,7 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '&nbsp;';
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
               immosearch_details_element += '<p id="list_text_style">GRÖSSE & ZUSTAND</p>';//group title
 
@@ -981,7 +981,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
               immosearch_details_element += '<p id="list_text_style">PREISE & KOSTEN</p>';
 
@@ -1249,7 +1249,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '<div class="row">';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
               immosearch_details_element += '<p id="list_text_style">ENERGIEMERKMALE</p>';
 
@@ -1401,7 +1401,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
               //concat 2 array to one and remove duplicates
               var immosearch_array_object_ausstatt_beschr_concat = immosearch_array_object_ausstatt_beschr.concat(immosearch_array_details_object_ausstattung[0]);
@@ -1415,11 +1415,11 @@ function homeinfo_immosearch_details(object_id) {
               }
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
               immosearch_details_element += '';
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
               immosearch_details_element += '';
               immosearch_details_element += '</div>';
 
@@ -2016,7 +2016,7 @@ function homeinfo_immosearch_global() {
 
           //build the areas checkboxes by the array "build_locations_array"
           for(var i_areas_arr = 0; i_areas_arr < build_locations_array.length; i_areas_arr++) {
-            var ortsteil_element = '<div class="col-md-6 col-sm-6 col-xs-6">';
+            var ortsteil_element = '<div class="col-md-6 col-sm-6 col-xs-12">';
                 ortsteil_element += '<div class="checkbox">';
                 ortsteil_element += '<label>';
                 ortsteil_element += '<input type="checkbox" value="' + build_locations_array[i_areas_arr] + '" id="checkbutton__' + build_locations_array[i_areas_arr] + '"> ' + build_locations_array[i_areas_arr] + ' <span class="badge">' + build_locations_array_number[i_areas_arr] + '</span>';
@@ -2142,7 +2142,7 @@ function homeinfo_immosearch_global() {
 
             var immosearch_element = '<div class="row" style="margin-top:10px; cursor:pointer;" id="object_details___' + i + '">';
 
-            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
             if (typeof immosearch_array_img[i] == "undefined") {
               immosearch_element += '<img src="' + customer_img_dummy_details + '" id="__building_pic__' + i + '" width="350" height="267">';
             } else {
@@ -2161,7 +2161,7 @@ function homeinfo_immosearch_global() {
 
             immosearch_element += '</div>';
 
-            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
             var immosearch_array_object_zimmer___display_value = removeAfterCertainCharacter(immosearch_array_object_zimmer[i], ".") + " Zimmer Wohnung | ";
             var list_address_number = immosearch_array_object_address_number[i];
@@ -2204,7 +2204,7 @@ function homeinfo_immosearch_global() {
 
             immosearch_element += '</div>';
 
-            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
             //3 div's side by side
             immosearch_element += '<div class="row row-list">';
@@ -2270,11 +2270,11 @@ function homeinfo_immosearch_global() {
             immosearch_element += '</div>';
 
 
-            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
             immosearch_element += '</div>';
 
-            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-6">';
+            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
             if (immosearch_array_object_ausstattung.length > 0) {
               if (typeof immosearch_array_object_ausstattung[i] != 'undefined' || immosearch_array_object_ausstattung[i] != '') {
                 for(var loop = 0; loop < immosearch_array_object_ausstattung[i].length; loop++) {
