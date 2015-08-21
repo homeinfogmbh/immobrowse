@@ -267,6 +267,14 @@
    }
    /* image mask */
 
+   #kontakt_details {
+     margin-top: 20px;
+   }
+
+   #documente_distance {
+     margin-top: 20px;
+   }
+
    @media (max-width: 767px) {
     /* phones only */
     .thumbnail {
@@ -320,6 +328,14 @@
 
     #mypic {
       width: 100%;
+    }
+
+    #kontakt_details {
+      margin-top: 20px;
+    }
+
+    #documente_distance {
+      margin-top: 20px;
     }
 
   }

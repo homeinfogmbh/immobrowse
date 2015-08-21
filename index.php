@@ -379,6 +379,107 @@ $cid = $_GET['cid'];
           </div>
         </div>
         <!--image gallery modal floor plans-->
+
+        <!--kontakt form -->
+        <div class="modal fade" id="contactFormModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" id="close_modal"><span class="glyphicon glyphicon-remove btn-lg" style="cursor:pointer; margin-top:-15px; margin-right:-15px;"></span></span></button>
+                <h6 class="modal-title" id="myModalLabel"><strong>Kontaktformular</strong></h6>
+              </div>
+              <div class="modal-body">
+                <p id="service_team"></p>
+
+                <div class="row" style="margin-top:40px;">
+
+                  <div class="col-md-12">
+                   <p><strong>Anrede</strong></p>
+                     <div class="btn-group" data-toggle="buttons">
+                         <label class="btn btn-default">
+                             <input type="radio" name="gender" id="gender_1" value="1">Herr
+                         </label>
+                         <label class="btn btn-default">
+                             <input type="radio" name="gender" id="gender_2" value="0">Frau
+                         </label>
+                     </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="vorname">Vorname</label>
+                      <input type="text" class="form-control" id="vorname" placeholder="Vorname*">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="nachname">Nachname</label>
+                      <input type="text" class="form-control" id="nachname" placeholder="Nachname*">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">E-Mail-Adresse</label>
+                      <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="telefon">Telefon</label>
+                      <input type="text" class="form-control" id="telefon" placeholder="Telefon">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="adddress">Straße/Haus-Nr.</label>
+                      <input type="text" class="form-control" id="adddress" placeholder="Straße/Haus-Nr.">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="plz">PLZ</label>
+                      <input type="number" class="form-control" id="plz" placeholder="PLZ">
+                    </div>
+                  </div>
+
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <label for="ort">Ort</label>
+                      <input type="text" class="form-control" id="ort" placeholder="Ort">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
+                  </div>
+
+                  <div class="col-md-12" style="color:#979696; font-size:10px;">
+                    Mit einem (*) gekennzeichnete Felder sind Pflichfelder
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="modal-footer">
+
+                <input type="button" class="btn btn-default" id="empty_form" value="Kontaktformular leeren" disabled>
+                <input type="button" class="btn btn-success" id="restore_chart" value="Anfrage senden" disabled>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--kontakt form -->
+
         <script>
         $(document).ready(function() {
 

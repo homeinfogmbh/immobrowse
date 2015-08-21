@@ -18,9 +18,11 @@ var immosearch_array_details_object_img_floor_plan = [];
 var immosearch_array_details_object_img = [];
 
 var sorting = "";
-var include = "freitexte,attachments";
+//var include = "freitexte,attachments";
+var include = "freitexte";
 //var attachments = "scaling:240x185,pictures:1";//on first load list (all objects in list)
-var attachments = "scaling:350x267,pictures:1";//on first load list (all objects in list)
+//var attachments = "scaling:350x267,pictures:1";//on first load list (all objects in list)
+var attachments = "";
 
 //filter options
 var zimmer_von = "";
@@ -418,7 +420,8 @@ function homeinfo_immosearch_details(object_id) {
 
 		//ajax immosearch
 		$.ajax({
-			url: immosearch_url + "filter=openimmo_obid==" + object_id + "&include=freitexte,attachments&attachments=scaling:650x488,pictures:15,floorplans:15,documents:15",
+			//url: immosearch_url + "filter=openimmo_obid==" + object_id + "&include=freitexte,attachments&attachments=scaling:650x488,pictures:15,floorplans:15,documents:15",
+      url: immosearch_url + "filter=openimmo_obid==" + object_id + "&include=freitexte",
 			crossDomain: true,
 			type: "GET",
 			dataType: "xml",
@@ -1450,7 +1453,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '<div class="row">';
 
-              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12" id="kontakt_details">';
               immosearch_details_element += '<p id="list_text_style">IHR ANSPRECHPARTNER</p>';
               immosearch_details_element += '<p>';
               immosearch_details_element += 'Service ' + immosearch_var_details_kontakt__name + '<br>';
@@ -1459,17 +1462,35 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '<br>';
               immosearch_details_element += 'Tel.: ' + immosearch_var_details_kontakt__tel_zentrale + '<br>';
               immosearch_details_element += 'Fax.: ' + immosearch_var_details_kontakt__tel_fax + '<br>';
-              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;"><strong>' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong>' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+
+              //jquery code to build dynamic the form
+              if (immosearch_customer_id == "993301") {
+                $("#service_team").html("<p id='list_text_style'>Anfrage an</p><span style='margin-top:0px;'><strong>Service" + immosearch_var_details_kontakt__name + "</strong><br>Bielefelder Gemeinnützige Wohnungsgesellschaft GmbH</span>");
+              }
+
               immosearch_details_element += '</p>';
               immosearch_details_element += '</div>';
 
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12" id="documente_distance">';
+              immosearch_details_element += '<p id="list_text_style">DOCUMENTE</p>';
+              //check if the array is not empty
+              if (immosearch_array_details_object_attachment_pdf[0] !== undefined) {
+                //immosearch_details_element += '<p style="margin-top:10px;"><input type="button" class="btn btn-specialBtnKA" value="Energieausweis" id="pdf_document"></p>';
+                //immosearch_details_element += '<p style="margin-top:10px;"><button type="button" class="btn btn-specialBtnKA" id="pdf_document"><i class="fa fa-file-pdf-o"></i> Energieausweis</button></p>';
+                immosearch_details_element += '<p style="margin-top:10px; cursor:pointer;"><span id="pdf_document"><img src="img/pdf_icon.png" style="padding-bottom:7px;"> <span style="color:#008fc4; font-size:16px;">Energieausweis</span></span></p>';
+              }
+              immosearch_details_element += '</div>';
+
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
-              immosearch_details_element += '<p id="list_text_style"></p>';
+              immosearch_details_element += '</div>';
+
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '</div>';
 
-              immosearch_details_element += '<br><br><br>';
+
 
               //object number
               /*
@@ -1505,12 +1526,7 @@ function homeinfo_immosearch_details(object_id) {
               }
               */
 
-              //check if the array is not empty
-              if (immosearch_array_details_object_attachment_pdf[0] !== undefined) {
-                //immosearch_details_element += '<p style="margin-top:10px;"><input type="button" class="btn btn-specialBtnKA" value="Energieausweis" id="pdf_document"></p>';
-                //immosearch_details_element += '<p style="margin-top:10px;"><button type="button" class="btn btn-specialBtnKA" id="pdf_document"><i class="fa fa-file-pdf-o"></i> Energieausweis</button></p>';
-                immosearch_details_element += '<p style="margin-top:10px; cursor:pointer;"><span id="pdf_document"><img src="img/pdf_icon.png" style="padding-bottom:7px;"> <span style="color:#008fc4; font-size:16px;">Energieausweis</span></span></p>';
-              }
+
 
               //images
               //image counter for the modal/////////////////////////////////////////////////////////////////////////////////////////////
@@ -1822,6 +1838,7 @@ function homeinfo_immosearch_global() {
 		}
 	}
 
+  /*
 	if (attachments != "") {
 		if (params == "") {
 			params = "attachments=" + attachments;
@@ -1829,6 +1846,7 @@ function homeinfo_immosearch_global() {
 			params += "&attachments=" + attachments;
 		}
 	}
+  */
 
   //if in the params string container "filter" show the reset button (so the user can reset the form)
   //console.log("Sorting value: " + sorting);
