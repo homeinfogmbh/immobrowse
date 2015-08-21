@@ -461,6 +461,14 @@ function homeinfo_immosearch_details(object_id) {
           var immosearch_array_object_balkon = "";
           var immosearch_array_object_ausstatt_beschr = "";
           var immosearch_array_object_objektnr_intern = "";
+          var immosearch_var_details_kontakt__email_zentrale = "";
+          var immosearch_var_details_kontakt__tel_zentrale = "";
+          var immosearch_var_details_kontakt__tel_fax = "";
+          var immosearch_var_details_kontakt__name = "";
+          var immosearch_var_details_kontakt__strasse = "";
+          var immosearch_var_details_kontakt__hausnummer = "";
+          var immosearch_var_details_kontakt__plz = "";
+          var immosearch_var_details_kontakt__ort = "";
 
 					//arrays
           immosearch_array_details_object_attachment_pdf = [];
@@ -580,6 +588,16 @@ function homeinfo_immosearch_details(object_id) {
             immosearch_array_object_balkon = escapeHtml($(this).find("flaechen anzahl_balkone").text());
             immosearch_array_object_ausstatt_beschr = escapeHtml($(this).find("freitexte ausstatt_beschr").text());
             immosearch_array_object_objektnr_intern  = escapeHtml($(this).find("verwaltung_techn objektnr_intern").text());
+
+            //kontakt details
+            immosearch_var_details_kontakt__email_zentrale = escapeHtml($(this).find("kontaktperson email_zentrale").text());
+            immosearch_var_details_kontakt__tel_zentrale = escapeHtml($(this).find("kontaktperson tel_zentrale").text());
+            immosearch_var_details_kontakt__tel_fax = escapeHtml($(this).find("kontaktperson tel_fax").text());
+            immosearch_var_details_kontakt__name = escapeHtml($(this).find("kontaktperson name").text());
+            immosearch_var_details_kontakt__strasse = escapeHtml($(this).find("kontaktperson strasse").text());
+            immosearch_var_details_kontakt__hausnummer = escapeHtml($(this).find("kontaktperson hausnummer").text());
+            immosearch_var_details_kontakt__plz = escapeHtml($(this).find("kontaktperson plz").text());
+            immosearch_var_details_kontakt__ort = escapeHtml($(this).find("kontaktperson ort").text());
 
             // Wesentlicher Energieträger
             $(xml).find("ausstattung befeuerung").each(function() {
@@ -1418,14 +1436,40 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
-              immosearch_details_element += '<p id="list_text_style">IHR ANSPRECHPARTNER</p>';
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
-              immosearch_details_element += '';
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '</div>';
+
+
+
+
+
+
+              immosearch_details_element += '<div class="row">';
+
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
+              immosearch_details_element += '<p id="list_text_style">IHR ANSPRECHPARTNER</p>';
+              immosearch_details_element += '<p>';
+              immosearch_details_element += 'Service ' + immosearch_var_details_kontakt__name + '<br>';
+              immosearch_details_element += immosearch_var_details_kontakt__strasse + ' ' + immosearch_var_details_kontakt__hausnummer + '<br>';
+              immosearch_details_element += immosearch_var_details_kontakt__plz + ' ' + immosearch_var_details_kontakt__ort;
+              immosearch_details_element += '<br>';
+              immosearch_details_element += 'Tel.: ' + immosearch_var_details_kontakt__tel_zentrale + '<br>';
+              immosearch_details_element += 'Fax.: ' + immosearch_var_details_kontakt__tel_fax + '<br>';
+              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;"><strong>' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+              immosearch_details_element += '</p>';
+              immosearch_details_element += '</div>';
+
+              immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
+              immosearch_details_element += '<p id="list_text_style"></p>';
+              immosearch_details_element += '</div>';
+
+              immosearch_details_element += '</div>';
+
+              immosearch_details_element += '<br><br><br>';
 
               //object number
               /*
