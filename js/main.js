@@ -5,6 +5,7 @@
 var immosearch_url = "https://tls.homeinfo.de/immosearch/customer/" + immosearch_customer_id + "/?";
 var customer_img_dummy = "img/customer_dummy/dummy.png";
 var customer_img_dummy_details = "img/customer_dummy/dummy_details.png";
+var customer_logo = "img/customers_logos/" + immosearch_customer_id + ".png";
 var empty_item_value = "---";
 var selected_locations = [];//push and remove areas in the ckeckbox is checked
 var build_locations_array = [];//this array should fill once
@@ -1417,7 +1418,7 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
-              immosearch_details_element += '';
+              immosearch_details_element += '<p id="list_text_style">IHR ANSPRECHPARTNER</p>';
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
@@ -1464,7 +1465,7 @@ function homeinfo_immosearch_details(object_id) {
               if (immosearch_array_details_object_attachment_pdf[0] !== undefined) {
                 //immosearch_details_element += '<p style="margin-top:10px;"><input type="button" class="btn btn-specialBtnKA" value="Energieausweis" id="pdf_document"></p>';
                 //immosearch_details_element += '<p style="margin-top:10px;"><button type="button" class="btn btn-specialBtnKA" id="pdf_document"><i class="fa fa-file-pdf-o"></i> Energieausweis</button></p>';
-                immosearch_details_element += '<p style="margin-top:10px;"><span id="pdf_document"><img src="img/pdf_icon.png" style="padding-bottom:7px;"> <span style="color:#008fc4; font-size:16px;">Energieausweis</span></span></p>';
+                immosearch_details_element += '<p style="margin-top:10px; cursor:pointer;"><span id="pdf_document"><img src="img/pdf_icon.png" style="padding-bottom:7px;"> <span style="color:#008fc4; font-size:16px;">Energieausweis</span></span></p>';
               }
 
               //images
@@ -1796,6 +1797,19 @@ function homeinfo_immosearch_global() {
 
 	//document ready
 	$(document).ready(function() {
+
+    //add the customer logo by id to the index
+    $("#customer_logo_src").attr("src", customer_logo);
+
+    $("#customer_logo_src").click(function() {
+      $("#top_menu_after_filter").hide();
+      $("#top_menu_line_after_filter").hide();
+      $("#map_container").empty();
+      $("#immo_data").show();
+      $("#immo_title_angebote").show();
+      homeinfo_immosearch_global();
+      return false;
+    });
 
 		//ajax immosearch
 		$.ajax({

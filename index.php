@@ -55,7 +55,7 @@ $cid = $_GET['cid'];
         <!-- Fixed navbar -->
         <div class="row" id="immo_header">
 
-          <div id="customer_logo"><img src="img/customers_logos/993301.png"></div>
+          <div id="customer_logo"><img src="" id="customer_logo_src"></div>
 
           <div class="col-md-6">
             <h4 id="immo_title_angebote"><strong>Alle Wohnungen: <span id="total_angebote_in_title"></span></strong></h4>
