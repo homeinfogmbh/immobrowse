@@ -471,8 +471,8 @@ $cid = $_GET['cid'];
               </div>
               <div class="modal-footer">
 
-                <input type="button" class="btn btn-default" id="empty_form" value="Kontaktformular leeren" disabled>
-                <input type="button" class="btn btn-success" id="restore_chart" value="Anfrage senden" disabled>
+                <input type="button" class="btn btn-default" id="empty_form" value="Kontaktformular leeren">
+                <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden" disabled>
 
               </div>
             </div>
@@ -482,6 +482,21 @@ $cid = $_GET['cid'];
 
         <script>
         $(document).ready(function() {
+
+          $('#contactFormModal').on('shown.bs.modal', function () {
+            console.log("The modal has open");
+
+            //empty form fields on open of the modal
+            $("#vorname").val("");
+            $("#nachname").val("");
+            $("#email").val("");
+            $("#telefon").val("");
+            $("#adddress").val("");
+            $("#plz").val("");
+            $("#ort").val("");
+            $("#message").val("Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.");
+            $("#send_form").attr("disabled", true);
+          });
 
           /*
           $('#imagesGalleryModal').on('shown.bs.modal', function () {

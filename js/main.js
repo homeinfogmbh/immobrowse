@@ -1466,8 +1466,21 @@ function homeinfo_immosearch_details(object_id) {
 
               //jquery code to build dynamic the form
               if (immosearch_customer_id == "993301") {
-                $("#service_team").html("<p id='list_text_style'>Anfrage an</p><span style='margin-top:0px;'><strong>Service" + immosearch_var_details_kontakt__name + "</strong><br>Bielefelder Gemeinnützige Wohnungsgesellschaft GmbH</span>");
+                $("#service_team").html("<div class='row'><div class='col-md-6'><p id='list_text_style'>Anfrage an</p><span style='margin-top:0px;'><strong>Service" + immosearch_var_details_kontakt__name + "</strong><br>Bielefelder Gemeinnützige Wohnungsgesellschaft GmbH</span></div><div class='col-md-6'><img src='" + customer_logo + "'></div></div></div>");
               }
+
+              $('#empty_form').click(function(){
+                //empty form fields on open of the modal
+                $("#vorname").val("");
+                $("#nachname").val("");
+                $("#email").val("");
+                $("#telefon").val("");
+                $("#adddress").val("");
+                $("#plz").val("");
+                $("#ort").val("");
+                $("#message").val("Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.");
+                $("#send_form").attr("disabled", true);
+              });
 
               immosearch_details_element += '</p>';
               immosearch_details_element += '</div>';
@@ -2183,24 +2196,31 @@ function homeinfo_immosearch_global() {
 					});
 
           //push the pictures in the array
-          $(xml).find("anhang").each(function(i) {
-            if ($(this).attr("gruppe") == "BILD" || $(this).attr("gruppe") == "TITELBILD") {
-              if ($(this).attr("location") == "REMOTE") {
-                var immosearch_list_img_url = $(this).children().find("pfad").text();
-                if (immosearch_list_img_url) {
-                  immosearch_array_img.push(immosearch_list_img_url);//push url
-                } else {
-                  immosearch_array_img.push(customer_img_dummy);//dummy image
+          $(xml).find("immobilie anhaenge").each(function(iv) {
+
+              //console.log("TOTAL ANHAEGE: " + i);
+              immosearch_array_img.push([]);
+
+              $(this).find("anhang").each(function(i) {
+                if ($(this).attr("gruppe") == "BILD" || $(this).attr("gruppe") == "TITELBILD") {
+                  if ($(this).attr("location") == "REMOTE") {
+                    var immosearch_list_img_url = $(this).children().find("pfad").text();
+                    if (immosearch_list_img_url) {
+                      immosearch_array_img[iv].push(immosearch_list_img_url);//push url
+                    } else {
+                      immosearch_array_img[iv].push(customer_img_dummy);//dummy image
+                    }
+                  } else if ($(this).attr("location") == "INTERN") {
+                    var immosearch_list_img = $(this).children().find("anhanginhalt").text();
+                    if (immosearch_list_img) {
+                      immosearch_array_img[iv].push("data:image/jpeg;base64," + immosearch_list_img);//push base64 data
+                    } else {
+                      immosearch_array_img[iv].push(customer_img_dummy);//dummy image
+                    }
+                  }
                 }
-              } else if ($(this).attr("location") == "INTERN") {
-                var immosearch_list_img = $(this).children().find("anhanginhalt").text();
-                if (immosearch_list_img) {
-                  immosearch_array_img.push("data:image/jpeg;base64," + immosearch_list_img);//push base64 data
-                } else {
-                  immosearch_array_img.push(customer_img_dummy);//dummy image
-                }
-              }
-            }
+              });
+
           });
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2221,19 +2241,19 @@ function homeinfo_immosearch_global() {
             var immosearch_element = '<div class="row" style="margin-top:10px; cursor:pointer;" id="object_details___' + i + '">';
 
             immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
-            if (typeof immosearch_array_img[i] == "undefined") {
+            if (typeof immosearch_array_img[i][0] == "undefined") {
               immosearch_element += '<img src="' + customer_img_dummy_details + '" id="__building_pic__' + i + '" width="350" height="267">';
             } else {
-              //immosearch_element += '<img class="thumbnail" src="' + immosearch_array_img[i] + '" id="__building_pic__' + i + '" width="350" height="267">';
+              //immosearch_element += '<img class="thumbnail" src="' + immosearch_array_img[i][0] + '" id="__building_pic__' + i + '" width="350" height="267">';
 
               /*
               immosearch_element += '<div class="custom_mask">';
-              immosearch_element += '<img class="thumbnail" src="' + immosearch_array_img[i] + '" id="__building_pic__' + i + '" width="350" height="267">';
+              immosearch_element += '<img class="thumbnail" src="' + immosearch_array_img[i][0] + '" id="__building_pic__' + i + '" width="350" height="267">';
               immosearch_element += '</div>';
               */
 
               immosearch_element += '<div class="img_mask">';
-              immosearch_element += '<img src="' + immosearch_array_img[i] + '" class="portrait" />';
+              immosearch_element += '<img src="' + immosearch_array_img[i][0] + '" class="portrait" />';
               immosearch_element += '</div>';
             }
 
