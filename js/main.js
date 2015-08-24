@@ -1470,11 +1470,6 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '</div>';
 
-
-
-
-
-
               immosearch_details_element += '<div class="row">';
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12" id="kontakt_details">';
@@ -1487,6 +1482,10 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += 'Tel.: ' + immosearch_var_details_kontakt__tel_zentrale + '<br>';
               immosearch_details_element += 'Fax.: ' + immosearch_var_details_kontakt__tel_fax + '<br>';
               immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong>' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+
+              //form service team email
+              $("#form_email_bottom_text").attr("href", "mailto:" + immosearch_var_details_kontakt__email_zentrale);
+              $("#form_email_bottom_text").html(immosearch_var_details_kontakt__email_zentrale);
 
               //jquery code to build dynamic the form
               if (immosearch_customer_id == "993301") {
@@ -1516,7 +1515,7 @@ function homeinfo_immosearch_details(object_id) {
 
               //form object data
               $("#object_image_form").attr("src", immosearch_array_details_object_img[0]);
-              $("#object_title").html(immosearch_array_object_details_zimmer_val + ' Zimmer Wohnung | in ' + details_address_ort + ' ' + details_address_ortsteil);
+              $("#object_title").html(immosearch_array_object_details_zimmer_val + ' Zimmer Wohnung in ' + details_address_ort + ' ' + details_address_ortsteil);
 
               $("#form_zimmer").html(immosearch_array_object_details_zimmer_val);
               $("#form_baujahr").html(immosearch_var_details_object_baujahr);

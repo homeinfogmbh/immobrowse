@@ -18,7 +18,6 @@ class InsecurePHPMailer extends PHPMailer {
     }
 }
 
-
 $vorname = $_POST['vorname'];
 $nachname = $_POST['nachname'];
 $email = $_POST['email'];
@@ -29,43 +28,103 @@ $ort = $_POST['ort'];
 $nachricht = $_POST['nachricht'];
 $cid = $_POST['cid'];
 $andere = $_POST['andere'];
+$the_offer = $_POST['the_offer'];
+$date = $_POST['date'];
+$image = $_POST['image'];
+$object_title = $_POST['object_title'];
+$form_miete_nk = $_POST['form_miete_nk'];
+$form_zimmer = $_POST['form_zimmer'];
+$form_nebenkosten = $_POST['form_nebenkosten'];
+$form_wohnflache_ca = $_POST['form_wohnflache_ca'];
+$form_heizkosten = $_POST['form_heizkosten'];
+$form_baujahr = $_POST['form_baujahr'];
+$form_kaution = $_POST['form_kaution'];
+$form_verfugbar_ab = $_POST['form_verfugbar_ab'];
+$teammail = $_POST['form_verfugbar_ab'];
 
-/*
 $html_content = '<!doctype html>';
 $html_content .= '<html>';
 $html_content .= '<head>';
 $html_content .= '<meta charset="utf-8">';
-$html_content .= '<title>Immobrowse kontakt formular</title>';
+$html_content .= '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">';
+
+if ($cid == "993301") {//bgw-bielfeld 993301 cid
+  $html_content .= '<title>BGW-Bielfeld kontakt formular</title>';
+} else {//else give Immobrowse title
+  $html_content .= '<title>Immobrowse kontakt formular</title>';
+}
+
 $html_content .= '</head>';
 $html_content .= '<body>';
-$html_content .= '<table style="margin-top:0px;">';
+$html_content .= '<br><br>';
+//////////////////////////////////////////////////
+$html_content .= 'Anfrage an<br>';
+$html_content .= 'ServiceTeam 4<br>';
+$html_content .= 'Bielefelder Gemeinnützige<br>';
+$html_content .= 'Wohnungsgesellschaft GmbH<br>';
+if ($cid == "993301") {//bgw-bielfeld 993301 cid
+    $html_content .= '<img src="https://tls.homeinfo.de/immobrowse/img/customers_logos/'.$cid.'.png"><br>';
+} else {//else give Immobrowse logo or Homeinfo logo
+    $html_content .= '<br>';
+}
+$html_content .= '<hr>';
+$html_content .= '<strong>sehr geehrter</strong><br>';
+if ($cid == "993301") {//bgw-bielfeld 993301 cid
+    $html_content .= '<p>Sie haben auf BGW-Bielefeld am '.$date.' eine Anfrage zu folgendem Object gestellt:<br></p><br>';
+} else {//else give Immobrowse logo or Homeinfo logo
+    $html_content .= '<p>Sie haben auf Homeinfo am '.$date.' eine Anfrage zu folgendem Object gestellt:<br></p><br>';
+}
+$html_content .= '<img src="'.$image.'"><br>';
+$html_content .= '<strong>'.$object_title.'</strong>';
+$html_content .= '<table>';
 $html_content .= '<tr>';
-$html_content .= '<td colspan="2"><img src="'.$_SESSION["websiteDomain"].'img/homeinfo_logo_inner.png"><br><br></td>';
+  $html_content .= '<td><strong>Miete zzgl.NK</strong></td>';
+  $html_content .= '<td align="right">'.$form_miete_nk.'</td>';
+  $html_content .= '<td><strong>&nbsp;&nbsp;Zimmer</strong></td>';
+  $html_content .= '<td align="right">'.$form_zimmer.'</td>';
 $html_content .= '</tr>';
 $html_content .= '<tr>';
-$html_content .= '<td colspan="2" style="padding-left:4px;"><strong>Homeinfo kontakt formular<br><br></strong></td>';
+  $html_content .= '<td><strong>Nebenkosten</strong></td>';
+  $html_content .= '<td align="right">'.$form_nebenkosten.'</td>';
+  $html_content .= '<td><strong>&nbsp;&nbsp;Wohnfläche ca.</strong></td>';
+  $html_content .= '<td align="right">'.$form_wohnflache_ca.'</td>';
 $html_content .= '</tr>';
 $html_content .= '<tr>';
-$html_content .= '<td style="padding-left:4px;"><strong>Unternehmensname: </strong></td>';
-$html_content .= '<td style="padding-left:4px;">'.$homeinfo_unternehmensname.'</td>';
+  $html_content .= '<td><strong>Heizkosten</strong></td>';
+  $html_content .= '<td align="right">'.$form_heizkosten.'</td>';
+  $html_content .= '<td><strong>&nbsp;&nbsp;Baujahr</strong></td>';
+  $html_content .= '<td align="right">'.$form_baujahr.'</td>';
 $html_content .= '</tr>';
 $html_content .= '<tr>';
-$html_content .= '<td style="padding-left:4px;"><strong>Vorname und Nachname: </strong></td>';
-$html_content .= '<td style="padding-left:4px;">'.$homeinfo_vorname.' '.$homeinfo_nachname.'</td>';
-$html_content .= '</tr>';
-$html_content .= '<tr>';
-$html_content .= '<td style="padding-left:4px;"><strong>E-mail:</strong></td>';
-$html_content .= '<td style="padding-left:4px;">'.$homeinfo_email.'</td>';
-$html_content .= '</tr>';
-$html_content .= '<tr>';
-$html_content .= '<td style="padding-left:4px;"><strong>Telephonummer: </strong></td>';
-$html_content .= '<td style="padding-left:4px;">'.$homeinfo_tel.'</td>';
-$html_content .= '</tr>';
-$html_content .= '<tr>';
-$html_content .= '<td style="padding-left:4px;"><strong>Nachricht:</strong></td>';
-$html_content .= '<td style="padding-left:4px;">'.$homeinfo_nachricht.'</td>';
+  $html_content .= '<td><strong>Kaution</strong></td>';
+  $html_content .= '<td align="right">'.$form_kaution.'</td>';
+  $html_content .= '<td><strong>&nbsp;&nbsp;Verfügbar ab</strong></td>';
+  $html_content .= '<td align="right">'.$form_verfugbar_ab.'</td>';
 $html_content .= '</tr>';
 $html_content .= '</table>';
+$html_content .= '<strong style="color:#267f00;">Weitere Wohnungsdaten im Überblick</strong>';
+$html_content .= '<hr>';
+$html_content .= '<strong style="color:#267f00;"> Ihre Kontaktanfrage im Überblick</strong><br>';
+$html_content .= '<strong>Andere:</strong> '.$andere.'<br>';
+$html_content .= '<strong>Name / Nachname:</strong> '.$vorname.' '.$nachname.'<br>';
+$html_content .= '<strong>E-Mail-Adresse:</strong> '.$email.'<br>';
+$html_content .= '<strong>Telefon:</strong> '.$telefon.'<br>';
+$html_content .= '<strong>Straße/Haus-Nr.:</strong> '.$adddress.'<br>';
+$html_content .= '<strong>PLZ:</strong> '.$plz.'<br>';
+$html_content .= '<strong>Ort:</strong> '.$ort.'<br>';
+$html_content .= '<strong>Ihre Nachricht::</strong> '.$nachricht.'<br>';
+$html_content .= '<br><br>';
+$html_content .= 'Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>
+Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden sie sich bitte unter '.$teammail.' direct an das Serviceteam.<br>';
+if ($cid == "993301") {//bgw-bielfeld 993301 cid
+    $html_content .= '<a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00;">www.bgw-bielfeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>';
+} else {//homeinfo
+    $html_content .= '<a href="https://www.homeinfo.de" target="_blank" style="color:#267f00;">www.homeinfo.de</a> | <a href="https://www.homeinfo.de/#impressum" target="_blank" style="color:#267f00;">Impressum</a>';
+}
+$html_content .= '<hr>';
+$html_content .= '<i class="fa fa-check fa-3x" style="color:#a4be04;"></i> <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>';
+//////////////////////////////////////////////////
+$html_content .= '<br><br>';
 $html_content .= '</body>';
 $html_content .= '</html>';
 
@@ -73,7 +132,7 @@ $mailer = new InsecurePHPMailer();
 $mailer->IsSMTP();
 $mailer->SMTPAuth = true;
 $mailer->SMTPSecure = "ssl";
-$mailer->Host = "mail2.homeinfo.de";
+$mailer->Host = "mail2.homeinfo.de";//change this bgw-bielefeld email
 $mailer->Port = 465;
 $mailer->Username = "web0p22";
 
@@ -83,15 +142,20 @@ $mailer->Username = "web0p22";
 //$mailer->SMTPDebug  = 1;
 
 $mailer->Password = "d9MX1226mSWH";
-$mailer->Subject = "Homeinfo.de Kontakt formular";
-$mailer->AltBody = "Vorname und Nachname:".$homeinfo_vorname." ".$homeinfo_nachname." E-mail: ".$homeinfo_email." Telephonummer: ".$homeinfo_tel." Nachricht: ".$homeinfo_nachricht;
+if ($cid == "993301") {//bgw-bielfeld 993301 cid
+    $mailer->Subject = "BGW-Bielefeld.de Kontakt formular";
+} else {//homeinfo
+    $mailer->Subject = "Homeinfo.de Kontakt formular";
+}
+//$mailer->AltBody = "Vorname und Nachname:".$vorname." ".$nachname." E-mail: ".$email." Telephonummer: ".$telefon." Nachricht: ".$nachricht;
 $mailer->MsgHTML($html_content);
-$mailer->AddAddress("info@homeinfo.de");
-$mailer->SetFrom("automailer@homeinfo.de");
+$mailer->AddAddress("nik@homeinfo.de");//change this bgw-bielefeld email
+//$mailer->AddAddress("info@homeinfo.de");//change this bgw-bielefeld email
+$mailer->SetFrom("automailer@homeinfo.de");//change this bgw-bielefeld email
 
 //check if some fields are empty
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if (!empty($homeinfo_vorname) && !empty($homeinfo_nachname) && !empty($homeinfo_email)) {
+  if (!empty($vorname) && !empty($nachname) && !empty($email)) {
 
   	//send the message, check for errors
   	if(!$mailer->Send()) {
@@ -104,8 +168,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   }
 }
-*/
-
-//testing
-echo '1';
 ?>

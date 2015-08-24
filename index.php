@@ -537,14 +537,17 @@ $cid = $_GET['cid'];
                     </p>
                   </div>
 
+                  <div class="col-md-12">
+                    <p>
+                      Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden sie sich bitte unter <a href="" id="form_email_bottom_text" style="color:#267f00;"></a> direct an das Serviceteam.<br>
+                      <a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00;">www.bgw-bielfeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>
+                    </p>
+                  </div>
+
                 </div>
 
-
-
                 <div class="row" id="the_form_response">
-
                   <hr>
-
                   <div class="col-md-2">
                     <i class="fa fa-check fa-4x" style="color:#a4be04; margin-top:12px;"></i>
                   </div>
@@ -653,8 +656,29 @@ $cid = $_GET['cid'];
         						url: "kontakt_send.php",
         						//global: false,
         						type: "POST",
-        						data: "vorname=" + $("#vorname").val() + "&nachname=" + $('#nachname').val() + "&email=" + $('#email').val() + "&telefon=" + $('#telefon').val() + "&adddress=" + $('#adddress').val() + "&plz=" + $('#plz').val() + "&ort=" + $('#ort').val() + "&nachricht=" + $('#message').val() + "&cid=<? echo $cid; ?>" + "&andere=" + $("input:radio[name='gender']:checked").val(),
-        						//dataType: "html",
+        						data: "vorname=" + $("#vorname").val()
+                      + "&nachname=" + $('#nachname').val()
+                      + "&email=" + $('#email').val()
+                      + "&telefon=" + $('#telefon').val()
+                      + "&adddress=" + $('#adddress').val()
+                      + "&plz=" + $('#plz').val()
+                      + "&ort=" + $('#ort').val()
+                      + "&nachricht=" + $('#message').val()
+                      + "&cid=<? echo $cid; ?>"
+                      + "&andere=" + $("input:radio[name='gender']:checked").val()
+                      + "&the_offer=" + $("#the_offer").html()
+                      + "&date=" + $("#today_date").text()
+                      + "&image=" + $("#object_image_form").attr('src')
+                      + "&object_title=" + $("#object_title").text()
+                      + "&form_miete_nk=" + $("#form_miete_nk").text()
+                      + "&form_zimmer=" + $("#form_zimmer").text()
+                      + "&form_nebenkosten=" + $("#form_nebenkosten").text()
+                      + "&form_wohnflache_ca=" + $("#form_wohnflache_ca").text()
+                      + "&form_heizkosten=" + $("#form_heizkosten").text()
+                      + "&form_baujahr=" + $("#form_baujahr").text()
+                      + "&form_kaution=" + $("#form_kaution").text()
+                      + "&form_verfugbar_ab=" + $("#form_verfugbar_ab").text()
+                      + "&teammail=" + $("#teammail").text(),
         						cache: false,
         						success: function (html) {
         							if (html==1) {
