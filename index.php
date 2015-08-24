@@ -29,6 +29,9 @@ $cid = $_GET['cid'];
         <script src="https://tls.homeinfo.de/libs/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://tls.homeinfo.de/libs/ie10-viewport-bug-workaround/ie10-viewport-bug-workaround.js"></script>
 
+        <!-- recaptcha -->
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+
         <!-- homeinfo libraries -->
         <script src="https://tls.homeinfo.de/javascript/jslibs/lib.js"></script>
         <script src="https://tls.homeinfo.de/javascript/jslibs/yellowmap.js"></script>
@@ -389,9 +392,10 @@ $cid = $_GET['cid'];
                 <h6 class="modal-title" id="myModalLabel"><strong>Kontaktformular</strong></h6>
               </div>
               <div class="modal-body">
+
                 <p id="service_team"></p>
 
-                <div class="row" style="margin-top:40px;">
+                <div class="row" id="the_form" style="margin-top:40px;">
 
                   <div class="col-md-12">
                    <p><strong>Anrede</strong></p>
@@ -426,7 +430,7 @@ $cid = $_GET['cid'];
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="email">E-Mail-Adresse</label>
-                      <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse">
+                      <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
                     </div>
                   </div>
 
@@ -466,14 +470,95 @@ $cid = $_GET['cid'];
                     Mit einem (*) gekennzeichnete Felder sind Pflichfelder
                   </div>
 
+                  <div class="col-md-12" style="margin-top:20px;">
+                    <div class="g-recaptcha" data-sitekey="6LcOuAsTAAAAADE8AmdIjznQqT9TfAHjkTbezbLS"></div>
+                  </div>
+
+                </div>
+
+                <hr>
+
+                <div class="row" id="the_offer">
+                  <div class="col-md-12">
+                    <strong>sehr geehrter<br></strong>
+                    <p>Sie haben auf bgw-bielefeld am <span id="today_date"></span> eine Anfrage zu folgendem Object gestellt:</p>
+                  </div>
+
+                  <br><br>
+
+                  <div class="col-md-4">
+                    <img src="" id="object_image_form" width="190" height="130" class="thumbnail">
+                  </div>
+                  <div class="col-md-8">
+                    <strong id="object_title" style="color:#267f00;"></strong>
+                    <br>
+                    <table class="col-md-12">
+                      <tr>
+                        <td><strong>Miete zzgl.NK</strong></td>
+                        <td id="form_miete_nk" align="right"></td>
+                        <td><strong>&nbsp;&nbsp;Zimmer</strong></td>
+                        <td id="form_zimmer" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Nebenkosten</strong></td>
+                        <td id="form_nebenkosten" align="right"></td>
+                        <td><strong>&nbsp;&nbsp;Wohnfläche ca.</strong></td>
+                        <td id="form_wohnflache_ca" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Heizkosten</strong></td>
+                        <td id="form_heizkosten" align="right"></td>
+                        <td><strong>&nbsp;&nbsp;Baujahr</strong></td>
+                        <td id="form_baujahr" align="right"></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Kaution</strong></td>
+                        <td id="form_kaution" align="right"></td>
+                        <td><strong>&nbsp;&nbsp;Verfügbar ab</strong></td>
+                        <td id="form_verfugbar_ab" align="right"></td>
+                      </tr>
+                    </table>
+                    <br>
+                  </div>
+
+                  <div class="col-md-12">
+                    <strong style="color:#267f00;">Weitere Wohnungsdaten im Überblick</strong>
+                    <hr>
+                    <p>
+                      <strong style="color:#267f00;">Ihre Kontaktanfrage im Überblick</strong><br>
+                      <strong>Andere:</strong> <span id="form_andere"></span><br>
+                      <strong>Name / Nachname:</strong> <span id="form_name"></span> <span id="form_nachname"></span><br>
+                      <strong>E-Mail-Adresse:</strong> <span id="form_email"></span><br>
+                      <strong id="show_hide_tel">Telefon:</strong> <span id="form_tel"></span><br>
+                      <strong id="show_hide_strasse">Straße/Haus-Nr.:</strong> <span id="form_strasse"></span><br>
+                      <strong id="show_hide_plz">PLZ:</strong> <span id="form_plz"></span><br>
+                      <strong id="show_hide_ort">Ort:</strong> <span id="form_ort"></span><br>
+                      <strong>Ihre Nachricht:</strong> <span id="form_message"></span><br>
+                    </p>
+                  </div>
+
+                </div>
+
+
+
+                <div class="row" id="the_form_response">
+
+                  <hr>
+
+                  <div class="col-md-2">
+                    <i class="fa fa-check fa-4x" style="color:#a4be04; margin-top:12px;"></i>
+                  </div>
+                  <div class="col-md-9">
+                    <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
+                  </div>
                 </div>
 
               </div>
               <div class="modal-footer">
-
-                <input type="button" class="btn btn-default" id="empty_form" value="Kontaktformular leeren">
-                <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden" disabled>
-
+                <!--<input type="button" class="btn btn-default" id="empty_form" value="Kontaktformular leeren">-->
+                <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
+                <span class="glyphicon glyphicon-time" id="loading" style="color:#FF0000; display:none;"></span>
+                <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
               </div>
             </div>
           </div>
@@ -481,21 +566,174 @@ $cid = $_GET['cid'];
         <!--kontakt form -->
 
         <script>
+
+        //some global vars
+        var newDate = new Date();
+        newDate.setDate(newDate.getDate() + 1);
+
+        function clearForm() {
+          $("#vorname").val("");
+          $("#nachname").val("");
+          $("#email").val("");
+          $("#telefon").val("");
+          $("#adddress").val("");
+          $("#plz").val("");
+          $("#ort").val("");
+          $("#message").val("Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.");
+
+          $("#form_andere").html("");
+          $("#form_name").html("");
+          $("#form_nachname").html("");
+          $("#form_email").html("");
+
+          $("show_hide_tel").hide();
+          $("#form_tel").html("");
+          $("show_hide_strasse").hide();
+          $("#form_strasse").html("");
+          $("show_hide_plz").hide();
+          $("#form_plz").html("");
+          $("show_hide_ort").hide();
+          $("#form_ort").html("");
+
+          $("#the_form").show();
+          $("#the_form_response").hide();
+          $('#loading').hide();
+          $('#done').hide();
+          $("#empty_form").attr("disabled", false);
+          $("#send_form").attr("disabled", false);
+          $("#the_offer").hide();
+        }
+
         $(document).ready(function() {
 
-          $('#contactFormModal').on('shown.bs.modal', function () {
-            console.log("The modal has open");
+          $('#today_date').html(newDate.getDate() + '.' + newDate.getMonth() + '.' + newDate.getFullYear());
+          $("#the_form_response").hide();
+          $("#the_offer").hide();
+          $("#empty_form").attr("disabled", false);
+          $("#send_form").attr("disabled", false);
 
-            //empty form fields on open of the modal
-            $("#vorname").val("");
-            $("#nachname").val("");
-            $("#email").val("");
-            $("#telefon").val("");
-            $("#adddress").val("");
-            $("#plz").val("");
-            $("#ort").val("");
-            $("#message").val("Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.");
-            $("#send_form").attr("disabled", true);
+          $('#contactFormModal').on('shown.bs.modal', function () {
+            clearForm();
+          });
+
+          $("#empty_form").on("click", function(e) {
+            clearForm();
+          });
+
+          $("#send_form").on("click", function(e) {
+        		var g = document.getElementsByClassName('g-recaptcha');//re-captcha vars
+        		var vdata = grecaptcha.getResponse(g-recaptcha);//re-captcha vars
+        		if (vdata.length == 0) {//check for re-captcha
+        			swal({
+        				title: "Achtung!",
+        				text: "Bitte füllen Ich bin kein Roboter!",
+        				type: "warning"
+        			});
+        		} else {//re-captcha ok send the form
+
+              //check form input fields and alert
+              if ($("#vorname").val() == "" || $("#nachname").val() == "" || $('#email').val() == "") {
+        				swal({
+        					title: "Achtung!",
+        					text: "Bitte alle Pflichtfelder ausfüllen!",
+        					type: "warning"
+        				});
+        			} else {
+        				//check if the user has give e-mail
+        				if (validateEmail($('#email').val()) == true) {
+
+                  //hide the form, show the offer
+                  $("#the_form").hide();
+                  $("#the_offer").show();
+                  $("#empty_form").attr("disabled", true);
+                  $("#send_form").attr("disabled", true);
+
+                  //ajax to send form
+                  $.ajax({
+        						url: "kontakt_send.php",
+        						//global: false,
+        						type: "POST",
+        						data: "vorname=" + $("#vorname").val() + "&nachname=" + $('#nachname').val() + "&email=" + $('#email').val() + "&telefon=" + $('#telefon').val() + "&adddress=" + $('#adddress').val() + "&plz=" + $('#plz').val() + "&ort=" + $('#ort').val() + "&nachricht=" + $('#message').val() + "&cid=<? echo $cid; ?>" + "&andere=" + $("input:radio[name='gender']:checked").val(),
+        						//dataType: "html",
+        						cache: false,
+        						success: function (html) {
+        							if (html==1) {
+        								$('#done').fadeIn('slow').delay(1000).fadeOut('slow');
+        								$('#loading').hide();
+
+        								//give response message
+        								$("#the_form_response").show();
+                        if ($("input:radio[name='gender']:checked").val() == 1) {
+                          $("#form_andere").html("Herr");
+                        } else if ($("input:radio[name='gender']:checked").val() == 0) {
+                          $("#form_andere").html("Frau");
+                        }
+                        $("#form_name").html($("#vorname").val());
+                        $("#form_nachname").html($('#nachname').val());
+                        $("#form_email").html($('#email').val());
+
+                        //check and show fields that is not required (optional)
+                        if ($('#telefon').val() != "") {
+                          $("show_hide_tel").show();
+                          $("#form_tel").html($("#telefon").val());
+                        } else {
+                          $("show_hide_tel").hide();
+                        }
+
+                        if ($('#adddress').val() != "") {
+                          $("show_hide_strasse").show();
+                          $("#form_strasse").html($('#adddress').val());
+                        } else {
+                          $("show_hide_strasse").hide();
+                        }
+
+                        if ($('#plz').val() != "") {
+                          $("show_hide_plz").show();
+                          $("#form_plz").html($('#plz').val());
+                        } else {
+                          $("show_hide_plz").hide();
+                        }
+
+                        if ($('#ort').val() != "") {
+                          $("show_hide_ort").show();
+                          $("#form_ort").html($('#ort').val());
+                        } else {
+                          $("show_hide_ort").hide();
+                        }
+
+                        $("#form_message").html($('#message').val());
+
+        								//after send clear form, clear offer container and hide offer
+                        $("#the_form").hide();
+
+        							} else if (html==0) {
+                        $("#the_form").show();
+                        $("#the_form_response").hide();
+                        $('#loading').hide();
+                        $('#done').hide();
+                        $("#empty_form").attr("disabled", false);
+                        $("#send_form").attr("disabled", false);
+        								swal({
+        									title: "Achtung!",
+        									text: "Something went wrong, email not send! Please try again",
+        									type: "warning"
+        								});
+        								$('#loading').hide();
+        							}
+        						}
+        					});
+
+                } else {
+                  //email is empty, show alert
+                  swal({
+          					title: "Achtung!",
+          					text: "Bitte alle Pflichtfelder ausfüllen!",
+          					type: "warning"
+          				});
+                }
+              }
+
+            }
           });
 
           /*

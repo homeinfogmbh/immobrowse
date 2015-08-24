@@ -113,6 +113,15 @@ Array.prototype.remove_from_array = function() {
     return this;
 };
 
+function validateEmail($email) {
+	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	if(!emailReg.test($email)) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
 //global vars for URL
 function filter() {
 
@@ -1021,6 +1030,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '<td id="text_align_right">';
                 immosearch_details_element += immosearch_array_object_details_grundmiete_val + ' &euro;';
+                $("#form_miete_nk").html(immosearch_array_object_details_grundmiete_val + ' &euro;');//form
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '</tr>';
               } else {
@@ -1032,6 +1042,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += ifLastCharIsOnlyOneNull(immosearch_var_details_object_kaltmiete) + ' &euro;';
+                  $("#form_miete_nk").html(ifLastCharIsOnlyOneNull(immosearch_var_details_object_kaltmiete) + ' &euro;');//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 } else {
@@ -1042,6 +1053,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += 'K.A.';
+                  $("#form_miete_nk").html('K.A.');//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1055,6 +1067,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '<td id="text_align_right">';
                 immosearch_details_element += ifLastCharIsOnlyOneNull(immosearch_var_details_object_nebenkosten) + ' &euro;';
+                $("#form_nebenkosten").html(ifLastCharIsOnlyOneNull(immosearch_var_details_object_nebenkosten) + ' &euro;');//form
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '</tr>';
               } else {
@@ -1064,6 +1077,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '<td id="text_align_right">';
                 immosearch_details_element += 'K.A.';
+                $("#form_nebenkosten").html('K.A.');//form
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '</tr>';
               }
@@ -1080,6 +1094,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += 'werden direkt mit dem Energieversorger abgerechnet';
+                  $("#form_heizkosten").html('werden direkt mit dem Energieversorger abgerechnet');//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 } else {
@@ -1089,6 +1104,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += immosearch_var_details_object_heizkostennetto + ' &euro;';
+                  $("#form_heizkosten").html(immosearch_var_details_object_heizkostennetto + ' &euro;');//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1103,6 +1119,7 @@ function homeinfo_immosearch_details(object_id) {
                     immosearch_details_element += '</td>';
                     immosearch_details_element += '<td id="text_align_right">';
                     immosearch_details_element += 'werden direkt mit dem Energieversorger abgerechnet';
+                    $("#form_heizkosten").html('werden direkt mit dem Energieversorger abgerechnet');//form
                     immosearch_details_element += '</td>';
                     immosearch_details_element += '</tr>';
                   } else {
@@ -1112,6 +1129,7 @@ function homeinfo_immosearch_details(object_id) {
                     immosearch_details_element += '</td>';
                     immosearch_details_element += '<td id="text_align_right">';
                     immosearch_details_element += immosearch_var_details_object_heizkosten + ' &euro;';
+                    $("#form_heizkosten").html(immosearch_var_details_object_heizkosten + ' &euro;');//form
                     immosearch_details_element += '</td>';
                     immosearch_details_element += '</tr>';
                   }
@@ -1122,6 +1140,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += 'K.A.';
+                  $("#form_heizkosten").html('K.A.');//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1199,6 +1218,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '<td id="text_align_right">';
                 immosearch_details_element += ifLastCharIsOnlyOneNull(immosearch_array_object_details_kaution_val) + ' &euro;';
+                $("#form_kaution").html(ifLastCharIsOnlyOneNull(immosearch_array_object_details_kaution_val) + ' &euro;');//form
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '</tr>';
               } else {
@@ -1208,6 +1228,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '<td id="text_align_right">';
                 immosearch_details_element += 'K.A.';
+                $("#form_kaution").html('K.A.');//form
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '</tr>';
               }
@@ -1227,6 +1248,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">'
                   immosearch_details_element += immosearch_array_object_details_verfugbar_ab_val;
+                  $("#form_verfugbar_ab").html(immosearch_array_object_details_verfugbar_ab_val);//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 } else {
@@ -1236,6 +1258,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">'
                   immosearch_details_element += 'sofort';
+                  $("#form_verfugbar_ab").html('sofort');//form
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1246,6 +1269,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '<td id="text_align_right">'
                 immosearch_details_element += 'K.A.';
+                $("#form_verfugbar_ab").html('K.A.');//form
                 immosearch_details_element += '</td>';
                 immosearch_details_element += '</tr>';
               }
@@ -1469,19 +1493,6 @@ function homeinfo_immosearch_details(object_id) {
                 $("#service_team").html("<div class='row'><div class='col-md-6'><p id='list_text_style'>Anfrage an</p><span style='margin-top:0px;'><strong>Service" + immosearch_var_details_kontakt__name + "</strong><br>Bielefelder Gemeinnützige Wohnungsgesellschaft GmbH</span></div><div class='col-md-6'><img src='" + customer_logo + "'></div></div></div>");
               }
 
-              $('#empty_form').click(function(){
-                //empty form fields on open of the modal
-                $("#vorname").val("");
-                $("#nachname").val("");
-                $("#email").val("");
-                $("#telefon").val("");
-                $("#adddress").val("");
-                $("#plz").val("");
-                $("#ort").val("");
-                $("#message").val("Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.");
-                $("#send_form").attr("disabled", true);
-              });
-
               immosearch_details_element += '</p>';
               immosearch_details_element += '</div>';
 
@@ -1503,7 +1514,12 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '</div>';
 
+              //form object data
+              $("#object_image_form").attr("src", immosearch_array_details_object_img[0]);
+              $("#object_title").html(immosearch_array_object_details_zimmer_val + ' Zimmer Wohnung | in ' + details_address_ort + ' ' + details_address_ortsteil);
 
+              $("#form_zimmer").html(immosearch_array_object_details_zimmer_val);
+              $("#form_baujahr").html(immosearch_var_details_object_baujahr);
 
               //object number
               /*
@@ -1875,6 +1891,18 @@ function homeinfo_immosearch_global() {
 
     //add the customer logo by id to the index
     $("#customer_logo_src").attr("src", customer_logo);
+
+    //form object data
+    $("#object_image_form").attr("src", "");
+    $("#object_title").html("");
+    $("#form_miete_nk").html("");
+    $("#form_zimmer").html("");
+    $("#form_nebenkosten").html("");
+    $("#form_wohnflache_ca").html("");
+    $("#form_heizkosten").html("");
+    $("#form_baujahr").html("");
+    $("#form_kaution").html("");
+    $("#form_verfugbar_ab").html("");
 
     $("#customer_logo_src").click(function() {
       $("#top_menu_after_filter").hide();
@@ -2334,8 +2362,10 @@ function homeinfo_immosearch_global() {
             var immosearch_array_object_wohnflaeche___display_value = immosearch_array_object_wohnflaeche[i];
             if (typeof immosearch_array_object_wohnflaeche___display_value != "undefined" && immosearch_array_object_wohnflaeche___display_value) {
               immosearch_element += '<p id="list_text_style">' + immosearch_array_object_wohnflaeche___display_value.dot2comma() + ' m&#178;<br></p><p id="list_text_second_line_text">Wohnfläche</p>';
+              $("#form_wohnflache_ca").html(immosearch_array_object_wohnflaeche___display_value.dot2comma() + ' m&#178;');//form
             } else {
               immosearch_element += '<p id="list_text_style">K.A. m&#178;<br></p><p id="list_text_second_line_text">Wohnfläche</p>';
+              $("#form_wohnflache_ca").html('K.A. m&#178;');//form
             }
 
             immosearch_element += '</div>';
