@@ -130,6 +130,7 @@ $html_content .= '</html>';
 
 $mailer = new InsecurePHPMailer();
 $mailer->IsSMTP();
+$mailer->CharSet = 'UTF-8';
 $mailer->SMTPAuth = true;
 $mailer->SMTPSecure = "ssl";
 $mailer->Host = "mail2.homeinfo.de";//change this bgw-bielefeld email

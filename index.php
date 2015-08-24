@@ -666,7 +666,6 @@ $cid = $_GET['cid'];
                       + "&nachricht=" + $('#message').val()
                       + "&cid=<? echo $cid; ?>"
                       + "&andere=" + $("input:radio[name='gender']:checked").val()
-                      + "&the_offer=" + $("#the_offer").html()
                       + "&date=" + $("#today_date").text()
                       + "&image=" + $("#object_image_form").attr('src')
                       + "&object_title=" + $("#object_title").text()
