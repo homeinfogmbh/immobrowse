@@ -775,8 +775,9 @@ $cid = $_GET['cid'];
 
         });
 
+        //modify the scrollbar of the browser (problem of double scroller browser)
         $(function() {
-          
+
           $(document.body).on('show.bs.modal', function () {
             $(window.document).find('html').addClass('modal-open');
           });
