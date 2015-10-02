@@ -137,11 +137,21 @@
     -webkit-box-shadow: 0px 3px 2px 0px rgba(204,204,204,1);
     -moz-box-shadow: 0px 3px 2px 0px rgba(204,204,204,1);
     box-shadow: 0px 3px 2px 0px rgba(204,204,204,1);
+
+    top: 0;
+    position: fixed;
+    width: 101%;
+    z-index: 100;
    }
+
+   body.modal-open {
+    overflow: hidden;
+  }
 
    #immo_data {
      margin-left: 20px;
      margin-right: 20px;
+     margin-top:205px;
    }
 
    #immo_erweiterte_suche {
@@ -347,6 +357,10 @@
 
   }
   @media only screen and (min-width: 959px) {
+
+    #responsive_point_laptops {
+      margin-left: 50px;
+    }
 
   }
 

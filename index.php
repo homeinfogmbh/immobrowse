@@ -774,6 +774,32 @@ $cid = $_GET['cid'];
           */
 
         });
+
+        $(function() {
+          
+          $(document.body).on('show.bs.modal', function () {
+            $(window.document).find('html').addClass('modal-open');
+          });
+
+          $(document.body).on('hide.bs.modal', function () {
+            $(window.document).find('html').removeClass('modal-open');
+          });
+
+        });
+
+
+        //this is the case if your css doesn't have html tag styling
+        $(function() {
+
+          $(document.body).on('show.bs.modal', function () {
+            $(document.body).addClass('modal-open');
+          });
+
+          $(document.body).on('hide.bs.modal', function () {
+            $(document.body).removeClass('modal-open');
+          });
+
+        });
         </script>
     <!--</div>--><!-- <div class="container"> -->
     </body>
