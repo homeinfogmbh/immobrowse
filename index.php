@@ -58,20 +58,26 @@ $cid = $_GET['cid'];
         <!-- Fixed navbar -->
         <div class="row" id="immo_header">
 
-          <div id="customer_logo"><img src="" id="customer_logo_src"></div>
-
           <div class="col-md-6">
-            <h4 id="immo_title_angebote"><strong>Alle Wohnungen: <span id="total_angebote_in_title"></span></strong></h4>
+
+            <div class="row">
+              <div class="col-md-6"><div id="customer_logo"><img src="" id="customer_logo_src"></div></div>
+              <div class="col-md-6"><h4 id="immo_title_angebote" style="margin-top:33px;"><strong>Alle Wohnungen: <span id="total_angebote_in_title"></span></strong></h4></div>
+            </div>
+
+
+
+
           </div>
 
           <div class="col-md-6">
 
-            <div class="row">
+            <div class="row" id="header_dropdown_group" style="margin-top:22px;">
 
               <div class="col-md-3">
                 <p style="margin-top:15px;">Sortieren nach:</p>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-7">
                 <select class="form-control" id="immo_filter">
                   <option value="0">Bitte wählen</option>
                   <option value="1">Zimmer aufsteigend</option>
@@ -83,6 +89,10 @@ $cid = $_GET['cid'];
                   <option value="7">Gesamtmiete aufsteigend</option>
                   <option value="8">Gesamtmiete absteigend</option>
                 </select>
+
+              </div>
+
+              <div class="col-md-2">
                 <p style="margin-top:10px;"><input type="button" class="btn btn-default btn-xs pull-right" value="Erweiterte Suche" id="immo_erweiterte_suche_btn" style="border-color:#356635; color:#FFFFFF; background-color:#356635;"></p>
               </div>
 
@@ -281,7 +291,7 @@ $cid = $_GET['cid'];
 
         </div><!-- <div class="row"> -->
 
-        <div class="row" id="top_menu_after_filter" style="display:none; margin-left:4px; margin-right:20px; margin-botton:20px;">
+        <div class="row" id="top_menu_after_filter" style="display:none; margin-left:4px; margin-right:20px; margin-top:125px;">
 
             <div class="col-md-3 col-sm-3 col-xs-6">
                   <!--<p id="details_page_back_to_list" style="cursor:pointer; color:#aaa91f;"><strong>Zurück zur Liste</strong></p>-->
