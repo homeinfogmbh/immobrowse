@@ -1477,7 +1477,13 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12" id="kontakt_details">';
               immosearch_details_element += '<p id="list_text_style">IHR ANSPRECHPARTNER</p>';
               immosearch_details_element += '<p>';
-              immosearch_details_element += 'Service ' + immosearch_var_details_kontakt__name + '<br>';
+
+              if (immosearch_var_details_kontakt__name.substring(0, 1) == "T") {
+                //console.log("TEAM STRING: " + immosearch_var_details_kontakt__name.replace('T', 't'));
+                immosearch_var_details_kontakt__name = immosearch_var_details_kontakt__name.replace('T', 't');
+              }
+
+              immosearch_details_element += 'Service' + immosearch_var_details_kontakt__name + '<br>';
               immosearch_details_element += immosearch_var_details_kontakt__strasse + ' ' + immosearch_var_details_kontakt__hausnummer + '<br>';
               immosearch_details_element += immosearch_var_details_kontakt__plz + ' ' + immosearch_var_details_kontakt__ort;
               immosearch_details_element += '<br>';
