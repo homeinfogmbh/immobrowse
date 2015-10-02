@@ -1496,7 +1496,7 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '</div>';
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12" id="documente_distance">';
-              immosearch_details_element += '<p id="list_text_style">DOCUMENTE</p>';
+              immosearch_details_element += '<p id="list_text_style">DOKUMENTE</p>';
               //check if the array is not empty
               if (immosearch_array_details_object_attachment_pdf[0] !== undefined) {
                 //immosearch_details_element += '<p style="margin-top:10px;"><input type="button" class="btn btn-specialBtnKA" value="Energieausweis" id="pdf_document"></p>';
