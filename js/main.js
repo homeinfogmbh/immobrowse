@@ -733,6 +733,8 @@ function homeinfo_immosearch_details(object_id) {
 
           var immosearch_details_element = '';
 
+              immosearch_details_element += '<div class="col-md-6 col-sm-12 col-xs-12">';//put the content more together
+
               immosearch_details_element += '<div class="row-fluid" id="details_object_title" style="width:100%; margin-bottom:20px;">';
               //immosearch_details_element += '<strong id="details_page_map" data-toggle="tooltip" data-placement="top" title="Karte" style="cursor:pointer; color:#aaa91f;"><span class="label label-default" style="background-color:#aaa91f; color:#FFFFFF;">' + immosearch_array_object_details_zimmer_val + ' Zimmer Wohnung in ' + details_address + ' ' + details_address_number + ', ' + details_address_plz_number + ' ' + details_address_ort + ' - ' + details_address_ortsteil + '</span></strong>';
 
@@ -1511,6 +1513,7 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
               immosearch_details_element += '</div>';
 
+              immosearch_details_element += '</div>';//end - immosearch_details_element += '<div class="col-md-6 col-sm-12 col-xs-12">';//put the content more together
               immosearch_details_element += '</div>';
 
               //form object data
@@ -2267,7 +2270,7 @@ function homeinfo_immosearch_global() {
 
             var immosearch_element = '<div class="row" style="margin-top:10px; cursor:pointer;" id="object_details___' + i + '">';
 
-            immosearch_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
+            immosearch_element += '<div class="col-md-3 col-sm-6 col-xs-12">';
             if (typeof immosearch_array_img[i][0] == "undefined") {
               immosearch_element += '<img src="' + customer_img_dummy_details + '" id="__building_pic__' + i + '" width="350" height="267">';
             } else {
