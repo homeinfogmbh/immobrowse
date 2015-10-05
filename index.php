@@ -481,7 +481,17 @@ $cid = $_GET['cid'];
                   </div>
 
                   <div class="col-md-12" style="margin-top:20px;">
+                    <?
+                    if ($cid == "993301") {
+                    ?>
+                    <div class="g-recaptcha" data-sitekey="6LfSKg4TAAAAAKHUXUZvhDgsdAceBHcJwADvmPdt"></div>
+                    <?
+                    } else {
+                    ?>
                     <div class="g-recaptcha" data-sitekey="6LcOuAsTAAAAADE8AmdIjznQqT9TfAHjkTbezbLS"></div>
+                    <?
+                    }
+                    ?>
                   </div>
 
                 </div>
