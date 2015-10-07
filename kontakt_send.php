@@ -40,7 +40,7 @@ $form_heizkosten = $_POST['form_heizkosten'];
 $form_baujahr = $_POST['form_baujahr'];
 $form_kaution = $_POST['form_kaution'];
 $form_verfugbar_ab = $_POST['form_verfugbar_ab'];
-$teammail = $_POST['form_verfugbar_ab'];
+$teammail = $_POST['teammail'];
 
 $html_content = '<!doctype html>';
 $html_content .= '<html>';
@@ -150,7 +150,7 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
 }
 //$mailer->AltBody = "Vorname und Nachname:".$vorname." ".$nachname." E-mail: ".$email." Telephonummer: ".$telefon." Nachricht: ".$nachricht;
 $mailer->MsgHTML($html_content);
-$mailer->AddAddress("nik@homeinfo.de");//change this bgw-bielefeld email
+$mailer->AddAddress($teammail);//change this bgw-bielefeld email
 //$mailer->AddAddress("info@homeinfo.de");//change this bgw-bielefeld email
 $mailer->SetFrom("automailer@homeinfo.de");//change this bgw-bielefeld email
 

@@ -1489,7 +1489,7 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '<br>';
               immosearch_details_element += 'Tel.: ' + immosearch_var_details_kontakt__tel_zentrale + '<br>';
               immosearch_details_element += 'Fax.: ' + immosearch_var_details_kontakt__tel_fax + '<br>';
-              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong>' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong id="teammail_container">' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
 
               //form service team email
               $("#form_email_bottom_text").attr("href", "mailto:" + immosearch_var_details_kontakt__email_zentrale);
