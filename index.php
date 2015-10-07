@@ -284,6 +284,7 @@ $cid = $_GET['cid'];
             <div class="row-fluid">
               <div class="col-md-12 col-xs-12">
                 <br><br><br><br>
+                <p style="margin-top:10px;"><input type="button" class="btn btn-default btn-xs pull-right" value="OK" id="immo_erweiterte_suche_btn_ok" style="border-color:#356635; color:#FFFFFF; background-color:#356635;"></p>
               </div>
             </div>
 

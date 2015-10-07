@@ -2270,6 +2270,13 @@ function homeinfo_immosearch_global() {
 
 					//add total angebote to title
 					$("#total_angebote_in_title").html(total_counter + " Angebote");
+          if (total_counter > 0) {
+            $("#immo_erweiterte_suche_btn_ok").show();
+            $("#total_angebote_in_title").css('color', '#AAA91F');
+          } else {
+            $("#immo_erweiterte_suche_btn_ok").hide();
+            $("#total_angebote_in_title").css('color', '#FF0000');
+          }
 
 					//start append data
 					$.each(immosearch_array_object_zimmer, function(i, array_value) {
@@ -2523,11 +2530,22 @@ $(window).load(function() {
 $(document).ready(function() {
 
 	//btn advance search form (hide/show the form)
+  $("#immo_erweiterte_suche_btn_ok").hide();
 	$("#immo_erweiterte_suche_btn").click(function(e) {
 		$("#immo_erweiterte_suche_form").fadeToggle("slow");
 		//change the button value (while hide/show the form)
 		var array_btn_values = ['Schließen', 'Erweiterte Suche'];//array to strore button values
 		$(this).val($(this).val() == array_btn_values[0] ? array_btn_values[1] : array_btn_values[0]);
+	});
+
+  $("#immo_erweiterte_suche_btn_ok").click(function(e) {
+		$("#immo_erweiterte_suche_form").fadeToggle("slow");
+		//change the button value back to orginal text
+    if ($("#immo_erweiterte_suche_btn").val() == "Schließen") {
+      $("#immo_erweiterte_suche_btn").val("Erweiterte Suche");
+    } else {
+      $("#immo_erweiterte_suche_btn").val("Schließen");
+    }
 	});
 
 	//on load select the default value 0 (Bitte wählen) dropdown
