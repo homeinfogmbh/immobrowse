@@ -42,6 +42,9 @@ $form_kaution = $_POST['form_kaution'];
 $form_verfugbar_ab = $_POST['form_verfugbar_ab'];
 $teammail = $_POST['teammail'];
 
+//get the team number
+$service_team_number = $teammail[4];
+
 $html_content = '<!doctype html>';
 $html_content .= '<html>';
 $html_content .= '<head>';
@@ -59,7 +62,7 @@ $html_content .= '<body>';
 $html_content .= '<br><br>';
 //////////////////////////////////////////////////
 $html_content .= 'Anfrage an<br>';
-$html_content .= 'ServiceTeam 4<br>';
+$html_content .= 'ServiceTeam '.$service_team_number.'<br>';
 $html_content .= 'Bielefelder Gemeinnützige<br>';
 $html_content .= 'Wohnungsgesellschaft GmbH<br>';
 if ($cid == "993301") {//bgw-bielfeld 993301 cid
@@ -151,7 +154,6 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
 //$mailer->AltBody = "Vorname und Nachname:".$vorname." ".$nachname." E-mail: ".$email." Telephonummer: ".$telefon." Nachricht: ".$nachricht;
 $mailer->MsgHTML($html_content);
 $mailer->AddAddress($teammail);//change this bgw-bielefeld email
-//$mailer->AddAddress("info@homeinfo.de");//change this bgw-bielefeld email
 $mailer->SetFrom("automailer@homeinfo.de");//change this bgw-bielefeld email
 
 //check if some fields are empty
