@@ -2238,7 +2238,7 @@ function homeinfo_immosearch_global() {
               immosearch_array_img.push([]);
 
               $(this).find("anhang").each(function(i) {
-                if ($(this).attr("gruppe") == "BILD" || $(this).attr("gruppe") == "TITELBILD") {
+                if ($(this).attr("gruppe") == "BILD" || $(this).attr("gruppe") == "TITELBILD" || $(this).attr("gruppe") == "AUSSENANSICHTEN") {
                   if ($(this).attr("location") == "REMOTE") {
                     var immosearch_list_img_url = $(this).children().find("pfad").text();
                     if (immosearch_list_img_url) {
@@ -2246,10 +2246,10 @@ function homeinfo_immosearch_global() {
                     } else {
                       immosearch_array_img[iv].push(customer_img_dummy);//dummy image
                     }
-                  } else if ($(this).attr("location") == "INTERN") {
+                  } else if ($(this).attr("location") == "INTERN" || $(this).attr("gruppe") == "INNENANSICHTEN") {
                     var immosearch_list_img = $(this).children().find("anhanginhalt").text();
                     if (immosearch_list_img) {
-                      immosearch_array_img[iv].push("data:image/jpeg;base64," + immosearch_list_img);//push base64 data
+                      immosearch_array_img[iv].push(immosearch_list_img);//push base64 data
                     } else {
                       immosearch_array_img[iv].push(customer_img_dummy);//dummy image
                     }
@@ -2284,7 +2284,7 @@ function homeinfo_immosearch_global() {
             var immosearch_element = '<div class="row" style="margin-top:10px; cursor:pointer;" id="object_details___' + i + '">';
 
             immosearch_element += '<div class="col-md-3 col-sm-6 col-xs-12">';
-            if (typeof immosearch_array_img[i][0] == "undefined") {
+            if (typeof immosearch_array_img[i] == "undefined" || typeof immosearch_array_img[i][0] == "undefined") {
               immosearch_element += '<img src="' + customer_img_dummy_details + '" id="__building_pic__' + i + '" width="350" height="267">';
             } else {
               //immosearch_element += '<img class="thumbnail" src="' + immosearch_array_img[i][0] + '" id="__building_pic__' + i + '" width="350" height="267">';
