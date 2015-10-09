@@ -299,7 +299,7 @@ $cid = $_GET['cid'];
                   <!--<input type="button" class="btn btn-default btn-xs" id="details_page_back_to_list" value="Zurück zur Liste">-->
             </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12" id="back_to_list">
               <button type="button" class="btn btn-specialBtnKA-bgw btn-xs" id="details_page_back_to_list" style="margin-right:10px;"><i class="fa fa-long-arrow-left"></i> Zurück zur Liste</button>
               <button type="button" class="btn btn-specialBtnKA-bgw btn-xs" id="details_page_print"><i class="fa fa-print"></i> Drucken</button>
             </div>

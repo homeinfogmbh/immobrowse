@@ -323,6 +323,10 @@
      width: 105%;
     }
 
+    #back_to_list {
+      margin-top:-110px;
+    }
+
   }
 
   @media (max-width: 480px) {
@@ -355,8 +359,12 @@
   @media only screen and (min-width: 480px) and (max-width: 768px) {
 
   }
-  @media only screen and (min-width: 768px) and (max-width: 959px) {
 
+  /* tablet */
+  @media only screen and (min-width: 768px) and (max-width: 959px) {
+    #back_to_list {
+      margin-top:-110px;
+    }
   }
   @media only screen and (min-width: 959px) {
 
