@@ -1091,7 +1091,7 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_var_details_object_heizkostennetto = ifLastCharIsOnlyOneNull(immosearch_var_details_object_heizkostennetto);
                 if (immosearch_var_details_object_heizkostennetto == "0,00") {
                   immosearch_details_element += '<tr>';
-                  immosearch_details_element += '<td>';
+                  immosearch_details_element += '<td style="vertical-align: top;">';
                   immosearch_details_element += '<strong>Heizkosten:</strong>';
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
@@ -1101,7 +1101,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '</tr>';
                 } else {
                   immosearch_details_element += '<tr>';
-                  immosearch_details_element += '<td>';
+                  immosearch_details_element += '<td style="vertical-align: top;">';
                   immosearch_details_element += '<strong>Heizkosten:</strong>';
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
@@ -1116,7 +1116,7 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_var_details_object_heizkosten = ifLastCharIsOnlyOneNull(immosearch_var_details_object_heizkosten);
                   if (immosearch_var_details_object_heizkosten == "0,00") {
                     immosearch_details_element += '<tr>';
-                    immosearch_details_element += '<td>';
+                    immosearch_details_element += '<td style="vertical-align: top;">';
                     immosearch_details_element += '<strong>Heizkosten:</strong>';
                     immosearch_details_element += '</td>';
                     immosearch_details_element += '<td id="text_align_right">';
@@ -1126,7 +1126,7 @@ function homeinfo_immosearch_details(object_id) {
                     immosearch_details_element += '</tr>';
                   } else {
                     immosearch_details_element += '<tr>';
-                    immosearch_details_element += '<td>';
+                    immosearch_details_element += '<td style="vertical-align: top;">';
                     immosearch_details_element += '<strong>Heizkosten:</strong>';
                     immosearch_details_element += '</td>';
                     immosearch_details_element += '<td id="text_align_right">';
