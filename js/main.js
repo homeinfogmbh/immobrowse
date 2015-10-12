@@ -733,7 +733,7 @@ function homeinfo_immosearch_details(object_id) {
 
           var immosearch_details_element = '';
 
-              immosearch_details_element += '<div class="row-fluid" class="col-md-6 col-sm-12 col-xs-12">';//put the content more together
+              immosearch_details_element += '<div class="container" class="col-md-6 col-sm-12 col-xs-12" style="float: left !important; margin-left:-15px;">';//put the content more together
 
               immosearch_details_element += '<div class="row-fluid" id="details_object_title" style="width:100%; margin-bottom:20px; margin-top:-98px;">';
               //immosearch_details_element += '<strong id="details_page_map" data-toggle="tooltip" data-placement="top" title="Karte" style="cursor:pointer; color:#aaa91f;"><span class="label label-default" style="background-color:#aaa91f; color:#FFFFFF;">' + immosearch_array_object_details_zimmer_val + ' Zimmer Wohnung in ' + details_address + ' ' + details_address_number + ', ' + details_address_plz_number + ' ' + details_address_ort + ' - ' + details_address_ortsteil + '</span></strong>';
