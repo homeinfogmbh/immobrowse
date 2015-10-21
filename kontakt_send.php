@@ -59,28 +59,34 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
   $html_content .= '<title>Immobrowse kontakt formular</title>';
 }
 
+/*
+$html_content .= '<style>';
+$html_content .= 'body {';
+$html_content .= 'font-family: Arial,Helvetica,sans-serif;';
+$html_content .= '}';
+$html_content .= '<style>';
+*/
+
 $html_content .= '</head>';
 $html_content .= '<body>';
-$html_content .= '<br><br>';
 //////////////////////////////////////////////////
 $html_content .= 'Anfrage an<br>';
 $html_content .= 'ServiceTeam '.$service_team_number.'<br>';
 $html_content .= 'Bielefelder Gemeinnützige<br>';
-$html_content .= 'Wohnungsgesellschaft GmbH<br>';
+$html_content .= 'Wohnungsgesellschaft mbH<br><br>';
 if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $html_content .= '<img src="https://tls.homeinfo.de/immobrowse/img/customers_logos/'.$cid.'.png"><br>';
+    $html_content .= '<img src="https://tls.homeinfo.de/immobrowse/img/customers_logos/'.$cid.'.png"><br><br>';
 } else {//else give Immobrowse logo or Homeinfo logo
-    $html_content .= '<br>';
+    $html_content .= '<br><br>';
 }
 $html_content .= '<hr>';
-$html_content .= '<strong>sehr geehrter</strong><br>';
 if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $html_content .= '<p>Sie haben auf BGW-Bielefeld am '.$date.' eine Anfrage zu folgendem Object gestellt:<br></p><br>';
+    $html_content .= '<p>Sie haben auf BGW-Bielefeld am '.$date.' eine Anfrage zu folgendem Objekt gestellt:<br></p><br>';
 } else {//else give Immobrowse logo or Homeinfo logo
-    $html_content .= '<p>Sie haben auf Homeinfo am '.$date.' eine Anfrage zu folgendem Object gestellt:<br></p><br>';
+    $html_content .= '<p>Sie haben auf Homeinfo am '.$date.' eine Anfrage zu folgendem Objekt gestellt:<br></p><br>';
 }
 $html_content .= '<img src="'.$image.'"><br>';
-$html_content .= '<strong>'.$object_title.'</strong>';
+$html_content .= '<br><br><strong>'.$object_title.'</strong>';
 $html_content .= '<table>';
 $html_content .= '<tr>';
   $html_content .= '<td><strong>Miete zzgl.NK</strong></td>';
@@ -107,22 +113,30 @@ $html_content .= '<tr>';
   $html_content .= '<td align="right">'.$form_verfugbar_ab.'</td>';
 $html_content .= '</tr>';
 $html_content .= '</table>';
-$html_content .= '<strong style="color:#267f00;">Weitere Wohnungsdaten im Überblick</strong>';
+//$html_content .= '<strong style="color:#267f00;"><br><br>Weitere Wohnungsdaten im Überblick</strong>';
 $html_content .= '<hr>';
-$html_content .= '<strong style="color:#267f00;"> Ihre Kontaktanfrage im Überblick</strong><br>';
-$html_content .= '<strong>Andere:</strong> '.$andere.'<br>';
+$html_content .= '<strong style="color:#267f00;"> Ihre Kontaktanfrage im Überblick</strong><br><br>';
+
+if ($andere == 1) {
+  $andere_text = "Herr";
+} else {
+  $andere_text = "Frau";
+}
+
+$html_content .= '<strong>Andere:</strong> '.$andere_text.'<br>';
 $html_content .= '<strong>Name / Nachname:</strong> '.$vorname.' '.$nachname.'<br>';
 $html_content .= '<strong>E-Mail-Adresse:</strong> '.$email.'<br>';
 $html_content .= '<strong>Telefon:</strong> '.$telefon.'<br>';
 $html_content .= '<strong>Straße/Haus-Nr.:</strong> '.$adddress.'<br>';
 $html_content .= '<strong>PLZ:</strong> '.$plz.'<br>';
 $html_content .= '<strong>Ort:</strong> '.$ort.'<br>';
-$html_content .= '<strong>Ihre Nachricht::</strong> '.$nachricht.'<br>';
+$html_content .= '<strong>Ihre Nachricht:</strong> '.$nachricht.'<br>';
 $html_content .= '<br><br>';
 $html_content .= 'Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>
-Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden sie sich bitte unter '.$teammail.' direct an das Serviceteam.<br>';
+Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden Sie sich bitte unter '.$teammail.' direkt an das Serviceteam.<br><br>';
+
 if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $html_content .= '<a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00;">www.bgw-bielfeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>';
+    $html_content .= '<a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00;">www.bgw-bielefeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>';
 } else {//homeinfo
     $html_content .= '<a href="https://www.homeinfo.de" target="_blank" style="color:#267f00;">www.homeinfo.de</a> | <a href="https://www.homeinfo.de/#impressum" target="_blank" style="color:#267f00;">Impressum</a>';
 }

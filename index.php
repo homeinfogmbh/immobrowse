@@ -630,7 +630,8 @@ $cid = $_GET['cid'];
 
         $(document).ready(function() {
 
-          $('#today_date').html(newDate.getDate() + '.' + newDate.getMonth() + '.' + newDate.getFullYear());
+          //$('#today_date').html(newDate.getDate() + '.' + newDate.getMonth() + '.' + newDate.getFullYear());
+          $('#today_date').html("<? echo date("d.m.Y"); ?>");
           $("#the_form_response").hide();
           $("#the_offer").hide();
           $("#empty_form").attr("disabled", false);
