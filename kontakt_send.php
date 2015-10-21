@@ -114,7 +114,7 @@ if ($andere == 1) {
   $andere_text = "Frau";
 }
 
-$html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Andere:</strong> '.$andere_text.'<br></span>';
+$html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Anrede:</strong> '.$andere_text.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Name / Nachname:</strong> '.$vorname.' '.$nachname.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">E-Mail-Adresse:</strong> '.$email.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Telefon:</strong> '.$telefon.'<br></span>';
