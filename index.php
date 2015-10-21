@@ -698,7 +698,9 @@ $cid = $_GET['cid'];
                       + "&form_baujahr=" + $("#form_baujahr").text()
                       + "&form_kaution=" + $("#form_kaution").text()
                       + "&form_verfugbar_ab=" + $("#form_verfugbar_ab").text()
-                      + "&teammail=" + $("#teammail_container").text(),
+                      + "&teammail=" + $("#teammail_container").text()
+                      + "&object_nr_email=" + $("#object_nr_email").text()
+                      + "&object_email_address=" + $("#details_page_map").text(),
         						cache: false,
         						success: function (html) {
         							if (html==1) {

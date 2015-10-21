@@ -41,6 +41,8 @@ $form_baujahr = $_POST['form_baujahr'];
 $form_kaution = $_POST['form_kaution'];
 $form_verfugbar_ab = $_POST['form_verfugbar_ab'];
 $teammail = $_POST['teammail'];
+$object_nr_email = $_POST['object_nr_email'];
+$object_email_address = $_POST['object_email_address'];
 
 //get the team number
 $service_team_number = $teammail[4];
@@ -147,13 +149,15 @@ $mailer->Username = "web0p22";
 
 $mailer->Password = "d9MX1226mSWH";
 if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $mailer->Subject = "BGW-Bielefeld.de Kontakt formular";
+    $mailer->Subject = "Anfrage für Ihr Objekt ".$object_nr_email." von bgw-bielefeld.de ".$object_email_address;
 } else {//homeinfo
-    $mailer->Subject = "Homeinfo.de Kontakt formular";
+    $mailer->Subject = "Anfrage für Ihr Objekt ".$object_nr_email." von bgw-bielefeld.de ".$object_email_address;
 }
 //$mailer->AltBody = "Vorname und Nachname:".$vorname." ".$nachname." E-mail: ".$email." Telephonummer: ".$telefon." Nachricht: ".$nachricht;
 $mailer->MsgHTML($html_content);
 $mailer->AddAddress($teammail);//change this bgw-bielefeld email
+$mailer->addCC('vermietung@bgw-bielefeld.de');
+$mailer->addBCC($email);
 $mailer->SetFrom("automailer@homeinfo.de");//change this bgw-bielefeld email
 
 //check if some fields are empty

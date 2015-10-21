@@ -748,7 +748,7 @@ function homeinfo_immosearch_details(object_id) {
               //object number
               if (typeof immosearch_var_details_object_objnumber != "undefined" && immosearch_var_details_object_objnumber) {
                 //immosearch_details_element += '<span class="label label-default" style="background-color:#f5f5f5; color:#333333; border: solid 1px; border-color: #F2F2F2; -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px;"><strong>Wohnungsnr: </strong> ' + immosearch_var_details_object_objnumber + '</span>';
-                immosearch_details_element += '<button type="button" class="btn btn-specialBtnKA-bgw btn-xs" style="cursor: default;"><strong>Wohnungsnr: </strong> ' + immosearch_var_details_object_objnumber + '</button>';
+                immosearch_details_element += '<button type="button" class="btn btn-specialBtnKA-bgw btn-xs" style="cursor: default;" id="object_nr_email"><strong>Wohnungsnr: </strong> <span>' + immosearch_var_details_object_objnumber + '</span></button>';
                 //immosearch_details_element += '<br><span style="color:#888888;"><strong>Wohnungsnr: </strong> ' + immosearch_var_details_object_objnumber + '</span>';
               }
 
