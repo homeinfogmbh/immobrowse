@@ -121,7 +121,7 @@ $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><stro
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Straße/Haus-Nr.:</strong> '.$adddress.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">PLZ:</strong> '.$plz.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Ort:</strong> '.$ort.'<br></span>';
-$html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Ihre Nachricht:</strong> '.$nachricht.'<br></span>';
+$html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Ihre Nachricht:</strong> <span style="font-size:14px;">'.$nachricht.'</span><br></span>';
 $html_content .= '<br><br>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>
 Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden Sie sich bitte unter '.$teammail.' direkt an das Serviceteam.<br><br></span>';
