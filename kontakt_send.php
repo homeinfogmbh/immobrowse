@@ -60,7 +60,7 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
 }
 
 $html_content .= '</head>';
-$html_content .= '<body style="font-family: Arial, Helvetica, sans-serif;">';
+$html_content .= '<body style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">';
 //////////////////////////////////////////////////
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Anfrage an<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">ServiceTeam '.$service_team_number.'<br></span>';
@@ -79,30 +79,30 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
 }
 $html_content .= '<img src="'.$image.'"><br>';
 $html_content .= '<br><br><strong style="font-family: Arial, Helvetica, sans-serif;">'.$object_title.'</strong><br>';
-$html_content .= '<table style="font-family: Arial, Helvetica, sans-serif;">';
+$html_content .= '<table style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">';
 $html_content .= '<tr>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">Miete zzgl.NK</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_miete_nk.'</td>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">&nbsp;&nbsp;Zimmer</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_zimmer.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">Miete zzgl.NK</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_miete_nk.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;Zimmer</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_zimmer.'</td>';
 $html_content .= '</tr>';
 $html_content .= '<tr>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">Nebenkosten</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_nebenkosten.'</td>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">&nbsp;&nbsp;Wohnfläche ca.</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_wohnflache_ca.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">Nebenkosten</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_nebenkosten.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;Wohnfläche ca.</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_wohnflache_ca.'</td>';
 $html_content .= '</tr>';
 $html_content .= '<tr>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">Heizkosten</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_heizkosten.'</td>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">&nbsp;&nbsp;Baujahr</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_baujahr.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">Heizkosten</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_heizkosten.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;Baujahr</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_baujahr.'</td>';
 $html_content .= '</tr>';
 $html_content .= '<tr>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">Kaution</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_kaution.'</td>';
-  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif;">&nbsp;&nbsp;Verfügbar ab</strong></td>';
-  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif;">'.$form_verfugbar_ab.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">Kaution</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_kaution.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;Verfügbar ab</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_verfugbar_ab.'</td>';
 $html_content .= '</tr>';
 $html_content .= '</table>';
 $html_content .= '<hr style="background-color: #eee; border: 0 none; color: #eee; height: 1px;">';
@@ -121,7 +121,7 @@ $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><stro
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Straße/Haus-Nr.:</strong> '.$adddress.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">PLZ:</strong> '.$plz.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Ort:</strong> '.$ort.'<br></span>';
-$html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Ihre Nachricht:</strong> <span style="font-size:14px;">'.$nachricht.'</span><br></span>';
+$html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><strong style="font-family: Arial, Helvetica, sans-serif;">Ihre Nachricht:</strong> '.$nachricht.'<br></span>';
 $html_content .= '<br><br>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>
 Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden Sie sich bitte unter '.$teammail.' direkt an das Serviceteam.<br><br></span>';
@@ -132,7 +132,7 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
     $html_content .= '<a href="https://www.homeinfo.de" target="_blank" style="color:#267f00; font-family: Arial, Helvetica, sans-serif;">www.homeinfo.de</a> | <a href="https://www.homeinfo.de/#impressum" target="_blank" style="color:#267f00;">Impressum</a>';
 }
 $html_content .= '<hr style="background-color: #eee; border: 0 none; color: #eee; height: 1px;">';
-$html_content .= '<i class="fa fa-check fa-3x" style="color:#a4be04;"></i> <h3 style="font-family: Arial, Helvetica, sans-serif;">VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>';
+$html_content .= '<i class="fa fa-check fa-3x" style="color:#a4be04;"></i> <h3 style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>';
 //////////////////////////////////////////////////
 $html_content .= '<br><br>';
 $html_content .= '</body>';
