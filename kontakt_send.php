@@ -44,6 +44,15 @@ $teammail = $_POST['teammail'];
 $object_nr_email = $_POST['object_nr_email'];
 $object_email_address = $_POST['object_email_address'];
 
+$form_title_verbrauch_bedarf = $_POST['form_title_verbrauch_bedarf'];
+$form_value_verbrauch_bedarf = $_POST['form_value_verbrauch_bedarf'];
+$form_title_energieverbrauchkennwert = $_POST['form_title_energieverbrauchkennwert'];
+$form_value_energieverbrauchkennwert = $_POST['form_value_energieverbrauchkennwert'];
+$form_title_object_primaerenergietraeger = $_POST['form_title_object_primaerenergietraeger'];
+$form_value_object_primaerenergietraeger = $_POST['form_value_object_primaerenergietraeger'];
+$form_title_warmwasser = $_POST['form_title_warmwasser'];
+$form_value_warmwasser = $_POST['form_value_warmwasser'];
+
 //get the team number
 $service_team_number = $teammail[4];
 
@@ -103,6 +112,18 @@ $html_content .= '<tr>';
   $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_kaution.'</td>';
   $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;Verfügbar ab</strong></td>';
   $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_verfugbar_ab.'</td>';
+$html_content .= '</tr>';
+$html_content .= '<tr>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_title_verbrauch_bedarf.'</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_value_verbrauch_bedarf.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;'.$form_title_energieverbrauchkennwert.'</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_value_energieverbrauchkennwert.'</td>';
+$html_content .= '</tr>';
+$html_content .= '<tr>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_title_object_primaerenergietraeger.'</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_value_object_primaerenergietraeger.'</td>';
+  $html_content .= '<td><strong style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">&nbsp;&nbsp;'.$form_title_warmwasser.'</strong></td>';
+  $html_content .= '<td align="right" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">'.$form_value_warmwasser.'</td>';
 $html_content .= '</tr>';
 $html_content .= '</table>';
 $html_content .= '<hr style="background-color: #eee; border: 0 none; color: #eee; height: 1px;">';

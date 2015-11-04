@@ -912,7 +912,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
-              immosearch_details_element += '<p id="list_text_style">GRÖSSE & ZUSTAND</p>';//group title
+              immosearch_details_element += '<p id="list_text_style">GRÖSSE UND ZUSTAND</p>';//group title
 
               immosearch_details_element += '<table width="320px;">';
 
@@ -1302,7 +1302,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '<p id="list_text_style">ENERGIEMERKMALE</p>';
 
-              immosearch_details_element += '<table width="320px;">';
+              immosearch_details_element += '<table width="320px;" id="energie_details">';
 
               if (typeof details_energiepass_epart != "undefined" && details_energiepass_epart) {
                 var epassTyp;
@@ -1312,9 +1312,11 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '<tr>';
                   immosearch_details_element += '<td>';
                   immosearch_details_element += '<strong>' + epassTyp +'</strong>';
+                  $("#form_title_verbrauch_bedarf").html(epassTyp);
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += 'Verbrauchsausweis';
+                  $("#form_value_verbrauch_bedarf").html('Verbrauchsausweis');
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                   if (typeof details_energiepass_energieverbrauchkennwert != "undefined" && details_energiepass_energieverbrauchkennwert) {
@@ -1323,9 +1325,11 @@ function homeinfo_immosearch_details(object_id) {
                       immosearch_details_element += '<tr>';
                       immosearch_details_element += '<td>';
                       immosearch_details_element += '<strong>Endenergieverbrauch</strong>';
+                      $("#form_title_energieverbrauchkennwert").html("Endenergieverbrauch");
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '<td id="text_align_right">';
                       immosearch_details_element += details_energiepass_energieverbrauchkennwert.dot2comma();
+                      $("#form_value_energieverbrauchkennwert").html(details_energiepass_energieverbrauchkennwert.dot2comma());
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '</tr>';
                     } else {
@@ -1333,9 +1337,11 @@ function homeinfo_immosearch_details(object_id) {
                       immosearch_details_element += '<tr>';
                       immosearch_details_element += '<td>';
                       immosearch_details_element += '<strong>Endenergieverbrauch</strong>';
+                      $("#form_title_energieverbrauchkennwert").html("Endenergieverbrauch");
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '<td id="text_align_right">';
                       immosearch_details_element += details_energiepass_energieverbrauchkennwert.dot2comma() + ' kWh/(m&sup2;a)';
+                      $("#form_value_energieverbrauchkennwert").html(details_energiepass_energieverbrauchkennwert.dot2comma() + ' kWh/(m&sup2;a)');
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '</tr>';
                     }
@@ -1346,9 +1352,11 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '<tr>';
                   immosearch_details_element += '<td>';
                   immosearch_details_element += '<strong>' + epassTyp + '</strong>';
+                  $("#form_title_verbrauch_bedarf").html(epassTyp);
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += 'Bedarfsausweis';
+                  $("#form_value_verbrauch_bedarf").html('Bedarfsausweis');
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                   if (typeof details_energiepass_endenergiebedarf != "undefined" && details_energiepass_endenergiebedarf) {
@@ -1357,9 +1365,11 @@ function homeinfo_immosearch_details(object_id) {
                       immosearch_details_element += '<tr>';
                       immosearch_details_element += '<td>';
                       immosearch_details_element += '<strong>Endenergiebedarf</strong>';
+                      $("#form_title_verbrauch_bedarf").html('Endenergiebedarf');
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '<td id="text_align_right">';
                       immosearch_details_element += details_energiepass_endenergiebedarf.dot2comma();
+                      $("#form_value_energieverbrauchkennwert").html(details_energiepass_endenergiebedarf.dot2comma());
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '</tr>';
                     } else {
@@ -1367,6 +1377,7 @@ function homeinfo_immosearch_details(object_id) {
                       immosearch_details_element += '<tr>';
                       immosearch_details_element += '<td>';
                       immosearch_details_element += '<strong>Endenergiebedarf</strong>';
+                      $("#form_title_verbrauch_bedarf").html('Endenergiebedarf');
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '<td id="text_align_right">';
                       immosearch_details_element += details_energiepass_endenergiebedarf.dot2comma() + ' kWh/(m&sup2;a)';
@@ -1395,12 +1406,20 @@ function homeinfo_immosearch_details(object_id) {
 
               if (immosearch_var_details_object_primaerenergietraeger != "") {
                 if (typeof immosearch_var_details_object_primaerenergietraeger != "undefined" && immosearch_var_details_object_primaerenergietraeger) {
+
+                  //check the value if it's Fern to become Ferngas
+                  if (immosearch_var_details_object_primaerenergietraeger == "Fern") {
+                    immosearch_var_details_object_primaerenergietraeger = "Ferngas";
+                  }
+
                   immosearch_details_element += '<tr>';
                   immosearch_details_element += '<td>';
                   immosearch_details_element += '<strong>Wesentlicher Energieträger</strong>';
+                  $("#form_title_object_primaerenergietraeger").html("Wesentlicher Energieträger");
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += immosearch_var_details_object_primaerenergietraeger;
+                  $("#form_value_object_primaerenergietraeger").html(immosearch_var_details_object_primaerenergietraeger);
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1408,12 +1427,20 @@ function homeinfo_immosearch_details(object_id) {
                 for (var i_befeuerung = 0; i_befeuerung < immosearch_var_details_object_ausstattung_befeuerung.length; ++i_befeuerung) {
                   var befeuerung_value = immosearch_var_details_object_ausstattung_befeuerung[i_befeuerung].capitalize();
                   befeuerung_value = befeuerung_value.umlauts();
+
+                  //check the value if it's Fern to become Ferngas
+                  if (befeuerung_value == "Fern") {
+                    befeuerung_value = "Ferngas";
+                  }
+
                   immosearch_details_element += '<tr>';
                   immosearch_details_element += '<td>';
                   immosearch_details_element += '<strong>Wesentlicher Energieträger</strong>';
+                  $("#form_title_object_primaerenergietraeger").html("Wesentlicher Energieträger");
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += befeuerung_value;
+                  $("#form_value_object_primaerenergietraeger").html(befeuerung_value);
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1424,9 +1451,11 @@ function homeinfo_immosearch_details(object_id) {
                   immosearch_details_element += '<tr>';
                   immosearch_details_element += '<td>';
                   immosearch_details_element += '<strong>Mit Warmwasser</strong>';
+                  $("#form_title_warmwasser").html("Mit Warmwasser");
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '<td id="text_align_right">';
                   immosearch_details_element += 'ja';
+                  $("#form_value_warmwasser").html("ja");
                   immosearch_details_element += '</td>';
                   immosearch_details_element += '</tr>';
                 }
@@ -1459,7 +1488,16 @@ function homeinfo_immosearch_details(object_id) {
                 immosearch_details_element += '<p id="list_text_style">AUSSTATTUNGSMERKMALE<br></p>';
                 $.each(immosearch_array_object_ausstatt_beschr_concat.split(','), function(index, value) {
                   //immosearch_details_element += '<input type="button" class="btn btn-default btn-xs" value="' + value + '" id="immo_small_icons" style="border-color:#f89406; color:#FFFFFF; background-color:#f89406; margin-top:3px; cursor:default;"><br>';
-                  immosearch_details_element += '<strong>' + value + '</strong>' + '<br>';
+
+                  //check and replace
+                  if (value == ' BalkonAufzug') {
+                    immosearch_details_element += '<strong>Balkon Aufzug</strong><br>';
+                  } else if (value == ' IsolierverglasungAufzug') {
+                    immosearch_details_element += '<strong>Isolierverglasung Aufzug</strong><br>';
+                  } else {
+                    immosearch_details_element += '<strong>' + value + '</strong><br>';
+                  }
+
                 });
               }
               immosearch_details_element += '</div>';
@@ -1489,7 +1527,8 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += '<br>';
               immosearch_details_element += 'Tel.: ' + immosearch_var_details_kontakt__tel_zentrale + '<br>';
               immosearch_details_element += 'Fax.: ' + immosearch_var_details_kontakt__tel_fax + '<br>';
-              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong id="teammail_container">' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+              //immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong id="teammail_container">' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
+              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong id="teammail_container">Kontaktformular</strong></a>';
 
               //form service team email
               $("#form_email_bottom_text").attr("href", "mailto:" + immosearch_var_details_kontakt__email_zentrale);
@@ -1911,6 +1950,7 @@ function homeinfo_immosearch_global() {
     $("#form_baujahr").html("");
     $("#form_kaution").html("");
     $("#form_verfugbar_ab").html("");
+    $("#form_energie").html("");
 
     $("#customer_logo_src").click(function() {
       $("#top_menu_after_filter").hide();

@@ -501,7 +501,6 @@ $cid = $_GET['cid'];
 
                 <div class="row" id="the_offer">
                   <div class="col-md-12">
-                    <strong>sehr geehrter<br></strong>
                     <p>Sie haben auf bgw-bielefeld am <span id="today_date"></span> eine Anfrage zu folgendem Object gestellt:</p>
                   </div>
 
@@ -543,7 +542,30 @@ $cid = $_GET['cid'];
                   </div>
 
                   <div class="col-md-12">
-                    <strong style="color:#267f00;">Weitere Wohnungsdaten im Überblick</strong>
+
+                    <div class="row">
+                      <div class="col-md-6"><strong id="form_title_verbrauch_bedarf"></strong></div>
+                      <div class="col-md-6" id="form_value_verbrauch_bedarf"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6"><strong id="form_title_energieverbrauchkennwert"></strong></div>
+                      <div class="col-md-6" id="form_value_energieverbrauchkennwert"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6"><strong id="form_title_object_primaerenergietraeger"></strong></div>
+                      <div class="col-md-6" id="form_value_object_primaerenergietraeger"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6"><strong id="form_title_warmwasser"></strong></div>
+                      <div class="col-md-6" id="form_value_warmwasser"></div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-12">
                     <hr>
                     <p>
                       <strong style="color:#267f00;">Ihre Kontaktanfrage im Überblick</strong><br>
@@ -560,8 +582,8 @@ $cid = $_GET['cid'];
 
                   <div class="col-md-12">
                     <p>
-                      Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden sie sich bitte unter <a href="" id="form_email_bottom_text" style="color:#267f00;"></a> direct an das Serviceteam.<br>
-                      <a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00;">www.bgw-bielfeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>
+                      Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden sie sich bitte unter <a href="" id="form_email_bottom_text" style="color:#267f00;"></a> direkt an das Serviceteam.<br>
+                      <a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00;">www.bgw-bielefeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>
                     </p>
                   </div>
 
@@ -701,7 +723,15 @@ $cid = $_GET['cid'];
                       + "&form_verfugbar_ab=" + $("#form_verfugbar_ab").text()
                       + "&teammail=" + $("#teammail_container").text()
                       + "&object_nr_email=" + $("#object_nr_email").text()
-                      + "&object_email_address=" + $("#details_page_map").text(),
+                      + "&object_email_address=" + $("#details_page_map").text()
+                      + "&form_title_verbrauch_bedarf=" + $("#form_title_verbrauch_bedarf").text()
+                      + "&form_value_verbrauch_bedarf=" + $("#form_value_verbrauch_bedarf").text()
+                      + "&form_title_energieverbrauchkennwert=" + $("#form_title_energieverbrauchkennwert").text()
+                      + "&form_value_energieverbrauchkennwert=" + $("#form_value_energieverbrauchkennwert").text()
+                      + "&form_title_object_primaerenergietraeger=" + $("#form_title_object_primaerenergietraeger").text()
+                      + "&form_value_object_primaerenergietraeger=" + $("#form_value_object_primaerenergietraeger").text()
+                      + "&form_title_warmwasser=" + $("#form_title_warmwasser").text()
+                      + "&form_value_warmwasser=" + $("#form_value_warmwasser").text(),
         						cache: false,
         						success: function (html) {
         							if (html==1) {
