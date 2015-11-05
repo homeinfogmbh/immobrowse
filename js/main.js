@@ -773,9 +773,7 @@ function homeinfo_immosearch_details(object_id) {
 
                   //KENBURNS///////////////////////////////////////////////////////////////////////////////
                   if (immosearch_array_details_object_img.length != 1) {
-                    immosearch_details_element += '<canvas id="mypic" class="kenburns" width="350" height="267">';
-              				immosearch_details_element += '<p>Your browser doesnt support canvas!</p>';
-              			immosearch_details_element += '</canvas>';
+                    immosearch_details_element += '<canvas id="mypic" class="kenburns" width="350" height="260"><p>Your browser doesnt support canvas!</p></canvas>';
 
                     immosearch_details_element += '<script>';
                     immosearch_details_element += '$(document).ready(function() {';
