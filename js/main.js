@@ -122,6 +122,16 @@ function validateEmail($email) {
 	}
 }
 
+function addCommas(n){
+  var rx=  /(\d+)(\d{3})/;
+  return String(n).replace(/^\d+/, function(w){
+      while(rx.test(w)){
+          w= w.replace(rx, '$1.$2');
+      }
+      return w;
+  });
+}
+
 //global vars for URL
 function filter() {
 
@@ -1017,7 +1027,7 @@ function homeinfo_immosearch_details(object_id) {
 
               immosearch_details_element += '<div class="col-md-6 col-sm-6 col-xs-12">';
 
-              immosearch_details_element += '<p id="list_text_style">PREISE & KOSTEN</p>';
+              immosearch_details_element += '<p id="list_text_style">PREISE UND KOSTEN</p>';
 
               immosearch_details_element += '<table width="320px;">';
 
@@ -1158,6 +1168,8 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_var_details_object_gesamtmiete_mix_value = JSON.stringify(immosearch_var_details_object_gesamtmiete_mix_value);//modify from object to string
               immosearch_var_details_object_gesamtmiete_mix_value = immosearch_var_details_object_gesamtmiete_mix_value.dot2comma();//replace dot with comma
               immosearch_var_details_object_gesamtmiete_mix_value = ifLastCharIsOnlyOneNull(immosearch_var_details_object_gesamtmiete_mix_value);
+              immosearch_var_details_object_gesamtmiete_mix_value = addCommas(immosearch_var_details_object_gesamtmiete_mix_value)
+
               //append the value
               if (typeof immosearch_var_details_object_gesamtmiete_mix_value != "undefined" && immosearch_var_details_object_gesamtmiete_mix_value) {
                 immosearch_details_element += '<tr>';
@@ -1184,7 +1196,7 @@ function homeinfo_immosearch_details(object_id) {
               if (typeof immosearch_array_object_details_kaution_val != "undefined" && immosearch_array_object_details_kaution_val) {
                 //immosearch_array_object_details_kaution_val = immosearch_array_object_details_kaution_val.dot2comma();
                 //immosearch_array_object_details_kaution_val = ifLastCharIsOnlyOneNull(immosearch_array_object_details_kaution_val);
-                if (immosearch_array_details_object_kaution[0] > 1000) {
+                if (immosearch_array_details_object_kaution[0] > 999) {
                   function numberCommaToDot(x) {
                       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                   }
@@ -1365,7 +1377,7 @@ function homeinfo_immosearch_details(object_id) {
                       immosearch_details_element += '<tr>';
                       immosearch_details_element += '<td>';
                       immosearch_details_element += '<strong>Endenergiebedarf</strong>';
-                      $("#form_title_verbrauch_bedarf").html('Endenergiebedarf');
+                      $("#form_title_energieverbrauchkennwert").html('Endenergiebedarf');
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '<td id="text_align_right">';
                       immosearch_details_element += details_energiepass_endenergiebedarf.dot2comma();
@@ -1377,10 +1389,11 @@ function homeinfo_immosearch_details(object_id) {
                       immosearch_details_element += '<tr>';
                       immosearch_details_element += '<td>';
                       immosearch_details_element += '<strong>Endenergiebedarf</strong>';
-                      $("#form_title_verbrauch_bedarf").html('Endenergiebedarf');
+                      $("#form_title_energieverbrauchkennwert").html('Endenergiebedarf');
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '<td id="text_align_right">';
                       immosearch_details_element += details_energiepass_endenergiebedarf.dot2comma() + ' kWh/(m&sup2;a)';
+                      $("#form_value_energieverbrauchkennwert").html(details_energiepass_endenergiebedarf.dot2comma() + ' kWh/(m&sup2;a)');
                       immosearch_details_element += '</td>';
                       immosearch_details_element += '</tr>';
                     }
@@ -1490,10 +1503,12 @@ function homeinfo_immosearch_details(object_id) {
                   //immosearch_details_element += '<input type="button" class="btn btn-default btn-xs" value="' + value + '" id="immo_small_icons" style="border-color:#f89406; color:#FFFFFF; background-color:#f89406; margin-top:3px; cursor:default;"><br>';
 
                   //check and replace
-                  if (value == ' BalkonAufzug') {
-                    immosearch_details_element += '<strong>Balkon Aufzug</strong><br>';
-                  } else if (value == ' IsolierverglasungAufzug') {
-                    immosearch_details_element += '<strong>Isolierverglasung Aufzug</strong><br>';
+                  if (value == " BalkonAufzug" || value == "BalkonAufzug") {
+                    immosearch_details_element += '<strong>Balkon</strong><br>';
+                  } else if (value == " IsolierverglasungAufzug" || value == "IsolierverglasungAufzug") {
+                    immosearch_details_element += '<strong>Isolierverglasung</strong><br>';
+                  } else if (value == " ParkettAufzug" || value == "ParkettAufzug") {
+                    immosearch_details_element += '<strong>Parkett</strong><br>';
                   } else {
                     immosearch_details_element += '<strong>' + value + '</strong><br>';
                   }

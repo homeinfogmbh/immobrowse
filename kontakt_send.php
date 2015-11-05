@@ -181,7 +181,7 @@ if ($cid == "993301") {//bgw-bielfeld 993301 cid
 }
 //$mailer->AltBody = "Vorname und Nachname:".$vorname." ".$nachname." E-mail: ".$email." Telephonummer: ".$telefon." Nachricht: ".$nachricht;
 $mailer->MsgHTML($html_content);
-$mailer->AddAddress($teammail);//change this bgw-bielefeld email
+$mailer->AddAddress($teammail);
 $mailer->addCC('vermietung@bgw-bielefeld.de');
 $mailer->addBCC($email);
 $mailer->SetFrom("automailer@homeinfo.de");//change this bgw-bielefeld email
