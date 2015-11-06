@@ -19,7 +19,7 @@ var immosearch_array_details_object_img = [];
 
 var sorting = "";
 //var include = "freitexte,attachments";
-var include = "freitexte";
+var include = "allatts,freitexte";
 //var attachments = "scaling:240x185,pictures:1";//on first load list (all objects in list)
 //var attachments = "scaling:350x267,pictures:1";//on first load list (all objects in list)
 var attachments = "";
@@ -440,7 +440,7 @@ function homeinfo_immosearch_details(object_id) {
 		//ajax immosearch
 		$.ajax({
 			//url: immosearch_url + "filter=openimmo_obid==" + object_id + "&include=freitexte,attachments&attachments=scaling:650x488,pictures:15,floorplans:15,documents:15",
-      url: immosearch_url + "filter=openimmo_obid==" + object_id + "&include=freitexte",
+      url: immosearch_url + "filter=openimmo_obid==" + object_id + "&include=allatts,freitexte",
 			crossDomain: true,
 			type: "GET",
 			dataType: "xml",
