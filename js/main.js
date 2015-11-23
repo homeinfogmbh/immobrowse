@@ -775,6 +775,11 @@ function homeinfo_immosearch_details(object_id) {
                   if (immosearch_array_details_object_img.length != 1) {
                     immosearch_details_element += '<canvas id="mypic" class="kenburns" width="350" height="260"><p>Your browser doesnt support canvas!</p></canvas>';
 
+                    //image to show only for print
+                    immosearch_details_element += '<div class="img_mask" id="print_img" style="display:none;">';
+                    immosearch_details_element += '<img src="' + immosearch_array_details_object_img[0] + '" class="portrait" />';
+                    immosearch_details_element += '</div>';
+
                     immosearch_details_element += '<script>';
                     immosearch_details_element += '$(document).ready(function() {';
                     immosearch_details_element += '$(".kenburns").kenburns({';
@@ -1541,7 +1546,8 @@ function homeinfo_immosearch_details(object_id) {
               immosearch_details_element += 'Tel.: ' + immosearch_var_details_kontakt__tel_zentrale + '<br>';
               immosearch_details_element += 'Fax.: ' + immosearch_var_details_kontakt__tel_fax + '<br>';
               //immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong id="teammail_container">' + immosearch_var_details_kontakt__email_zentrale + '</strong></a>';
-              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong id="teammail_container">Kontaktformular</strong></a>';
+              immosearch_details_element += '<a href="mailto:' + immosearch_var_details_kontakt__email_zentrale + '" style="color: #409e49;" data-toggle="modal" data-target="#contactFormModal"><strong>Kontaktformular</strong></a>';
+              immosearch_details_element += '<span id="teammail_container" style="display:none;">' + immosearch_var_details_kontakt__email_zentrale + '</span>';
 
               //form service team email
               $("#form_email_bottom_text").attr("href", "mailto:" + immosearch_var_details_kontakt__email_zentrale);
@@ -1829,8 +1835,20 @@ function homeinfo_immosearch_details(object_id) {
 							immosearch_details_element += '});';
 
               immosearch_details_element += '$("#details_page_print").click(function() {';
-                  immosearch_details_element += '$.print("#immo_data");';
+                  immosearch_details_element += 'setTimeout(function() {';
+                    immosearch_details_element += '$("canvas").hide();';
+                    immosearch_details_element += '$("#print_img").show();';
+                    immosearch_details_element += 'showCanvasAfterPrint();';
+                    immosearch_details_element += '$.print("#immo_data");';
+                  immosearch_details_element += '}, 1000);';
 							immosearch_details_element += '});';
+
+              immosearch_details_element += 'function showCanvasAfterPrint() {';
+                immosearch_details_element += 'setTimeout(function() {';
+                  immosearch_details_element += '$("canvas").show();';
+                  immosearch_details_element += '$("#print_img").hide();';
+                immosearch_details_element += '}, 3000);';
+              immosearch_details_element += '}';
 
 							immosearch_details_element += '});';
 							immosearch_details_element += '<\/script>';
@@ -2388,8 +2406,8 @@ function homeinfo_immosearch_global() {
             if (typeof list_address_number == "undefined") {
               list_address_number = "";
             }
-            if (typeof list_address_number == "undefined") {
-              list_address_number = "";
+            if (typeof list_ort_without_plz == "undefined") {
+              list_ort_without_plz = "";
             }
 
             immosearch_element += '<p><strong id="list_title_style">' + immosearch_array_object_zimmer___display_value + immosearch_array_object_address___display_value + ' ' + list_ort + ' ' + list_ortsteil + '</strong></p>';
