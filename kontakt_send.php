@@ -43,7 +43,6 @@ $form_verfugbar_ab = $_POST['form_verfugbar_ab'];
 $teammail = $_POST['teammail'];
 $object_nr_email = $_POST['object_nr_email'];
 $object_email_address = $_POST['object_email_address'];
-
 $form_title_verbrauch_bedarf = $_POST['form_title_verbrauch_bedarf'];
 $form_value_verbrauch_bedarf = $_POST['form_value_verbrauch_bedarf'];
 $form_title_energieverbrauchkennwert = $_POST['form_title_energieverbrauchkennwert'];
@@ -53,21 +52,14 @@ $form_value_object_primaerenergietraeger = $_POST['form_value_object_primaerener
 $form_title_warmwasser = $_POST['form_title_warmwasser'];
 $form_value_warmwasser = $_POST['form_value_warmwasser'];
 
-//get the team number
-$service_team_number = $teammail[4];
+$service_team_number = $teammail[4];//get the team number
 
 $html_content = '<!doctype html>';
 $html_content .= '<html>';
 $html_content .= '<head>';
 $html_content .= '<meta charset="utf-8">';
 $html_content .= '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">';
-
-if ($cid == "993301") {//bgw-bielfeld 993301 cid
-  $html_content .= '<title>BGW-Bielfeld kontakt formular</title>';
-} else {//else give Immobrowse title
-  $html_content .= '<title>Immobrowse kontakt formular</title>';
-}
-
+$html_content .= '<title>BGW-Bielfeld kontakt formular</title>';
 $html_content .= '</head>';
 $html_content .= '<body style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">';
 //////////////////////////////////////////////////
@@ -75,17 +67,9 @@ $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Anfra
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">ServiceTeam '.$service_team_number.'<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Bielefelder Gemeinnützige<br></span>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Wohnungsgesellschaft mbH<br><br></span>';
-if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $html_content .= '<img src="https://tls.homeinfo.de/immobrowse/img/customers_logos/'.$cid.'.png"><br><br>';
-} else {//else give Immobrowse logo or Homeinfo logo
-    $html_content .= '<br><br>';
-}
+$html_content .= '<img src="https://tls.homeinfo.de/immobrowse/img/customers_logos/'.$cid.'.png"><br><br>';
 $html_content .= '<hr style="background-color: #eee; border: 0 none; color: #eee; height: 1px;">';
-if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $html_content .= '<p style="font-family: Arial, Helvetica, sans-serif;">Sie haben auf BGW-Bielefeld am '.$date.' eine Anfrage zu folgendem Objekt gestellt:<br></p><br>';
-} else {//else give Immobrowse logo or Homeinfo logo
-    $html_content .= '<p style="font-family: Arial, Helvetica, sans-serif;">Sie haben auf Homeinfo am '.$date.' eine Anfrage zu folgendem Objekt gestellt:<br></p><br>';
-}
+$html_content .= '<p style="font-family: Arial, Helvetica, sans-serif;">Sie haben auf BGW-Bielefeld am '.$date.' eine Anfrage zu folgendem Objekt gestellt:<br></p><br>';
 $html_content .= '<img src="'.$image.'"><br>';
 $html_content .= '<br><br><strong style="font-family: Arial, Helvetica, sans-serif;">'.$object_title.'</strong><br>';
 $html_content .= '<table style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">';
@@ -146,12 +130,7 @@ $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;"><stro
 $html_content .= '<br><br>';
 $html_content .= '<span style="font-family: Arial, Helvetica, sans-serif;">Dies ist eine automatisch generierte Nachricht, bitte antworten Sie nicht an diese E-Mail-Adresse.<br>
 Sollten Sie weitere Fragen zu dieser Wohnung haben, wenden Sie sich bitte unter '.$teammail.' direkt an das Serviceteam.<br><br></span>';
-
-if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $html_content .= '<a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00; font-family: Arial, Helvetica, sans-serif;">www.bgw-bielefeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>';
-} else {//homeinfo
-    $html_content .= '<a href="https://www.homeinfo.de" target="_blank" style="color:#267f00; font-family: Arial, Helvetica, sans-serif;">www.homeinfo.de</a> | <a href="https://www.homeinfo.de/#impressum" target="_blank" style="color:#267f00;">Impressum</a>';
-}
+$html_content .= '<a href="http://www.bgw-bielefeld.de" target="_blank" style="color:#267f00; font-family: Arial, Helvetica, sans-serif;">www.bgw-bielefeld.de</a> | <a href="http://www.bgw-bielefeld.de/impressum.html" target="_blank" style="color:#267f00;">Impressum</a>';
 $html_content .= '<hr style="background-color: #eee; border: 0 none; color: #eee; height: 1px;">';
 $html_content .= '<i class="fa fa-check fa-3x" style="color:#a4be04;"></i> <h3 style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>';
 //////////////////////////////////////////////////
@@ -167,29 +146,20 @@ $mailer->SMTPSecure = "ssl";
 $mailer->Host = "mail2.homeinfo.de";//change this bgw-bielefeld email
 $mailer->Port = 465;
 $mailer->Username = "web0p22";
-
 // enables SMTP debug information (for testing)
 // 1 = errors and messages
 // 2 = messages only
 //$mailer->SMTPDebug  = 1;
-
 $mailer->Password = "d9MX1226mSWH";
-if ($cid == "993301") {//bgw-bielfeld 993301 cid
-    $mailer->Subject = "Anfrage für Ihr Objekt ".$object_nr_email." von bgw-bielefeld.de ".$object_email_address;
-} else {//homeinfo
-    $mailer->Subject = "Anfrage für Ihr Objekt ".$object_nr_email." von bgw-bielefeld.de ".$object_email_address;
-}
+$mailer->Subject = "Anfrage für Ihr Objekt ".$object_nr_email." von bgw-bielefeld.de ".$object_email_address;
 //$mailer->AltBody = "Vorname und Nachname:".$vorname." ".$nachname." E-mail: ".$email." Telephonummer: ".$telefon." Nachricht: ".$nachricht;
 $mailer->MsgHTML($html_content);
 $mailer->AddAddress($teammail);
 $mailer->addCC('vermietung@bgw-bielefeld.de');
 $mailer->addBCC($email);
 $mailer->SetFrom("automailer@homeinfo.de");//change this bgw-bielefeld email
-
-//check if some fields are empty
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {//check if some fields are empty
   if (!empty($vorname) && !empty($nachname) && !empty($email)) {
-
   	//send the message, check for errors
   	if(!$mailer->Send()) {
   		//echo "Mailer Error: ".$mailer->ErrorInfo;
@@ -198,7 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   		//echo "Message sent!";
   		echo '1';
   	}
-
   }
 }
 ?>

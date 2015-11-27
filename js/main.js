@@ -772,6 +772,12 @@ function homeinfo_immosearch_details(object_id) {
                   //immosearch_details_element += '<img class="img-thumbnail" id="mypic" src="' + immosearch_array_details_object_img[0] + '" width="350" height="267" style="z-index:98;">';
 
                   //KENBURNS///////////////////////////////////////////////////////////////////////////////
+
+                  //add the same pic one more time for the Kenburns effect
+                  if (immosearch_array_details_object_img.length == 1) {
+        						immosearch_array_details_object_img.push(immosearch_array_details_object_img[0])
+        					}
+
                   if (immosearch_array_details_object_img.length != 1) {
                     immosearch_details_element += '<canvas id="mypic" class="kenburns" width="350" height="260"><p>Your browser doesnt support canvas!</p></canvas>';
 
@@ -838,6 +844,9 @@ function homeinfo_immosearch_details(object_id) {
               } else {
                 immosearch_details_element += '<img id="mypic" src="' + immosearch_array_details_object_img[0] + '" width="350" height="267" style="z-index:98;">';
               }
+
+              //remove the duplicate that was added for the Kenburns effect
+              immosearch_array_details_object_img.pop();
 
               immosearch_details_element += '<div class="caption" style="margin-top:10px;">';
                   immosearch_details_element += '<table>';
