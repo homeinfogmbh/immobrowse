@@ -673,7 +673,7 @@ $cid = $_GET['cid'];
         		if (vdata.length == 0) {//check for re-captcha
         			swal({
         				title: "Achtung!",
-        				text: "Bitte füllen Ich bin kein Roboter!",
+        				text: "Bitte das Feld „Ich bin kein Roboter“ markieren.",
         				type: "warning"
         			});
         		} else {//re-captcha ok send the form
