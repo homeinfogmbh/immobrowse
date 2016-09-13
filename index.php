@@ -47,7 +47,7 @@ $cid = $_GET['cid'];
 
         <script>
           //global customer id
-          var immosearch_customer_id = "<? echo $cid; ?>";//993301 BGW - Bielefeld
+          var cid = "<? echo $cid; ?>";//993301 BGW - Bielefeld
         </script>
         <script src="js/main.js"></script><!-- custom javascript -->
     </head>
