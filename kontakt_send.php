@@ -1,22 +1,6 @@
 <?
 date_default_timezone_set('Europe/Berlin');//send the mail using the class
-//include "inc/PHPMailer/PHPMailerAutoload.php";
-require_once("inc/PHPMailer/class.phpmailer.php");
-require_once("inc/PHPMailer/class.smtp.php");
-
-class InsecurePHPMailer extends PHPMailer {
-    public function smtpConnect($options = array()) {
-        // Override options
-        $options = array(
-            'ssl' => array(
-                'verify_peer' => true,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-        return parent::smtpConnect($options);
-    }
-}
+require_once("/usr/local/lib/php5/HIMailer/class.himailer.php");
 
 $vorname = $_POST['vorname'];
 $nachname = $_POST['nachname'];
