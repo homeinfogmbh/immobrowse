@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<head>
+    <script src="immobrowse.js"></script>
+    <script>
+        var geo = new immobrowse.Geo('Am Alten Forsthaus', 4, '44225', 'Dortmund', 'Hombruch');
+        var marketing = new immobrowse.Marketing(false, true);
+        var titleImage = new immobrowse.TitleImage('https://tls.homeinfo.de/immosearch/attachment/2776312');
+        console.log('test: ' + test);
+        console.log('url: ' + test.url);
+        console.log('img: ' + test.img());
+        console.log('html: ' + test.html());
+    </script>
+</head>
+<body>
+</body>
