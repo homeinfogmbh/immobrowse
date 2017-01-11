@@ -1,4 +1,5 @@
-/*  ImmoBrowse main JavaScript libarary
+/*
+    immobrowse.js - ImmoBrowse main JavaScript library
 
     (C) 2015 HOMEINFO - Digitale Informationssysteme GmbH
 
@@ -14,31 +15,32 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
 */
 
 
 var immobrowse = immobrowse || {};
 
 
-immobrowse.entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    "'": '&#39;',
-    "/": '&#x2F;',
-    "ä": '&auml;',
-    "ö": '&#ouml;',
-    "ü": '&#uuml;',
-    "Ä": '&#Auml;',
-    "Ö": '&#Ouml;',
-    "Ü": '&#Uuml;',
-    "ß": '&#szlig;'
-};
-
 immobrowse.escapeHtml = function (string) {
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;',
+        "ä": '&auml;',
+        "ö": '&#ouml;',
+        "ü": '&#uuml;',
+        "Ä": '&#Auml;',
+        "Ö": '&#Ouml;',
+        "Ü": '&#Uuml;',
+        "ß": '&#szlig;'
+    };
     return String(string).replace(/[&<>"'\/äöüÄÖÜß]/g, function (s) {
-        return immobrowse.entityMap[s];
+        return entityMap[s];
     });
 }
 
