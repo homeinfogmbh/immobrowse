@@ -1,44 +1,55 @@
+/*  ImmoBrowse main JavaScript libarary
 
-<div class="row panel-body">
-    <div class="col-md-3">
-        <div class="img_mask img-responsive img-thumbnail">
-            <img src="https://tls.homeinfo.de/immosearch/attachment/2776312" class="portrait" id="immosearch_image" width="300" height="201">
-        </div>
-    </div>
-    <div class="col-md-9">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <h4><strong>2 Zimmer Wohnung | Am Alten Forsthaus 4 |  Dortmund Hombruch</strong></h4>
-            <small>Wohnung zur Miete</small>
-        </div>
-        <div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
-            <div class="col-md-4">
-                <h4><strong>300,37 €</strong></h4>
-                <small>Miete zzgl. NK</small>
-            </div>
-            <div class="col-md-4">
-                <h4><strong>50,7 m²</strong></h4>
-                <small>Wohnfläche</small>
-            </div>
-            <div class="col-md-4">
-                <h4><strong>2</strong></h4>
-                <small>Zimmer</small>
-            </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;">
-        </div>
-    </div>
-</div>
+    (C) 2015 HOMEINFO - Digitale Informationssysteme GmbH
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 
 var immobrowse = immobrowse || {};
 
 
-immobrowse.euroHtml = function (price) {
-    return (price.toFixed(2) + ' €').replace(/./g, ',');
+immobrowse.entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;',
+    "ä": '&auml;',
+    "ö": '&#ouml;',
+    "ü": '&#uuml;',
+    "Ä": '&#Auml;',
+    "Ö": '&#Ouml;',
+    "Ü": '&#Uuml;',
+    "ß": '&#szlig;'
+};
+
+immobrowse.escapeHtml = function (string) {
+    return String(string).replace(/[&<>"'\/äöüÄÖÜß]/g, function (s) {
+        return immobrowse.entityMap[s];
+    });
 }
 
+
+immobrowse.euroHtml = function (price) {
+    return (price.toFixed(2) + ' &#8364;').replace('.',',');
+}
+
+
 immobrowse.squareMetersHtml = function (area) {
-    return (area.toFixed(2) + ' m²').replace(/./g, ',');
+    return (area.toFixed(2) + ' m&#178;').replace('.', ',');
 }
 
 
@@ -59,6 +70,11 @@ immobrowse.Geo = function (street, houseNumber, city, zipCode, district) {
     this.city = city;
     this.zipCode = zipCode;
     this.district = district;
+}
+
+
+immobrowse.Geo.dummy = function () {
+    return new immobrowse.Geo('Am Alten Forsthaus', 4, '44225', 'Dortmund', 'Hombruch');
 }
 
 
@@ -85,30 +101,39 @@ immobrowse.Prices = function (coldRentNet, coldRent, warmRent, serviceCharge, op
 }
 
 
-immobrowse.RentalFlat = function (id, geo, areas, marketing, prices) {
+immobrowse.Attachment = function(title, group, mimeType, url) {
+    this.title = title;
+    this.group = group;
+    this.mimeType = mimeType;
+    this.url = url;
+}
+
+
+immobrowse.RentalFlat = function (id, geo, areas, prices, attachments) {
     this.id = id;
     this.geo = geo;
     this.areas = areas;
-    this.marketing = marketing;
     this.prices = prices;
+    this.attachments = attachments || [];
 
     this.titleImage = function () {
-        for (anhang of this.anhaenge()) {
-            if (anhang.gruppe == 'TITELBILD') {
-                return new TitleImage(anhang.daten.pfad);
+        for (attachment of this.attachments) {
+            if (attachment.group == 'TITELBILD') {
+                return new immobrowse.TitleImage(attachment.url);
             }
         }
 
         // Fall back on any attachment
-        for (anhang of this.anhaenge()) {
-            return new TitleImage(anhang.daten.pfad);
+        for (attachment of this.attachments) {
+            return new immobrowse.TitleImage(attachment.url);
         }
     }
 
     this.htmlPreview = function () {
         var html = '<div class="row panel-body">';
         html += this.titleImage().html();
-        html += '<div class="col-md-9"><div class="col-md-12 col-sm-12 col-xs-12"><h4><strong>';
+        html += '<div class="col-md-9">';
+        html += '<div class="col-md-12 col-sm-12 col-xs-12">';
         html += '<h4><strong>';
         html += this.areas.rooms;
         html += ' Zimmer Wohnung | ';
@@ -119,43 +144,38 @@ immobrowse.RentalFlat = function (id, geo, areas, marketing, prices) {
         html += this.geo.city;
         html += ' ';
         html += this.geo.district;
-        html += '</strong></h4><small>';
+        html += '</strong></h4>';
+        html += '<small>';
         html += 'Wohnung zur Miete';
-        html += '</small><div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;"><div class="col-md-4"><h4><strong>';
-        html += immobrowse.euroHtml(this.preise.coldRentNet);
-        html += '</strong></h4><small>';
+        html += '</small>';
+        html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
+        html +='<div class="col-md-4">';
+        html += '<h4><strong>';
+        html += immobrowse.euroHtml(this.prices.coldRentNet);
+        html += '</strong></h4>';
+        html += '<small>';
         html += 'Miete zzgl. NK';
-        html += '</small></div><div class="col-md-4"><h4><strong>';
+        html += '</small>';
+        html += '</div><div class="col-md-4">';
+        html += '<h4><strong>';
         html += immobrowse.squareMetersHtml(this.areas.livingArea);
-        html += '</strong></h4><small>';
-        html += 'Wohnfläche';
-        html += '</small></div><div class="col-md-4"><h4><strong>';
-        html += this.areas.zimmer;
-        html += '</strong></h4><small>';
+        html += '</strong></h4>';
+        html += '<small>';
+        html += 'Wohnfl&auml;che';
+        html += '</small>';
+        html += '</div>';
+        html += '<div class="col-md-4">';
+        html += '<h4><strong>';
+        html += this.areas.rooms;
+        html += '</strong></h4>';
+        html += '<small>';
         html += 'Zimmer';
-        html += '</small></div></div><div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;"></div></div></div>';
+        html += '</small>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;"></div>';
+        html += '</div>';
+        html += '</div>';
         return html;
     }
 }
-
-
-function list_real_estates(real_estates) {
-    var table = '<table>';
-
-    for (real_estate of real_estates) {
-        var row = '<tr><td>';
-
-        if (real_estate.anhaenge !== null) {
-            row += '<img src="' + real_estate.anhaenge.anhang[0].daten.pfad + '" alt="titelbild" width="200"/>';
-        }
-
-        row += '</td>';
-        row += '<td>' + real_estate.freitexte.objekttitel + '</td>';
-        row += '</tr>';
-        table += row;
-    }
-
-    table += '</table>';
-    return table;
-}
-

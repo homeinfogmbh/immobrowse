@@ -1,15 +1,26 @@
 <!DOCTYPE HTML>
 <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="immobrowse.js"></script>
     <script>
-        var geo = new immobrowse.Geo('Am Alten Forsthaus', 4, '44225', 'Dortmund', 'Hombruch');
-        var marketing = new immobrowse.Marketing(false, true);
-        var titleImage = new immobrowse.TitleImage('https://tls.homeinfo.de/immosearch/attachment/2776312');
-        console.log('test: ' + test);
-        console.log('url: ' + test.url);
-        console.log('img: ' + test.img());
-        console.log('html: ' + test.html());
+        $( document ).ready(function() {
+            var areas = new immobrowse.Areas(2, 45,23);
+            var prices = new immobrowse.Prices(650.15, 400.00, 700.25, 200.15, null, 45.85, false);
+            var attachment = new immobrowse.Attachment('Title', 'TITELBILD', 'image/jpeg', 'https://tls.homeinfo.de/immosearch/attachment/2776312');
+            var rentalFlat = new immobrowse.RentalFlat('re-123p2', immobrowse.Geo.dummy(), areas, prices, [attachment]);
+            console.log('rentalFlat: ' + rentalFlat);
+            document.getElementsByTagName("body")[0].innerHTML = rentalFlat.htmlPreview();
+        });
     </script>
 </head>
 <body>
+Hello world.
 </body>
