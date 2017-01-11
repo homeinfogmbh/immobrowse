@@ -66,118 +66,52 @@ immobrowse.TitleImage = function (url) {
 }
 
 
-immobrowse.Geo = function (street, houseNumber, city, zipCode, district) {
-    this.street = street;
-    this.houseNumber = houseNumber;
-    this.city = city;
-    this.zipCode = zipCode;
-    this.district = district;
-}
-
-
-immobrowse.Geo.dummy = function () {
-    return new immobrowse.Geo('Am Alten Forsthaus', 4, '44225', 'Dortmund', 'Hombruch');
-}
-
-
-immobrowse.Areas = function (rooms, livingArea) {
-    this.rooms = rooms;
-    this.livingArea = livingArea;
-}
-
-
-immobrowse.Marketing = function (sale, rent) {
-    this.sale = sale;
-    this.rent = rent;
-}
-
-
-immobrowse.Prices = function (coldRentNet, coldRent, warmRent, serviceCharge, operationalCharge, heatingCost, heatingCostInServiceCharge) {
-    this.coldRentNet = coldRentNet;
-    this.coldRent = coldRent;
-    this.warmRent = warmRent;
-    this.serviceCharge = serviceCharge;
-    this.operationalCharge = operationalCharge;
-    this.heatingCost = heatingCost;
-    this.heatingCostInServiceCharge = heatingCostInServiceCharge;
-}
-
-
-immobrowse.Attachment = function(title, group, mimeType, url) {
-    this.title = title;
-    this.group = group;
-    this.mimeType = mimeType;
-    this.url = url;
-}
-
-
-immobrowse.RentalFlat = function (id, geo, areas, prices, attachments) {
-    this.id = id;
-    this.geo = geo;
-    this.areas = areas;
-    this.prices = prices;
-    this.attachments = attachments || [];
-
-    this.titleImage = function () {
-        for (attachment of this.attachments) {
-            if (attachment.group == 'TITELBILD') {
-                return new immobrowse.TitleImage(attachment.url);
-            }
-        }
-
-        // Fall back on any attachment
-        for (attachment of this.attachments) {
-            return new immobrowse.TitleImage(attachment.url);
-        }
-    }
-
-    this.htmlPreview = function () {
-        var html = '<div class="row panel-body">';
-        html += this.titleImage().html();
-        html += '<div class="col-md-9">';
-        html += '<div class="col-md-12 col-sm-12 col-xs-12">';
-        html += '<h4><strong>';
-        html += this.areas.rooms;
-        html += ' Zimmer Wohnung | ';
-        html += this.geo.street;
-        html += ' ';
-        html += this.geo.houseNumber;
-        html += ' | ';
-        html += this.geo.city;
-        html += ' ';
-        html += this.geo.district;
-        html += '</strong></h4>';
-        html += '<small>';
-        html += 'Wohnung zur Miete';
-        html += '</small>';
-        html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
-        html +='<div class="col-md-4">';
-        html += '<h4><strong>';
-        html += immobrowse.euroHtml(this.prices.coldRentNet);
-        html += '</strong></h4>';
-        html += '<small>';
-        html += 'Miete zzgl. NK';
-        html += '</small>';
-        html += '</div><div class="col-md-4">';
-        html += '<h4><strong>';
-        html += immobrowse.squareMetersHtml(this.areas.livingArea);
-        html += '</strong></h4>';
-        html += '<small>';
-        html += 'Wohnfl&auml;che';
-        html += '</small>';
-        html += '</div>';
-        html += '<div class="col-md-4">';
-        html += '<h4><strong>';
-        html += this.areas.rooms;
-        html += '</strong></h4>';
-        html += '<small>';
-        html += 'Zimmer';
-        html += '</small>';
-        html += '</div>';
-        html += '</div>';
-        html += '<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;"></div>';
-        html += '</div>';
-        html += '</div>';
-        return html;
-    }
+immobrowse.preview = function (immobilie) {
+    var html = '<div class="row panel-body">';
+    html += new immobrowse.TitleImage('https://tls.homeinfo.de/immosearch/attachment/2776312').html();
+    html += '<div class="col-md-9">';
+    html += '<div class="col-md-12 col-sm-12 col-xs-12">';
+    html += '<h4><strong>';
+    html += 2;
+    html += ' Zimmer Wohnung | ';
+    html += immobilie.geo.strasse;
+    html += ' ';
+    html += immobilie.geo.hausnummer;
+    html += ' | ';
+    html += immobilie.geo.stadt;
+    html += ' ';
+    html += immobilie.geo.regionaler_zusatz;
+    html += '</strong></h4>';
+    html += '<small>';
+    html += 'Wohnung zur Miete';
+    html += '</small>';
+    html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
+    html +='<div class="col-md-4">';
+    html += '<h4><strong>';
+    html += immobrowse.euroHtml(123.12);
+    html += '</strong></h4>';
+    html += '<small>';
+    html += 'Miete zzgl. NK';
+    html += '</small>';
+    html += '</div><div class="col-md-4">';
+    html += '<h4><strong>';
+    html += immobrowse.squareMetersHtml(20.0);
+    html += '</strong></h4>';
+    html += '<small>';
+    html += 'Wohnfl&auml;che';
+    html += '</small>';
+    html += '</div>';
+    html += '<div class="col-md-4">';
+    html += '<h4><strong>';
+    html += 2;
+    html += '</strong></h4>';
+    html += '<small>';
+    html += 'Zimmer';
+    html += '</small>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;"></div>';
+    html += '</div>';
+    html += '</div>';
+    return html;
 }
