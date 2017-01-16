@@ -289,12 +289,10 @@ immobrowse.compareNullLast = function (alice, bob, descending) {
         if (bob == null) {
             return 0;
         } else {
-            //return bob;
             return Infinity;
         }
     } else {
         if (bob == null) {
-            //return -1 * alice;
             return -Infinity;
         } else {
             if (descending) {
