@@ -24,18 +24,10 @@
                 }
             });
         }
-        /*
-        var areas = new immobrowse.Areas(2, 45,23);
-        var prices = new immobrowse.Prices(650.15, 400.00, 700.25, 200.15, null, 45.85, false);
-        var attachment = new immobrowse.Attachment('Title', 'TITELBILD', 'image/jpeg', 'https://tls.homeinfo.de/immosearch/attachment/2776312');
-        var rentalFlat = new immobrowse.RentalFlat('re-123p2', immobrowse.Geo.dummy(), areas, prices, [attachment]);
-        console.log('rentalFlat: ' + JSON.stringify(rentalFlat));
-        document.getElementsByTagName("body")[0].innerHTML = rentalFlat.htmlPreview();
-        */
     </script>
 </head>
 <body>
-Session token: <input id="session"/><br/>
-<button id="query" onclick="getRealEstates()">Run</button>
-<div id="container">Real estates go here.</div>
+    Session token: <input id="session"/><br/>
+    <button id="query" onclick="getRealEstates()">Run</button>
+    <div id="container">Real estates go here.</div>
 </body>

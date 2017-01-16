@@ -1,7 +1,7 @@
 /*
     immobrowse.js - ImmoBrowse main JavaScript library
 
-    (C) 2015 HOMEINFO - Digitale Informationssysteme GmbH
+    (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ immobrowse.preview = function (immobilie) {
     html += '<div class="col-md-9">';
     html += '<div class="col-md-12 col-sm-12 col-xs-12">';
     html += '<h4><strong>';
-    html += 2;
+    html += immobilie.flaechen.anzahl_zimmer;
     html += ' Zimmer Wohnung | ';
     html += immobilie.geo.strasse;
     html += ' ';
@@ -88,14 +88,14 @@ immobrowse.preview = function (immobilie) {
     html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
     html +='<div class="col-md-4">';
     html += '<h4><strong>';
-    html += immobrowse.euroHtml(123.12);
+    html += immobrowse.euroHtml(immobilie.preise.nettokaltmiete);
     html += '</strong></h4>';
     html += '<small>';
     html += 'Miete zzgl. NK';
     html += '</small>';
     html += '</div><div class="col-md-4">';
     html += '<h4><strong>';
-    html += immobrowse.squareMetersHtml(20.0);
+    html += immobrowse.squareMetersHtml(immobilie.flaechen.wohnflaeche);
     html += '</strong></h4>';
     html += '<small>';
     html += 'Wohnfl&auml;che';
