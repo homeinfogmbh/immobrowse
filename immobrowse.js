@@ -46,12 +46,29 @@ immobrowse.escapeHtml = function (string) {
 
 
 immobrowse.euroHtml = function (price) {
-    return (price.toFixed(2) + ' &#8364;').replace('.',',');
+    if (price == null) {
+        return 'N/A';
+    } else {
+        return (price.toFixed(2) + ' &#8364;').replace('.',',');
+    }
 }
 
 
 immobrowse.squareMetersHtml = function (area) {
-    return (area.toFixed(2) + ' m&#178;').replace('.', ',');
+    if (area == null) {
+        return 'N/A';
+    } else {
+        return (area.toFixed(2) + ' m&#178;').replace('.', ',');
+    }
+}
+
+
+immobrowse.checkUndefined = function (variable) {
+    if (variable == null) {
+        return 'N/A';
+    } else {
+        return variable;
+    }
 }
 
 
@@ -66,21 +83,55 @@ immobrowse.TitleImage = function (url) {
 }
 
 
+immobrowse.address2html = function (geo) {
+    if (geo == null) {
+        return 'N/A';
+    } else {
+        if (geo.strasse == null) {
+            return 'N/A';
+        } else {
+            if (geo.hausnummer == null) {
+                return immobilie.geo.strasse;
+            } else {
+                return immobilie.geo.strasse + ' ' + immobilie.geo.hausnummer;
+            }
+        }
+    }
+}
+
+
+immobrowse.city2html = function (geo) {
+    if (geo == null) {
+        return 'N/A';
+    } else {
+        if (geo.ort == null) {
+            return 'N/A';
+        } else {
+            if (geo.regionaler_zusatz == null) {
+                return immobilie.geo.ort;
+            } else {
+                return immobilie.geo.ort + ' ' + immobilie.geo.regionaler_zusatz;
+            }
+        }
+    }
+}
+
+
 immobrowse.preview = function (immobilie) {
     var html = '<div class="row panel-body">';
     html += new immobrowse.TitleImage('https://tls.homeinfo.de/immosearch/attachment/2776312').html();
     html += '<div class="col-md-9">';
     html += '<div class="col-md-12 col-sm-12 col-xs-12">';
     html += '<h4><strong>';
-    html += immobilie.flaechen.anzahl_zimmer;
+    if (immobilie.flaechen == null) {
+        html += 'N/A';
+    } else {
+      html += immobrowse.checkUndefined(immobilie.flaechen.anzahl_zimmer);
+    }
     html += ' Zimmer Wohnung | ';
-    html += immobilie.geo.strasse;
-    html += ' ';
-    html += immobilie.geo.hausnummer;
+    html += immobrowse.address2html(immobilie.geo);
     html += ' | ';
-    html += immobilie.geo.stadt;
-    html += ' ';
-    html += immobilie.geo.regionaler_zusatz;
+    html += immobrowse.city2html(immobilie.geo);
     html += '</strong></h4>';
     html += '<small>';
     html += 'Wohnung zur Miete';
@@ -88,14 +139,22 @@ immobrowse.preview = function (immobilie) {
     html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
     html +='<div class="col-md-4">';
     html += '<h4><strong>';
-    html += immobrowse.euroHtml(immobilie.preise.nettokaltmiete);
+    if (immobilie.preise == null) {
+        html += 'N/A';
+    } else {
+        html += immobrowse.euroHtml(immobilie.preise.nettokaltmiete);
+    }
     html += '</strong></h4>';
     html += '<small>';
     html += 'Miete zzgl. NK';
     html += '</small>';
     html += '</div><div class="col-md-4">';
     html += '<h4><strong>';
-    html += immobrowse.squareMetersHtml(immobilie.flaechen.wohnflaeche);
+    if (immobilie.flaechen == null) {
+        html += 'N/A';
+    } else {
+        html += immobrowse.squareMetersHtml(immobilie.flaechen.wohnflaeche);
+    }
     html += '</strong></h4>';
     html += '<small>';
     html += 'Wohnfl&auml;che';

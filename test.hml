@@ -17,10 +17,13 @@
             $.ajax({
                 url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
                 success: function(json) {
+                    html = '';
+
                     for (immobilie of json.immobilie) {
-                        document.getElementById('container').innerHTML = immobrowse.preview(immobilie);
-                        break;
+                        html += immobrowse.preview(immobilie);
                     }
+
+                    document.getElementById('container').innerHTML = html + '<br/>';
                 }
             });
         }
