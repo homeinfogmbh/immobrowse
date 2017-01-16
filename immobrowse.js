@@ -91,9 +91,9 @@ immobrowse.address2html = function (geo) {
             return 'N/A';
         } else {
             if (geo.hausnummer == null) {
-                return immobilie.geo.strasse;
+                return geo.strasse;
             } else {
-                return immobilie.geo.strasse + ' ' + immobilie.geo.hausnummer;
+                return geo.strasse + ' ' + geo.hausnummer;
             }
         }
     }
@@ -108,12 +108,12 @@ immobrowse.city2html = function (geo) {
             return 'N/A';
         } else {
             if (geo.regionaler_zusatz == null) {
-                return immobilie.geo.ort;
+                return geo.ort;
             } else {
                 if (geo.regionaler_zusatz == geo.ort) {
-                    return immobilie.geo.ort;
+                    return geo.ort;
                 } else {
-                    return immobilie.geo.ort + ' ' + immobilie.geo.regionaler_zusatz;
+                    return geo.ort + ' ' + geo.regionaler_zusatz;
                 }
             }
         }
