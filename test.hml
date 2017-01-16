@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <head>
+    <link rel="stylesheet" href="stylesheet.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -13,32 +14,16 @@
     <script>
         var realEstates = [];
 
-        function getRealEstates() {
-            var session = document.getElementById('session').value;
 
-            $.ajax({
-                url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
-                success: function(json) {
-                    realEstates = json.immobilie;
-                }
-            });
+        function startLoading() {
+            var loader = document.getElementById('loader');
+            loader.style.display = 'block';
         }
 
 
-        function test() {
-            var x = null;
-            console.log(x.foo);
-        }
-
-
-        function printPreviews() {
-            var html = '<table>';
-
-            for (realEstate of realEstates) {
-                html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
-            }
-
-            document.getElementById('container').innerHTML = html + '</table>';
+        function stopLoading() {
+            var loader = document.getElementById('loader');
+            loader.style.display = 'none';
         }
 
 
@@ -60,6 +45,38 @@
         function sortByAreaDesc() {
             realEstates = realEstates.sort(immobrowse.sortByArea(true));
         }
+
+
+        function printPreviews() {
+            var html = '<table>';
+
+            for (realEstate of realEstates) {
+                html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
+            }
+
+            document.getElementById('container').innerHTML = html + '</table>';
+        }
+
+
+        function getRealEstates() {
+            var session = document.getElementById('session').value;
+            startLoading();
+
+            $.ajax({
+                url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
+                success: function(json) {
+                    realEstates = json.immobilie;
+                    stopLoading();
+                    printPreviews();
+                }
+            });
+        }
+
+
+        function test() {
+            var x = null;
+            console.log(x.foo);
+        }
     </script>
 </head>
 <body>
@@ -76,4 +93,5 @@
     <br/>
     <button id="test" onclick="test()">Test</button>
     <div id="container">Real estates go here.</div>
+    <div id="loader" class="loader"></div>
 </body>

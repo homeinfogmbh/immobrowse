@@ -160,10 +160,125 @@ immobrowse.coldRent = function (immobilie) {
         if (immobilie.preise.kaltmiete == null) {
             return null;
         } else {
-            return immobilie.preise.nettokaltmiete;
+            return immobilie.preise.kaltmiete;
         }
     }
 }
+
+
+immobrowse.cableSatTv = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return null;
+    } else {
+        return immobilie.ausstattung.kabel_sat_tv;
+    }
+}
+
+
+immobrowse.builtInKitchen = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return false;
+    } else {
+        if (immobilie.ausstattung.kueche == null) {
+            return false;
+        } else {
+            return immobilie.ausstattung.kueche.EBK;
+        }
+    }
+}
+
+
+immobrowse.basementRoom = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return null;
+    } else {
+        return immobilie.ausstattung.unterkellert == 'JA';
+    }
+}
+
+
+immobrowse.balconies = function (immobilie) {
+    if (immobilie.flaechen == null) {
+        return 0;
+    } else {
+        if (immobilie.flaechen.anzahl_balkone == null) {
+            return 0;
+        } else {
+            return immobilie.flaechen.anzahl_balkone;
+        }
+    }
+}
+
+
+immobrowse.terraces = function (immobilie) {
+    if (immobilie.flaechen == null) {
+        return 0;
+    } else {
+        if (immobilie.flaechen.anzahl_terrassen == null) {
+            return 0;
+        } else {
+            return immobilie.flaechen.anzahl_terrassen;
+        }
+    }
+}
+
+
+immobrowse.shower = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return false;
+    } else {
+        if (immobilie.ausstattung.bad == null) {
+            return false;
+        } else {
+            return immobilie.ausstattung.bad.DUSCHE;
+        }
+    }
+}
+
+
+immobrowse.bathTub = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return false;
+    } else {
+        if (immobilie.ausstattung.bad == null) {
+            return false;
+        } else {
+            return immobilie.ausstattung.bad.WANNE;
+        }
+    }
+}
+
+
+immobrowse.bathroomWindow = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return false;
+    } else {
+        if (immobilie.ausstattung.bad == null) {
+            return false;
+        } else {
+            return immobilie.ausstattung.bad.FENSTER;
+        }
+    }
+}
+
+
+immobrowse.lavatoryDryingRoom = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return false;
+    } else {
+        return immobilie.ausstattung.wasch_trockenraum;
+    }
+}
+
+
+immobrowse.barrierFree = function (immobilie) {
+    if (immobilie.ausstattung == null) {
+        return false;
+    } else {
+        return immobilie.ausstattung.barrierefrei;
+    }
+}
+
 
 /*
   Compares two nullable numerical values so
@@ -215,8 +330,12 @@ immobrowse.sortByArea = function (descending) {
 
 
 immobrowse.preview = function (immobilie) {
+    var netColdRent = immobrowse.netColdRent(immobilie);
+    var coldRent = immobrowse.coldRent(immobilie);
     var rooms = immobrowse.rooms(immobilie);
     var area = immobrowse.area(immobilie);
+
+    var rentAnnotation = 'Miete zzgl. NK';
     var html = '<div class="row panel-body">';
     html += '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">';
     html += immobrowse.titleImage('https://tls.homeinfo.de/immosearch/attachment/2776312');
@@ -242,15 +361,20 @@ immobrowse.preview = function (immobilie) {
     html += '<div class="col-md-4">';
     html += '<h4><strong>';
 
-    if (immobilie.preise == null) {
-        html += 'N/A';
+    if (coldRent == null) {
+        if (netColdRent == null) {
+            html += 'N/A';
+        } else {
+            html += immobrowse.euroHtml(netColdRent);
+        }
     } else {
-        html += immobrowse.euroHtml(immobilie.preise.nettokaltmiete);
+        html += immobrowse.euroHtml(coldRent);
+        rentAnnotation = 'Miete incl. NK';
     }
 
     html += '</strong></h4>';
     html += '<small>';
-    html += 'Miete zzgl. NK';
+    html += rentAnnotation;
     html += '</small>';
     html += '</div><div class="col-md-4">';
     html += '<h4><strong>';
