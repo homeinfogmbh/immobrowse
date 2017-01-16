@@ -192,7 +192,7 @@ immobrowse.preview = function (immobilie) {
 }
 
 
-immobrowse.compareNull = function (alice, bob) {
+immobrowse.compareNullTop = function (alice, bob, descending) {
     if (alice == null) {
         if (bob == null) {
             return 0;
@@ -215,9 +215,10 @@ immobrowse.compareNull = function (alice, bob) {
 
 immobrowse.sortByRooms = function (descending) {
     function compareRooms(immobilie1, immobilie2) {
-        return immobrowse.compareNull(
+        return immobrowse.compareNullTop(
             immobrowse.rooms(immobilie1),
-            immobrowse.rooms(immobilie2));
+            immobrowse.rooms(immobilie2),
+            descending);
     }
 
     return compareRooms;
