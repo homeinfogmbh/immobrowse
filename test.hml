@@ -11,27 +11,69 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="immobrowse.js"></script>
     <script>
+        var realEstates = [];
+
         function getRealEstates() {
             var session = document.getElementById('session').value;
 
             $.ajax({
                 url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
                 success: function(json) {
-                    var immobilie = json.immobilie.sort(immobrowse.sortByRooms(true));
-                    var html = '<table>';
-
-                    for (immobilie of immobilie) {
-                        html += '<tr><td>' + immobrowse.preview(immobilie) + '</td></tr>';
-                    }
-
-                    document.getElementById('container').innerHTML = html + '</table>';
+                    realEstates = json.immobilie;
                 }
             });
+        }
+
+
+        function test() {
+            var x = null;
+            console.log(x.foo);
+        }
+
+
+        function printPreviews() {
+            var html = '<table>';
+
+            for (realEstate of realEstates) {
+                html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
+            }
+
+            document.getElementById('container').innerHTML = html + '</table>';
+        }
+
+
+        function sortByRoomsAsc() {
+            realEstates = realEstates.sort(immobrowse.sortByRooms(false));
+        }
+
+
+        function sortByRoomsDesc() {
+            realEstates = realEstates.sort(immobrowse.sortByRooms(true));
+        }
+
+
+        function sortByAreaAsc() {
+            realEstates = realEstates.sort(immobrowse.sortByArea(false));
+        }
+
+
+        function sortByAreaDesc() {
+            realEstates = realEstates.sort(immobrowse.sortByArea(true));
         }
     </script>
 </head>
 <body>
     Session token: <input id="session"/><br/>
-    <button id="query" onclick="getRealEstates()">Run</button>
+    <button id="query" onclick="getRealEstates()">Query real estates</button>
+    <br/>
+    <button id="sortByRoomsAsc" onclick="sortByRoomsAsc()">Sort by rooms ascending</button>
+    <button id="sortByRoomsDesc" onclick="sortByRoomsDesc()">Sort by rooms descending</button>
+    <br/>
+    <button id="sortByAreaAsc" onclick="sortByAreaAsc()">Sort by area ascending</button>
+    <button id="sortByAreaDesc" onclick="sortByAreaDesc()">Sort by area descending</button>
+    <br/>
+    <button id="printPreviews" onclick="printPreviews()">Print</button>
+    <br/>
+    <button id="test" onclick="test()">Test</button>
     <div id="container">Real estates go here.</div>
 </body>

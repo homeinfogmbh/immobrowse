@@ -119,8 +119,104 @@ immobrowse.rooms = function (immobilie) {
 }
 
 
+immobrowse.area = function (immobilie) {
+    if (immobilie.flaechen == null) {
+        return null;
+    } else {
+        if (immobilie.flaechen.wohnflaeche == null) {
+            if (immobilie.flaechen.nutzflaeche == null) {
+                if (immobilie.flaechen.gesamtflaeche == null) {
+                    return null;
+                } else {
+                    return immobilie.flaechen.gesamtflaeche;
+                }
+            } else {
+                return immobilie.flaechen.nutzflaeche;
+            }
+        } else {
+            return immobilie.flaechen.wohnflaeche;
+        }
+    }
+}
+
+
+immobrowse.netColdRent = function (immobilie) {
+    if (immobilie.preise == null) {
+        return null;
+    } else {
+        if (immobilie.preise.nettokaltmiete == null) {
+            return null;
+        } else {
+            return immobilie.preise.nettokaltmiete;
+        }
+    }
+}
+
+
+immobrowse.coldRent = function (immobilie) {
+    if (immobilie.preise == null) {
+        return null;
+    } else {
+        if (immobilie.preise.kaltmiete == null) {
+            return null;
+        } else {
+            return immobilie.preise.nettokaltmiete;
+        }
+    }
+}
+
+/*
+  Compares two nullable numerical values so
+  that null values always come out last.
+*/
+immobrowse.compareNullLast = function (alice, bob, descending) {
+    if (alice == null) {
+        if (bob == null) {
+            return 0;
+        } else {
+            return bob;
+        }
+    } else {
+        if (bob == null) {
+            return -1 * alice;
+        } else {
+            if (descending) {
+                return bob - alice;
+            } else {
+                return alice - bob;
+            }
+        }
+    }
+}
+
+
+immobrowse.sortByRooms = function (descending) {
+    function compareRooms(immobilie1, immobilie2) {
+        return immobrowse.compareNullLast(
+            immobrowse.rooms(immobilie1),
+            immobrowse.rooms(immobilie2),
+            descending);
+    }
+
+    return compareRooms;
+}
+
+
+immobrowse.sortByArea = function (descending) {
+    function compareAreas(immobilie1, immobilie2) {
+        return immobrowse.compareNullLast(
+            immobrowse.area(immobilie1),
+            immobrowse.area(immobilie2),
+            descending);
+    }
+
+    return compareAreas;
+}
+
+
 immobrowse.preview = function (immobilie) {
     var rooms = immobrowse.rooms(immobilie);
+    var area = immobrowse.area(immobilie);
     var html = '<div class="row panel-body">';
     html += '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">';
     html += immobrowse.titleImage('https://tls.homeinfo.de/immosearch/attachment/2776312');
@@ -159,10 +255,10 @@ immobrowse.preview = function (immobilie) {
     html += '</div><div class="col-md-4">';
     html += '<h4><strong>';
 
-    if (immobilie.flaechen == null) {
+    if (area == null) {
         html += 'N/A';
     } else {
-        html += immobrowse.squareMetersHtml(immobilie.flaechen.wohnflaeche);
+        html += immobrowse.squareMetersHtml(area);
     }
 
     html += '</strong></h4>';
@@ -189,43 +285,6 @@ immobrowse.preview = function (immobilie) {
     html += '</div>';
     html += '</div>';
     return html;
-}
-
-
-/*
-  Compares two nullable numerical values so
-  that null values always come out last.
-*/
-immobrowse.compareNullLast = function (alice, bob, descending) {
-    if (alice == null) {
-        if (bob == null) {
-            return 0;
-        } else {
-            return bob;
-        }
-    } else {
-        if (bob == null) {
-            return -1 * alice;
-        } else {
-            if (descending) {
-                return bob - alice;
-            } else {
-                return alice - bob;
-            }
-        }
-    }
-}
-
-
-immobrowse.sortByRooms = function (descending) {
-    function compareRooms(immobilie1, immobilie2) {
-        return immobrowse.compareNullLast(
-            immobrowse.rooms(immobilie1),
-            immobrowse.rooms(immobilie2),
-            descending);
-    }
-
-    return compareRooms;
 }
 
 
