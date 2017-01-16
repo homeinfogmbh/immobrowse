@@ -192,7 +192,11 @@ immobrowse.preview = function (immobilie) {
 }
 
 
-immobrowse.compareNullTop = function (alice, bob, descending) {
+/*
+  Compares two nullable numerical values so
+  that null values always come out last.
+*/
+immobrowse.compareNullLast = function (alice, bob, descending) {
     if (alice == null) {
         if (bob == null) {
             return 0;
@@ -215,7 +219,7 @@ immobrowse.compareNullTop = function (alice, bob, descending) {
 
 immobrowse.sortByRooms = function (descending) {
     function compareRooms(immobilie1, immobilie2) {
-        return immobrowse.compareNullTop(
+        return immobrowse.compareNullLast(
             immobrowse.rooms(immobilie1),
             immobrowse.rooms(immobilie2),
             descending);

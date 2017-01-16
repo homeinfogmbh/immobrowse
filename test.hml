@@ -17,7 +17,7 @@
             $.ajax({
                 url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
                 success: function(json) {
-                    var immobilie = json.immobilie.sort(immobrowse.sortByRooms(false));
+                    var immobilie = json.immobilie.sort(immobrowse.sortByRooms(true));
                     var html = '<table>';
 
                     for (immobilie of immobilie) {
