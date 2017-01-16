@@ -63,23 +63,8 @@ immobrowse.squareMetersHtml = function (area) {
 }
 
 
-immobrowse.checkUndefined = function (variable) {
-    if (variable == null) {
-        return 'N/A';
-    } else {
-        return variable;
-    }
-}
-
-
-immobrowse.TitleImage = function (url) {
-    this.url = url;
-    this.img = function () {
-        return '<img src="' + this.url + '" class="portrait" id="immosearch_image" width="300" height="201">';
-    }
-    this.html = function () {
-        return '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">' + this.img() + '</div></div>';
-    }
+immobrowse.titleImage = function (url) {
+    return '<img src="' + url + '" class="portrait" id="immosearch_image" width="300" height="201">';
 }
 
 
@@ -121,18 +106,35 @@ immobrowse.city2html = function (geo) {
 }
 
 
+immobrowse.rooms = function (immobilie) {
+    if (immobilie.flaechen == null) {
+        return null;
+    } else {
+        if (immobilie.flaechen.anzahl_zimmer == null) {
+            return null;
+        } else {
+            return immobilie.flaechen.anzahl_zimmer;
+        }
+    }
+}
+
+
 immobrowse.preview = function (immobilie) {
+    var rooms = immobrowse.rooms(immobilie);
     var html = '<div class="row panel-body">';
-    html += new immobrowse.TitleImage('https://tls.homeinfo.de/immosearch/attachment/2776312').html();
+    html += '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">';
+    html += immobrowse.titleImage('https://tls.homeinfo.de/immosearch/attachment/2776312');
+    html += '</div></div>';
     html += '<div class="col-md-9">';
     html += '<div class="col-md-12 col-sm-12 col-xs-12">';
     html += '<h4><strong>';
-    if (immobilie.flaechen == null) {
-        html += 'N/A';
+
+    if (rooms == null) {
+        html += 'Wohnung | ';
     } else {
-      html += immobrowse.checkUndefined(immobilie.flaechen.anzahl_zimmer);
+        html += rooms + ' Zimmer Wohnung | ';
     }
-    html += ' Zimmer Wohnung | ';
+
     html += immobrowse.address2html(immobilie.geo);
     html += ' | ';
     html += immobrowse.city2html(immobilie.geo);
@@ -141,24 +143,28 @@ immobrowse.preview = function (immobilie) {
     html += 'Wohnung zur Miete';
     html += '</small>';
     html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
-    html +='<div class="col-md-4">';
+    html += '<div class="col-md-4">';
     html += '<h4><strong>';
+
     if (immobilie.preise == null) {
         html += 'N/A';
     } else {
         html += immobrowse.euroHtml(immobilie.preise.nettokaltmiete);
     }
+
     html += '</strong></h4>';
     html += '<small>';
     html += 'Miete zzgl. NK';
     html += '</small>';
     html += '</div><div class="col-md-4">';
     html += '<h4><strong>';
+
     if (immobilie.flaechen == null) {
         html += 'N/A';
     } else {
         html += immobrowse.squareMetersHtml(immobilie.flaechen.wohnflaeche);
     }
+
     html += '</strong></h4>';
     html += '<small>';
     html += 'Wohnfl&auml;che';
@@ -166,7 +172,13 @@ immobrowse.preview = function (immobilie) {
     html += '</div>';
     html += '<div class="col-md-4">';
     html += '<h4><strong>';
-    html += 2;
+
+    if (rooms == null) {
+        html += 'N/A';
+    } else {
+        html += rooms;
+    }
+
     html += '</strong></h4>';
     html += '<small>';
     html += 'Zimmer';
@@ -177,4 +189,41 @@ immobrowse.preview = function (immobilie) {
     html += '</div>';
     html += '</div>';
     return html;
+}
+
+
+immobrowse.compareNull = function (alice, bob) {
+    if (alice == null) {
+        if (bob == null) {
+            return 0;
+        } else {
+            return bob;
+        }
+    } else {
+        if (bob == null) {
+            return -1 * alice;
+        } else {
+            if (descending) {
+                return bob - alice;
+            } else {
+                return alice - bob;
+            }
+        }
+    }
+}
+
+
+immobrowse.sortByRooms = function (descending) {
+    function compareRooms(immobilie1, immobilie2) {
+        return immobrowse.compareNull(
+            immobrowse.rooms(immobilie1),
+            immobrowse.rooms(immobilie2));
+    }
+
+    return compareRooms;
+}
+
+
+immobrowse.details = function (immobilie) {
+    html = '';
 }
