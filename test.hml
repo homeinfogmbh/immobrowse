@@ -20,10 +20,10 @@
                     html = '';
 
                     for (immobilie of json.immobilie) {
-                        html += immobrowse.preview(immobilie);
+                        html += immobrowse.preview(immobilie) + '<br/>';
                     }
 
-                    document.getElementById('container').innerHTML = html + '<br/>';
+                    document.getElementById('container').innerHTML = html;
                 }
             });
         }

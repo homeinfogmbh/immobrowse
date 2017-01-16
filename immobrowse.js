@@ -110,7 +110,11 @@ immobrowse.city2html = function (geo) {
             if (geo.regionaler_zusatz == null) {
                 return immobilie.geo.ort;
             } else {
-                return immobilie.geo.ort + ' ' + immobilie.geo.regionaler_zusatz;
+                if (geo.regionaler_zusatz == geo.ort) {
+                    return immobilie.geo.ort;
+                } else {
+                    return immobilie.geo.ort + ' ' + immobilie.geo.regionaler_zusatz;
+                }
             }
         }
     }
