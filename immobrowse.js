@@ -289,11 +289,13 @@ immobrowse.compareNullLast = function (alice, bob, descending) {
         if (bob == null) {
             return 0;
         } else {
-            return bob;
+            //return bob;
+            return Infinity;
         }
     } else {
         if (bob == null) {
-            return -1 * alice;
+            //return -1 * alice;
+            return -Infinity;
         } else {
             if (descending) {
                 return bob - alice;
@@ -306,26 +308,22 @@ immobrowse.compareNullLast = function (alice, bob, descending) {
 
 
 immobrowse.sortByRooms = function (descending) {
-    function compareRooms(immobilie1, immobilie2) {
+    return function compareRooms(immobilie1, immobilie2) {
         return immobrowse.compareNullLast(
             immobrowse.rooms(immobilie1),
             immobrowse.rooms(immobilie2),
             descending);
     }
-
-    return compareRooms;
 }
 
 
 immobrowse.sortByArea = function (descending) {
-    function compareAreas(immobilie1, immobilie2) {
+    return function compareAreas(immobilie1, immobilie2) {
         return immobrowse.compareNullLast(
             immobrowse.area(immobilie1),
             immobrowse.area(immobilie2),
             descending);
     }
-
-    return compareAreas;
 }
 
 
