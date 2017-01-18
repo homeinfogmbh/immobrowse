@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<head>
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="immobrowse.js"></script>
+  <script>
+    function printPreviews(json) {
+      var realEstates = json.immobilie;
+      var html = '<table>';
+      startLoading();
+
+      for (realEstate of realEstates) {
+        html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
+      }
+
+      document.getElementById('container').innerHTML = html + '</table>';
+      stopLoading();
+    }
+
+
+    function sortAndPrint() {
+    }
+  </script>
+</head>
+<header>
+   <select id="sortingProperty" onchange="sortRealEstates()">
+    <option value="rooms">Zimmer</option>
+    <option value="area">Fl&auml;che</option>
+    <option value="flowerPots">Flowerpots</option>
+  </select>
+   <select id="sortingOrder" onchange="sortRealEstates()">
+    <option value="ascending">aufsteigend</option>
+    <option value="descending">absteigend</option>
+  </select>
+</header>
+Session token: <input id="session"></input>
+<button onclick="getRealEstates()">Get real estates</button><br/>
+<div id="loader" class="loader"></div>
+<div id="container">Real estates go here.</div>
