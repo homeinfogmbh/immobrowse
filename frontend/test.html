@@ -39,17 +39,20 @@
   </script>
 </head>
 <header>
-   <select id="sortingProperty" onchange="immobrowse.sortRealEstates()">
+   <select id="sortingProperty">
     <option value="rooms">Zimmer</option>
     <option value="area">Fl&auml;che</option>
     <option value="flowerPots">Flowerpots</option>
   </select>
-   <select id="sortingOrder" onchange="immobrowse.sortRealEstates()">
+   <select id="sortingOrder">
     <option value="ascending">aufsteigend</option>
     <option value="descending">absteigend</option>
   </select>
+  <button onclick="immobrowse.sortRealEstates()">Sort</button><br/>
+  Session token: <input id="session"></input>
+  <button onclick="getRealEstatesTest()">Get real estates</button><br/>
 </header>
-Session token: <input id="session" value="60126773-8e74-4826-b367-593b15c345dd"></input>
-<button onclick="getRealEstatesTest()">Get real estates</button><br/>
-<div id="loader" class="loader"></div>
-<div id="container">Real estates go here.</div>
+<body>
+  <div id="loader" class="loader"></div>
+  <div id="container">Real estates go here.</div>
+</body>

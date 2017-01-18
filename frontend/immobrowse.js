@@ -153,7 +153,7 @@ immobrowse.squareMetersHtml = function (area) {
 
 
 immobrowse.titleImageHtml = function (url) {
-  return '<img src="' + url + '" class="portrait" id="immosearch_image" width="300" height="201">';
+  return '<img src="' + url + '" class="portrait" id="immosearch_image" width="200">';
 }
 
 
@@ -564,7 +564,7 @@ immobrowse.preview = function (immobilie) {
   var rentAnnotation = 'Miete zzgl. NK';
   var html = '<div class="row panel-body">';
   html += '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">';
-  html += immobrowse.titleImageHtml('https://tls.homeinfo.de/immosearch/attachment/2776312');  // Debug
+  html += immobrowse.titleImageHtml('https://tls.homeinfo.de/immosearch/attachment/2857935');  // Debug
   html += '</div></div>';
   html += '<div class="col-md-9">';
   html += '<div class="col-md-12 col-sm-12 col-xs-12">';
@@ -678,6 +678,8 @@ immobrowse.list = function () {
 
 
 immobrowse.sortRealEstates = function () {
+  immobrowse.debug('Sorting...');
+
   if (immobrowse.realEstates == null) {
     immobrowse.warning('No real estates available.');
   } else {
