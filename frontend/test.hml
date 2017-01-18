@@ -12,36 +12,44 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="immobrowse.js"></script>
   <script>
-    function printPreviews(json) {
-      var realEstates = json.immobilie;
-      var html = '<table>';
-      startLoading();
+    function getRealEstatesTest() {
+      var session = document.getElementById('session').value;
 
-      for (realEstate of realEstates) {
-        html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
-      }
-
-      document.getElementById('container').innerHTML = html + '</table>';
-      stopLoading();
+      $.ajax({
+        url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
+        dataType: "json",
+        success: function (json) {
+          immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
+          immobrowse.realEstates = immobrowse.filter(json.immobilie);
+          immobrowse.list();
+        }
+      });
     }
 
-
-    function sortAndPrint() {
-    }
+    $(document).ready(function () {
+      immobrowse.config.customer = 1000;
+      immobrowse.config.logLevel = 5;
+      immobrowse.config.sortingProperty = document.getElementById('sortingProperty');
+      immobrowse.config.sortingOrder = document.getElementById('sortingOrder');
+      immobrowse.config.listContainer = document.getElementById('container');
+      immobrowse.config.exposeContainer = document.getElementById('container');
+      immobrowse.config.filters.types = ['WOHNUNG'];
+      immobrowse.config.filters.marketing = ['MIETE_PACHT'];
+    });
   </script>
 </head>
 <header>
-   <select id="sortingProperty" onchange="sortRealEstates()">
+   <select id="sortingProperty" onchange="immobrowse.sortRealEstates()">
     <option value="rooms">Zimmer</option>
     <option value="area">Fl&auml;che</option>
     <option value="flowerPots">Flowerpots</option>
   </select>
-   <select id="sortingOrder" onchange="sortRealEstates()">
+   <select id="sortingOrder" onchange="immobrowse.sortRealEstates()">
     <option value="ascending">aufsteigend</option>
     <option value="descending">absteigend</option>
   </select>
 </header>
 Session token: <input id="session"></input>
-<button onclick="getRealEstates()">Get real estates</button><br/>
+<button onclick="getRealEstatesTest()">Get real estates</button><br/>
 <div id="loader" class="loader"></div>
 <div id="container">Real estates go here.</div>

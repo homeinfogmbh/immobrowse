@@ -22,49 +22,63 @@
 
 var immobrowse = immobrowse || {};
 
-immobrowse.realEstates = [];
+// Real estates container
+immobrowse.realEstates = null;
+
+// Configuration
+immobrowse.config = {
+  logLevel: 1,
+  customer: null,
+  filters: {
+    types: null,
+    marketing: null
+  },
+  sortingSelector: null,
+  orderingSelector: null,
+  listContainer: null,
+  exposeContainer: null,
+  districtsContainer: null
+};
+
 
 /*** logging ***/
 
-immobrowse.logLevel = 1;
-
-
-immobrowse.log = function(msg) {
-  console.log('ImmoBrowse > ' + msg);
+immobrowse._log = function(prefix, msg) {
+  console.log(prefix + ' immobrowse: ' + msg);
 }
 
 
 immobrowse.warning = function(msg) {
-  if (immobrowse.logLevel >= 0) {
-    immobrowse.log('ERROR: ' + msg);
+  if (immobrowse.config.logLevel >= 0) {
+    immobrowse._log('[ fail ]', msg);
   }
 }
 
 
 immobrowse.warning = function(msg) {
-  if (immobrowse.logLevel >= 1) {
-    immobrowse.log('Warning: ' + msg);
+  if (immobrowse.config.logLevel >= 1) {
+    immobrowse._log('[ warn ]', msg);
   }
 }
 
 
 immobrowse.info = function(msg) {
-  if (immobrowse.logLevel >= 3) {
-    immobrowse.log('Info: ' + msg);
+  if (immobrowse.config.logLevel >= 3) {
+    immobrowse._log('[ info ]', msg);
   }
 }
 
 
 immobrowse.success = function(msg) {
-  if (immobrowse.logLevel >= 4) {
-    immobrowse.log('Success: ' + msg);
+  if (immobrowse.config.logLevel >= 4) {
+    immobrowse._log('[  ok  ]', msg);
   }
 }
 
 
 immobrowse.debug = function(msg) {
-  if (immobrowse.logLevel >= 5) {
-    immobrowse.log('DEBUG: ' + msg);
+  if (immobrowse.config.logLevel >= 5) {
+    immobrowse._log('!<DEBUG>', msg);
   }
 }
 
@@ -143,7 +157,7 @@ immobrowse.titleImageHtml = function (url) {
 }
 
 
-immobrowse.address2html = function (geo) {
+immobrowse.addressPreview = function (geo) {
   if (geo == null) {
     return 'N/A';
   } else {
@@ -160,7 +174,7 @@ immobrowse.address2html = function (geo) {
 }
 
 
-immobrowse.city2html = function (geo) {
+immobrowse.cityPreview = function (geo) {
   if (geo == null) {
     return 'N/A';
   } else {
@@ -394,6 +408,93 @@ immobrowse.barrierFree = function (immobilie) {
 }
 
 
+immobrowse.objectTypes = function (immobilie) {
+  var types = [];
+  var objektart = immobilie.objektkategorie.objektart;
+
+  if (objektart.zimmer != null) {
+    types.push('ZIMMER');
+  }
+
+  if (objektart.wohnung != null) {
+    types.push('WOHNUNG');
+    types.concat(objektart.wohnung);
+  }
+
+  return types;
+}
+
+
+immobrowse.marketingTypes = function (immobilie) {
+  var types = [];
+  var vermarktungsart = immobilie.objektkategorie.vermarktungsart;
+
+  if (vermarktungsart.KAUF) {
+    types.push('KAUF');
+  }
+
+  if (vermarktungsart.MIETE_PACHT) {
+    types.push('MIETE_PACHT');
+  }
+
+  if (vermarktungsart.ERBPACHT) {
+    types.push('ERBPACHT');
+  }
+
+  if (vermarktungsart.LEASING) {
+    types.push('LEASING');
+  }
+
+  return types;
+}
+
+
+/*** Filtering ***/
+
+immobrowse.matchTypes = function (immobilie) {
+  if (immobrowse.config.filters.types == null) {
+    return true;
+  } else {
+    for (type of immobrowse.objectTypes(immobilie)) {
+      if (immobrowse.config.filters.types.indexOf(type) >= 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+}
+
+
+immobrowse.matchMarketing = function (immobilie) {
+  if (immobrowse.config.filters.marketing == null) {
+    return true;
+  } else {
+    for (type of immobrowse.marketingTypes(immobilie)) {
+      if (immobrowse.config.filters.marketing.indexOf(type) >= 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+}
+
+
+immobrowse.filter = function (realEstates) {
+  var filteredRealEstates = [];
+
+  for (realEstate of realEstates) {
+    if (immobrowse.matchTypes(realEstate) && immobrowse.matchMarketing(realEstate)) {
+      filteredRealEstates.push(realEstate);
+    }
+  }
+
+  immobrowse.debug('Filtered ' + filteredRealEstates.length + ' real estates.');
+  return filteredRealEstates;
+}
+
+
 /*** Sorting ***/
 
 immobrowse.sortByRooms = function (descending) {
@@ -426,7 +527,6 @@ immobrowse.getSorter = function (property, order) {
   switch(property) {
     case 'rooms':
       return immobrowse.sortByRooms(descending);
-      break;
     case 'area':
       return immobrowse.sortByArea(descending);
     default:
@@ -446,16 +546,12 @@ immobrowse.getRealEstates = function (cid, successCallback, errorCallback) {
     url: 'https://tls.homeinfo.de/realestates/customer/' + cid,
     dataType: "json",
     success: function (json) {
-      immobrowse.realEstates = json.immobilie;
+      immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
+      immobrowse.realEstates = immobrowse.filter(json.immobilie);
       displayCallback();
     },
     error: errorCallback
   });
-}
-
-
-immobrowse.sortRealEstates function (realEstates, sortingProperty, sortingOrder) {
-  var sorter = immobrowse.getSorter(sortingProperty, sortingOrder);
 }
 
 
@@ -468,7 +564,7 @@ immobrowse.preview = function (immobilie) {
   var rentAnnotation = 'Miete zzgl. NK';
   var html = '<div class="row panel-body">';
   html += '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">';
-  html += immobrowse.titleImage('https://tls.homeinfo.de/immosearch/attachment/2776312');
+  html += immobrowse.titleImageHtml('https://tls.homeinfo.de/immosearch/attachment/2776312');  // Debug
   html += '</div></div>';
   html += '<div class="col-md-9">';
   html += '<div class="col-md-12 col-sm-12 col-xs-12">';
@@ -480,9 +576,9 @@ immobrowse.preview = function (immobilie) {
     html += rooms + ' Zimmer Wohnung | ';
   }
 
-  html += immobrowse.address2html(immobilie.geo);
+  html += immobrowse.addressPreview(immobilie.geo);
   html += ' | ';
-  html += immobrowse.city2html(immobilie.geo);
+  html += immobrowse.cityPreview(immobilie.geo);
   html += '</strong></h4>';
   html += '<small>';
   html += 'Wohnung zur Miete';
@@ -516,7 +612,13 @@ immobrowse.preview = function (immobilie) {
   html += '</div>';
   html += '<div class="col-md-4">';
   html += '<h4><strong>';
-  html += rooms;
+
+  if (rooms == null) {
+    html += 'N/A';
+  } else {
+    html += rooms;
+  }
+
   html += '</strong></h4>';
   html += '<small>';
   html += 'Zimmer';
@@ -531,5 +633,59 @@ immobrowse.preview = function (immobilie) {
 
 
 immobrowse.details = function (immobilie) {
-  html = '';
+  var rooms = immobrowse.rooms(immobilie);
+  var html = '<div class="panel panel-default nohover">';
+
+  var header = '<div class="panel-heading nohover">';
+  header += '<h3 class="panel-title nohover">';
+  header += '<strong id="form_object_title">';
+
+  if (rooms == null) {
+    html += 'Wohnung | ';
+  } else {
+    html += rooms + ' Zimmer Wohnung | ';
+  }
+
+  html += immobrowse.addressPreview(immobilie.geo);
+  html += ' | ';
+  html += immobrowse.cityPreview(immobilie.geo);
+  header += '</strong>';
+  header += '<button id="objectNumber" class="btn btn-success pull-right" type="button">';
+  header += '<strong>';
+  header += 'Wohnungsnr: 1/8/31';
+  header += '</strong></button></h3></div>'
+  html += header;
+
+  var body = '';
+
+
+}
+
+
+immobrowse.list = function () {
+  if (immobrowse.realEstates == null) {
+    immobrowse.warning('No real estates available.');
+  } else {
+    html = '<table>';
+
+    for (realEstate of immobrowse.realEstates) {
+      html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
+    }
+
+    immobrowse.config.listContainer.innerHTML = html + '</table>';
+  }
+}
+
+
+immobrowse.sortRealEstates = function () {
+  if (immobrowse.realEstates == null) {
+    immobrowse.warning('No real estates available.');
+  } else {
+    immobrowse.realEstates = immobrowse.realEstates.sort(
+      immobrowse.getSorter(
+        immobrowse.config.sortingProperty.value,
+        immobrowse.config.sortingOrder.value));
+
+    immobrowse.list();
+  }
 }
