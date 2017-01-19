@@ -48,7 +48,7 @@ immobrowse._log = function(prefix, msg) {
 }
 
 
-immobrowse.warning = function(msg) {
+immobrowse.error = function(msg) {
   if (immobrowse.config.logLevel >= 0) {
     immobrowse._log('[ fail ]', msg);
   }
@@ -110,6 +110,18 @@ immobrowse.compareNum = function (alice, bob, descending) {
 }
 
 
+immobrowse.getRealEstate = function (identifier) {
+  for (realEstate of immobrowse.realEstates) {
+    if (immobrowse.identify(realEstate) == identifier) {
+      return realEstate;
+    }
+  }
+
+  immobrowse.warning('No real estate for ID: ' + identifier);
+  return null;
+}
+
+
 /*** HTML formatting ***/
 
 immobrowse.escapeHtml = function (string) {
@@ -153,7 +165,7 @@ immobrowse.squareMetersHtml = function (area) {
 
 
 immobrowse.titleImageHtml = function (url) {
-  return '<img src="' + url + '" class="portrait" id="immosearch_image" width="200">';
+  return '<img src="' + url + '" alt="Titelbild" class="ib-preview-image">';
 }
 
 
@@ -192,6 +204,16 @@ immobrowse.cityPreview = function (geo) {
 
 
 /*** JSON data extraction ***/
+
+immobrowse.objektnr_extern = function (immobilie) {
+  return immobilie.verwaltung_techn.objektnr_extern;
+}
+
+
+immobrowse.identify = function (immobilie) {
+  return immobrowse.objektnr_extern(immobilie);
+}
+
 
 /*
   Extracts a potential title image from a
@@ -556,19 +578,18 @@ immobrowse.getRealEstates = function (cid, successCallback, errorCallback) {
 
 
 immobrowse.preview = function (immobilie) {
+  var objektnr_extern = immobrowse.identify(immobilie);
   var netColdRent = immobrowse.netColdRent(immobilie);
   var coldRent = immobrowse.coldRent(immobilie);
   var rooms = immobrowse.rooms(immobilie);
   var area = immobrowse.area(immobilie);
 
   var rentAnnotation = 'Miete zzgl. NK';
-  var html = '<div class="row panel-body">';
-  html += '<div class="col-md-3"><div class="img_mask img-responsive img-thumbnail">';
-  html += immobrowse.titleImageHtml('https://tls.homeinfo.de/immosearch/attachment/2857935');  // Debug
-  html += '</div></div>';
-  html += '<div class="col-md-9">';
-  html += '<div class="col-md-12 col-sm-12 col-xs-12">';
-  html += '<h4><strong>';
+  var html = '<div class="ib-preview-entry" onclick="immobrowse.expose(\'' + objektnr_extern + '\');">';
+  html += immobrowse.titleImageHtml('https://tls.homeinfo.de/immosearch/attachment/2857540');
+  html += '<div class="ib-preview-data">';
+  html += '<div class="ib-preview-header">';
+  html += '<div class="ib-preview-header-main">';
 
   if (rooms == null) {
     html += 'Wohnung | ';
@@ -579,13 +600,14 @@ immobrowse.preview = function (immobilie) {
   html += immobrowse.addressPreview(immobilie.geo);
   html += ' | ';
   html += immobrowse.cityPreview(immobilie.geo);
-  html += '</strong></h4>';
-  html += '<small>';
+  html += '</div>';
+  html += '<div class="ib-preview-header-sub">';
   html += 'Wohnung zur Miete';
-  html += '</small>';
-  html += '<div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">';
-  html += '<div class="col-md-4">';
-  html += '<h4><strong>';
+  html += '</div>';
+  html += '</div>';
+  html += '<div class="ib-preview-body">';
+  html += '<div class="ib-preview-rent">';
+  html += '<div class="ib-preview-rent-data">';
 
   if (coldRent == null) {
     if (netColdRent == null) {
@@ -598,20 +620,17 @@ immobrowse.preview = function (immobilie) {
     rentAnnotation = 'Miete incl. NK';
   }
 
-  html += '</strong></h4>';
-  html += '<small>';
-  html += rentAnnotation;
-  html += '</small>';
-  html += '</div><div class="col-md-4">';
-  html += '<h4><strong>';
-  html += immobrowse.squareMetersHtml(area);
-  html += '</strong></h4>';
-  html += '<small>';
-  html += 'Wohnfl&auml;che';
-  html += '</small>';
   html += '</div>';
-  html += '<div class="col-md-4">';
-  html += '<h4><strong>';
+  html += '<div class="ib-preview-rent-caption">' + rentAnnotation + '</div>';
+  html += '</div>';
+  html += '<div class="ib-preview-area">';
+  html += '<div class="ib-preview-area-data">';
+  html += immobrowse.squareMetersHtml(area);
+  html += '</div>';
+  html += '<div class="ib-preview-area-caption">Wohnfl&auml;che</div>';
+  html += '</div>';
+  html += '<div class="ib-preview-rooms">';
+  html += '<div class="ib-preview-rooms-data">';
 
   if (rooms == null) {
     html += 'N/A';
@@ -619,13 +638,10 @@ immobrowse.preview = function (immobilie) {
     html += rooms;
   }
 
-  html += '</strong></h4>';
-  html += '<small>';
-  html += 'Zimmer';
-  html += '</small>';
+  html += '</div>';
+  html += '<div class="ib-preview-rooms-caption">Zimmer</div>';
   html += '</div>';
   html += '</div>';
-  html += '<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:25px;"></div>';
   html += '</div>';
   html += '</div>';
   return html;
@@ -652,13 +668,14 @@ immobrowse.details = function (immobilie) {
   header += '</strong>';
   header += '<button id="objectNumber" class="btn btn-success pull-right" type="button">';
   header += '<strong>';
-  header += 'Wohnungsnr: 1/8/31';
+  header += 'Wohnungsnr: ';
+  header += immobrowse.identify(immobilie);
   header += '</strong></button></h3></div>'
   html += header;
 
   var body = '';
 
-
+  return html;
 }
 
 
@@ -666,13 +683,24 @@ immobrowse.list = function () {
   if (immobrowse.realEstates == null) {
     immobrowse.warning('No real estates available.');
   } else {
-    html = '<table>';
+    html = '<div class="ib-preview-list">';
 
     for (realEstate of immobrowse.realEstates) {
-      html += '<tr><td>' + immobrowse.preview(realEstate) + '</td></tr>';
+      html += immobrowse.preview(realEstate);
     }
 
-    immobrowse.config.listContainer.innerHTML = html + '</table>';
+    immobrowse.config.listContainer.innerHTML = html + '</div>';
+  }
+}
+
+
+immobrowse.expose = function (identifier) {
+  var immobilie = immobrowse.getRealEstate(identifier);
+
+  if (immobilie == null) {
+    immobrowse.error('Could not show real estate');
+  } else {
+    immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
   }
 }
 
@@ -691,3 +719,4 @@ immobrowse.sortRealEstates = function () {
     immobrowse.list();
   }
 }
+
