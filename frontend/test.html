@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <head>
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="test.css">
+  <link rel="stylesheet" href="immobrowse.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,7 +17,7 @@
       var session = document.getElementById('session').value;
 
       $.ajax({
-        url: 'https://tls.homeinfo.de/his/realestates/data?session=' + session,
+        url: 'https://tls.homeinfo.de/his/realestates/data?limit=100&session=' + session,
         dataType: "json",
         success: function (json) {
           immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
@@ -24,6 +25,13 @@
           immobrowse.list();
         }
       });
+    }
+
+    function testDetails() {
+      for (realEstate of immobrowse.realEstates) {
+        immobrowse.config.listContainer.innerHTML = immobrowse.details(realEstate);
+        break;
+      }
     }
 
     $(document).ready(function () {
@@ -50,7 +58,8 @@
   </select>
   <button onclick="immobrowse.sortRealEstates()">Sort</button><br/>
   Session token: <input id="session"></input>
-  <button onclick="getRealEstatesTest()">Get real estates</button><br/>
+  <button onclick="getRealEstatesTest()">Get real estates</button>
+  <button onclick="testDetails()">Show details</button><br/>
 </header>
 <body>
   <div id="loader" class="loader"></div>
