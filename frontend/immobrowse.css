@@ -1,0 +1,108 @@
+/* ImmoBrowse default style sheet */
+
+.ib-preview-list {
+  display: table;
+  width: auto;
+}
+
+.ib-preview-entry {
+  display: table-row;
+  width: auto;
+  /*clear: both;*/
+  background-color: #eee;
+  border: 1px solid #666666;
+  border-spacing: 5px;
+  cursor: pointer;
+}
+
+.ib-preview-image {
+  float: left;
+  display: table-column;
+  width: 200px;
+}
+
+.ib-preview-data {
+  float: left;
+  display: table-column;
+  width: auto;
+}
+
+.ib-preview-header {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-header-main {
+  display: table-row;
+  width: auto;
+  clear: both;
+  font-weight: bold;
+  font-variant: small-caps;
+}
+
+.ib-preview-header-sub {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-body {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-rent {
+  display: table-column;
+  width: auto;
+  float: left;
+}
+
+.ib-preview-rent-data {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-rent-caption {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-area {
+  display: table-column;
+  width: auto;
+  float: left;
+}
+
+.ib-preview-area-data {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-area-caption {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-rooms {
+  display: table-column;
+  width: auto;
+  float: left;
+}
+
+.ib-preview-rooms-data {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.ib-preview-rooms-caption {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
