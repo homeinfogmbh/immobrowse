@@ -111,7 +111,9 @@ immobrowse.compareNum = function (alice, bob, descending) {
 
 
 immobrowse.getRealEstate = function (identifier) {
-  for (realEstate of immobrowse.realEstates) {
+  for (var i=0; i<immobrowse.realEstates.length; i++) {
+    var realEstate = immobrowse.realEstates[i];
+
     if (immobrowse.identify(realEstate) == identifier) {
       return realEstate;
     }
@@ -226,25 +228,33 @@ immobrowse.titleImage = function (immobilie) {
     if (immobilie.anhaenge.anhang == null) {
       return null;
     } else {
-      for (anhang of immobilie.anhaenge.anhang) {
+      for (var i=0; i<immobilie.anhaenge.anhang.length; i++) {
+        var anhang = immobilie.anhaenge.anhang[i];
+
         if (anhang.gruppe == 'TITELBILD') {
           return anhang;
         }
       }
 
-      for (anhang of immobilie.anhaenge.anhang) {
+      for (var i=0; i<immobilie.anhaenge.anhang.length; i++) {
+        var anhang = immobilie.anhaenge.anhang[i];
+
         if (anhang.gruppe == 'AUSSENANSICHTEN') {
           return anhang;
         }
       }
 
-      for (anhang of immobilie.anhaenge.anhang) {
+      for (var i=0; i<immobilie.anhaenge.anhang.length; i++) {
+        var anhang = immobilie.anhaenge.anhang[i];
+
         if (anhang.gruppe == 'GRUNDRISS') {
           return anhang;
         }
       }
 
-      for (anhang of immobilie.anhaenge.anhang) {
+      for (var i=0; i<immobilie.anhaenge.anhang.length; i++) {
+        var anhang = immobilie.anhaenge.anhang[i];
+
         if (anhang.gruppe == 'BILD') {
           return anhang;
         }
@@ -477,7 +487,11 @@ immobrowse.matchTypes = function (immobilie) {
   if (immobrowse.config.filters.types == null) {
     return true;
   } else {
-    for (type of immobrowse.objectTypes(immobilie)) {
+    var types = immobrowse.objectTypes(immobilie);
+
+    for (var i=0; i<types.length; i++) {
+      var type = types[i];
+
       if (immobrowse.config.filters.types.indexOf(type) >= 0) {
         return true;
       }
@@ -492,7 +506,11 @@ immobrowse.matchMarketing = function (immobilie) {
   if (immobrowse.config.filters.marketing == null) {
     return true;
   } else {
-    for (type of immobrowse.marketingTypes(immobilie)) {
+    var types = immobrowse.marketingTypes(immobilie);
+
+    for (var i=0; i<types.length; i++) {
+      var type = types[i];
+
       if (immobrowse.config.filters.marketing.indexOf(type) >= 0) {
         return true;
       }
@@ -506,7 +524,9 @@ immobrowse.matchMarketing = function (immobilie) {
 immobrowse.filter = function (realEstates) {
   var filteredRealEstates = [];
 
-  for (realEstate of realEstates) {
+  for (var i=0; i<realEstates.length; i++) {
+    var realEstate = realEstates[i];
+
     if (immobrowse.matchTypes(realEstate) && immobrowse.matchMarketing(realEstate)) {
       filteredRealEstates.push(realEstate);
     }
@@ -685,7 +705,9 @@ immobrowse.list = function () {
   } else {
     html = '<div class="ib-preview-list">';
 
-    for (realEstate of immobrowse.realEstates) {
+    for (var i=0; i<immobrowse.realEstates.length; i++) {
+      var realEstate = immobrowse.realEstates[i];
+
       html += immobrowse.preview(realEstate);
     }
 
