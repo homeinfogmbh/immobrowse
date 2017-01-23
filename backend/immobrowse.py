@@ -2,6 +2,7 @@
 
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField, \
     BooleanField
+
 from homeinfo.peewee import MySQLDatabase
 from homeinfo.lib.rest import ResourceHandler
 from homeinfo.lib.wsgi import JSON, Error

@@ -1,18 +1,50 @@
 <!DOCTYPE HTML>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="test.css">
   <link rel="stylesheet" href="immobrowse.css">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="immobrowse.js"></script>
   <script>
+    var option = null;
+    var order = null;
+
+    function toggleOrder() {
+      var previousOrder = order;
+
+      if (order == 'descending') {
+        order = 'ascending';
+      } else {
+        order = 'descending';
+      }
+
+      return previousOrder;
+    }
+
+    function toggleSorting(newOption) {
+      var previousIssuer = document.getElementById(option);
+      var issuer = document.getElementById(newOption);
+      toggleOrder();
+      option = newOption;
+
+      if (previousIssuer != null) {
+        previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
+      }
+
+      switch (order) {
+        case 'ascending':
+          issuer.innerHTML += '&darr;';
+          break;
+        case 'descending':
+          issuer.innerHTML += '&uarr;';
+          break;
+      }
+
+      immobrowse.sortRealEstates(option, order);
+    }
+
     function testDetails() {
       for (var i=0; i<immobrowse.realEstates.length; i++) {
         var realEstate = immobrowse.realEstates[i];
@@ -23,34 +55,23 @@
     }
 
     function getRealEstates() {
-      immobrowse.getRealEstates(document.getElementById('customer').value);
+      immobrowse.getRealEstates(location.search.slice(1));
     }
 
     $(document).ready(function () {
       immobrowse.config.logLevel = 5;
-      immobrowse.config.sortingProperty = document.getElementById('sortingProperty');
-      immobrowse.config.sortingOrder = document.getElementById('sortingOrder');
       immobrowse.config.listContainer = document.getElementById('container');
       immobrowse.config.exposeContainer = document.getElementById('container');
       immobrowse.config.filters.types = ['WOHNUNG'];
       immobrowse.config.filters.marketing = ['MIETE_PACHT'];
+      getRealEstates();
     });
   </script>
 </head>
 <header>
-   <select id="sortingProperty">
-    <option value="rooms">Zimmer</option>
-    <option value="area">Fl&auml;che</option>
-    <option value="flowerPots">Flowerpots</option>
-  </select>
-   <select id="sortingOrder">
-    <option value="ascending">aufsteigend</option>
-    <option value="descending">absteigend</option>
-  </select>
-  <button onclick="immobrowse.sortRealEstates()">Sort</button><br/>
-  Customer: <input id="customer">
-  <button onclick="getRealEstates()">Get real estates</button>
-  <button onclick="testDetails()">Show details</button><br/>
+  <button id="rooms" onclick="toggleSorting('rooms')" class="w3-btn w3-green">Zimmer</button>
+  <button id="area" onclick="toggleSorting('area')" class="w3-btn w3-green">Fl&auml;che</button>
+  <button id="street" onclick="toggleSorting('street')" class="w3-btn w3-green">Stra&szlig;e</button>
 </header>
 <div id="main">
   <div id="loader" class="loader"></div>

@@ -26,17 +26,18 @@
   cursor: default;
 }
 
+#main {
+  padding-top: 40px;
+  width: 80%;
+  padding-left: 10%;
+}
+
 header {
   position: fixed;
-  height: 80px;
+  height: 40px;
+  padding-left: 10%;
   top: 0;
   width: 80%;
   z-index: 100;
   background-color: #ffffff;
-}
-
-#main {
-  padding-top: 80px;
-  width: 80%;
-  padding-left: 10%;
 }

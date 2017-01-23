@@ -5,7 +5,7 @@ from distutils.core import setup
 setup(
     name='immobrowse',
     version='1.0.0',
-    requires=['openimmo', 'homeinfo.crm'],
+    requires=['openimmodb'],
     py_modules=['immobrowse'],
     data_files=[
         ('/usr/share', ['immobrowse.wsgi']),

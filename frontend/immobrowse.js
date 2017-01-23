@@ -33,8 +33,10 @@ immobrowse.config = {
     types: null,
     marketing: null
   },
-  sortingSelector: null,
-  orderingSelector: null,
+  sorting: {
+    property: null,
+    order: null
+  },
   listContainer: null,
   exposeContainer: null,
   districtsContainer: null
@@ -85,11 +87,12 @@ immobrowse.debug = function(msg) {
 
 /*** Miscellaneous functions ***/
 
+
 /*
-  Compares two nullable numerical values so
-  that null values always come out last.
+  Compares two nullable values so that
+  null values always come out last.
 */
-immobrowse.compareNum = function (alice, bob, descending) {
+immobrowse.compare = function (alice, bob, descending) {
   if (alice == null) {
     if (bob == null) {
       return 0;
@@ -100,11 +103,21 @@ immobrowse.compareNum = function (alice, bob, descending) {
     if (bob == null) {
       return -Infinity;
     } else {
-      if (descending) {
-        return bob - alice;
+      var val = 0;
+
+      if (alice < bob) {
+        val = -1;
       } else {
-        return alice - bob;
+        if (bob < alice) {
+          val = 1;
+        }
       }
+
+      if (descending) {
+        val =  val * -1;
+      }
+
+      return val;
     }
   }
 }
@@ -152,7 +165,7 @@ immobrowse.euroHtml = function (price) {
   if (price == null) {
     return 'N/A';
   } else {
-    return (price.toFixed(2) + ' &#8364;').replace('.',',');
+    return (price.toFixed(2) + ' &euro;').replace('.',',');
   }
 }
 
@@ -161,7 +174,7 @@ immobrowse.squareMetersHtml = function (area) {
   if (area == null) {
     return 'N/A';
   } else {
-    return (area.toFixed(2) + ' m&#178;').replace('.', ',');
+    return (area.toFixed(2) + ' m&sup2;').replace('.', ',');
   }
 }
 
@@ -261,6 +274,19 @@ immobrowse.titleImage = function (immobilie) {
       }
 
       return null;
+    }
+  }
+}
+
+
+immobrowse.street = function (immobilie) {
+  if (immobilie.geo == null) {
+    return null;
+  } else {
+    if (immobilie.geo.strasse == null) {
+      return null;
+    } else {
+      return immobilie.geo.strasse;
     }
   }
 }
@@ -541,7 +567,7 @@ immobrowse.filter = function (realEstates) {
 
 immobrowse.sortByRooms = function (descending) {
   return function compareRooms(immobilie1, immobilie2) {
-    return immobrowse.compareNum(
+    return immobrowse.compare(
       immobrowse.rooms(immobilie1),
       immobrowse.rooms(immobilie2),
       descending);
@@ -551,9 +577,19 @@ immobrowse.sortByRooms = function (descending) {
 
 immobrowse.sortByArea = function (descending) {
   return function compareAreas(immobilie1, immobilie2) {
-    return immobrowse.compareNum(
+    return immobrowse.compare(
       immobrowse.area(immobilie1),
       immobrowse.area(immobilie2),
+      descending);
+  }
+}
+
+
+immobrowse.sortByStreet = function (descending) {
+  return function compareAreas(immobilie1, immobilie2) {
+    return immobrowse.compare(
+      immobrowse.street(immobilie1),
+      immobrowse.street(immobilie2),
       descending);
   }
 }
@@ -571,6 +607,8 @@ immobrowse.getSorter = function (property, order) {
       return immobrowse.sortByRooms(descending);
     case 'area':
       return immobrowse.sortByArea(descending);
+    case 'street':
+      return immobrowse.sortByStreet(descending);
     default:
       throw 'Invalid sorting property: ' + property;
   }
@@ -598,6 +636,16 @@ immobrowse.getRealEstates = function (cid) {
       immobrowse.realEstates = [];
     }
   });
+}
+
+
+immobrowse.setSortingProperty = function (property) {
+  immobrowse.config.sorting.property = property;
+}
+
+
+immobrowse.setSortingOrder = function (order) {
+  immobrowse.config.sorting.order = order;
 }
 
 
@@ -731,18 +779,15 @@ immobrowse.expose = function (identifier) {
 }
 
 
-immobrowse.sortRealEstates = function () {
+immobrowse.sortRealEstates = function (property, order) {
   immobrowse.debug('Sorting...');
 
   if (immobrowse.realEstates == null) {
     immobrowse.warning('No real estates available.');
   } else {
     immobrowse.realEstates = immobrowse.realEstates.sort(
-      immobrowse.getSorter(
-        immobrowse.config.sortingProperty.value,
-        immobrowse.config.sortingOrder.value));
+      immobrowse.getSorter(property, order));
 
     immobrowse.list();
   }
 }
-
