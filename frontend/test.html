@@ -14,7 +14,9 @@
   <script src="immobrowse.js"></script>
   <script>
     function testDetails() {
-      for (realEstate of immobrowse.realEstates) {
+      for (var i=0; i<immobrowse.realEstates.length; i++) {
+        var realEstate = immobrowse.realEstates[i];
+
         immobrowse.config.listContainer.innerHTML = immobrowse.details(realEstate);
         break;
       }
@@ -46,11 +48,11 @@
     <option value="descending">absteigend</option>
   </select>
   <button onclick="immobrowse.sortRealEstates()">Sort</button><br/>
-  Customer: <input id="customer"></input>
+  Customer: <input id="customer">
   <button onclick="getRealEstates()">Get real estates</button>
   <button onclick="testDetails()">Show details</button><br/>
 </header>
-<body>
+<div id="main">
   <div id="loader" class="loader"></div>
   <div id="container">Real estates go here.</div>
-</body>
+</div>

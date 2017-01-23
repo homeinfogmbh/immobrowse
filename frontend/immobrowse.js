@@ -590,6 +590,12 @@ immobrowse.getRealEstates = function (cid) {
     success: function (json) {
       immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
       immobrowse.realEstates = immobrowse.filter(json.immobilie);
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      immobrowse.error(xhr.responseText);
+      immobrowse.debug(ajaxOptions);
+      immobrowse.debug(thrownError);
+      immobrowse.realEstates = [];
     }
   });
 }
