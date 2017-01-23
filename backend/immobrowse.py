@@ -15,6 +15,7 @@ class ImmoBrowseModel(Model):
 
     class Meta:
         databse = MySQLDatabase(
+            'immobrowse',
             host='localhost',
             user='immobrowse',
             passwd='SAgNBGNXf4uWTn47',
