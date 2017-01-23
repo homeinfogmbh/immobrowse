@@ -40,7 +40,9 @@ class ImmoBrowse(ResourceHandler):
         try:
             settings = Settings.get(Settings.customer == customer)
         except DoesNotExist:
-            yield from self._filtered_real_estates_for(customer)
+            raise Error(
+                'Customer not unlocked for ImmoBrowse',
+                status=403) from None
         else:
             if settings.override is None:
                 yield from self._filtered_real_estates_for(customer)

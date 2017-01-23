@@ -4,5 +4,4 @@
 from homeinfo.lib.rest import RestApp
 from immobrowse import ImmoBrowse
 
-
-application = RestApp({'immobrowse': ImmoBrowse, cors=True})
+application = RestApp({'immobrowse': ImmoBrowse}, cors=True)
