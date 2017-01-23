@@ -14,7 +14,7 @@ class ImmoBrowseModel(Model):
     """Basic ORM model for ImmoBrowse"""
 
     class Meta:
-        databse = MySQLDatabase(
+        database = MySQLDatabase(
             'immobrowse',
             host='localhost',
             user='immobrowse',
