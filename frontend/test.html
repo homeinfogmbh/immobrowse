@@ -13,20 +13,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="immobrowse.js"></script>
   <script>
-    function getRealEstatesTest() {
-      var session = document.getElementById('session').value;
-
-      $.ajax({
-        url: 'https://tls.homeinfo.de/his/realestates/data?limit=100&session=' + session,
-        dataType: "json",
-        success: function (json) {
-          immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
-          immobrowse.realEstates = immobrowse.filter(json.immobilie);
-          immobrowse.list();
-        }
-      });
-    }
-
     function testDetails() {
       for (realEstate of immobrowse.realEstates) {
         immobrowse.config.listContainer.innerHTML = immobrowse.details(realEstate);
@@ -35,7 +21,7 @@
     }
 
     $(document).ready(function () {
-      immobrowse.config.customer = 1000;
+      immobrowse.config.customer = document.getElementById('customer');
       immobrowse.config.logLevel = 5;
       immobrowse.config.sortingProperty = document.getElementById('sortingProperty');
       immobrowse.config.sortingOrder = document.getElementById('sortingOrder');
@@ -57,7 +43,7 @@
     <option value="descending">absteigend</option>
   </select>
   <button onclick="immobrowse.sortRealEstates()">Sort</button><br/>
-  Session token: <input id="session"></input>
+  Customer: <input id="session"></input>
   <button onclick="getRealEstatesTest()">Get real estates</button>
   <button onclick="testDetails()">Show details</button><br/>
 </header>

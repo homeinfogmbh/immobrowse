@@ -583,16 +583,14 @@ immobrowse.getSorter = function (property, order) {
   Retrieves real estates from the back-end API
   and invokes appropriate callback functions
 */
-immobrowse.getRealEstates = function (cid, successCallback, errorCallback) {
+immobrowse.getRealEstates = function () {
   $.ajax({
-    url: 'https://tls.homeinfo.de/realestates/customer/' + cid,
+    url: 'https://tls.homeinfo.de/immobrowse/' + immobrowse.config.customer,
     dataType: "json",
     success: function (json) {
       immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
       immobrowse.realEstates = immobrowse.filter(json.immobilie);
-      displayCallback();
-    },
-    error: errorCallback
+    }
   });
 }
 
