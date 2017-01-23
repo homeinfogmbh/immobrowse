@@ -2,7 +2,7 @@
 
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField, \
     BooleanField
-
+from homeinfo.peewee import MySQLDatabase
 from homeinfo.lib.rest import ResourceHandler
 from homeinfo.lib.wsgi import JSON, Error
 from homeinfo.crm import Customer
@@ -12,6 +12,13 @@ from openimmodb import Immobilie
 
 class ImmoBrowseModel(Model):
     """Basic ORM model for ImmoBrowse"""
+
+    class Meta:
+        databse = MySQLDatabase(
+            host='localhost',
+            user='immobrowse',
+            passwd='SAgNBGNXf4uWTn47',
+            closing=True)
 
     id = PrimaryKeyField()
 
