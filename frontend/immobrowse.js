@@ -583,9 +583,9 @@ immobrowse.getSorter = function (property, order) {
   Retrieves real estates from the back-end API
   and invokes appropriate callback functions
 */
-immobrowse.getRealEstates = function () {
+immobrowse.getRealEstates = function (cid) {
   $.ajax({
-    url: 'https://tls.homeinfo.de/immobrowse/' + immobrowse.config.customer,
+    url: 'https://tls.homeinfo.de/immobrowse/' + cid,
     dataType: "json",
     success: function (json) {
       immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');

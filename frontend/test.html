@@ -20,8 +20,11 @@
       }
     }
 
+    function getRealEstates() {
+      immobrowse.getRealEstates(document.getElementById('customer').value);
+    }
+
     $(document).ready(function () {
-      immobrowse.config.customer = document.getElementById('customer').value;
       immobrowse.config.logLevel = 5;
       immobrowse.config.sortingProperty = document.getElementById('sortingProperty');
       immobrowse.config.sortingOrder = document.getElementById('sortingOrder');
@@ -44,7 +47,7 @@
   </select>
   <button onclick="immobrowse.sortRealEstates()">Sort</button><br/>
   Customer: <input id="customer"></input>
-  <button onclick="immobrowse.getRealEstates()">Get real estates</button>
+  <button onclick="getRealEstates()">Get real estates</button>
   <button onclick="testDetails()">Show details</button><br/>
 </header>
 <body>
