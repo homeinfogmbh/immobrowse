@@ -4,4 +4,4 @@
 from homeinfo.lib.rest import RestApp
 from immobrowse import HANDLERS
 
-application = RestApp(HANDLERS, cors=True, debug=True)
+application = RestApp({'immobrowse': HANDLERS}, cors=True, debug=True)
