@@ -622,6 +622,10 @@ immobrowse.getSorter = function (property, order) {
   and invokes appropriate callback functions
 */
 immobrowse.getRealEstates = function (cid) {
+  if (cid == null) {
+    cid = immobrowse.config.customer;
+  }
+
   $.ajax({
     url: 'https://tls.homeinfo.de/immobrowse/' + cid,
     dataType: "json",
@@ -649,7 +653,18 @@ immobrowse.setSortingOrder = function (order) {
 }
 
 
+immobrowse.titleImageUrl = function (immobilie) {
+  return 'https://tls.homeinfo.de/immobrowse/attachment/' + immobilie.titelbild
+    + '?customer=' + immobrowse.config.customer
+    + '&objektnr_extern=' + immobrowse.identify(immobilie);
+}
+
+/** Mockup **/
+immobrowse.titleImageDummy = 'https://tls.homeinfo.de/does/not/exist';
+
+
 immobrowse.preview = function (immobilie) {
+  var titleImageUrl = immobrowse.titleImageUrl(immobilie);
   var objektnr_extern = immobrowse.identify(immobilie);
   var netColdRent = immobrowse.netColdRent(immobilie);
   var coldRent = immobrowse.coldRent(immobilie);
@@ -658,7 +673,13 @@ immobrowse.preview = function (immobilie) {
 
   var rentAnnotation = 'Miete zzgl. NK';
   var html = '<div class="ib-preview-entry" onclick="immobrowse.expose(\'' + objektnr_extern + '\');">';
-  html += immobrowse.titleImageHtml('https://tls.homeinfo.de/immosearch/attachment/2857540');
+
+  if (titleImageUrl != null) {
+    html += immobrowse.titleImageHtml(titleImageUrl);
+  } else {
+    html += immobrowse.titleImageHtml(immobrowse.titleImageDummy);
+  }
+
   html += '<div class="ib-preview-data">';
   html += '<div class="ib-preview-header">';
   html += '<div class="ib-preview-header-main">';
