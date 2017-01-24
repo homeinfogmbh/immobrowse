@@ -653,10 +653,10 @@ immobrowse.setSortingOrder = function (order) {
 }
 
 
-immobrowse.titleImageUrl = function (immobilie) {
-  return 'https://tls.homeinfo.de/immobrowse/attachment/' + immobilie.titelbild
+immobrowse.attachmentURL = function (anhang, objektnr_extern) {
+  return 'https://tls.homeinfo.de/immobrowse/attachment/' + anhang.sha256sum
     + '?customer=' + immobrowse.config.customer
-    + '&objektnr_extern=' + immobrowse.identify(immobilie);
+    + '&objektnr_extern=' + objektnr_extern;
 }
 
 /** Mockup **/
@@ -664,8 +664,8 @@ immobrowse.titleImageDummy = 'https://tls.homeinfo.de/does/not/exist';
 
 
 immobrowse.preview = function (immobilie) {
-  var titleImageUrl = immobrowse.titleImageUrl(immobilie);
   var objektnr_extern = immobrowse.identify(immobilie);
+  var titleImageUrl = immobrowse.attachmentURL(immobrowse.titleImage(immobilie), objektnr_extern);
   var netColdRent = immobrowse.netColdRent(immobilie);
   var coldRent = immobrowse.coldRent(immobilie);
   var rooms = immobrowse.rooms(immobilie);

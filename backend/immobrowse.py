@@ -31,6 +31,16 @@ def customer(ident):
             raise Error('No such customer: {}'.format(cid)) from None
 
 
+def settings(customer):
+    """Returns the settings for the respective customer"""
+
+    try:
+        return Settings.get(Settings.customer == customer)
+    except DoesNotExist:
+        raise Error(
+            'Customer not unlocked for ImmoBrowse', status=403) from None
+
+
 def real_estate(customer, ident):
     """Returns the reapective real estate for the customer"""
 
@@ -44,13 +54,25 @@ def real_estate(customer, ident):
         except DoesNotExist:
             raise Error('No such real estate: {}'.format(ident)) from None
         else:
-            if immobilie.approve(PORTAL):
-                if immobilie.active:
-                    return JSON(immobilie.to_dict())
+            if immobilie.active:
+                if settings(customer).override or immobilie.approve(PORTAL):
+                    return immobilie
                 else:
-                    raise Error('Real estate is not active') from None
+                    raise Error(
+                        'Real estate not allowed on this portal') from None
             else:
-                raise Error('Real estate not allowed on this portal') from None
+                raise Error('Real estate is not active') from None
+
+
+def real_estates(customer):
+    """Yields real estates of the respective customer"""
+
+    override = settings(customer).override
+
+    for immobilie in Immobilie.of(customer):
+        if immobilie.active:
+            if override or immobilie.approve(PORTAL):
+                yield immobilie
 
 
 def attachment(real_estate, sha256sum):
@@ -94,32 +116,10 @@ class Settings(ImmoBrowseModel):
 class ListHandler(ResourceHandler):
     """Handles real estate list queries for customers"""
 
-    def _filtered_real_estates_for(self, customer):
-        """Yields filtered real estates for the specified customer"""
-        for immobilie in Immobilie.of(customer):
-            if immobilie.approve('immobrowse') and immobilie.active:
-                yield immobilie
-
-    def _real_estates_for(self, customer):
-        """Yields real estates for the specified customer"""
-        try:
-            settings = Settings.get(Settings.customer == customer)
-        except DoesNotExist:
-            raise Error(
-                'Customer not unlocked for ImmoBrowse',
-                status=403) from None
-        else:
-            if settings.override is None:
-                yield from self._filtered_real_estates_for(customer)
-            elif settings.override:
-                for immobilie in Immobilie.of(customer):
-                    yield immobilie
-
     def get(self):
         """Retrieves real estates"""
-        return JSON({
-            'immobilie': [r.to_dict() for r in
-                          self._real_estates_for(customer(self.resource))]})
+        return JSON({'immobilie': [r.to_dict() for r in real_estates(
+            customer(self.resource))]})
 
 
 class RealEstateHandler(ResourceHandler):
