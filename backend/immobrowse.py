@@ -118,8 +118,9 @@ class ListHandler(ResourceHandler):
 
     def get(self):
         """Retrieves real estates"""
-        return JSON({'immobilie': [r.to_dict() for r in real_estates(
-            customer(self.resource))]})
+        return JSON({'immobilie': [
+            r.to_dict(limit=True) for r in real_estates(
+                customer(self.resource))]})
 
 
 class RealEstateHandler(ResourceHandler):
@@ -130,7 +131,7 @@ class RealEstateHandler(ResourceHandler):
         immobilie = real_estate(
             customer(self.query.get('customer')),
             self.resource)
-        return JSON(immobilie.to_dict())
+        return JSON(immobilie.to_dict(limit=True))
 
 
 class AttachmentHandler(ResourceHandler):

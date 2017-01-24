@@ -260,7 +260,7 @@ immobrowse.titleImage = function (immobilie) {
       for (var i=0; i<immobilie.anhaenge.anhang.length; i++) {
         var anhang = immobilie.anhaenge.anhang[i];
 
-        if (anhang.gruppe == 'GRUNDRISS') {
+        if (anhang.gruppe == 'BILD') {
           return anhang;
         }
       }
@@ -268,7 +268,7 @@ immobrowse.titleImage = function (immobilie) {
       for (var i=0; i<immobilie.anhaenge.anhang.length; i++) {
         var anhang = immobilie.anhaenge.anhang[i];
 
-        if (anhang.gruppe == 'BILD') {
+        if (anhang.gruppe == 'GRUNDRISS') {
           return anhang;
         }
       }
@@ -507,6 +507,19 @@ immobrowse.marketingTypes = function (immobilie) {
 }
 
 
+immobrowse.showAddress = function (immobilie) {
+  if (immobilie.verwaltung_objekt == null) {
+    return true;
+  } else {
+    if (immobilie.verwaltung_objekt.objektadresse_freigeben == null) {
+      return true;
+    } else {
+      return immobilie.verwaltung_objekt.objektadresse_freigeben;
+    }
+  }
+}
+
+
 /*** Filtering ***/
 
 immobrowse.matchTypes = function (immobilie) {
@@ -690,8 +703,11 @@ immobrowse.preview = function (immobilie) {
     html += rooms + ' Zimmer Wohnung | ';
   }
 
-  html += immobrowse.addressPreview(immobilie.geo);
-  html += ' | ';
+  if (immobrowse.showAddress(immobilie)) {
+    html += immobrowse.addressPreview(immobilie.geo);
+    html += ' | ';
+  }
+
   html += immobrowse.cityPreview(immobilie.geo);
   html += '</div>';
   html += '<div class="ib-preview-header-sub">';
