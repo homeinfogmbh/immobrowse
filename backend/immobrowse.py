@@ -117,9 +117,9 @@ class ListHandler(ResourceHandler):
 
     def get(self):
         """Retrieves real estates"""
-        real_estates = list(self._real_estates_for(customer(self.resource)))
-        json = {'immobilie': [r.to_dict() for r in real_estates]}
-        return JSON(json)
+        return JSON({
+            'immobilie': [r.to_dict() for r in
+                          self._real_estates_for(customer(self.resource))]})
 
 
 class RealEstateHandler(ResourceHandler):
