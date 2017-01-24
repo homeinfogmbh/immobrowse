@@ -5,10 +5,66 @@ from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField, \
 
 from homeinfo.peewee import MySQLDatabase
 from homeinfo.lib.rest import ResourceHandler
-from homeinfo.lib.wsgi import JSON, Error
+from homeinfo.lib.wsgi import Error, JSON, Binary
 from homeinfo.crm import Customer
 
-from openimmodb import Immobilie
+from openimmodb import Immobilie, Anhang
+
+__all__ = ['HANDLERS']
+
+PORTAL = 'immobrowse'
+
+
+def customer(ident):
+    """Returns a customer for the respective string"""
+
+    try:
+        cid = int(ident)
+    except TypeError:
+        raise Error('No customer specified') from None
+    except ValueError:
+        raise Error('Invalid customer ID: {}'.format(ident)) from None
+    else:
+        try:
+            return Customer.get(Customer.id == cid)
+        except DoesNotExist:
+            raise Error('No such customer: {}'.format(cid)) from None
+
+
+def real_estate(customer, ident):
+    """Returns the reapective real estate for the customer"""
+
+    if ident is None:
+        raise Error('No real estate specified') from None
+    else:
+        try:
+            immobilie = Immobilie.get(
+                (Immobilie.customer == customer) &
+                (Immobilie.objektnr_extern == ident))
+        except DoesNotExist:
+            raise Error('No such real estate: {}'.format(ident)) from None
+        else:
+            if immobilie.approve(PORTAL):
+                if immobilie.active:
+                    return JSON(immobilie.to_dict())
+                else:
+                    raise Error('Real estate is not active') from None
+            else:
+                raise Error('Real estate not allowed on this portal') from None
+
+
+def attachment(real_estate, sha256sum):
+    """Returns the respective attachment"""
+
+    if sha256sum is None:
+        return Anhang.select().where(Anhang.immobilie == real_estate)
+    else:
+        try:
+            return Anhang.get(
+                (Anhang._immobilie == real_estate) &
+                (Anhang.sha256sum == sha256sum))
+        except DoesNotExist:
+            raise Error('No such attachment: {}'.format(sha256sum)) from None
 
 
 class ImmoBrowseModel(Model):
@@ -35,8 +91,8 @@ class Settings(ImmoBrowseModel):
     override = BooleanField(null=True, default=None)
 
 
-class ImmoBrowse(ResourceHandler):
-    """Handles real estate queries for customers"""
+class ListHandler(ResourceHandler):
+    """Handles real estate list queries for customers"""
 
     def _filtered_real_estates_for(self, customer):
         """Yields filtered real estates for the specified customer"""
@@ -61,20 +117,37 @@ class ImmoBrowse(ResourceHandler):
 
     def get(self):
         """Retrieves real estates"""
-        if self.resource is None:
-            raise Error('No customer specified') from None
-        else:
-            try:
-                cid = int(self.resource)
-            except ValueError:
-                raise Error('Invalid customer ID: {}'.format(
-                    self.resource)) from None
-            else:
-                try:
-                    customer = Customer.get(Customer.id == cid)
-                except DoesNotExist:
-                    raise Error('No such customer: {}'.format(cid)) from None
-                else:
-                    real_estates = list(self._real_estates_for(customer))
-                    json = {'immobilie': [r.to_dict() for r in real_estates]}
-                    return JSON(json)
+        real_estates = list(self._real_estates_for(customer(self.resource)))
+        json = {'immobilie': [r.to_dict() for r in real_estates]}
+        return JSON(json)
+
+
+class RealEstateHandler(ResourceHandler):
+    """Handles requests on single real estates"""
+
+    def get(self):
+        """Returns real estate details data"""
+        immobilie = real_estate(
+            customer(self.query.get('customer')),
+            self.resource)
+        return JSON(immobilie.to_dict())
+
+
+class AttachmentHandler(ResourceHandler):
+    """Handles requests on attachments"""
+
+    def get(self):
+        """Returns the respective attachment"""
+        anhang = attachment(
+            real_estate(
+                customer(self.query.get('customer')),
+                self.query.get('objektnr_extern')),
+            self.resource)
+
+        return Binary(anhang.data)
+
+
+HANDLERS = {
+    'list': ListHandler,
+    'real_estate': RealEstateHandler,
+    'attachment': AttachmentHandler}

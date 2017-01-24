@@ -2,6 +2,6 @@
 """ImmoBrowse WSGI application"""
 
 from homeinfo.lib.rest import RestApp
-from immobrowse import ImmoBrowse
+from immobrowse import HANDLERS
 
-application = RestApp({'immobrowse': ImmoBrowse}, cors=True, debug=True)
+application = RestApp(HANDLERS, cors=True, debug=True)
