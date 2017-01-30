@@ -642,9 +642,9 @@ immobrowse.getRealEstates = function (cid) {
   $.ajax({
     url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
     dataType: "json",
-    success: function (json) {
-      immobrowse.debug('Retrieved ' + json.immobilie.length + ' real estates.');
-      immobrowse.realEstates = immobrowse.filter(json.immobilie);
+    success: function (realEstates) {
+      immobrowse.debug('Retrieved ' + realEstates.length + ' real estates.');
+      immobrowse.realEstates = immobrowse.filter(realEstates);
     },
     error: function (xhr, ajaxOptions, thrownError) {
       immobrowse.error(xhr.responseText);
