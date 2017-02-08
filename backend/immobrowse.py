@@ -75,18 +75,18 @@ def real_estates(customer):
                 yield immobilie
 
 
-def attachment(real_estate, sha256sum):
+def attachment(real_estate, ident):
     """Returns the respective attachment"""
 
-    if sha256sum is None:
+    if ident is None:
         return Anhang.select().where(Anhang.immobilie == real_estate)
     else:
         try:
             return Anhang.get(
                 (Anhang._immobilie == real_estate) &
-                (Anhang.sha256sum == sha256sum))
+                (Anhang.ident == ident))
         except DoesNotExist:
-            raise Error('No such attachment: {}'.format(sha256sum)) from None
+            raise Error('No such attachment: {}'.format(ident)) from None
 
 
 class ImmoBrowseModel(Model):
@@ -138,13 +138,22 @@ class AttachmentHandler(ResourceHandler):
 
     def get(self):
         """Returns the respective attachment"""
-        anhang = attachment(
-            real_estate(
-                customer(self.query.get('customer')),
-                self.query.get('objektnr_extern')),
-            self.resource)
+        real_estate_ = real_estate(
+            customer(self.query.get('customer')),
+            self.query.get('objektnr_extern'))
 
-        return Binary(anhang.data)
+        try:
+            ident = int(self.resource)
+        except TypeError:
+            for anhang in attachment(real_estate_, None):
+                # TODO: implement
+                pass
+        except ValueError:
+            raise Error('Invalid attachment id: {}.'.format(
+                self.resource)) from None
+        else:
+            anhang = attachment(real_estate_, ident)
+            return Binary(anhang.data)
 
 
 HANDLERS = {
