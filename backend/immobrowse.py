@@ -84,7 +84,7 @@ def attachment(real_estate, ident):
         try:
             return Anhang.get(
                 (Anhang._immobilie == real_estate) &
-                (Anhang.ident == ident))
+                (Anhang.id == ident))
         except DoesNotExist:
             raise Error('No such attachment: {}'.format(ident)) from None
 
