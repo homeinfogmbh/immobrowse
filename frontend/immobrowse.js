@@ -19,7 +19,6 @@
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
 */
 
-TEST2
 var immobrowse = immobrowse || {};
 
 // Real estates container
@@ -695,12 +694,12 @@ immobrowse.preview = function (immobilie) {
   html += '<div class="ib-preview-data">';
   html += '<div class="ib-preview-header">';
   html += '<div class="ib-preview-header-title">';
-  
+
 if (immobilie.hasOwnProperty('freitexte'))
 	if (immobilie.freitexte.hasOwnProperty('objekttitel'))
 		html += '<a href="#"><h3><strong>' + immobilie.freitexte.objekttitel + '</strong></h3></a>';
-	
-	
+
+
   html += '<div class="ib-preview-header-main">';
 
   if (rooms == null) {
@@ -724,12 +723,12 @@ if (immobilie.hasOwnProperty('freitexte'))
   html += '<div class="ib-preview-rent-caption">Nettokaltmiete</div>';
   html += '<div class="ib-preview-rent-data">' + getGermanDecimalFormat(immobilie.preise.nettokaltmiete) + ' €' + '</div>';
   html += '</div>';
-  
+
   html += '<div class="ib-preview-area">';
-  html += '<div class="ib-preview-area-caption">Wohnfläche</div>';  
+  html += '<div class="ib-preview-area-caption">Wohnfläche</div>';
   html += '<div class="ib-preview-area-data">' + immobilie.flaechen.wohnflaeche + '</div>';
   html += '</div>';
-  
+
   html += '<div class="ib-preview-rooms">';
   html += '<div class="ib-preview-rooms-caption">Zimmer</div>';
   html += '<div class="ib-preview-rooms-data">' + rooms + '</div>';
@@ -742,7 +741,7 @@ if (immobilie.hasOwnProperty('freitexte'))
 }
 
 
-immobrowse.details = function (immobilie) { 
+immobrowse.details = function (immobilie) {
   //console.log(JSON.stringify(immobilie));
   immobrowse.titleImage(immobilie)
   var rooms = immobrowse.rooms(immobilie);
@@ -779,13 +778,13 @@ immobrowse.details = function (immobilie) {
 	  for (i = 0; i < immobilie.anhaenge.anhang.length; i++)
 		if (immobilie.anhaenge.anhang[i].gruppe != "GRUNDRISS" && immobilie.anhaenge.anhang[i].gruppe != "DOKUMENTE")
 			maxImageCounter++;
-			
+
 	  // Get anhaenge (images and documents)
 	  var imagesLeft = '';
 	  var imagesLeftCounter = 0;
 	  var floorplans = '';
 	  var floorplansCounter = 0;
-	  
+
 	  for (i = 0; i < immobilie.anhaenge.anhang.length; i++) {
 		if (immobilie.anhaenge.anhang[i].gruppe == "GRUNDRISS") {
 			floorplans += '<img src="' + immobrowse.attachmentURL(immobilie.anhaenge.anhang[i], immobrowse.identify(immobilie)) + '" id="floorplan' + floorplansCounter + '" alt="Grundriss' + (floorplansCounter+1) + '" class="ib-detail-image"' + ((floorplans != '') ?'style="display: none;")' :'') + ' />';
@@ -803,14 +802,14 @@ immobrowse.details = function (immobilie) {
 	  body += '<div id="details-body-right">';
 	  body += floorplans;
 	  body += '</div>';
-	  
+
 	  // Set the button for each image
 	  body += '<div style="clear:both"></div><br>'; // below again
 	  for (i = 0; i < imagesLeftCounter; i++)
 		if (immobilie.anhaenge.anhang[i].gruppe != "GRUNDRISS" && immobilie.anhaenge.anhang[i].gruppe != "DOKUMENTE")
 			body += '<button class="showimage" id="button' + i + '" class="btn btn-success pull-right" type="button" data-nr="' + i + '" data-nrmax="' + maxImageCounter + '">' + (i+1) + '</button>';
   }
-  
+
   body += '<div style="clear:both"></div><br><br>'; // below again
   body += '<div id="details-body-left">';
   body += '<h3>PREISE & KOSTEN</h3>';
@@ -838,17 +837,17 @@ immobrowse.details = function (immobilie) {
 	  body += '<td>Heizkosten in Nebenkosten enthalten</td>';
 	  body += '<td align="right">' + ((immobilie.preise.heizkosten_enthalten == true) ?"Ja" :"Nein") + '</td>';
 	  body += '</tr>';
-  }  
+  }
   if (immobilie.preise.kaution != undefined) {
 	  body += '<tr>';
 	  body += '<td>Kaution oder Genossenschaftsanteile</td>';
 	  body += '<td align="right">' + getGermanDecimalFormat(immobilie.preise.kaution) + ' €</td>';
-	  body += '</tr>';  
+	  body += '</tr>';
   }
 
   if (immobilie.preise.provisionspflichtig != undefined) {
 	  body += '<tr>';
-	  body += '<td><strong>Provisionsfrei</strong></td>';	  
+	  body += '<td><strong>Provisionsfrei</strong></td>';
 	  if (immobilie.preise.provisionspflichtig == true)
 		body += '<td align="right">Nein</td>';
 	  else if (immobilie.preise.provisionspflichtig == false)
@@ -856,7 +855,7 @@ immobrowse.details = function (immobilie) {
 	  body += '</tr>';
   }
   body += '</table><br></div>';
-  
+
   body += '<div id="details-body-right">';
   body += '<h3>GRÖSSE & ZUSTAND</h3>';
   body += '<table width="420px" cellspacing="0">';
@@ -871,16 +870,16 @@ immobrowse.details = function (immobilie) {
   if (immobilie.geo.hasOwnProperty('etage')) {
 	  body += '<tr><td>Etage</td>';
 	  body += '<td align="right">' + getZustand(immobilie.geo.etage) + '</td></tr>';
-  }   
+  }
   if (immobilie.verwaltung_objekt.verfuegbar_ab != undefined) {
 	body += '<tr><td>Verfügbar ab</td>';
 	body += '<td align="right">' + immobilie.verwaltung_objekt.verfuegbar_ab + '</td></tr>';
-  } 
+  }
   if (immobilie.hasOwnProperty('zustand_angaben')) {
 	  if (immobilie.zustand_angaben.hasOwnProperty('baujahr')) {
 		  body += '<tr><td>Baujahr</td>';
 		  body += '<td align="right">' + immobilie.zustand_angaben.baujahr + '</td></tr>';
-	  }  
+	  }
 	  if (immobilie.zustand_angaben.hasOwnProperty('zustand')) {
 		  body += '<tr><td>Zustand</td>';
 		  body += '<td align="right">' + getZustand(immobilie.zustand_angaben.zustand) + '</td></tr>';
@@ -891,7 +890,7 @@ immobrowse.details = function (immobilie) {
 	body += '<td align="right">Erforderlich</td></tr>';
   }
   body += '</table><br></div>';
-  
+
   body += '<div style="clear:both"></div>'; // below again
   body += '<div id="details-body-left">';
   body += '<h3>ENERGIEANGABEN</h3>';
@@ -920,7 +919,7 @@ immobrowse.details = function (immobilie) {
 				  body += '<td>Effizienzklasse</td>';
 				  body += '<td align="right">' + getBefeuerung(immobilie.zustand_angaben.energiepass[0].wertklasse) + '</td>';
 				  body += '</tr>';
-			  } 
+			  }
 		  }
 		  if (immobilie.zustand_angaben.hasOwnProperty('letztemodernisierung')) {
 			  body += '<tr>';
@@ -929,9 +928,9 @@ immobrowse.details = function (immobilie) {
 			  body += '</tr>';
 		  }
 	  }
-  } else 
+  } else
 	  body += '<td align="right">Nicht angegeben</td>';
-  body += '</tr>';  
+  body += '</tr>';
   body += '</table><br></div>';
 
   if (immobilie.hasOwnProperty('ausstattung')) {
@@ -959,17 +958,17 @@ immobrowse.details = function (immobilie) {
 		body += '<h3>OBJEKTBESCHREIBUNG</h3>';
 		body += '<table>';
 		body += '<tr><td style="border: none;"> ' + immobilie.freitexte.objektbeschreibung + '</td></tr>';
-		body += '</tr>';  
+		body += '</tr>';
 		body += '</table><br>';
 	  }
   }
-  
+
   if (immobilie.hasOwnProperty('freitexte')) {
 	if (immobilie.freitexte.hasOwnProperty('lage')) {
 		body += '<h3>LAGE</h3>';
 		body += '<table>';
 		body += '<tr><td style="border: none;"> ' + immobilie.freitexte.lage + '</td></tr>';
-		body += '</tr>';  
+		body += '</tr>';
 		body += '</table><br>';
 	}
   }
@@ -979,14 +978,14 @@ immobrowse.details = function (immobilie) {
 		body += '<h3>SONSTIGES</h3>';
 		body += '<table>';
 		body += '<tr><td style="border: none;"> ' + immobilie.freitexte.sonstige_angaben + '</td></tr>';
-		body += '</tr>';  
+		body += '</tr>';
 		body += '</table><br>';
 	  }
   }
-  
-  
+
+
   html += '<div id="content">' + body + '</div>';
-  
+
   var footer = '';
   footer += '<div style="clear:both"></div>'; // below again
   footer += '<div id="details-body-left">';
@@ -998,9 +997,9 @@ immobrowse.details = function (immobilie) {
   footer += (immobilie.kontaktperson.tel_durchw != undefined) ?'Tel.: ' + immobilie.kontaktperson.tel_durchw + '</br>' :'';
   footer += (immobilie.kontaktperson.url != undefined) ?'<a href="' + ((immobilie.kontaktperson.url.indexOf("http") == -1) ?'http://' + immobilie.kontaktperson.url :immobilie.kontaktperson.url) + '" target="_blank">' + immobilie.kontaktperson.url + '</a></br></br></br>': '</br></br></br>';
   footer += '</div>';
-  
+
   footer += '<div id="details-body-right">';
-  footer += '<h3>DOKUMENTE</h3>';  
+  footer += '<h3>DOKUMENTE</h3>';
   footer += '<table width="420px" cellspacing="0" style="background-color: #efefef">';
   if (documents == '')
 	  footer += 'Keine Dokumente vorhanden';
@@ -1009,7 +1008,7 @@ immobrowse.details = function (immobilie) {
   footer += '</table><br></div>';
   footer += '<div style="clear:both"></div>'; // below again
   html += '<div id="footer">' + footer + '</div>';
- 
+
   return html + '</div>';
 }
 
@@ -1093,7 +1092,7 @@ function getBefeuerung(property) {
 	}
 	return property;
 }
-function getZustand(property) {	
+function getZustand(property) {
 	switch (property) {
 		case 'ERSTBEZUG':
 			return "Erstbezug";
@@ -1124,7 +1123,7 @@ function getZustand(property) {
 		case 'ABRISSOBJEKT':
 			return "Abrissobjekt";
 		case 'PROJEKTIERT':
-			return "Projektiert";			
+			return "Projektiert";
 	}
 	return property;
 }
@@ -1141,7 +1140,7 @@ function getGermanDecimalFormat(nr) {
 			return "";
 		else {
 			nr = String(nr);
-			nr = nr.replace(".", ",");	
+			nr = nr.replace(".", ",");
 			if (nr.indexOf(",") == -1)
 				nr += ",00";
 			else if (nr.toString().indexOf(",")+2 == nr.toString().length)
@@ -1194,7 +1193,7 @@ function checkFilter(realEstate) {
 			else if (realEstate.ausstattung.hasOwnProperty('fahrstuhl'))
 				if (!realEstate.ausstattung.fahrstuhl.PERSONEN)
 					return false;
-		}	
+		}
 	} else if ($("#checkbox_garden").is(':checked')) {
 		if (realEstate.hasOwnProperty('ausstattung')) {
 			if (jQuery.isEmptyObject(realEstate.ausstattung))
