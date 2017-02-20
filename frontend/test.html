@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <head>
+<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="test.css">
-  <link rel="stylesheet" href="https://tls.homeinfo.de/css/immobrowse.css">
+  <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="immobrowse.css">
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
+  <script src="immobrowse.js"></script>
   <script>
     var option = null;
     var order = null;
@@ -35,10 +36,10 @@
 
       switch (order) {
         case 'ascending':
-          issuer.innerHTML += '&darr;';
+          issuer.innerHTML += ' &darr;';
           break;
         case 'descending':
-          issuer.innerHTML += '&uarr;';
+          issuer.innerHTML += ' &uarr;';
           break;
       }
 
@@ -55,22 +56,56 @@
     }
 
     $(document).ready(function () {
-      immobrowse.config.logLevel = 5;
-      immobrowse.config.customer = location.search.slice(1)
-      immobrowse.config.listContainer = document.getElementById('container');
-      immobrowse.config.exposeContainer = document.getElementById('container');
-      immobrowse.config.filters.types = ['WOHNUNG'];
-      immobrowse.config.filters.marketing = ['MIETE_PACHT'];
-      immobrowse.getRealEstates();
+		$('#btn_extendedsearch').click(function() {
+		if ($('#extendedsearch').attr('style') == "display: none;")
+			$('#extendedsearch').slideDown();
+		else
+			$('#extendedsearch').slideUp();
+		});	
+	
+		$('.btn_filter').on('input',function(e) {
+			immobrowse.list();
+		});
+		$('.btn_filter_checkbox').click(function() {
+			immobrowse.list();
+		});
+		//immobrowse.config.logLevel = 5;
+		immobrowse.config.customer = location.search.slice(1);
+		immobrowse.config.listContainer = document.getElementById('container');
+		immobrowse.config.exposeContainer = document.getElementById('container');
+		immobrowse.config.filters.types = ['WOHNUNG'];
+		immobrowse.config.filters.marketing = ['MIETE_PACHT'];
+		immobrowse.getRealEstates();
     });
   </script>
 </head>
 <header>
-  <button id="rooms" onclick="toggleSorting('rooms')" class="w3-btn w3-green">Zimmer</button>
-  <button id="area" onclick="toggleSorting('area')" class="w3-btn w3-green">Fl&auml;che</button>
-  <button id="street" onclick="toggleSorting('street')" class="w3-btn w3-green">Stra&szlig;e</button>
+	<button id="rooms" onclick="toggleSorting('rooms')" class="w3-btn w3-blue">Zimmer</button>
+	<button id="area" onclick="toggleSorting('area')" class="w3-btn w3-blue">Fl&auml;che</button>
+	<button id="street" onclick="toggleSorting('street')" class="w3-btn w3-blue">Stra&szlig;e</button>
+
+	<div style="float:right; margin-right: 30%;">
+	<button id="btn_extendedsearch">Erweiterte Suche</button>
+	</div><br><br>
+	<div id="extendedsearch" style="display: none;">
+		<input id="pricefrom" class="btn_filter" type="number" placeholder="Preis von">
+		<input id="pricetill" class="btn_filter" type="number" placeholder="Preis bis">
+		<input id="areafrom" class="btn_filter" type="number" placeholder="Größe ab in m²">
+		<input id="roomsfrom" class="btn_filter" type="number" placeholder="Zimmer ab"><br><br>
+		<div class="btn-group" data-toggle="buttons">
+			<label><strong>Austattung</strong></label><br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtube"> Badewanne<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_pitch"> Stellplatz<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
+			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
+		</div>
+	</div>
 </header>
 <div id="main">
   <div id="loader" class="loader"></div>
-  <div id="container">Real estates go here.</div>
+  <div id="container">Immobilien werden geladen, bitte warten...</div>
 </div>

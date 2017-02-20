@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="immobrowse.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="immobrowse.js"></script>
+  <script>
+    $(document).ready(function () {
+      immobrowse.config.exposeContainer = document.getElementById('containerdetails');
+	  if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern'))
+		immobrowse.config.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
+	  else
+		immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
+      //immobrowse.getRealEstate("0003.0377.0046", "1028001");
+    });
+	function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1));
+		var sURLVariables = sPageURL.split('&');
+		var sParameterName;
+		for (var i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+  </script>
+</head>
+<div id="main">
+  <div id="loader" class="loader"></div>
+  <div id="containerdetails">Immobilie wird aufgerufen, bitte warten...</div>
+</div>
