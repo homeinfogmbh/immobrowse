@@ -19,7 +19,7 @@
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
 */
 
-TEST
+TEST2
 var immobrowse = immobrowse || {};
 
 // Real estates container
