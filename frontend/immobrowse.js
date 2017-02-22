@@ -752,12 +752,43 @@ immobrowse.preview = function (immobilie) {
   html += '<div class="ib-preview-zimmer">';
   html += '<div class="ib-preview-zimmer-caption">Verfügbar ab</div>';
   html += '<div class="ib-preview-zimmer-data">' + immobilie.verwaltung_objekt.verfuegbar_ab + '</div>';  
-  html += '</div>';
-  
-  html += '</div>';
   html += '</div>';  
   html += '</div>';
-
+  
+  
+  if (immobilie.ausstattung != null) {
+	if (immobilie.ausstattung.kueche != null || immobilie.ausstattung.bad != null ||
+	immobilie.ausstattung.kabel_sat_tv || immobilie.ausstattung.stellplatzart != null ||
+	immobilie.ausstattung.barrierefrei || immobilie.ausstattung.fahrstuhl != null ||
+	immobilie.flaechen.anzahl_balkone > 0 || immobilie.ausstattung.bad != null ||
+	immobilie.ausstattung.unterkellert || immobilie.ausstattung.rollstuhlgerecht) {
+		html += (immobilie.flaechen.anzahl_balkone > 0) ?'<div class="ib-preview-oval"><div class="oval">Balkon</div></div>' :'';
+		html += (immobilie.ausstattung.barrierefrei) ?'<div class="ib-preview-oval"><div class="oval">Barrierefrei</div></div>' :'';
+		html += (immobilie.ausstattung.kabel_sat_tv) ?'<div class="ib-preview-oval"><div class="oval">Kabel/Sat/TV</div></div>' :'';
+		html += (immobilie.ausstattung.unterkellert) ?'<div class="ib-preview-oval"><div class="oval">Keller</div></div>' :'';
+		html += (immobilie.ausstattung.rollstuhlgerecht) ?'<div class="ib-preview-oval"><div class="oval">Rollstuhlgerecht</div></div>' :'';
+		if (immobilie.ausstattung.bad != null) {
+			html += (immobilie.ausstattung.bad.FENSTER) ?'<div class="ib-preview-oval"><div class="oval">Fenster im Bad</div></div>' :'';
+			html += (immobilie.ausstattung.bad.WANNE) ?'<div class="ib-preview-oval"><div class="oval">Badewanne</div></div>' :'';
+			html += (immobilie.ausstattung.bad.DUSCHE) ?'<div class="ib-preview-oval"><div class="oval">Dusche</div></div>' :'';
+		}		
+		if (immobilie.ausstattung.kueche != null) {
+			html += (immobilie.ausstattung.kueche.EBK) ?'<div class="ib-preview-oval"><div class="oval">EBK</div></div>' :'';
+		}
+		if (immobilie.ausstattung.bad != null) {
+			html += (immobilie.ausstattung.bad.WANNE) ?'<div class="ib-preview-oval"><div class="oval">Badewanne</div></div>' :'';
+		}
+		if (immobilie.ausstattung.stellplatzart != null) {
+			html += (immobilie.ausstattung.stellplatzart.FREIPLATZ) ?'<div class="ib-preview-oval"><div class="oval">Stellplatz</div></div>' :'';
+		}
+		if (immobilie.ausstattung.fahrstuhl != null) {
+			html += (immobilie.ausstattung.fahrstuhl.PERSONEN) ?'<div class="ib-preview-oval"><div class="oval">Fahrstuhl</div></div>' :'';
+		}
+	}
+  }
+  
+  html += '</div>'; 
+  html += '</div>';
   return html;
 }
 

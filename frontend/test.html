@@ -3,11 +3,11 @@
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="default.css">
-  <link rel="stylesheet" href="immobrowse.css">
+  <link rel="stylesheet" href="https://tls.homeinfo.de/css/immobrowse.css">
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="immobrowse.js"></script>
+  <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
     var option = null;
     var order = null;
@@ -64,9 +64,11 @@
 		});	
 	
 		$('.btn_filter').on('input',function(e) {
+			setFilter();
 			immobrowse.list();
 		});
 		$('.btn_filter_checkbox').click(function() {
+			setFilter();
 			immobrowse.list();
 		});
 		//immobrowse.config.logLevel = 5;
@@ -77,6 +79,20 @@
 		immobrowse.config.filters.marketing = ['MIETE_PACHT'];
 		immobrowse.getRealEstates();
     });
+	function setFilter() {
+		immobrowse.config.filters.pricefrom = $('#pricefrom').val();
+		immobrowse.config.filters.pricetill = $('#pricetill').val();
+		immobrowse.config.filters.areafrom = $('#areafrom').val();
+		immobrowse.config.filters.roomsfrom = $('#roomsfrom').val();
+		immobrowse.config.filters.checkbox_ebk = $("#checkbox_ebk").is(':checked');
+		immobrowse.config.filters.checkbox_bathtube = $("#checkbox_bathtube").is(':checked');
+		immobrowse.config.filters.checkbox_window = $("#checkbox_window").is(':checked');
+		immobrowse.config.filters.checkbox_balcony = $("#checkbox_balcony").is(':checked');
+		immobrowse.config.filters.checkbox_pitch = $("#checkbox_pitch").is(':checked');
+		immobrowse.config.filters.checkbox_guestwc = $("#checkbox_guestwc").is(':checked');
+		immobrowse.config.filters.checkbox_elevator = $("#checkbox_elevator").is(':checked');
+		immobrowse.config.filters.checkbox_garden = $("#checkbox_garden").is(':checked');
+	}
   </script>
 </head>
 <header>
@@ -93,6 +109,7 @@
 		<input id="areafrom" class="btn_filter" type="number" placeholder="Größe ab in m²">
 		<input id="roomsfrom" class="btn_filter" type="number" placeholder="Zimmer ab"><br><br>
 		<div class="btn-group" data-toggle="buttons">
+		<!--
 			<label><strong>Austattung</strong></label><br>
 			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
 			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtube"> Badewanne<br>
@@ -102,6 +119,7 @@
 			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
 			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
 			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
+			-->
 		</div>
 	</div>
 </header>

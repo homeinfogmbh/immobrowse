@@ -160,6 +160,13 @@ input[type=number]::-webkit-outer-spin-button {
   clear: both;
 }
 
+.ib-preview-oval{
+  padding-left: 5px;
+  display: table-column;
+  width: auto;
+  float: left;
+}
+
 .ib-detail-image {
   display: table-column;
   max-width: 500px;
