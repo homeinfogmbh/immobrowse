@@ -59,6 +59,12 @@
       $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
       $('#contact_form_response').hide();
     }
+
+    $(document).ready(function() {
+      $("#send_form").click(sendEmail);
+      $('#contactFormModal').on('shown.bs.modal', clearForm);
+      $("#clear_form").click(clearForm);
+    });
   </script>
 </head>
 <div id="main">
@@ -174,18 +180,3 @@
     </div>
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $("#send_form").click(sendEmail());
-  });
-
-  $('#contactFormModal').on('shown.bs.modal', function () {
-    clearForm();
-  });
-
-  $("#clear_form").click(function() {
-    msgSubject = '';
-    msgHtml = '';
-    clearForm();
-  });
-</script>
