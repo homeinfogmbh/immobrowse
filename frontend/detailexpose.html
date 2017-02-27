@@ -48,27 +48,47 @@
 <div id="main">
   <div id="loader" class="loader"></div>
   <div id="containerdetails">Immobilie wird aufgerufen, bitte warten...</div>
-  <div id="contact_form">
-    <h3>Kontaktformular</h3>
-    <table>
-      <tr>
-        <td>Name:</td>
-        <td><input type="text" id="surname"></td>
-      </tr>
-      <tr>
-        <td>Vorname:</td>
-        <td><input type="text" id="given_name"></td>
-      </tr>
-      <tr>
-        <td>E-Mail Adresse:</td>
-        <td><input type="text" id="email"></td>
-      </tr>
-      <tr>
-        <td>Ihre Nachricht:</td>
-        <td><input type="text" id="message" class="ib-contact-textfield"></td>
-      </tr>
-    </table>
-    <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
-    <button id="send_mail" onclick=sendEmail('homeinfo-testing');>Absenden</button>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#contact_form">
+    Kontaktformular
+  </button>
+
+  <!-- Modal -->
+  <div id="contact_form" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Kontaktformular</h4>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td>Name:</td>
+              <td><input type="text" id="surname"></td>
+            </tr>
+            <tr>
+              <td>Vorname:</td>
+              <td><input type="text" id="given_name"></td>
+            </tr>
+            <tr>
+              <td>E-Mail Adresse:</td>
+              <td><input type="text" id="email"></td>
+            </tr>
+            <tr>
+              <td>Ihre Nachricht:</td>
+              <td><input type="text" id="message" class="ib-contact-textfield"></td>
+            </tr>
+          </table>
+          <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+          <button id="send_mail" onclick=sendEmail('homeinfo-testing');>Absenden</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
