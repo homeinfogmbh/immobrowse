@@ -1,129 +1,39 @@
 <!DOCTYPE HTML>
 <head>
-<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="default.css">
   <link rel="stylesheet" href="https://tls.homeinfo.de/css/immobrowse.css">
-  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="lib/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="lib/sweetalert2.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
-  <script>
-    var option = null;
-    var order = null;
-
-    function toggleOrder() {
-      var previousOrder = order;
-
-      if (order == 'descending') {
-        order = 'ascending';
-      } else {
-        order = 'descending';
-      }
-
-      return previousOrder;
-    }
-
-    function toggleSorting(newOption) {
-      var previousIssuer = document.getElementById(option);
-      var issuer = document.getElementById(newOption);
-      toggleOrder();
-      option = newOption;
-
-      if (previousIssuer != null) {
-        previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
-      }
-
-      switch (order) {
-        case 'ascending':
-          issuer.innerHTML += ' &darr;';
-          break;
-        case 'descending':
-          issuer.innerHTML += ' &uarr;';
-          break;
-      }
-
-      immobrowse.sortRealEstates(option, order);
-    }
-
-    function testDetails() {
-      for (var i=0; i<immobrowse.realEstates.length; i++) {
-        var realEstate = immobrowse.realEstates[i];
-
-        immobrowse.config.listContainer.innerHTML = immobrowse.details(realEstate);
-        break;
-      }
-    }
-
-    $(document).ready(function () {
-		$('#btn_extendedsearch').click(function() {
-		if ($('#extendedsearch').attr('style') == "display: none;")
-			$('#extendedsearch').slideDown();
-		else
-			$('#extendedsearch').slideUp();
-		});	
-	
-		$('.btn_filter').on('input',function(e) {
-			setFilter();
-			immobrowse.list();
-		});
-		$('.btn_filter_checkbox').click(function() {
-			setFilter();
-			immobrowse.list();
-		});
-		//immobrowse.config.logLevel = 5;
-		immobrowse.config.customer = location.search.slice(1);
-		immobrowse.config.listContainer = document.getElementById('container');
-		immobrowse.config.exposeContainer = document.getElementById('container');
-		immobrowse.config.filters.types = ['WOHNUNG'];
-		immobrowse.config.filters.marketing = ['MIETE_PACHT'];
-		immobrowse.getRealEstates();
-    });
-	function setFilter() {
-		immobrowse.config.filters.pricefrom = $('#pricefrom').val();
-		immobrowse.config.filters.pricetill = $('#pricetill').val();
-		immobrowse.config.filters.areafrom = $('#areafrom').val();
-		immobrowse.config.filters.roomsfrom = $('#roomsfrom').val();
-		immobrowse.config.filters.checkbox_ebk = $("#checkbox_ebk").is(':checked');
-		immobrowse.config.filters.checkbox_bathtube = $("#checkbox_bathtube").is(':checked');
-		immobrowse.config.filters.checkbox_window = $("#checkbox_window").is(':checked');
-		immobrowse.config.filters.checkbox_balcony = $("#checkbox_balcony").is(':checked');
-		immobrowse.config.filters.checkbox_pitch = $("#checkbox_pitch").is(':checked');
-		immobrowse.config.filters.checkbox_guestwc = $("#checkbox_guestwc").is(':checked');
-		immobrowse.config.filters.checkbox_elevator = $("#checkbox_elevator").is(':checked');
-		immobrowse.config.filters.checkbox_garden = $("#checkbox_garden").is(':checked');
-	}
-  </script>
 </head>
-<header>
-	<button id="rooms" onclick="toggleSorting('rooms')" class="w3-btn w3-blue">Zimmer</button>
-	<button id="area" onclick="toggleSorting('area')" class="w3-btn w3-blue">Fl&auml;che</button>
-	<button id="street" onclick="toggleSorting('street')" class="w3-btn w3-blue">Stra&szlig;e</button>
 
-	<div style="float:right; margin-right: 30%;">
-	<button id="btn_extendedsearch">Erweiterte Suche</button>
-	</div><br><br>
-	<div id="extendedsearch" style="display: none;">
-		<input id="pricefrom" class="btn_filter" type="number" placeholder="Preis von">
-		<input id="pricetill" class="btn_filter" type="number" placeholder="Preis bis">
-		<input id="areafrom" class="btn_filter" type="number" placeholder="Größe ab in m²">
-		<input id="roomsfrom" class="btn_filter" type="number" placeholder="Zimmer ab"><br><br>
-		<div class="btn-group" data-toggle="buttons">
-		<!--
-			<label><strong>Austattung</strong></label><br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtube"> Badewanne<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_pitch"> Stellplatz<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
-			<input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
-			-->
-		</div>
-	</div>
-</header>
-<div id="main">
-  <div id="loader" class="loader"></div>
-  <div id="container">Immobilien werden geladen, bitte warten...</div>
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>
