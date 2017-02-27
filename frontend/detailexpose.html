@@ -137,13 +137,10 @@
             </div>
             <div class="col-md-12" style="margin-top:20px;">
               <script src='https://www.google.com/recaptcha/api.js'></script>
-              <div class="g-recaptcha" data-sitekey="<? echo $_SESSION["recaptcha_key"]; ?>"></div>
+              <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
             </div>
           </div>
           <hr>
-          <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
-          <button id="send_mail" onclick=sendEmail('homeinfo-testing');>Absenden</button>
-
           <div class="row" id="the_form_response" style="display:none;">
             <hr>
             <div class="col-md-2">
@@ -155,7 +152,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
+          <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
+          <img src="img/preloader/forms_preloader.gif" id="loading" style="display:none;"></span>
+          <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
         </div>
       </div>
     </div>
