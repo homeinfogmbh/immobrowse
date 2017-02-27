@@ -7,30 +7,66 @@
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
     $(document).ready(function () {
       immobrowse.config.exposeContainer = document.getElementById('containerdetails');
-	  if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern'))
-		immobrowse.config.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
-	  else
-		immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
-      //immobrowse.getRealEstate("0003.0377.0046", "1028001");
+      if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern'))
+        immobrowse.config.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
+      else
+        immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
+        //immobrowse.getRealEstate("0003.0377.0046", "1028001");
     });
-	function getUrlParameter(sParam) {
-		var sPageURL = decodeURIComponent(window.location.search.substring(1));
-		var sURLVariables = sPageURL.split('&');
-		var sParameterName;
-		for (var i = 0; i < sURLVariables.length; i++) {
-			sParameterName = sURLVariables[i].split('=');
-			if (sParameterName[0] === sParam) {
-				return sParameterName[1] === undefined ? true : sParameterName[1];
-			}
-		}
-	};
+
+    function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1));
+      var sURLVariables = sPageURL.split('&');
+      var sParameterName;
+      for (var i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+      }
+    };
+
+    function sendEmail(config) {
+      var response = grecaptcha.getResponse();
+      var mailer = immobrowse.getMailer(config, response);
+      var surname = document.getElementById('surname');
+      var given_name = document.getElementById('given_name');
+      var message = document.getElementById('message');
+      var html = immobrowse.mkHtmlMsg(surname, given_name, message);
+      var email = document.getElementById('email');
+      mailer.sendHtml(subject, html, email);
+    }
   </script>
 </head>
 <div id="main">
   <div id="loader" class="loader"></div>
   <div id="containerdetails">Immobilie wird aufgerufen, bitte warten...</div>
+  <div id="contact_form">
+    <h3>Kontaktformular</h3>
+    <table>
+      <tr>
+        <td>Name:</td>
+        <td><input type="text" id="surname"></td>
+      </tr>
+      <tr>
+        <td>Vorname:</td>
+        <td><input type="text" id="given_name"></td>
+      </tr>
+      <tr>
+        <td>E-Mail Adresse:</td>
+        <td><input type="text" id="email"></td>
+      </tr>
+      <tr>
+        <td>Ihre Nachricht:</td>
+        <td><input type="text" id="message" class="ib-contact-textfield"></td>
+      </tr>
+    </table>
+    <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+    <button id="send_mail" onclick=sendEmail('homeinfo-testing');>Absenden</button>
+  </div>
 </div>

@@ -6,6 +6,11 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+.ib-contact-textfield {
+  height:200px;
+  font-size:14pt;
+}
+
 .ib-preview-list {
   display: table;
   width: 100%;
@@ -182,8 +187,9 @@ input[type=number]::-webkit-outer-spin-button {
   max-width: 1200px;
   min-width: 550px;
 }
+
 @media print {
-	#contact {
-	  display: none;
-	}	
+  #contact {
+  display: none;
+  }
 }

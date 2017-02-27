@@ -1238,10 +1238,47 @@ immobrowse.goBack = function () {
   window.history.back();
 }
 
+immobrowse.mkHtmlMsg = function (surname, given_name, message) {
+  msg = '<!DOCTYPE HTML>';
+  msg += '<table>';
+  msg += '<tr>';
+  msg += '<td>';
+  msg += 'Nachname:';
+  msg += '</td>';
+  msg += '<td>';
+  msg += surname;
+  msg += '</td>';
+  msg += '</tr>';
+  msg += '<tr>';
+  msg += '<td>';
+  msg += 'Vorname:';
+  msg += '</td>';
+  msg += '<td>';
+  msg += given_name;
+  msg += '</td>';
+  msg += '</tr>';
+  msg += '<tr>';
+  msg += '<td>';
+  msg += 'Nachricht:';
+  msg += '</td>';
+  msg += '<td>';
+  msg += message;
+  msg += '</td>';
+  msg += '</tr>';
+  msg += '</table>';
+  return msg;
+}
+
 immobrowse.getMailer = function (config, response) {
-  function sendHtml(subject, html) {
+  function sendHtml(subject, html, recipient) {
+    var url = 'https://tls.homeinfo.de/hisecon?config=' + config  + '&response=' + response + '&subject=' + subject + '&html=true';
+
+    if (recipient != null) {
+      url += '&recipient=' + recipient;
+    }
+
     $.ajax({
-      url: 'https://tls.homeinfo.de/hisecon?config=' + config  + '&response=' + response + '&subject=' + subject + '&html=true',
+      url: url,
       type: "POST",
       data: html,
       cache: false,
