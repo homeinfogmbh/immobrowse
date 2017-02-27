@@ -39,7 +39,7 @@
       var message = document.getElementById('message');
       var html = immobrowse.mkHtmlMsg(surname, given_name, message);
       var email = document.getElementById('email');
-      mailer.sendHtml('Immobilienanfrage', html, email);
+      mailer('Immobilienanfrage', html, email);
     }
   </script>
 </head>
