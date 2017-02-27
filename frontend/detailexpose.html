@@ -15,6 +15,7 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
     $(document).ready(function () {
+      clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
