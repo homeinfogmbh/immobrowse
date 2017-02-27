@@ -8,7 +8,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .ib-preview-list {
   display: table;
-  width: auto;
+  width: 100%;
 }
 
 .ib-preview-entry {
@@ -17,6 +17,7 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #eee;
   border-spacing: 5px;
   cursor: pointer;
+  box-shadow: 0px 0px 10px #ccc;
 }
 .ib-preview-entry:nth-child(2) {
   background-color: #ccc;
@@ -25,7 +26,11 @@ input[type=number]::-webkit-outer-spin-button {
 .ib-preview-back{
   cursor: pointer;
 }
-
+@media print {
+	.ib-preview-back {
+	  display: none;
+	}	
+}
 .ib-preview-entry:hover {
   background-color: #f5f5dc;
 }
@@ -45,7 +50,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 .ib-preview-header {
   display: table-row;
-  width: auto;
   clear: both;
 }
 
@@ -175,8 +179,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #container {
-  background-color: #efefef;
   max-width: 1200px;
   min-width: 550px;
-  box-shadow: 0px 0px 10px #ccc;
+}
+@media print {
+	#contact {
+	  display: none;
+	}	
 }

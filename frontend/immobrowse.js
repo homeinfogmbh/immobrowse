@@ -653,7 +653,7 @@ immobrowse.getRealEstates = function (cid) {
     url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
     dataType: "json",
     success: function (realEstates) {
-		console.log(JSON.stringify(realEstates));
+		//console.log(JSON.stringify(realEstates));
 		immobrowse.debug('Retrieved ' + realEstates.length + ' real estates.');
 		immobrowse.realEstates = immobrowse.filter(realEstates);
     toggleSorting('rooms');
@@ -990,7 +990,7 @@ immobrowse.details = function (immobilie) {
     body += '<td align="right">Nicht angegeben</td>';
   body += '</tr>';
   body += '</table><br></div>';
-	console.log(JSON.stringify(immobilie));
+
   if (immobilie.ausstattung != null) {
     if (immobilie.ausstattung.kueche != null || immobilie.ausstattung.bad != null ||
 	immobilie.ausstattung.kabel_sat_tv || immobilie.ausstattung.stellplatzart != null ||
@@ -1057,7 +1057,6 @@ immobrowse.details = function (immobilie) {
     }
   }
 
-
   html += '<div id="content">' + body + '</div>';
 
   var footer = '';
@@ -1074,15 +1073,21 @@ immobrowse.details = function (immobilie) {
 
   footer += '<div id="details-body-right">';
   footer += '<h3>DOKUMENTE</h3>';
+  
   footer += '<table width="420px" cellspacing="0" style="background-color: #efefef; box-shadow: none">';
   if (documents == '') {
     footer += 'Keine Dokumente vorhanden';
   } else {
 	footer += documents;
   }
-  footer += '</table><br></div>';
+  footer += '</table></div>';
   footer += '<div style="clear:both"></div>'; // below again
-  html += '<div id="footer">' + footer + '</div>';
+  footer += '<a href="#" class="btn_contact" ><strong>Kontaktformular</strong></a><br>';
+  footer += '<div id="contact" style="display: none;">test<br>test<br><br>'
+  footer += '<div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>';
+  footer += '</div>'
+  
+  html += '<div id="footer">' + footer + '<br><br><br></div>';
 
   return html + '</div>';
 }
@@ -1096,8 +1101,9 @@ immobrowse.list = function () {
   var realEstate;
   for (var i = 0; i < immobrowse.realEstates.length; i++) {
 	realEstate = immobrowse.realEstates[i];
-	if (checkFilter(realEstate))  {
+	if (immobrowse.checkFilter(realEstate))  {
 		html += immobrowse.preview(realEstate);
+		html += '<br>';
 	}
   }
   if (html == '')
@@ -1112,12 +1118,32 @@ immobrowse.expose = function () {
   if (immobilie == null) {
     immobrowse.error('Could not show real estate');
   } else {
-    immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
-  $('.showimage').click(function() {
-    for (var i = 0; i < $(this).data("nrmax"); i++)
-      $('#image'+ i).hide();
-    $('#image'+ $(this).data("nr")).show();
-  });
+	immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
+	var imported = document.createElement('script');
+	imported.src = 'https://www.google.com/recaptcha/api.js';
+	document.head.appendChild(imported);
+	$('.showimage').click(function() {
+		for (var i = 0; i < $(this).data("nrmax"); i++) {
+			$('#image'+ i).hide();
+		}
+		$('#image'+ $(this).data("nr")).show();
+	});
+	$('.btn_contact').click(function(e) {
+		//$('#contact').scrollIntoView(true);
+		if ($('#contact').attr('style') == "display: none;") {
+			$('#contact').slideDown();
+		} else {
+			$('#contact').slideUp();
+		}
+		$('html, body').animate({ 
+			  scrollTop: $('#contact').offset().top 
+		  }, 500);
+          var g = document.getElementsByClassName('g-recaptcha');
+		  console.log(g);
+        //var vdata = grecaptcha.getResponse(g-recaptcha);
+//console.log(vdata);			  
+		return false; // Not scrolling to top alternative: e.preventDefault();
+	});
   }
 }
 
@@ -1210,8 +1236,35 @@ immobrowse.showDetailExpose = function (extern) {
 immobrowse.goBack = function () {
     window.history.back();
 }
-
-function checkFilter(realEstate) {
+immobrowse.sendEmail = function () {
+	$.ajax({
+	  url: "https://tls.homeinfo.de/hisecon?config=dasdigitalebrett&response=" + grecaptcha.getResponse() + "&subject=Anfrage zum Digitalen Brett&html=true",
+	  type: "POST",
+	  data: mkHtmlMsg(),
+	  cache: false,
+	  success: function (html) {
+		//alert('RESPONSE: ' + html);//online works
+		  $('#done').fadeIn('slow').delay(1000).fadeOut('slow');
+		  swal({
+			title: "Achtung!",
+			text: "Danke! Das Formular wurde erfolgreich versendet!",
+			type: "warning"
+		  });
+		  $('#loading').hide();
+		  $('#inputName').val('');
+		  $('#inputEmailOderTel').val('');
+	 },
+	 error: function (html) {
+		  $('#loading').hide();
+		  swal({
+			title: "Achtung!",
+			text: "Bitte versuchen Sie es später nochmal!",
+			type: "warning"
+		  });
+	 }
+	});
+}
+immobrowse.checkFilter = function (realEstate) {
   if (Number(immobrowse.config.filters.pricefrom.replace(",",".")) > Number(realEstate.preise.nettokaltmiete) && immobrowse.config.filters.pricefrom != "")
     return false;
   else if (Number(immobrowse.config.filters.pricetill.replace(",",".")) < Number(realEstate.preise.nettokaltmiete) && immobrowse.config.filters.pricetill != "")
