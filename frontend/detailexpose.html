@@ -24,7 +24,7 @@
       } else {
         immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
         //immobrowse.getRealEstate("0003.0377.0046", "1028001");
-        document.getElementById('contact_form_objektnr_extern').innerHTML = '<strong>' + getUrlParameter('extern') + '</strong>';
+        document.getElementById('contact_form_objektnr_extern').value = getUrlParameter('extern');
       }
     });
 
@@ -98,7 +98,7 @@
             </div>
             <div class="col-md-6" id="contact_form_object_nr">
               <p><strong>Objektnummer</strong></p>
-              <h3><span id="contact_form_objektnr_extern" class="label label-success">Success</span></h3>
+              <input type="text" class="form-control" id="contact_form_objektnr_extern" disabled>
             </div>
             <div class="row">
               <div class="col-md-12">&nbsp;</div>
