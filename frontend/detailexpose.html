@@ -36,11 +36,11 @@
     function sendEmail(config) {
       var response = grecaptcha.getResponse();
       var mailer = immobrowse.getMailer(config, response);
-      var surname = document.getElementById('surname');
-      var given_name = document.getElementById('given_name');
-      var message = document.getElementById('message');
+      var surname = document.getElementById('surname').value;
+      var given_name = document.getElementById('given_name').value;
+      var message = document.getElementById('message').value;
       var html = immobrowse.mkHtmlMsg(surname, given_name, message);
-      var email = document.getElementById('email');
+      var email = document.getElementById('email').value;
       mailer('Immobilienanfrage', html, email);
     }
   </script>
