@@ -1082,11 +1082,8 @@ immobrowse.details = function (immobilie) {
   }
   footer += '</table></div>';
   footer += '<div style="clear:both"></div>'; // below again
-  footer += '<a href="#" class="btn_contact" ><strong>Kontaktformular</strong></a><br>';
-  footer += '<div id="contact" style="display: none;">test<br>test<br><br>'
-  footer += '<div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>';
   footer += '</div>'
-  
+
   html += '<div id="footer">' + footer + '<br><br><br></div>';
 
   return html + '</div>';
