@@ -1116,9 +1116,6 @@ immobrowse.expose = function () {
     immobrowse.error('Could not show real estate');
   } else {
   immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
-  var imported = document.createElement('script');
-  imported.src = 'https://www.google.com/recaptcha/api.js';
-  document.head.appendChild(imported);
   $('.showimage').click(function() {
     for (var i = 0; i < $(this).data("nrmax"); i++) {
       $('#image'+ i).hide();
@@ -1135,10 +1132,6 @@ immobrowse.expose = function () {
     $('html, body').animate({ 
         scrollTop: $('#contact').offset().top 
       }, 500);
-          var g = document.getElementsByClassName('g-recaptcha');
-      console.log(g);
-        //var vdata = grecaptcha.getResponse(g-recaptcha);
-//console.log(vdata);        
     return false; // Not scrolling to top alternative: e.preventDefault();
   });
   }
