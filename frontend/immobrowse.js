@@ -31,18 +31,18 @@ immobrowse.config = {
   filters: {
     types: null,
     marketing: null,
-	pricefrom: "",
-	pricetill: "",
-	areafrom: "",
-	roomsfrom: "",
-	checkbox_ebk: false,
-	checkbox_bathtube: false,
-	checkbox_window: false,
-	checkbox_balcony: false,
-	checkbox_pitch: false,
-	checkbox_guestwc: false,
-	checkbox_elevator: false,
-	checkbox_garden: false
+  pricefrom: "",
+  pricetill: "",
+  areafrom: "",
+  roomsfrom: "",
+  checkbox_ebk: false,
+  checkbox_bathtube: false,
+  checkbox_window: false,
+  checkbox_balcony: false,
+  checkbox_pitch: false,
+  checkbox_guestwc: false,
+  checkbox_elevator: false,
+  checkbox_garden: false
   },
   sorting: {
     property: null,
@@ -223,9 +223,9 @@ immobrowse.objektnr_extern = function (immobilie) {
 
 immobrowse.objekttitel = function (immobilie) {  
   if (immobilie.freitexte != null) {
-	if (immobilie.freitexte.objekttitel != null) {
-		return immobilie.freitexte.objekttitel;
-	}
+  if (immobilie.freitexte.objekttitel != null) {
+    return immobilie.freitexte.objekttitel;
+  }
   } 
 
   var html = '';
@@ -653,9 +653,9 @@ immobrowse.getRealEstates = function (cid) {
     url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
     dataType: "json",
     success: function (realEstates) {
-		//console.log(JSON.stringify(realEstates));
-		immobrowse.debug('Retrieved ' + realEstates.length + ' real estates.');
-		immobrowse.realEstates = immobrowse.filter(realEstates);
+    //console.log(JSON.stringify(realEstates));
+    immobrowse.debug('Retrieved ' + realEstates.length + ' real estates.');
+    immobrowse.realEstates = immobrowse.filter(realEstates);
     toggleSorting('rooms');
     $('.loader').hide();
     },
@@ -757,34 +757,34 @@ immobrowse.preview = function (immobilie) {
   
   
   if (immobilie.ausstattung != null) {
-	if (immobilie.ausstattung.kueche != null || immobilie.ausstattung.bad != null ||
-	immobilie.ausstattung.kabel_sat_tv || immobilie.ausstattung.stellplatzart != null ||
-	immobilie.ausstattung.barrierefrei || immobilie.ausstattung.fahrstuhl != null ||
-	immobilie.flaechen.anzahl_balkone > 0 || immobilie.ausstattung.bad != null ||
-	immobilie.ausstattung.unterkellert || immobilie.ausstattung.rollstuhlgerecht) {
-		html += (immobilie.flaechen.anzahl_balkone > 0) ?'<div class="ib-preview-oval"><div class="oval">Balkon</div></div>' :'';
-		html += (immobilie.ausstattung.barrierefrei) ?'<div class="ib-preview-oval"><div class="oval">Barrierefrei</div></div>' :'';
-		html += (immobilie.ausstattung.kabel_sat_tv) ?'<div class="ib-preview-oval"><div class="oval">Kabel/Sat/TV</div></div>' :'';
-		html += (immobilie.ausstattung.unterkellert) ?'<div class="ib-preview-oval"><div class="oval">Keller</div></div>' :'';
-		html += (immobilie.ausstattung.rollstuhlgerecht) ?'<div class="ib-preview-oval"><div class="oval">Rollstuhlgerecht</div></div>' :'';
-		if (immobilie.ausstattung.bad != null) {
-			html += (immobilie.ausstattung.bad.FENSTER) ?'<div class="ib-preview-oval"><div class="oval">Fenster im Bad</div></div>' :'';
-			html += (immobilie.ausstattung.bad.WANNE) ?'<div class="ib-preview-oval"><div class="oval">Badewanne</div></div>' :'';
-			html += (immobilie.ausstattung.bad.DUSCHE) ?'<div class="ib-preview-oval"><div class="oval">Dusche</div></div>' :'';
-		}		
-		if (immobilie.ausstattung.kueche != null) {
-			html += (immobilie.ausstattung.kueche.EBK) ?'<div class="ib-preview-oval"><div class="oval">EBK</div></div>' :'';
-		}
-		if (immobilie.ausstattung.bad != null) {
-			html += (immobilie.ausstattung.bad.WANNE) ?'<div class="ib-preview-oval"><div class="oval">Badewanne</div></div>' :'';
-		}
-		if (immobilie.ausstattung.stellplatzart != null) {
-			html += (immobilie.ausstattung.stellplatzart.FREIPLATZ) ?'<div class="ib-preview-oval"><div class="oval">Stellplatz</div></div>' :'';
-		}
-		if (immobilie.ausstattung.fahrstuhl != null) {
-			html += (immobilie.ausstattung.fahrstuhl.PERSONEN) ?'<div class="ib-preview-oval"><div class="oval">Fahrstuhl</div></div>' :'';
-		}
-	}
+  if (immobilie.ausstattung.kueche != null || immobilie.ausstattung.bad != null ||
+  immobilie.ausstattung.kabel_sat_tv || immobilie.ausstattung.stellplatzart != null ||
+  immobilie.ausstattung.barrierefrei || immobilie.ausstattung.fahrstuhl != null ||
+  immobilie.flaechen.anzahl_balkone > 0 || immobilie.ausstattung.bad != null ||
+  immobilie.ausstattung.unterkellert || immobilie.ausstattung.rollstuhlgerecht) {
+    html += (immobilie.flaechen.anzahl_balkone > 0) ?'<div class="ib-preview-oval"><div class="oval">Balkon</div></div>' :'';
+    html += (immobilie.ausstattung.barrierefrei) ?'<div class="ib-preview-oval"><div class="oval">Barrierefrei</div></div>' :'';
+    html += (immobilie.ausstattung.kabel_sat_tv) ?'<div class="ib-preview-oval"><div class="oval">Kabel/Sat/TV</div></div>' :'';
+    html += (immobilie.ausstattung.unterkellert) ?'<div class="ib-preview-oval"><div class="oval">Keller</div></div>' :'';
+    html += (immobilie.ausstattung.rollstuhlgerecht) ?'<div class="ib-preview-oval"><div class="oval">Rollstuhlgerecht</div></div>' :'';
+    if (immobilie.ausstattung.bad != null) {
+      html += (immobilie.ausstattung.bad.FENSTER) ?'<div class="ib-preview-oval"><div class="oval">Fenster im Bad</div></div>' :'';
+      html += (immobilie.ausstattung.bad.WANNE) ?'<div class="ib-preview-oval"><div class="oval">Badewanne</div></div>' :'';
+      html += (immobilie.ausstattung.bad.DUSCHE) ?'<div class="ib-preview-oval"><div class="oval">Dusche</div></div>' :'';
+    }    
+    if (immobilie.ausstattung.kueche != null) {
+      html += (immobilie.ausstattung.kueche.EBK) ?'<div class="ib-preview-oval"><div class="oval">EBK</div></div>' :'';
+    }
+    if (immobilie.ausstattung.bad != null) {
+      html += (immobilie.ausstattung.bad.WANNE) ?'<div class="ib-preview-oval"><div class="oval">Badewanne</div></div>' :'';
+    }
+    if (immobilie.ausstattung.stellplatzart != null) {
+      html += (immobilie.ausstattung.stellplatzart.FREIPLATZ) ?'<div class="ib-preview-oval"><div class="oval">Stellplatz</div></div>' :'';
+    }
+    if (immobilie.ausstattung.fahrstuhl != null) {
+      html += (immobilie.ausstattung.fahrstuhl.PERSONEN) ?'<div class="ib-preview-oval"><div class="oval">Fahrstuhl</div></div>' :'';
+    }
+  }
   }
   
   html += '</div>'; 
@@ -804,8 +804,8 @@ immobrowse.details = function (immobilie) {
   header += '<h3 class="panel-title nohover">';
   header += '<div id="form_object_title">';
   if (getUrlParameter('parent')) {
-	  $('#main').attr('style', 'padding-top: 80px');	  
-	header += '<div class="ib-preview-back" onclick="immobrowse.goBack();"> << Zurück<br></div>';
+    $('#main').attr('style', 'padding-top: 80px');    
+  header += '<div class="ib-preview-back" onclick="immobrowse.goBack();"> << Zurück<br></div>';
   }
   header += '<strong>';
   if (immobilie.freitexte != null)
@@ -858,14 +858,14 @@ immobrowse.details = function (immobilie) {
     body += '</div>';
 
     // Set the button for each image
-	if (imagesLeftCounter > 1) {
-		body += '<div style="clear:both"></div><br>'; // below again
-		for (i = 0; i < imagesLeftCounter; i++) {
-			if (immobilie.anhaenge.anhang[i].gruppe != "GRUNDRISS" && immobilie.anhaenge.anhang[i].gruppe != "DOKUMENTE") {
-			  body += '<button class="showimage" id="button' + i + '" class="btn btn-success pull-right" type="button" data-nr="' + i + '" data-nrmax="' + maxImageCounter + '">' + (i+1) + '</button>';
-			}
-		}
-	}
+  if (imagesLeftCounter > 1) {
+    body += '<div style="clear:both"></div><br>'; // below again
+    for (i = 0; i < imagesLeftCounter; i++) {
+      if (immobilie.anhaenge.anhang[i].gruppe != "GRUNDRISS" && immobilie.anhaenge.anhang[i].gruppe != "DOKUMENTE") {
+        body += '<button class="showimage" id="button' + i + '" class="btn btn-success pull-right" type="button" data-nr="' + i + '" data-nrmax="' + maxImageCounter + '">' + (i+1) + '</button>';
+      }
+    }
+  }
   }
 
   body += '<div style="clear:both"></div><br><br>'; // below again
@@ -873,10 +873,10 @@ immobrowse.details = function (immobilie) {
   body += '<h3>PREISE & KOSTEN</h3>';
   body += '<table width="420px" cellspacing="0">';
   if (immobilie.preise.nettokaltmiete != undefined) {
-	  body += '<tr>';
-	  body += '<td><strong>Nettokaltmiete</strong></td>';
-	  body += '<td align="right">' + immobrowse.euroHtml(Number(immobilie.preise.nettokaltmiete)) + '</td>';
-	  body += '</tr>';
+    body += '<tr>';
+    body += '<td><strong>Nettokaltmiete</strong></td>';
+    body += '<td align="right">' + immobrowse.euroHtml(Number(immobilie.preise.nettokaltmiete)) + '</td>';
+    body += '</tr>';
   }
   if (immobilie.preise.nebenkosten != undefined) {
     body += '<tr>';
@@ -993,36 +993,36 @@ immobrowse.details = function (immobilie) {
 
   if (immobilie.ausstattung != null) {
     if (immobilie.ausstattung.kueche != null || immobilie.ausstattung.bad != null ||
-	immobilie.ausstattung.kabel_sat_tv || immobilie.ausstattung.stellplatzart != null ||
-	immobilie.ausstattung.barrierefrei || immobilie.ausstattung.fahrstuhl != null ||
-	immobilie.flaechen.anzahl_balkone > 0 || immobilie.ausstattung.bad != null ||
-	immobilie.ausstattung.unterkellert || immobilie.ausstattung.rollstuhlgerecht) {
-		body += '<div id="details-body-right">';
-		body += '<h3>AUSSTATTUNG</h3>';
-		body += '<table width="420px" cellspacing="0">';
-		body += (immobilie.flaechen.anzahl_balkone > 0) ?'<tr><td style="border: none;"><img src="ok.png" /> Balkon</td></tr>' :'';
-		body += (immobilie.ausstattung.barrierefrei) ?'<tr><td style="border: none;"><img src="ok.png" /> Barrierefrei</td></tr>' :'';
-		body += (immobilie.ausstattung.kabel_sat_tv) ?'<tr><td style="border: none;"><img src="ok.png" /> Kabel/Sat/TV</td></tr>' :'';
-		body += (immobilie.ausstattung.unterkellert) ?'<tr><td style="border: none;"><img src="ok.png" /> Keller</td></tr>' :'';
-		body += (immobilie.ausstattung.rollstuhlgerecht) ?'<tr><td style="border: none;"><img src="ok.png" /> Rollstuhlgerecht</td></tr>' :'';
-		if (immobilie.ausstattung.bad != null) {
-			body += (immobilie.ausstattung.bad.FENSTER) ?'<tr><td style="border: none;"><img src="ok.png" /> Fenster im Bad</td></tr>' :'';
-			body += (immobilie.ausstattung.bad.WANNE) ?'<tr><td style="border: none;"><img src="ok.png" /> Badewanne</td></tr>' :'';
-			body += (immobilie.ausstattung.bad.DUSCHE) ?'<tr><td style="border: none;"><img src="ok.png" /> Dusche</td></tr>' :'';
-		}		
-		if (immobilie.ausstattung.kueche != null) {
-			body += (immobilie.ausstattung.kueche.EBK) ?'<tr><td style="border: none;"><img src="ok.png" /> EBK</td></tr>' :'';
-		}
-		if (immobilie.ausstattung.bad != null) {
-			body += (immobilie.ausstattung.bad.WANNE) ?'<tr><td style="border: none;"><img src="ok.png" /> Badewanne</td></tr>' :'';
-		}
-		if (immobilie.ausstattung.stellplatzart != null) {
-			body += (immobilie.ausstattung.stellplatzart.FREIPLATZ) ?'<tr><td style="border: none;"><img src="ok.png" /> Stellplatz</td></tr>' :'';
-		}
-		if (immobilie.ausstattung.fahrstuhl != null) {
-			body += (immobilie.ausstattung.fahrstuhl.PERSONEN) ?'<tr><td style="border: none;"><img src="ok.png" /> Fahrstuhl</td></tr>' :'';
-		}
-		body += '</table></div><br><br>';
+  immobilie.ausstattung.kabel_sat_tv || immobilie.ausstattung.stellplatzart != null ||
+  immobilie.ausstattung.barrierefrei || immobilie.ausstattung.fahrstuhl != null ||
+  immobilie.flaechen.anzahl_balkone > 0 || immobilie.ausstattung.bad != null ||
+  immobilie.ausstattung.unterkellert || immobilie.ausstattung.rollstuhlgerecht) {
+    body += '<div id="details-body-right">';
+    body += '<h3>AUSSTATTUNG</h3>';
+    body += '<table width="420px" cellspacing="0">';
+    body += (immobilie.flaechen.anzahl_balkone > 0) ?'<tr><td style="border: none;"><img src="ok.png" /> Balkon</td></tr>' :'';
+    body += (immobilie.ausstattung.barrierefrei) ?'<tr><td style="border: none;"><img src="ok.png" /> Barrierefrei</td></tr>' :'';
+    body += (immobilie.ausstattung.kabel_sat_tv) ?'<tr><td style="border: none;"><img src="ok.png" /> Kabel/Sat/TV</td></tr>' :'';
+    body += (immobilie.ausstattung.unterkellert) ?'<tr><td style="border: none;"><img src="ok.png" /> Keller</td></tr>' :'';
+    body += (immobilie.ausstattung.rollstuhlgerecht) ?'<tr><td style="border: none;"><img src="ok.png" /> Rollstuhlgerecht</td></tr>' :'';
+    if (immobilie.ausstattung.bad != null) {
+      body += (immobilie.ausstattung.bad.FENSTER) ?'<tr><td style="border: none;"><img src="ok.png" /> Fenster im Bad</td></tr>' :'';
+      body += (immobilie.ausstattung.bad.WANNE) ?'<tr><td style="border: none;"><img src="ok.png" /> Badewanne</td></tr>' :'';
+      body += (immobilie.ausstattung.bad.DUSCHE) ?'<tr><td style="border: none;"><img src="ok.png" /> Dusche</td></tr>' :'';
+    }    
+    if (immobilie.ausstattung.kueche != null) {
+      body += (immobilie.ausstattung.kueche.EBK) ?'<tr><td style="border: none;"><img src="ok.png" /> EBK</td></tr>' :'';
+    }
+    if (immobilie.ausstattung.bad != null) {
+      body += (immobilie.ausstattung.bad.WANNE) ?'<tr><td style="border: none;"><img src="ok.png" /> Badewanne</td></tr>' :'';
+    }
+    if (immobilie.ausstattung.stellplatzart != null) {
+      body += (immobilie.ausstattung.stellplatzart.FREIPLATZ) ?'<tr><td style="border: none;"><img src="ok.png" /> Stellplatz</td></tr>' :'';
+    }
+    if (immobilie.ausstattung.fahrstuhl != null) {
+      body += (immobilie.ausstattung.fahrstuhl.PERSONEN) ?'<tr><td style="border: none;"><img src="ok.png" /> Fahrstuhl</td></tr>' :'';
+    }
+    body += '</table></div><br><br>';
     }
   }
 
@@ -1078,7 +1078,7 @@ immobrowse.details = function (immobilie) {
   if (documents == '') {
     footer += 'Keine Dokumente vorhanden';
   } else {
-	footer += documents;
+  footer += documents;
   }
   footer += '</table></div>';
   footer += '<div style="clear:both"></div>'; // below again
@@ -1100,11 +1100,11 @@ immobrowse.list = function () {
     html = '';
   var realEstate;
   for (var i = 0; i < immobrowse.realEstates.length; i++) {
-	realEstate = immobrowse.realEstates[i];
-	if (immobrowse.checkFilter(realEstate))  {
-		html += immobrowse.preview(realEstate);
-		html += '<br>';
-	}
+  realEstate = immobrowse.realEstates[i];
+  if (immobrowse.checkFilter(realEstate))  {
+    html += immobrowse.preview(realEstate);
+    html += '<br>';
+  }
   }
   if (html == '')
     html = 'Es konnten keine Angebote gefunden werden.';
@@ -1118,32 +1118,32 @@ immobrowse.expose = function () {
   if (immobilie == null) {
     immobrowse.error('Could not show real estate');
   } else {
-	immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
-	var imported = document.createElement('script');
-	imported.src = 'https://www.google.com/recaptcha/api.js';
-	document.head.appendChild(imported);
-	$('.showimage').click(function() {
-		for (var i = 0; i < $(this).data("nrmax"); i++) {
-			$('#image'+ i).hide();
-		}
-		$('#image'+ $(this).data("nr")).show();
-	});
-	$('.btn_contact').click(function(e) {
-		//$('#contact').scrollIntoView(true);
-		if ($('#contact').attr('style') == "display: none;") {
-			$('#contact').slideDown();
-		} else {
-			$('#contact').slideUp();
-		}
-		$('html, body').animate({ 
-			  scrollTop: $('#contact').offset().top 
-		  }, 500);
+  immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
+  var imported = document.createElement('script');
+  imported.src = 'https://www.google.com/recaptcha/api.js';
+  document.head.appendChild(imported);
+  $('.showimage').click(function() {
+    for (var i = 0; i < $(this).data("nrmax"); i++) {
+      $('#image'+ i).hide();
+    }
+    $('#image'+ $(this).data("nr")).show();
+  });
+  $('.btn_contact').click(function(e) {
+    //$('#contact').scrollIntoView(true);
+    if ($('#contact').attr('style') == "display: none;") {
+      $('#contact').slideDown();
+    } else {
+      $('#contact').slideUp();
+    }
+    $('html, body').animate({ 
+        scrollTop: $('#contact').offset().top 
+      }, 500);
           var g = document.getElementsByClassName('g-recaptcha');
-		  console.log(g);
+      console.log(g);
         //var vdata = grecaptcha.getResponse(g-recaptcha);
-//console.log(vdata);			  
-		return false; // Not scrolling to top alternative: e.preventDefault();
-	});
+//console.log(vdata);        
+    return false; // Not scrolling to top alternative: e.preventDefault();
+  });
   }
 }
 
@@ -1233,37 +1233,44 @@ immobrowse.getZustand = function (property) {
 immobrowse.showDetailExpose = function (extern) {
   window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
 }
+
 immobrowse.goBack = function () {
-    window.history.back();
+  window.history.back();
 }
-immobrowse.sendEmail = function () {
-	$.ajax({
-	  url: "https://tls.homeinfo.de/hisecon?config=dasdigitalebrett&response=" + grecaptcha.getResponse() + "&subject=Anfrage zum Digitalen Brett&html=true",
-	  type: "POST",
-	  data: mkHtmlMsg(),
-	  cache: false,
-	  success: function (html) {
-		//alert('RESPONSE: ' + html);//online works
-		  $('#done').fadeIn('slow').delay(1000).fadeOut('slow');
-		  swal({
-			title: "Achtung!",
-			text: "Danke! Das Formular wurde erfolgreich versendet!",
-			type: "warning"
-		  });
-		  $('#loading').hide();
-		  $('#inputName').val('');
-		  $('#inputEmailOderTel').val('');
-	 },
-	 error: function (html) {
-		  $('#loading').hide();
-		  swal({
-			title: "Achtung!",
-			text: "Bitte versuchen Sie es später nochmal!",
-			type: "warning"
-		  });
-	 }
-	});
+
+immobrowse.getMailer = function (config, response) {
+  function sendHtml(subject, html) {
+    $.ajax({
+      url: 'https://tls.homeinfo.de/hisecon?config=' + config  + '&response=' + response + '&subject=' + subject + '&html=true',
+      type: "POST",
+      data: html,
+      cache: false,
+      success: function (html) {
+      //alert('RESPONSE: ' + html);//online works
+        $('#done').fadeIn('slow').delay(1000).fadeOut('slow');
+        swal({
+        title: "Achtung!",
+        text: "Danke! Das Formular wurde erfolgreich versendet!",
+        type: "warning"
+        });
+        $('#loading').hide();
+        $('#inputName').val('');
+        $('#inputEmailOderTel').val('');
+     },
+     error: function (html) {
+        $('#loading').hide();
+        swal({
+        title: "Achtung!",
+        text: "Bitte versuchen Sie es später nochmal!",
+        type: "warning"
+        });
+     }
+    });
+  }
+
+  return sendHtml;
 }
+
 immobrowse.checkFilter = function (realEstate) {
   if (Number(immobrowse.config.filters.pricefrom.replace(",",".")) > Number(realEstate.preise.nettokaltmiete) && immobrowse.config.filters.pricefrom != "")
     return false;
