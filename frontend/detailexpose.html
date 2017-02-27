@@ -15,12 +15,19 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
     $(document).ready(function () {
+      $("#send_form").click(sendEmail);
+      $('#contactFormModal').on('shown.bs.modal', clearContactForm);
+      $("#clear_form").click(clearContactForm);
+
       immobrowse.config.exposeContainer = document.getElementById('containerdetails');
-      if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern'))
+
+      if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern')) {
         immobrowse.config.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
-      else
+      } else {
         immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
         //immobrowse.getRealEstate("0003.0377.0046", "1028001");
+        document.getElementById('contact_form_objektnr_extern').innerHTML = '<strong>' + getUrlParameter('extern') + '</strong>';
+      }
     });
 
     function getUrlParameter(sParam) {
@@ -59,12 +66,6 @@
       $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
       $('#contact_form_response').hide();
     }
-
-    $(document).ready(function() {
-      $("#send_form").click(sendEmail);
-      $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-      $("#clear_form").click(clearContactForm);
-    });
   </script>
 </head>
 <div id="main">
@@ -98,7 +99,8 @@
                </div>
             </div>
             <div class="col-md-6" id="contact_form_object_nr">
-              <button class="btn btn-success pull-right" type="button" style="margin-right:5px; margin-bottom:5px; margin-top:5px; box-shadow:none; cursor:default;"><strong>Wohnungsnr: 31/2/10</strong></button>
+              <button class="btn btn-success pull-right" type="button" id="contact_form_objektnr_extern" style="margin-right:5px; margin-bottom:5px; margin-top:5px; box-shadow:none; cursor:default;">
+              </button>
             </div>
             <div class="row">
               <div class="col-md-12">&nbsp;</div>
