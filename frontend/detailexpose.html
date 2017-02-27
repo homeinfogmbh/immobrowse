@@ -45,6 +45,20 @@
       var email = document.getElementById('email').value;
       mailer('Immobilienanfrage', html, email);
     }
+
+    function clearForm() {
+      $('#gender_female').click();
+      $('#surname').val('');
+      $('#given_name').val('');
+      $('#email').val('');
+      $('#phone').val('');
+      $('#address').val('');
+      $('#house_number').val('');
+      $('#zip_code').val('');
+      $('#city').val('');
+      $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
+      $('#contact_form_response').hide();
+    }
   </script>
 </head>
 <div id="main">
@@ -70,10 +84,10 @@
              <p><strong>Anrede</strong></p>
                <div class="btn-group" data-toggle="buttons">
                    <label class="btn btn-default">
-                       <input type="radio" name="gender" id="gender_1" value="1">Herr
+                       <input type="radio" name="gender" id="gender_male" value="1">Herr
                    </label>
                    <label class="btn btn-default">
-                       <input type="radio" name="gender" id="gender_2" value="0">Frau
+                       <input type="radio" name="gender" id="gender_female" value="0">Frau
                    </label>
                </div>
             </div>
@@ -84,13 +98,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="vorname">Vorname</label>
-                <input type="text" class="form-control" id="vorname" placeholder="Vorname*">
+                <input type="text" class="form-control" id="surname" placeholder="Vorname*">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="nachname">Nachname</label>
-                <input type="text" class="form-control" id="nachname" placeholder="Nachname*">
+                <input type="text" class="form-control" id="last_name" placeholder="Nachname*">
               </div>
             </div>
             <div class="col-md-6">
@@ -102,31 +116,31 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="telefon">Telefon</label>
-                <input type="number" class="form-control" id="telefon" placeholder="Telefon">
+                <input type="number" class="form-control" id="phone" placeholder="Telefon">
               </div>
             </div>
             <div class="col-md-8">
               <div class="form-group">
                 <label for="adddress">Straße</label>
-                <input type="text" class="form-control" id="adddress" placeholder="Straße">
+                <input type="text" class="form-control" id="address" placeholder="Straße">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="adddress_number">Haus-Nr.</label>
-                <input type="number" class="form-control" id="adddress_number" placeholder="Haus-Nr.">
+                <input type="number" class="form-control" id="house_number" placeholder="Haus-Nr.">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label for="plz">PLZ</label>
-                <input type="number" class="form-control" id="plz" placeholder="PLZ">
+                <input type="number" class="form-control" id="zip_code" placeholder="PLZ">
               </div>
             </div>
             <div class="col-md-9">
               <div class="form-group">
                 <label for="ort">Ort</label>
-                <input type="text" class="form-control" id="ort" placeholder="Ort">
+                <input type="text" class="form-control" id="city" placeholder="Ort">
               </div>
             </div>
             <div class="col-md-12">
@@ -141,7 +155,7 @@
             </div>
           </div>
           <hr>
-          <div class="row" id="the_form_response" style="display:none;">
+          <div class="row" id="contact_form_response" style="display:none;">
             <hr>
             <div class="col-md-2">
               <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
@@ -161,3 +175,18 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function() {
+    $("#send_form").click(sendEmail());
+  });
+
+  $('#contactFormModal').on('shown.bs.modal', function () {
+    clearForm();
+  });
+
+  $("#clear_form").click(function() {
+    msgSubject = '';
+    msgHtml = '';
+    clearForm();
+  });
+</script>
