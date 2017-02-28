@@ -14,7 +14,8 @@
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
-    var mailer = new immobrowse.Mailer(config);
+    // XXX: Change config for appropriate productive setting
+    var mailer = new immobrowse.Mailer('homeinfo-testing');
 
     function getUrlParameter(sParam) {
       var sPageURL = decodeURIComponent(window.location.search.substring(1));
@@ -43,7 +44,6 @@
     }
 
     function sendEmail() {
-      var config = 'homeinfo-testing'; // XXX: change for appropriate productive setting
       var response = grecaptcha.getResponse();
 
       if (response.length == 0) {//check for re-captcha
