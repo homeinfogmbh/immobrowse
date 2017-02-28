@@ -1300,9 +1300,15 @@ immobrowse.mkContactMail = function (
 }
 
 // Mailer class
-immobrowse.Mailer = function (config, successMsg, errorMsg) {
+immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
   this.baseUrl = 'https://tls.homeinfo.de/hisecon';
   this.config = config;
+
+  if (html == null) {
+    this.html = true;
+  } else {
+    this.html = html;
+  }
 
   if (successMsg == null) {
     this.successMsg = {
@@ -1346,6 +1352,10 @@ immobrowse.Mailer = function (config, successMsg, errorMsg) {
 
     if (reply_to) {
       url += '&reply_to=' + reply_to;
+    }
+
+    if (this.html) {
+      url += '&html=true';
     }
 
     return url;
