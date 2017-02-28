@@ -1263,7 +1263,12 @@ immobrowse.Mailer = function (config, success, error) {
   };
 
   this.send = function (response, subject, body, recipient, reply_to) {
-    url = this.url() + '&html=true';
+    var url = this.url() + '&html=true';
+    /* Pull in instance attributes of Mailer since we cannot
+       access "this" from within the ajax call bacause "this"
+       will refer to the ajax object itself there. */
+    var success = this.success;
+    var error = this.error;
 
     if (response) {
       url += '&response=' + response;
@@ -1293,10 +1298,10 @@ immobrowse.Mailer = function (config, success, error) {
       data: body,
       cache: false,
       success: function (html) {
-        swal(this.success);
+        swal(success);
       },
       error: function (html) {
-        swal(this.error);
+        swal(error);
       }
     });
   };
