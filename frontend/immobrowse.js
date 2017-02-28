@@ -1262,7 +1262,7 @@ immobrowse.Mailer = function (config, success, error) {
     url = this.url() + '&html=true';
 
     if (response) {
-      url += '&response=' + this.response;
+      url += '&response=' + response;
     } else {
       homeinfo.log.warning('No reCAPTCHA response provided.');
     }
