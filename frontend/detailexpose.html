@@ -41,17 +41,6 @@
       }
     };
 
-    function sendEmail(config) {
-      var response = grecaptcha.getResponse();
-      var mailer = immobrowse.getMailer(config, response);
-      var surname = document.getElementById('surname').value;
-      var given_name = document.getElementById('given_name').value;
-      var message = document.getElementById('message').value;
-      var html = immobrowse.mkHtmlMsg(surname, given_name, message);
-      var email = document.getElementById('email').value;
-      mailer('Immobilienanfrage', html, email);
-    }
-
     function clearContactForm() {
       $('#gender_female').click();
       $('#forename').val('');
@@ -66,11 +55,12 @@
       $('#contact_form_response').hide();
     }
 
-    $("#send_form").click(function() {
+    function sendEmail() {
       var g = document.getElementsByClassName('g-recaptcha');//re-captcha vars
-      var vdata = grecaptcha.getResponse(g-recaptcha);//re-captcha vars
+      var response = grecaptcha.getResponse();
+                        var response
 
-      if (vdata.length == 0) {//check for re-captcha
+      if (response.length == 0) {//check for re-captcha
         swal({
           title: 'Achtung!',
           text: 'Bitte das den CAPTCHA lösen.',
@@ -133,9 +123,13 @@
       var zip_code = $('#zip_code').val().trim();
       var city = $('#city').val().trim();
       var message = $('#message').val().trim();
-      var html_email = immobrowse.mkContactMail(
-        getUrlParameter('extern'), salutation, forename, surname,
+      var objektnr_extern = getUrlParameter('extern');
+      var recipient = getUrlParameter('kontakt_email');
+      var html = immobrowse.mkContactMail(
+        objektnr_extern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
+      var mailer = immobrowse.getMailer(config, response);
+      mailer('Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
     });
   </script>
 </head>
