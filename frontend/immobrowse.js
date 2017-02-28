@@ -1240,7 +1240,6 @@ immobrowse.Mailer = function (config, response) {
            + '&response=' + this.response + '&subject=' + this.subject
            + '&html=true';
   };
-
   this.send = function (subject, body, recipient, reply_to) {
     url = this.url();
 
