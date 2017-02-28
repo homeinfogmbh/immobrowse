@@ -1232,7 +1232,7 @@ immobrowse.mkContactMail = function (
 }
 
 // Mailer class
-immobrowse.Mailer = function (config, response, success, error) {
+immobrowse.Mailer = function (config, success, error) {
   this.config = config;
   this.response = response;
 
