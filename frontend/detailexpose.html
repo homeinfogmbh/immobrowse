@@ -129,8 +129,8 @@
       var html = immobrowse.mkContactMail(
         objektnr_extern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
-      var mailer = immobrowse.getMailer(config, response);
-      mailer('Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
+      var mailer = new immobrowse.Mailer(config, response);
+      mailer.send('Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
     }
   </script>
 </head>

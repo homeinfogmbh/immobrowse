@@ -1231,8 +1231,8 @@ immobrowse.mkContactMail = function (
   return html;
 }
 
-immobrowse.getMailer = function (config, response) {
-  function sendHtml(subject, html, recipient, reply_to) {
+immobrowse.Mailer = function (config, response) {
+  function send(subject, body, recipient, reply_to) {
     var url = 'https://tls.homeinfo.de/hisecon?config=' + config  + '&response=' + response + '&subject=' + subject + '&html=true';
 
     if (recipient != null) {
@@ -1246,7 +1246,7 @@ immobrowse.getMailer = function (config, response) {
     $.ajax({
       url: url,
       type: 'POST',
-      data: html,
+      data: body,
       cache: false,
       success: function (html) {
       //alert('RESPONSE: ' + html);//online works
