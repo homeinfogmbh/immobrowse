@@ -1270,7 +1270,7 @@ immobrowse.Mailer = function (config, response) {
     });
   }
 
-  return sendHtml;
+  return this;
 }
 
 immobrowse.checkFilter = function (realEstate) {
