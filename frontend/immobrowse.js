@@ -1232,8 +1232,16 @@ immobrowse.mkContactMail = function (
 }
 
 immobrowse.Mailer = function (config, response) {
-  function send(subject, body, recipient, reply_to) {
-    var url = 'https://tls.homeinfo.de/hisecon?config=' + config  + '&response=' + response + '&subject=' + subject + '&html=true';
+  this.config = config;
+  this.response = response;
+  this.url = function() {
+    return 'https://tls.homeinfo.de/hisecon?config=' + this.config
+           + '&response=' + this.response + '&subject=' + this.subject
+           + '&html=true';
+  };
+
+  this.send = function (subject, body, recipient, reply_to) {
+    url = this.url();
 
     if (recipient != null) {
       url += '&recipient=' + recipient;
@@ -1249,7 +1257,6 @@ immobrowse.Mailer = function (config, response) {
       data: body,
       cache: false,
       success: function (html) {
-      //alert('RESPONSE: ' + html);//online works
         $('#done').fadeIn('slow').delay(1000).fadeOut('slow');
         swal({
           title: 'Anfrage versendet!',
@@ -1258,19 +1265,17 @@ immobrowse.Mailer = function (config, response) {
         $('#loading').hide();
         $('#inputName').val('');
         $('#inputEmailOderTel').val('');
-     },
-     error: function (html) {
+      },
+      error: function (html) {
         $('#loading').hide();
         swal({
           title: 'Achtung!',
           text: 'Bitte versuchen Sie es später nochmal!',
           type: 'warning'
         });
-     }
+      }
     });
-  }
-
-  return this;
+  };
 }
 
 immobrowse.checkFilter = function (realEstate) {
