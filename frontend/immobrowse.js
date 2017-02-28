@@ -1233,6 +1233,7 @@ immobrowse.mkContactMail = function (
 
 // Mailer class
 immobrowse.Mailer = function (config, success, error) {
+  this.baseUrl = 'https://tls.homeinfo.de/hisecon';
   this.config = config;
 
   if (success == null) {
@@ -1254,17 +1255,8 @@ immobrowse.Mailer = function (config, success, error) {
     this.error = error;
   }
 
-  this.url = function() {
-    return 'https://tls.homeinfo.de/hisecon?config=' + this.config;
-  };
-
-  this.send = function (response, subject, body, recipient, reply_to) {
-    var url = this.url() + '&html=true';
-    /* Pull in instance attributes of Mailer since we cannot
-       access "this" from within the ajax call bacause "this"
-       will refer to the ajax object itself there. */
-    var success = this.success;
-    var error = this.error;
+  this.getUrl = function (response, subject, recipient, reply_to) {
+    var url = this.baseUrl + '?config=' + this.config;
 
     if (response) {
       url += '&response=' + response;
@@ -1288,18 +1280,30 @@ immobrowse.Mailer = function (config, success, error) {
       url += '&reply_to=' + reply_to;
     }
 
-    $.ajax({
-      url: url,
+    return url;
+  };
+
+  this.getAjax = function (response, subject, body, recipient, reply_to) {
+    function success(html) {
+      swal(this.success);
+    }
+
+    function error(html) {
+      swal(this.error);
+    }
+
+    return {
+      url: this.getUrl(response, subject, recipient, reply_to),
       type: 'POST',
       data: body,
       cache: false,
-      success: function (html) {
-        swal(success);
-      },
-      error: function (html) {
-        swal(error);
-      }
-    });
+      success: success ,
+      error: error
+    }
+  };
+
+  this.send = function (response, subject, body, recipient, reply_to) {
+    $.ajax(this.getAjax(response, subject, body, recipient, reply_to));
   };
 }
 
