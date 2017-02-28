@@ -1231,6 +1231,7 @@ immobrowse.mkContactMail = function (
   return html;
 }
 
+// Mailer class
 immobrowse.Mailer = function (config, response) {
   this.config = config;
   this.response = response;
