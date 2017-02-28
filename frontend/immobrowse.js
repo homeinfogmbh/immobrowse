@@ -1234,7 +1234,6 @@ immobrowse.mkContactMail = function (
 // Mailer class
 immobrowse.Mailer = function (config, success, error) {
   this.config = config;
-  this.response = response;
 
   if (success == null) {
     this.success = {
@@ -1256,11 +1255,11 @@ immobrowse.Mailer = function (config, success, error) {
   }
 
   this.url = function() {
-    return 'https://tls.homeinfo.de/hisecon?config=' + this.config + '&html=true';
+    return 'https://tls.homeinfo.de/hisecon?config=' + this.config;
   };
 
   this.send = function (response, subject, body, recipient, reply_to) {
-    url = this.url();
+    url = this.url() + '&html=true';
 
     if (response) {
       url += '&response=' + this.response;
