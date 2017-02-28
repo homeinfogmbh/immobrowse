@@ -25,6 +25,9 @@
 
 var immobrowse = immobrowse || {};
 
+// Logger
+immobrowse.logger = new immobrowse.loggerging.Logger('immobrowse');
+
 // Real estates container
 immobrowse.realEstates = null;
 
@@ -541,7 +544,7 @@ immobrowse.filter = function (realEstates) {
     }
   }
 
-  homeinfo.log.debug('Filtered ' + filteredRealEstates.length + ' real estates.');
+  immobrowse.logger.debug('Filtered ' + filteredRealEstates.length + ' real estates.');
   return filteredRealEstates;
 }
 
@@ -613,15 +616,15 @@ immobrowse.getRealEstates = function (cid) {
     dataType: "json",
     success: function (realEstates) {
     //console.log(JSON.stringify(realEstates));
-    homeinfo.log.debug('Retrieved ' + realEstates.length + ' real estates.');
+    immobrowse.logger.debug('Retrieved ' + realEstates.length + ' real estates.');
     immobrowse.realEstates = immobrowse.filter(realEstates);
     toggleSorting('rooms');
     $('.loader').hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
-      homeinfo.log.error(xhr.responseText);
-      homeinfo.log.debug(ajaxOptions);
-      homeinfo.log.debug(thrownError);
+      immobrowse.logger.error(xhr.responseText);
+      immobrowse.logger.debug(ajaxOptions);
+      immobrowse.logger.debug(thrownError);
       immobrowse.realEstates = [];
     }
   });
@@ -641,9 +644,9 @@ immobrowse.getRealEstate = function (object_extern, cid) {
     $('.loader').hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
-      homeinfo.log.error(xhr.responseText);
-      homeinfo.log.debug(ajaxOptions);
-      homeinfo.log.debug(thrownError);
+      immobrowse.logger.error(xhr.responseText);
+      immobrowse.logger.debug(ajaxOptions);
+      immobrowse.logger.debug(thrownError);
     }
   });
 }
@@ -1051,7 +1054,7 @@ immobrowse.details = function (immobilie) {
 
 immobrowse.list = function () {
   if (immobrowse.realEstates == null) {
-    homeinfo.log.warning('No real estates available.');
+    immobrowse.logger.warning('No real estates available.');
   } else {
     html = '';
   var realEstate;
@@ -1072,7 +1075,7 @@ immobrowse.list = function () {
 immobrowse.expose = function () {
   var immobilie = immobrowse.realEstate;
   if (immobilie == null) {
-    homeinfo.log.error('Could not show real estate');
+    immobrowse.logger.error('Could not show real estate');
   } else {
   immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
   $('.showimage').click(function() {
@@ -1089,7 +1092,7 @@ immobrowse.expose = function () {
       $('#contact').slideUp();
     }
     $('html, body').animate({ 
-        scrollTop: $('#contact').offset().top 
+        scrollTop: $('#contact').offset().top
       }, 500);
     return false; // Not scrolling to top alternative: e.preventDefault();
   });
@@ -1098,10 +1101,10 @@ immobrowse.expose = function () {
 
 
 immobrowse.sortRealEstates = function (property, order) {
-  homeinfo.log.debug('Sorting...');
+  immobrowse.logger.debug('Sorting...');
 
   if (immobrowse.realEstates == null) {
-    homeinfo.log.warning('No real estates available.');
+    immobrowse.logger.warning('No real estates available.');
   } else {
     immobrowse.realEstates = immobrowse.realEstates.sort(
       immobrowse.getSorter(property, order));
@@ -1261,19 +1264,19 @@ immobrowse.Mailer = function (config, successMsg, errorMsg) {
     if (response) {
       url += '&response=' + response;
     } else {
-      homeinfo.log.warning('No reCAPTCHA response provided.');
+      immobrowse.logger.warning('No reCAPTCHA response provided.');
     }
 
     if (subject) {
       url += '&subject=' + subject;
     } else {
-      homeinfo.log.warning('No subject provided.');
+      immobrowse.logger.warning('No subject provided.');
     }
 
     if (recipient) {
       url += '&recipient=' + recipient;
     } else {
-      homeinfo.log.warning('No recipient specified.');
+      immobrowse.logger.warning('No recipient specified.');
     }
 
     if (reply_to) {
