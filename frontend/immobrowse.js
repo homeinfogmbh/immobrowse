@@ -26,7 +26,7 @@
 var immobrowse = immobrowse || {};
 
 // Logger
-immobrowse.logger = new immobrowse.loggerging.Logger('immobrowse');
+immobrowse.logger = new immobrowse.logging.Logger('immobrowse');
 
 // Real estates container
 immobrowse.realEstates = null;
