@@ -20,6 +20,7 @@
 
   Requires:
     * homeinfo.js
+    * sweetalert.js
 */
 
 var immobrowse = immobrowse || {};
