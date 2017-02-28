@@ -1244,8 +1244,6 @@ immobrowse.Mailer = function (config, success, error) {
     this.success = success;
   }
 
-  homeinfo.log.debug('Mailer.success: ' + JSON.stringify(this.success));
-
   if (error == null) {
     this.error = {
       title: 'Achtung!',
@@ -1255,8 +1253,6 @@ immobrowse.Mailer = function (config, success, error) {
   } else {
     this.error = error;
   }
-
-  homeinfo.log.debug('Mailer.error: ' + JSON.stringify(this.error));
 
   this.url = function() {
     return 'https://tls.homeinfo.de/hisecon?config=' + this.config;
