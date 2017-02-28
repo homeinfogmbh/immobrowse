@@ -1168,10 +1168,10 @@ immobrowse.sortRealEstates = function (property, order) {
   } else {
     immobrowse.realEstates = immobrowse.realEstates.sort(
       immobrowse.getSorter(property, order));
-
     immobrowse.list();
   }
 }
+
 
 immobrowse.getBefeuerung = function (property) {
   switch (property) {
@@ -1206,6 +1206,8 @@ immobrowse.getBefeuerung = function (property) {
   }
   return property;
 }
+
+
 immobrowse.getZustand = function (property) {
   switch (property) {
     case 'ERSTBEZUG':
@@ -1242,13 +1244,16 @@ immobrowse.getZustand = function (property) {
   return property;
 }
 
+
 immobrowse.showDetailExpose = function (extern) {
   window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
 }
 
+
 immobrowse.goBack = function () {
   window.history.back();
 }
+
 
 immobrowse.mkContactMail = function (
     objektnr_extern, salutation, forename, surname, phone,
