@@ -1244,16 +1244,15 @@ immobrowse.getMailer = function (config, response) {
 
     $.ajax({
       url: url,
-      type: "POST",
+      type: 'POST',
       data: html,
       cache: false,
       success: function (html) {
       //alert('RESPONSE: ' + html);//online works
         $('#done').fadeIn('slow').delay(1000).fadeOut('slow');
         swal({
-          title: "Achtung!",
-          text: "Danke! Das Formular wurde erfolgreich versendet!",
-          type: "warning"
+          title: 'Anfrage versendet!',
+          type: 'success'
         });
         $('#loading').hide();
         $('#inputName').val('');
@@ -1262,9 +1261,9 @@ immobrowse.getMailer = function (config, response) {
      error: function (html) {
         $('#loading').hide();
         swal({
-          title: "Achtung!",
-          text: "Bitte versuchen Sie es später nochmal!",
-          type: "warning"
+          title: 'Achtung!',
+          text: 'Bitte versuchen Sie es später nochmal!',
+          type: 'warning'
         });
      }
     });
