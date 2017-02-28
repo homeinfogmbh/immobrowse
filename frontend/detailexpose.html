@@ -49,7 +49,7 @@
       $('#surname').val('');
       $('#email').val('');
       $('#phone').val('');
-      $('#address').val('');
+      $('#street').val('');
       $('#house_number').val('');
       $('#zip_code').val('');
       $('#city').val('');
@@ -58,9 +58,8 @@
     }
 
     function sendEmail() {
-      var g = document.getElementsByClassName('g-recaptcha');//re-captcha vars
+      var config = 'homeinfo-testing'; // XXX: change for appropriate productive setting
       var response = grecaptcha.getResponse();
-                        var response
 
       if (response.length == 0) {//check for re-captcha
         swal({
