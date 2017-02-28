@@ -1236,7 +1236,15 @@ immobrowse.mkContactMail = function (
   html += salutation + ' ' + forename + ' ' + surname + '\n<br>\n';
 
   if (street != null) {
-    html += street + '<br>\n';
+    html += street;
+  }
+
+  if (house_number != null) {
+    html += house_number;
+  }
+
+  if (street != null || house_number != null) {
+    html += '<br>\n';
   }
 
   if (zip_code != null) {
