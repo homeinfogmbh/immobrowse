@@ -17,6 +17,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
+
+  Requires:
+    * homeinfo.js
 */
 
 var immobrowse = immobrowse || {};
@@ -26,7 +29,6 @@ immobrowse.realEstates = null;
 
 // Configuration
 immobrowse.config = {
-  logLevel: 1,
   customer: null,
   filters: {
     types: null,
@@ -54,52 +56,7 @@ immobrowse.config = {
 };
 
 
-/*** logging ***/
-
-immobrowse._log = function(prefix, msg) {
-  console.log(prefix + ' immobrowse: ' + msg);
-}
-
-
-immobrowse.error = function(msg) {
-  if (immobrowse.config.logLevel >= 0) {
-    immobrowse._log('[ fail ]', msg);
-  }
-}
-
-
-immobrowse.warning = function(msg) {
-  if (immobrowse.config.logLevel >= 1) {
-    immobrowse._log('[ warn ]', msg);
-  }
-}
-
-
-immobrowse.info = function(msg) {
-  if (immobrowse.config.logLevel >= 3) {
-    immobrowse._log('[ info ]', msg);
-  }
-}
-
-
-immobrowse.success = function(msg) {
-  if (immobrowse.config.logLevel >= 4) {
-    immobrowse._log('[  ok  ]', msg);
-  }
-}
-
-
-immobrowse.debug = function(msg) {
-  if (immobrowse.config.logLevel >= 5) {
-    immobrowse._log('!<DEBUG>', msg);
-  immobrowse.config.exposeContainer.innerHTML = "Leider ist ein Fehler aufgetreten.";
-  } else
-  immobrowse.config.exposeContainer.innerHTML = "Leider ist ein Fehler aufgetreten.";
-}
-
-
 /*** Miscellaneous functions ***/
-
 
 /*
   Compares two nullable values so that
@@ -136,6 +93,7 @@ immobrowse.compare = function (alice, bob, descending) {
 }
 
 /*** HTML formatting ***/
+
 immobrowse.escapeHtml = function (string) {
   var entityMap = {
     "&": "&amp;",
@@ -582,7 +540,7 @@ immobrowse.filter = function (realEstates) {
     }
   }
 
-  immobrowse.debug('Filtered ' + filteredRealEstates.length + ' real estates.');
+  homeinfo.log.debug('Filtered ' + filteredRealEstates.length + ' real estates.');
   return filteredRealEstates;
 }
 
@@ -654,15 +612,15 @@ immobrowse.getRealEstates = function (cid) {
     dataType: "json",
     success: function (realEstates) {
     //console.log(JSON.stringify(realEstates));
-    immobrowse.debug('Retrieved ' + realEstates.length + ' real estates.');
+    homeinfo.log.debug('Retrieved ' + realEstates.length + ' real estates.');
     immobrowse.realEstates = immobrowse.filter(realEstates);
     toggleSorting('rooms');
     $('.loader').hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
-      immobrowse.error(xhr.responseText);
-      immobrowse.debug(ajaxOptions);
-      immobrowse.debug(thrownError);
+      homeinfo.log.error(xhr.responseText);
+      homeinfo.log.debug(ajaxOptions);
+      homeinfo.log.debug(thrownError);
       immobrowse.realEstates = [];
     }
   });
@@ -682,9 +640,9 @@ immobrowse.getRealEstate = function (object_extern, cid) {
     $('.loader').hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
-      immobrowse.error(xhr.responseText);
-      immobrowse.debug(ajaxOptions);
-      immobrowse.debug(thrownError);
+      homeinfo.log.error(xhr.responseText);
+      homeinfo.log.debug(ajaxOptions);
+      homeinfo.log.debug(thrownError);
     }
   });
 }
@@ -786,8 +744,8 @@ immobrowse.preview = function (immobilie) {
     }
   }
   }
-  
-  html += '</div>'; 
+
+  html += '</div>';
   html += '</div>';
   return html;
 }
@@ -1092,7 +1050,7 @@ immobrowse.details = function (immobilie) {
 
 immobrowse.list = function () {
   if (immobrowse.realEstates == null) {
-    immobrowse.warning('No real estates available.');
+    homeinfo.log.warning('No real estates available.');
   } else {
     html = '';
   var realEstate;
@@ -1113,7 +1071,7 @@ immobrowse.list = function () {
 immobrowse.expose = function () {
   var immobilie = immobrowse.realEstate;
   if (immobilie == null) {
-    immobrowse.error('Could not show real estate');
+    homeinfo.log.error('Could not show real estate');
   } else {
   immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
   $('.showimage').click(function() {
@@ -1139,10 +1097,10 @@ immobrowse.expose = function () {
 
 
 immobrowse.sortRealEstates = function (property, order) {
-  immobrowse.debug('Sorting...');
+  homeinfo.log.debug('Sorting...');
 
   if (immobrowse.realEstates == null) {
-    immobrowse.warning('No real estates available.');
+    homeinfo.log.warning('No real estates available.');
   } else {
     immobrowse.realEstates = immobrowse.realEstates.sort(
       immobrowse.getSorter(property, order));
