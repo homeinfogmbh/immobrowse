@@ -1109,17 +1109,23 @@ immobrowse.list = function () {
   if (immobrowse.realEstates == null) {
     immobrowse.logger.warning('No real estates available.');
   } else {
-    html = '';
-  var realEstate;
-  for (var i = 0; i < immobrowse.realEstates.length; i++) {
-  realEstate = immobrowse.realEstates[i];
-  if (immobrowse.checkFilter(realEstate))  {
-    html += immobrowse.preview(realEstate);
-    html += '<br>';
-  }
-  }
-  if (html == '')
-    html = 'Es konnten keine Angebote gefunden werden.';
+    var html = '';
+    var realEstate;
+
+    for (var i = 0; i < immobrowse.realEstates.length; i++) {
+      realEstate = immobrowse.realEstates[i];
+
+      if (immobrowse.checkFilter(realEstate))  {
+        html += immobrowse.preview(realEstate);
+        html += '<br>';
+      }
+    }
+
+    if (html == '') {
+      html = 'Es konnten keine Angebote gefunden werden.';
+      immobrowse.logger.warning('No real estates available after filtering.');
+    }
+
     immobrowse.config.listContainer.innerHTML = '<div class="ib-preview-list">' + html + '</div>';
   }
 }
