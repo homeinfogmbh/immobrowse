@@ -1235,35 +1235,35 @@ immobrowse.mkContactMail = function (
   html += '<h1>Anfrage zu Objekt Nr. <strong>' + objektnr_extern + '</strong></h1>\n<br>\n';
   html += salutation + ' ' + forename + ' ' + surname + '\n<br>\n';
 
-  if (street != null) {
+  if (street) {
     html += street;
   }
 
-  if (house_number != null) {
+  if (house_number) {
     html += house_number;
   }
 
-  if (street != null || house_number != null) {
+  if (street || house_number) {
     html += '<br>\n';
   }
 
-  if (zip_code != null) {
+  if (zip_code) {
     html += zip_code;
   }
 
-  if (city != null) {
-    if (zip_code != null) {
+  if (city) {
+    if (zip_code) {
       html += ' ';
     }
 
     html += ' ' + city;
   }
 
-  if (zip_code != null || city != null) {
+  if (zip_code || city) {
     html += '<br>\n';
   }
 
-  if (phone != null) {
+  if (phone) {
     html += 'Tel.: ' + phone  + '\n<br>\n';
   }
 
