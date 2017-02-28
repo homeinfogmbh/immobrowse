@@ -14,22 +14,7 @@
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
-    $(document).ready(function () {
-      clearContactForm();
-      $("#send_form").click(sendEmail);
-      $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-      $("#clear_form").click(clearContactForm);
-
-      immobrowse.config.exposeContainer = document.getElementById('containerdetails');
-
-      if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern')) {
-        immobrowse.config.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
-      } else {
-        immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
-        //immobrowse.getRealEstate("0003.0377.0046", "1028001");
-        document.getElementById('contact_form_objektnr_extern').value = getUrlParameter('extern');
-      }
-    });
+    var mailer = new immobrowse.Mailer(config);
 
     function getUrlParameter(sParam) {
       var sPageURL = decodeURIComponent(window.location.search.substring(1));
@@ -129,9 +114,25 @@
       var html = immobrowse.mkContactMail(
         objektnr_extern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
-      var mailer = new immobrowse.Mailer(config, response);
-      mailer.send('Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
+      mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
     }
+
+    $(document).ready(function () {
+      clearContactForm();
+      $("#send_form").click(sendEmail);
+      $('#contactFormModal').on('shown.bs.modal', clearContactForm);
+      $("#clear_form").click(clearContactForm);
+
+      immobrowse.config.exposeContainer = document.getElementById('containerdetails');
+
+      if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern')) {
+        immobrowse.config.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
+      } else {
+        immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
+        //immobrowse.getRealEstate("0003.0377.0046", "1028001");
+        document.getElementById('contact_form_objektnr_extern').value = getUrlParameter('extern');
+      }
+    });
   </script>
 </head>
 <div id="main">
