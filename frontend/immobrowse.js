@@ -1228,43 +1228,52 @@ immobrowse.goBack = function () {
   window.history.back();
 }
 
-immobrowse.mkHtmlMsg = function (surname, given_name, message) {
-  msg = '<!DOCTYPE HTML>';
-  msg += '<table>';
-  msg += '<tr>';
-  msg += '<td>';
-  msg += 'Nachname:';
-  msg += '</td>';
-  msg += '<td>';
-  msg += surname;
-  msg += '</td>';
-  msg += '</tr>';
-  msg += '<tr>';
-  msg += '<td>';
-  msg += 'Vorname:';
-  msg += '</td>';
-  msg += '<td>';
-  msg += given_name;
-  msg += '</td>';
-  msg += '</tr>';
-  msg += '<tr>';
-  msg += '<td>';
-  msg += 'Nachricht:';
-  msg += '</td>';
-  msg += '<td>';
-  msg += message;
-  msg += '</td>';
-  msg += '</tr>';
-  msg += '</table>';
-  return msg;
+immobrowse.mkContactMail = function (
+    objektnr_extern, salutation, forename, surname, phone,
+    street, house_number, zip_code, city, message) {
+  html = '<!DOCTYPE HTML>\n';
+  html += '<h1>Anfrage zu Objekt Nr. <strong>' + objektnr_extern + '</strong></h1>\n<br>\n';
+  html += salutation + ' ' + forename + ' ' + surname + '\n<br>\n';
+
+  if (street != null) {
+    html += street + '<br>\n';
+  }
+
+  if (zip_code != null) {
+    html += zip_code;
+  }
+
+  if (city != null) {
+    if (zip_code != null) {
+      html += ' ';
+    }
+
+    html += ' ' + city;
+  }
+
+  if (zip_code != null || city != null) {
+    html += '<br>\n';
+  }
+
+  if (phone != null) {
+    html += 'Tel.: ' + phone  + '\n<br>\n';
+  }
+
+  html += 'hat folgende Anfrage an Sie:\n<br>\n<br>\n';
+  html += '<p>' + message.replace('\n', '\n<br>\n') + '</p>';
+  return html;
 }
 
 immobrowse.getMailer = function (config, response) {
-  function sendHtml(subject, html, recipient) {
+  function sendHtml(subject, html, recipient, reply_to) {
     var url = 'https://tls.homeinfo.de/hisecon?config=' + config  + '&response=' + response + '&subject=' + subject + '&html=true';
 
     if (recipient != null) {
       url += '&recipient=' + recipient;
+    }
+
+    if (reply_to != null) {
+      url += '&reply_to=' + reply_to;
     }
 
     $.ajax({

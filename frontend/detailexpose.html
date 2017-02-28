@@ -9,6 +9,7 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
     $(document).ready(function () {
@@ -53,8 +54,8 @@
 
     function clearContactForm() {
       $('#gender_female').click();
+      $('#forename').val('');
       $('#surname').val('');
-      $('#given_name').val('');
       $('#email').val('');
       $('#phone').val('');
       $('#address').val('');
@@ -64,6 +65,78 @@
       $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
       $('#contact_form_response').hide();
     }
+
+    $("#send_form").click(function() {
+      var g = document.getElementsByClassName('g-recaptcha');//re-captcha vars
+      var vdata = grecaptcha.getResponse(g-recaptcha);//re-captcha vars
+
+      if (vdata.length == 0) {//check for re-captcha
+        swal({
+          title: 'Achtung!',
+          text: 'Bitte das den CAPTCHA lösen.',
+          type: 'warning'
+        });
+        return;
+      }
+
+      var forename = $("#forename").val().trim();
+
+      if (forename == '') {
+        swal({
+          title: 'Achtung!',
+          text: 'Bitte Pflichtfeld "Vorname" ausfüllen.',
+          type: 'warning'
+        });
+        return;
+      }
+
+      var surname = $("#surname").val().trim();
+
+      if (surname == '') {
+        swal({
+          title: 'Achtung!',
+          text: 'Bitte Pflichtfeld "Nachname" ausfüllen.',
+          type: 'warning'
+        });
+        return;
+      }
+
+      var email = $('#email').val().trim();
+
+      if (email == '') {
+        swal({
+          title: 'Achtung!',
+          text: 'Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.',
+          type: 'warning'
+        });
+        return;
+      } else if (homeinfo.str.isEmail(email) == false) {
+        swal({
+          title: 'Achtung!',
+          text: 'Bitte geben Sie eine gültige E-Mail Adresse an.',
+          type: 'warning'
+        });
+        return;
+      }
+
+      var salutation;
+
+      if ($("input:radio[name='gender']:checked").val() == 1) {
+        salutation = "Herr";
+      } else {
+        salutation = "Frau";
+      }
+
+      var phone = $('#phone').val().trim();
+      var street = $('#street').val().trim();
+      var house_number = $('#house_number').val().trim();
+      var zip_code = $('#zip_code').val().trim();
+      var city = $('#city').val().trim();
+      var message = $('#message').val().trim();
+      var html_email = immobrowse.mkContactMail(
+        getUrlParameter('extern'), salutation, forename, surname,
+        phone, street, house_number, zip_code, city, message)
+    });
   </script>
 </head>
 <div id="main">
@@ -105,49 +178,49 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="vorname">Vorname</label>
-                <input type="text" class="form-control" id="surname" placeholder="Vorname*">
+                <label for="forename">Vorname</label>
+                <input type="text" class="form-control" id="forename" placeholder="Vorname*">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="nachname">Nachname</label>
-                <input type="text" class="form-control" id="last_name" placeholder="Nachname*">
+                <label for="surname">Nachname</label>
+                <input type="text" class="form-control" id="surname" placeholder="Nachname*">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="email">E-Mail-Adresse</label>
+                <label for="email">E-Mail Adresse</label>
                 <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="telefon">Telefon</label>
+                <label for="phone">Telefon</label>
                 <input type="text" class="form-control" id="phone" placeholder="Telefon">
               </div>
             </div>
             <div class="col-md-8">
               <div class="form-group">
-                <label for="adddress">Straße</label>
-                <input type="text" class="form-control" id="address" placeholder="Straße">
+                <label for="street">Straße</label>
+                <input type="text" class="form-control" id="street" placeholder="Straße">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="adddress_number">Haus-Nr.</label>
+                <label for="house_number">Haus-Nr.</label>
                 <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="plz">PLZ</label>
+                <label for="zip_code">PLZ</label>
                 <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
               </div>
             </div>
             <div class="col-md-9">
               <div class="form-group">
-                <label for="ort">Ort</label>
+                <label for="city">Ort</label>
                 <input type="text" class="form-control" id="city" placeholder="Ort">
               </div>
             </div>
