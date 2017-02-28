@@ -116,6 +116,7 @@
         objektnr_extern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
       mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
+      grecaptcha.reset();
     }
 
     $(document).ready(function () {
