@@ -1133,28 +1133,29 @@ immobrowse.list = function () {
 
 immobrowse.expose = function () {
   var immobilie = immobrowse.realEstate;
+
   if (immobilie == null) {
     immobrowse.logger.error('Could not show real estate');
   } else {
-  immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
-  $('.showimage').click(function() {
-    for (var i = 0; i < $(this).data("nrmax"); i++) {
-      $('#image'+ i).hide();
-    }
-    $('#image'+ $(this).data("nr")).show();
-  });
-  $('.btn_contact').click(function(e) {
-    //$('#contact').scrollIntoView(true);
-    if ($('#contact').attr('style') == "display: none;") {
-      $('#contact').slideDown();
-    } else {
-      $('#contact').slideUp();
-    }
-    $('html, body').animate({ 
+    immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
+    $('.showimage').click(function() {
+      for (var i = 0; i < $(this).data("nrmax"); i++) {
+        $('#image'+ i).hide();
+      }
+      $('#image'+ $(this).data("nr")).show();
+    });
+    $('.btn_contact').click(function(e) {
+      //$('#contact').scrollIntoView(true);
+      if ($('#contact').attr('style') == "display: none;") {
+        $('#contact').slideDown();
+      } else {
+        $('#contact').slideUp();
+      }
+      $('html, body').animate({
         scrollTop: $('#contact').offset().top
       }, 500);
-    return false; // Not scrolling to top alternative: e.preventDefault();
-  });
+      return false; // Not scrolling to top alternative: e.preventDefault();
+    });
   }
 }
 
