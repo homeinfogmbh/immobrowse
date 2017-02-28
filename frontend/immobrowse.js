@@ -1283,29 +1283,26 @@ immobrowse.Mailer = function (config, successMsg, errorMsg) {
     return url;
   };
 
-  this.success = function (html) {
-    swal(this.successMsg);
-  }
+  this.getAjax = function (url, body) {
+    var successMsg = this.successMsg;
+    var errorMsg = this.errorMsg;
 
-  this.error = function (html) {
-    swal(this.errorMsg);
-  }
-
-  this.getAjax = function (url, body, success, error) {
     return {
       url: url,
       type: 'POST',
       data: body,
       cache: false,
-      success: success,
-      error: error
+      success: function (html) {
+        swal(successMsg);
+      },
+      error: function (html) {
+        swal(errorMsg);
+      }
     }
   };
 
   this.send = function (response, subject, body, recipient, reply_to) {
-    $.ajax(this.getAjax(
-      this.getUrl(response, subject, recipient, reply_to),
-      body, this.success, this.error));
+    $.ajax(this.getAjax(this.getUrl(response, subject, recipient, reply_to), body));
   };
 }
 
