@@ -1293,7 +1293,7 @@ immobrowse.Mailer = function (config, successMsg, errorMsg) {
 
   this.getAjax = function (url, body, success, error) {
     return {
-      url: ,
+      url: url,
       type: 'POST',
       data: body,
       cache: false,
