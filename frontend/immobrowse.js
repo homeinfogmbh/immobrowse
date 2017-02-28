@@ -1232,27 +1232,27 @@ immobrowse.mkContactMail = function (
 }
 
 // Mailer class
-immobrowse.Mailer = function (config, success, error) {
+immobrowse.Mailer = function (config, successMsg, errorMsg) {
   this.baseUrl = 'https://tls.homeinfo.de/hisecon';
   this.config = config;
 
-  if (success == null) {
-    this.success = {
+  if (successMsg == null) {
+    this.successMsg = {
       title: 'Anfrage versendet!',
       type: 'success'
     };
   } else {
-    this.success = success;
+    this.successMsg = successMsg;
   }
 
-  if (error == null) {
-    this.error = {
+  if (errorMsg == null) {
+    this.errorMsg = {
       title: 'Fehler beim Versenden!',
       text: 'Bitte versuchen Sie es später nochmal.',
       type: 'error'
     };
   } else {
-    this.error = error;
+    this.errorMsg = errorMsg;
   }
 
   this.getUrl = function (response, subject, recipient, reply_to) {
@@ -1283,27 +1283,29 @@ immobrowse.Mailer = function (config, success, error) {
     return url;
   };
 
-  this.getAjax = function (response, subject, body, recipient, reply_to) {
-    function success(html) {
-      swal(this.success);
-    }
+  this.success = function (html) {
+    swal(this.successMsg);
+  }
 
-    function error(html) {
-      swal(this.error);
-    }
+  this.error = function (html) {
+    swal(this.errorMsg);
+  }
 
+  this.getAjax = function (url, body, success, error) {
     return {
-      url: this.getUrl(response, subject, recipient, reply_to),
+      url: ,
       type: 'POST',
       data: body,
       cache: false,
-      success: success ,
+      success: success,
       error: error
     }
   };
 
   this.send = function (response, subject, body, recipient, reply_to) {
-    $.ajax(this.getAjax(response, subject, body, recipient, reply_to));
+    $.ajax(this.getAjax(
+      this.getUrl(response, subject, recipient, reply_to),
+      body, this.success, this.error));
   };
 }
 
