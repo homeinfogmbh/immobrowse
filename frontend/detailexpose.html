@@ -14,8 +14,8 @@
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script>
+    homeinfo.log.name = 'immobrowse';
     // XXX: Change config for appropriate productive setting
-    homeinfo.log.level = 5;
     var mailer = new immobrowse.Mailer('homeinfo-testing');
 
     function getUrlParameter(sParam) {
