@@ -1232,22 +1232,55 @@ immobrowse.mkContactMail = function (
 }
 
 // Mailer class
-immobrowse.Mailer = function (config, response) {
+immobrowse.Mailer = function (config, response, success, error) {
   this.config = config;
   this.response = response;
+
+  if (success == null) {
+    this.success = {
+      title: 'Anfrage versendet!',
+      type: 'success'
+    };
+  } else {
+    this.success = success;
+  }
+
+  if (error == null) {
+    this.error = {
+      title: 'Achtung!',
+      text: 'Bitte versuchen Sie es später nochmal!',
+      type: 'warning'
+    };
+  } else {
+    this.error = error;
+  }
+
   this.url = function() {
-    return 'https://tls.homeinfo.de/hisecon?config=' + this.config
-           + '&response=' + this.response + '&subject=' + this.subject
-           + '&html=true';
+    return 'https://tls.homeinfo.de/hisecon?config=' + this.config + '&html=true';
   };
-  this.send = function (subject, body, recipient, reply_to) {
+
+  this.send = function (response, subject, body, recipient, reply_to) {
     url = this.url();
 
-    if (recipient != null) {
-      url += '&recipient=' + recipient;
+    if (response) {
+      url += '&response=' + this.response;
+    } else {
+      homeinfo.log.warning('No reCAPTCHA response provided.');
     }
 
-    if (reply_to != null) {
+    if (subject) {
+      url += '&subject=' + subject;
+    } else {
+      homeinfo.log.warning('No subject provided.');
+    }
+
+    if (recipient) {
+      url += '&recipient=' + recipient;
+    } else {
+      homeinfo.log.warning('No recipient specified.');
+    }
+
+    if (reply_to) {
       url += '&reply_to=' + reply_to;
     }
 
@@ -1257,22 +1290,10 @@ immobrowse.Mailer = function (config, response) {
       data: body,
       cache: false,
       success: function (html) {
-        $('#done').fadeIn('slow').delay(1000).fadeOut('slow');
-        swal({
-          title: 'Anfrage versendet!',
-          type: 'success'
-        });
-        $('#loading').hide();
-        $('#inputName').val('');
-        $('#inputEmailOderTel').val('');
+        swal(this.success);
       },
       error: function (html) {
-        $('#loading').hide();
-        swal({
-          title: 'Achtung!',
-          text: 'Bitte versuchen Sie es später nochmal!',
-          type: 'warning'
-        });
+        swal(this.error);
       }
     });
   };
