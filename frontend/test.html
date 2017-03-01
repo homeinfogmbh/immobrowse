@@ -77,17 +77,17 @@
       types: ['WOHNUNG'],
       marketing: ['MIETE_PACHT'],
       priceMin: Number(homeinfo.str.comma2dot($('#price_min').val())),
-      priceMax = priceMax == 0 ? Infinity: priceMax,
-      areaMin = Number(homeinfo.str.comma2dot($('#area_min').val())),
-      roomsMin = Number(homeinfo.str.comma2dot($('#rooms_min').val())),
-      ebk = $("#checkbox_ebk").is(':checked'),
-      bathtub = $("#checkbox_bathtub").is(':checked'),
-      window = $("#checkbox_window").is(':checked'),
-      balcony = $("#checkbox_balcony").is(':checked'),
-      carSpace = $("#checkbox_carSpace").is(':checked'),
-      guestwc = $("#checkbox_guestwc").is(':checked'),
-      elevator = $("#checkbox_elevator").is(':checked'),
-      garden = $("#checkbox_garden").is(':checked')
+      priceMax: priceMax == 0 ? Infinity: priceMax,
+      areaMin: Number(homeinfo.str.comma2dot($('#area_min').val())),
+      roomsMin: Number(homeinfo.str.comma2dot($('#rooms_min').val())),
+      ebk: $("#checkbox_ebk").is(':checked'),
+      bathtub: $("#checkbox_bathtub").is(':checked'),
+      window: $("#checkbox_window").is(':checked'),
+      balcony: $("#checkbox_balcony").is(':checked'),
+      carSpace: $("#checkbox_carSpace").is(':checked'),
+      guestwc: $("#checkbox_guestwc").is(':checked'),
+      elevator: $("#checkbox_elevator").is(':checked'),
+      garden: $("#checkbox_garden").is(':checked')
     }
 
     var sorting = {
