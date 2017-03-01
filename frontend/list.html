@@ -79,11 +79,11 @@
     immobrowse.getRealEstates();
     });
   function setFilter() {
-    immobrowse.config.filters.priceMin = homeinfo.num.parseNumber($('#price_min').val());
-    var priceMax = homeinfo.num.parseNumber($('#price_max').val());
+    immobrowse.config.filters.priceMin = homeinfo.num.parse($('#price_min').val());
+    var priceMax = homeinfo.num.parse($('#price_max').val());
     immobrowse.config.filters.priceMax = priceMax == 0 ? Infinity: priceMax;
-    immobrowse.config.filters.areaMin = homeinfo.num.parseNumber($('#area_min').val());
-    immobrowse.config.filters.roomsMin = homeinfo.num.parseNumber($('#rooms_min').val());
+    immobrowse.config.filters.areaMin = homeinfo.num.parse($('#area_min').val());
+    immobrowse.config.filters.roomsMin = homeinfo.num.parse($('#rooms_min').val());
     immobrowse.config.filters.ebk = $("#checkbox_ebk").is(':checked');
     immobrowse.config.filters.bathtub = $("#checkbox_bathtub").is(':checked');
     immobrowse.config.filters.window = $("#checkbox_window").is(':checked');
