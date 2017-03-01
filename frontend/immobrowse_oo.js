@@ -552,7 +552,7 @@ immobrowse.List = function (cid, filters, sorting) {
     var filteredRealEstates = [];
 
     for (var i = 0; i < realEstates.length; i++) {
-      if (this.match(realEstates[i])) {
+      if (this.match(realEstates[i].realEstate)) {
         filteredRealEstates.push(realEstates[i]);
       } else {
         immobrowse.logger.debug('Discarding: ' + realEstates[i].objektnr_extern());
