@@ -92,7 +92,9 @@
         list.render($("#container"));
       });
 
-      list.render($("#container"), $("#loader"));
+      var container = document.getElementById('container');
+      var loader = document.getElementById('loader');
+      list.render(container, loader);
     });
   </script>
 </head>
