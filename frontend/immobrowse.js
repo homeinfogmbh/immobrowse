@@ -622,18 +622,20 @@ immobrowse.getSorter = function (property, order) {
   Retrieves real estates from the back-end API
   and invokes appropriate callback functions
 */
-immobrowse.getRealEstates = function (cid) {
-  if (cid == null) {
-    cid = immobrowse.config.customer;
-  }
+immobrowse.getRealEstates = function (callback) {
+
   $.ajax({
-    url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
+    url: 'https://tls.homeinfo.de/immobrowse/list/' + immobrowse.config.customer,
     dataType: "json",
     success: function (realEstates) {
       immobrowse.logger.info('Retrieved ' + realEstates.length + ' real estates.');
       immobrowse.logger.debug('Got real estates:\n' + JSON.stringify(realEstates));
       immobrowse.realEstates = immobrowse.filter(realEstates);
       immobrowse.config.mapping.loadAnimation.hide();
+
+      if (callback != null) {
+        callback();
+      }
     },
     error: function (xhr, ajaxOptions, thrownError) {
       immobrowse.logger.error(xhr.responseText);
@@ -1122,6 +1124,7 @@ immobrowse.details = function (immobilie) {
 immobrowse.list = function () {
   if (immobrowse.realEstates == null) {
     immobrowse.logger.warning('No real estates available.');
+    immobrowse.getRealEstates(immobrowse.list);
   } else {
     var html = '';
     var realEstate;

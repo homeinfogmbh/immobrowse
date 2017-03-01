@@ -64,25 +64,30 @@
       });
 
       $('.btn_filter').on('input',function(e) {
-        setFilter();
+        setFilters();
         immobrowse.list();
       });
 
       $('.btn_filter_checkbox').click(function() {
-        setFilter();
+        setFilters();
         immobrowse.list();
       });
 
+      configure();
+      immobrowse.getRealEstates();
+      immobrowse.list();
+    });
+
+    function configure() {
       immobrowse.config.customer = location.search.slice(1);
       immobrowse.config.mapping.listContainer = document.getElementById('container');
       immobrowse.config.mapping.exposeContainer = document.getElementById('container');
       immobrowse.config.mapping.loadAnimation = $('#loader');
       immobrowse.config.filters.types = ['WOHNUNG'];
       immobrowse.config.filters.marketing = ['MIETE_PACHT'];
-      immobrowse.getRealEstates();
-    });
+    }
 
-    function setFilter() {
+    function setFilters() {
       immobrowse.config.filters.priceMin = Number(homeinfo.str.comma2dot($('#price_min').val()));
       var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
       immobrowse.config.filters.priceMax = priceMax == 0 ? Infinity: priceMax;
@@ -96,7 +101,6 @@
       immobrowse.config.filters.guestwc = $("#checkbox_guestwc").is(':checked');
       immobrowse.config.filters.elevator = $("#checkbox_elevator").is(':checked');
       immobrowse.config.filters.garden = $("#checkbox_garden").is(':checked');
-
       immobrowse.logger.debug(JSON.stringify(immobrowse.config));
     }
   </script>
