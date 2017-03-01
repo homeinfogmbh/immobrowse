@@ -599,7 +599,7 @@ immobrowse.List = function (cid, filters, sorting) {
         this.realEstates = [];
 
         for (var i = 0; i < json.length; i++) {
-          realEstates.push(new immobrowse.RealEstate(json[i]));
+          this.realEstates.push(new immobrowse.RealEstate(json[i]));
         }
       },
       error: function (xhr, ajaxOptions, thrownError) {
