@@ -588,8 +588,10 @@ immobrowse.List = function (cid, filters, sorting) {
   }
 
   this.getRealEstates = function (callback) {
+    var cid = this.cid;
+
     $.ajax({
-      url: 'https://tls.homeinfo.de/immobrowse/list/' + immobrowse.config.customer,
+      url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
       dataType: "json",
       success: function (json) {
         immobrowse.logger.info('Retrieved ' + json.length + ' real estates.');
