@@ -1,30 +1,143 @@
 <!DOCTYPE HTML>
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="https://tls.homeinfo.de/css/immobrowse.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
+  <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
+  <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
+  <script>
+    var option = null;
+    var order = null;
+
+    function toggleOrder() {
+      var previousOrder = order;
+
+      if (order == 'descending') {
+        order = 'ascending';
+      } else {
+        order = 'descending';
+      }
+
+      return previousOrder;
+    }
+
+    function toggleSorting(newOption) {
+      var previousIssuer = document.getElementById(option);
+      var issuer = document.getElementById(newOption);
+      toggleOrder();
+      option = newOption;
+
+      if (previousIssuer != null) {
+        previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
+      }
+
+      switch (order) {
+        case 'ascending':
+          issuer.innerHTML += ' &darr;';
+          break;
+        case 'descending':
+          issuer.innerHTML += ' &uarr;';
+          break;
+      }
+
+      immobrowse.sortRealEstates(option, order);
+    }
+
+    function testDetails() {
+      for (var i=0; i<immobrowse.realEstates.length; i++) {
+        var realEstate = immobrowse.realEstates[i];
+
+        immobrowse.config.mapping.listContainer.innerHTML = immobrowse.details(realEstate);
+        break;
+      }
+    }
+
+    function showDetailExpose(extern) {
+      window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
+    }
+
+    $(document).ready(function () {
+      $('#btn_extendedsearch').click(function() {
+        if ($('#extendedsearch').attr('style') == "display: none;")
+          $('#extendedsearch').slideDown();
+        else
+          $('#extendedsearch').slideUp();
+      });
+
+      $('.btn_filter').on('input',function(e) {
+        list.render($("#container")
+      });
+
+      $('.btn_filter_checkbox').click(function() {
+        list.render($("#container")
+      });
+
+      list.render($("#container")
+    });
+
+    var cid = location.search.slice(1);
+
+    var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
+    var filters = {
+      types: ['WOHNUNG'],
+      marketing: ['MIETE_PACHT'],
+      priceMin: Number(homeinfo.str.comma2dot($('#price_min').val())),
+      priceMax = priceMax == 0 ? Infinity: priceMax,
+      areaMin = Number(homeinfo.str.comma2dot($('#area_min').val())),
+      roomsMin = Number(homeinfo.str.comma2dot($('#rooms_min').val())),
+      ebk = $("#checkbox_ebk").is(':checked'),
+      bathtub = $("#checkbox_bathtub").is(':checked'),
+      window = $("#checkbox_window").is(':checked'),
+      balcony = $("#checkbox_balcony").is(':checked'),
+      carSpace = $("#checkbox_carSpace").is(':checked'),
+      guestwc = $("#checkbox_guestwc").is(':checked'),
+      elevator = $("#checkbox_elevator").is(':checked'),
+      garden = $("#checkbox_garden").is(':checked')
+    }
+
+    var sorting = {
+      property: 'rooms',
+      order: 'ascending'
+    }
+
+    immobrowse.logger.debug('Filters:');
+    immobrowse.logger.debug(JSON.stringify(filters));
+    var list = immobrowse.List(cid, filters, sorting)
+  </script>
 </head>
+<header>
+  <button id="rooms" onclick="toggleSorting('rooms')" class="w3-btn w3-blue">Zimmer</button>
+  <button id="area" onclick="toggleSorting('area')" class="w3-btn w3-blue">Fl&auml;che</button>
+  <button id="street" onclick="toggleSorting('street')" class="w3-btn w3-blue">Stra&szlig;e</button>
 
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+  <div style="float:right; margin-right: 30%;">
+  <button id="btn_extendedsearch">Erweiterte Suche</button>
+  </div><br><br>
+  <div id="extendedsearch" style="display: none;">
+    <input id="price_min" class="btn_filter" type="number" placeholder="Preis von">
+    <input id="price_max" class="btn_filter" type="number" placeholder="Preis bis">
+    <input id="area_min" class="btn_filter" type="number" placeholder="Größe ab in m²">
+    <input id="rooms_min" class="btn_filter" type="number" placeholder="Zimmer ab"><br><br>
+    <div class="btn-group" data-toggle="buttons">
+    <!--
+      <label><strong>Austattung</strong></label><br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtub"> Badewanne<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_carSpace"> Stellplatz<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
+      -->
     </div>
-
   </div>
+</header>
+<div id="main">
+  <div id="loader" class="loader"></div>
+  <div id="container">Immobilien werden geladen, bitte warten...</div>
 </div>
