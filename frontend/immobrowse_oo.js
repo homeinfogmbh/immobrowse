@@ -589,18 +589,18 @@ immobrowse.List = function (cid, filters, sorting) {
   }
 
   this.getRealEstates = function (callback, args) {
-    var cid = this.cid;
+    var this_ = this;
 
     $.ajax({
-      url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
+      url: 'https://tls.homeinfo.de/immobrowse/list/' + this_.cid,
       dataType: "json",
       success: function (json) {
         immobrowse.logger.info('Retrieved ' + json.length + ' real estates.');
         immobrowse.logger.debug(JSON.stringify(json));
-        this.realEstates = [];
+        this_.realEstates = [];
 
         for (var i = 0; i < json.length; i++) {
-          this.realEstates.push(new immobrowse.RealEstate(json[i]));
+          this_.realEstates.push(new immobrowse.RealEstate(json[i]));
         }
 
         if (callback != null) {
