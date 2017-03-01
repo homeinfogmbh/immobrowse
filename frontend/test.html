@@ -47,15 +47,6 @@
       immobrowse.sortRealEstates(option, order);
     }
 
-    function testDetails() {
-      for (var i=0; i<immobrowse.realEstates.length; i++) {
-        var realEstate = immobrowse.realEstates[i];
-
-        immobrowse.config.mapping.listContainer.innerHTML = immobrowse.details(realEstate);
-        break;
-      }
-    }
-
     function showDetailExpose(extern) {
       window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
     }
