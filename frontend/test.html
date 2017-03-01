@@ -10,8 +10,34 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
   <script>
-    var option = null;
-    var order = null;
+    var cid = location.search.slice(1);
+
+    var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
+    var filters = {
+      types: ['WOHNUNG'],
+      marketing: ['MIETE_PACHT'],
+      priceMin: Number(homeinfo.str.comma2dot($('#price_min').val())),
+      priceMax: priceMax == 0 ? Infinity: priceMax,
+      areaMin: Number(homeinfo.str.comma2dot($('#area_min').val())),
+      roomsMin: Number(homeinfo.str.comma2dot($('#rooms_min').val())),
+      ebk: $("#checkbox_ebk").is(':checked'),
+      bathtub: $("#checkbox_bathtub").is(':checked'),
+      window: $("#checkbox_window").is(':checked'),
+      balcony: $("#checkbox_balcony").is(':checked'),
+      carSpace: $("#checkbox_carSpace").is(':checked'),
+      guestwc: $("#checkbox_guestwc").is(':checked'),
+      elevator: $("#checkbox_elevator").is(':checked'),
+      garden: $("#checkbox_garden").is(':checked')
+    }
+
+    var sorting = {
+      property: 'rooms',
+      order: 'ascending'
+    }
+
+    immobrowse.logger.debug('Filters:');
+    immobrowse.logger.debug(JSON.stringify(filters));
+    var list = immobrowse.List(cid, filters, sorting);
 
     function toggleOrder() {
       var previousOrder = order;
@@ -69,35 +95,6 @@
 
       list.render($("#container"));
     });
-
-    var cid = location.search.slice(1);
-
-    var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
-    var filters = {
-      types: ['WOHNUNG'],
-      marketing: ['MIETE_PACHT'],
-      priceMin: Number(homeinfo.str.comma2dot($('#price_min').val())),
-      priceMax: priceMax == 0 ? Infinity: priceMax,
-      areaMin: Number(homeinfo.str.comma2dot($('#area_min').val())),
-      roomsMin: Number(homeinfo.str.comma2dot($('#rooms_min').val())),
-      ebk: $("#checkbox_ebk").is(':checked'),
-      bathtub: $("#checkbox_bathtub").is(':checked'),
-      window: $("#checkbox_window").is(':checked'),
-      balcony: $("#checkbox_balcony").is(':checked'),
-      carSpace: $("#checkbox_carSpace").is(':checked'),
-      guestwc: $("#checkbox_guestwc").is(':checked'),
-      elevator: $("#checkbox_elevator").is(':checked'),
-      garden: $("#checkbox_garden").is(':checked')
-    }
-
-    var sorting = {
-      property: 'rooms',
-      order: 'ascending'
-    }
-
-    immobrowse.logger.debug('Filters:');
-    immobrowse.logger.debug(JSON.stringify(filters));
-    var list = immobrowse.List(cid, filters, sorting)
   </script>
 </head>
 <header>
