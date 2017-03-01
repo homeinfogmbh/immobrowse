@@ -579,7 +579,7 @@ immobrowse.List = function (cid, filters, sorting) {
 
     for (var i = 0; i < realEstates.length; i++) {
       html += realEstates[i].preview();
-      html += '<br>';
+      html += 'foo<br>';
     }
 
     if (html == '') {
