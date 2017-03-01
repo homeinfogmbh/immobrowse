@@ -410,6 +410,7 @@ immobrowse.List = function (cid, filters, sorting) {
   this.cid = cid;
   this.filters = filters;
   this.sorting = sorting;
+  this.realEstates = null;
 
   // Match filters on a real estate
   this.match = function (realEstate) {
@@ -587,7 +588,7 @@ immobrowse.List = function (cid, filters, sorting) {
     return html;
   }
 
-  this.getRealEstates = function (callback) {
+  this.getRealEstates = function (callback, args) {
     var cid = this.cid;
 
     $.ajax({
@@ -600,6 +601,10 @@ immobrowse.List = function (cid, filters, sorting) {
 
         for (var i = 0; i < json.length; i++) {
           this.realEstates.push(new immobrowse.RealEstate(json[i]));
+        }
+
+        if (callback != null) {
+          callback.apply(args);
         }
       },
       error: function (xhr, ajaxOptions, thrownError) {
@@ -614,11 +619,12 @@ immobrowse.List = function (cid, filters, sorting) {
   // Renders real estates into the given HTML element
   this.render = function (htmlElement, loadAnimation) {
     if (this.realEstates == null) {
-      this.getRealEstates(this.render);
+      this.getRealEstates(this.render, [htmlElement, loadAnimation]);
     } else {
       htmlElement.innerHTML = this.htmlList(this.filter(realEstates));
 
       if (loadAnimation != null) {
+        immobrowse.logger.debug('Hiding loading animation.');
         loadAnimation.hide();
       }
     }
