@@ -28,7 +28,8 @@ var immobrowse = immobrowse || {};
 /*
   Real estate wrapper pseudo-class
 */
-immobrowse.RealEstate = function (realEstate) {
+immobrowse.RealEstate = function (cid, realEstate) {
+  this.cid = cid;
   this.realEstate = realEstate;
 
   this.addressPreview = function () {
@@ -401,9 +402,18 @@ immobrowse.RealEstate = function (realEstate) {
     }
   }
 
+  this.attachmentURL = function (anhang) {
+    if (anhang == null) {
+      return null;
+    } else {
+      return 'https://tls.homeinfo.de/immobrowse/attachment/' + anhang.id
+        + '?customer=' + this.cid + '&objektnr_extern=' + this.objektnr_extern();
+    }
+  }
+
   this.preview = function () {
     var objektnr_extern = this.objektnr_extern();
-    var titleImageUrl = immobrowse.attachmentURL(this.titleImage(), objektnr_extern);
+    var titleImageUrl = this.attachmentURL(this.titleImage());
     var rooms = this.rooms();
 
     var html = '<div class="ib-preview-entry" onclick="showDetailExpose(\'' + objektnr_extern + '\');">';
@@ -601,7 +611,7 @@ immobrowse.List = function (cid, filters, sorting) {
         this_.realEstates = [];
 
         for (var i = 0; i < json.length; i++) {
-          this_.realEstates.push(new immobrowse.RealEstate(json[i]));
+          this_.realEstates.push(new immobrowse.RealEstate(this_.cid, json[i]));
         }
 
         if (htmlElement != null) {
