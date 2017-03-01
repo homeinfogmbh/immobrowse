@@ -76,7 +76,7 @@
 
       immobrowse.logger.debug('Filters:');
       immobrowse.logger.debug(JSON.stringify(filters));
-      var list = immobrowse.List(cid, filters, sorting);
+      var list = new immobrowse.List(cid, filters, sorting);
       $('#btn_extendedsearch').click(function() {
         if ($('#extendedsearch').attr('style') == "display: none;")
           $('#extendedsearch').slideDown();
