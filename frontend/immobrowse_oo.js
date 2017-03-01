@@ -614,6 +614,7 @@ immobrowse.List = function (cid, filters, sorting) {
 
   // Renders real estates into the given HTML element
   this.render = function (htmlElement, loadAnimation) {
+    immobrowse.logger.debug('CALLED');
     if (this.realEstates == null) {
       this.getRealEstates(htmlElement, loadAnimation);
     } else {
