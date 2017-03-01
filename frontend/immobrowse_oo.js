@@ -588,7 +588,7 @@ immobrowse.List = function (cid, filters, sorting) {
     return html;
   }
 
-  this.getRealEstates = function (callback, args) {
+  this.getRealEstates = function (htmlElement, loadAnimation) {
     var this_ = this;
 
     $.ajax({
@@ -603,8 +603,8 @@ immobrowse.List = function (cid, filters, sorting) {
           this_.realEstates.push(new immobrowse.RealEstate(json[i]));
         }
 
-        if (callback != null) {
-          callback.apply(args);
+        if (htmlElement != null) {
+          this_.render(htmlElement, loadAnimation);
         }
       },
       error: function (xhr, ajaxOptions, thrownError) {
@@ -619,7 +619,7 @@ immobrowse.List = function (cid, filters, sorting) {
   // Renders real estates into the given HTML element
   this.render = function (htmlElement, loadAnimation) {
     if (this.realEstates == null) {
-      this.getRealEstates(this.render, [htmlElement, loadAnimation]);
+      this.getRealEstates(htmlElement, loadAnimation);
     } else {
       htmlElement.innerHTML = this.htmlList(this.filter(realEstates));
 
