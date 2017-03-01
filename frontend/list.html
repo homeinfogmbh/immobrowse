@@ -55,6 +55,10 @@
       }
     }
 
+    function showDetailExpose(extern) {
+      window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
+    }
+
     $(document).ready(function () {
       $('#btn_extendedsearch').click(function() {
         if ($('#extendedsearch').attr('style') == "display: none;")

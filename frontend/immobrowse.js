@@ -632,11 +632,12 @@ immobrowse.getRealEstates = function (callback) {
       immobrowse.logger.info('Retrieved ' + realEstates.length + ' real estates.');
       immobrowse.logger.debug('Got real estates:\n' + JSON.stringify(realEstates));
       immobrowse.realEstates = immobrowse.filter(realEstates);
-      immobrowse.config.mapping.loadAnimation.hide();
 
       if (callback != null) {
         callback();
       }
+
+      immobrowse.config.mapping.loadAnimation.hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
       immobrowse.logger.error(xhr.responseText);
@@ -646,6 +647,11 @@ immobrowse.getRealEstates = function (callback) {
     }
   });
 }
+
+
+/*
+  Retrieves a single real estate
+*/
 immobrowse.getRealEstate = function (callback) {
   $.ajax({
     url: 'https://tls.homeinfo.de/immobrowse/real_estate/' + immobrowse.config.objektnr_extern + '?customer=' + immobrowse.config.customer,
@@ -699,7 +705,7 @@ immobrowse.preview = function (immobilie) {
   var rooms = immobrowse.rooms(immobilie);
   //var area = immobrowse.area(immobilie);
 
-  var html = '<div class="ib-preview-entry" onclick="immobrowse.showDetailExpose(\'' + objektnr_extern + '\');">';
+  var html = '<div class="ib-preview-entry" onclick="showDetailExpose(\'' + objektnr_extern + '\');">';
 
   if (titleImageUrl != null) {
     html += immobrowse.titleImageHtml(titleImageUrl);
@@ -788,7 +794,7 @@ immobrowse.details = function (immobilie) {
 
   if (getUrlParameter('parent')) {
     $('#main').attr('style', 'padding-top: 80px');
-    header += '<div class="ib-preview-back" onclick="immobrowse.goBack();"> << Zurück<br></div>';
+    header += '<div class="ib-preview-back" onclick="goBack();"> << Zurück<br></div>';
   }
 
   header += '<strong>';
@@ -1260,16 +1266,6 @@ immobrowse.getZustand = function (property) {
       return "Projektiert";
   }
   return property;
-}
-
-
-immobrowse.showDetailExpose = function (extern) {
-  window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
-}
-
-
-immobrowse.goBack = function () {
-  window.history.back();
 }
 
 
