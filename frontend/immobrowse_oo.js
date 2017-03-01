@@ -554,7 +554,13 @@ immobrowse.List = function (cid, filters, sorting) {
     for (var i = 0; i < realEstates.length; i++) {
       if (this.match(realEstates[i])) {
         filteredRealEstates.push(realEstates[i]);
+      } else {
+        immobrowse.logger.debug('Discarding: ' + realEstates[i].objektnr_extern());
       }
+    }
+
+    if (! filteredRealEstates) {
+      immobrowse.logger.warning('No real estates available after filtering.');
     }
 
     return filteredRealEstates;
@@ -578,7 +584,6 @@ immobrowse.List = function (cid, filters, sorting) {
 
     if (html == '') {
       html = 'Es konnten keine Angebote gefunden werden.';
-      immobrowse.logger.warning('No real estates available after filtering.');
     }
 
     return html;
