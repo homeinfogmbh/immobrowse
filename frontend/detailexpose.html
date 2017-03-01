@@ -130,7 +130,9 @@
       if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern')) {
         immobrowse.config.mapping.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
       } else {
-        immobrowse.getRealEstate(getUrlParameter('extern'), getUrlParameter('cid'));
+        immobrowse.config.customer = getUrlParameter('cid');
+        immobrowse.config.objektnr_extern = getUrlParameter('extern');
+        immobrowse.expose();
         //immobrowse.getRealEstate("0003.0377.0046", "1028001");
         document.getElementById('contact_form_objektnr_extern').value = getUrlParameter('extern');
       }

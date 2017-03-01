@@ -34,6 +34,7 @@ immobrowse.realEstates = null;
 // Configuration
 immobrowse.config = {
   customer: null,
+  objektnr_extern: null,
   filters: {
     types: null,
     marketing: null,
@@ -645,18 +646,17 @@ immobrowse.getRealEstates = function (callback) {
     }
   });
 }
-immobrowse.getRealEstate = function (object_extern, cid) {
-  if (cid == null)
-    cid = immobrowse.config.customer;
-  else
-    immobrowse.config.customer = cid;
-
+immobrowse.getRealEstate = function (callback) {
   $.ajax({
-    url: 'https://tls.homeinfo.de/immobrowse/real_estate/' + object_extern + '?customer=' + cid,
+    url: 'https://tls.homeinfo.de/immobrowse/real_estate/' + immobrowse.config.objektnr_extern + '?customer=' + immobrowse.config.customer,
     dataType: "json",
     success: function (realEstate) {
       immobrowse.realEstate = realEstate;
-      immobrowse.expose();
+
+      if (callback != null) {
+        callback();
+      }
+
       immobrowse.config.mapping.loadAnimation.hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
@@ -1153,6 +1153,7 @@ immobrowse.expose = function () {
 
   if (immobilie == null) {
     immobrowse.logger.error('Could not show real estate');
+    immobrowse.immobrowse.expose);
   } else {
     immobrowse.config.mapping.exposeContainer.innerHTML = immobrowse.details(immobilie);
     $('.showimage').click(function() {
