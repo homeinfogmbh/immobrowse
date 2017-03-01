@@ -42,7 +42,7 @@ immobrowse.config = {
   areafrom: "",
   roomsfrom: "",
   checkbox_ebk: false,
-  checkbox_bathtube: false,
+  checkbox_bathtub: false,
   checkbox_window: false,
   checkbox_balcony: false,
   checkbox_pitch: false,
@@ -1401,7 +1401,7 @@ immobrowse.checkFilter = function (realEstate) {
         if (!realEstate.ausstattung.kueche.EBK)
           return false;
     }
-  } else if (immobrowse.config.filters.checkbox_bathtube) {
+  } else if (immobrowse.config.filters.checkbox_bathtub) {
     if (realEstate.ausstattung != null) {
       if (jQuery.isEmptyObject(realEstate.ausstattung))
         return false;
