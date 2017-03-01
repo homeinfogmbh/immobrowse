@@ -1388,13 +1388,13 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 immobrowse.checkFilter = function (realEstate) {
   immobrowse.logger.debug(realEstate.preise.nettokaltmiete + ' (' + typeof(realEstate.preise.nettokaltmiete) + ')');
 
-  if (immobrowse.config.filters.priceMin > Number(realEstate.preise.nettokaltmiete))
+  if (immobrowse.config.filters.priceMin > realEstate.preise.nettokaltmiete)
     return false;
-  else if (immobrowse.config.filters.priceMax < Number(realEstate.preise.nettokaltmiete))
+  else if (immobrowse.config.filters.priceMax < realEstate.preise.nettokaltmiete)
     return false;
-  else if (immobrowse.config.filters.areaMin > Number(realEstate.flaechen.wohnflaeche))
+  else if (immobrowse.config.filters.areaMin > realEstate.flaechen.wohnflaeche)
     return false;
-  else if (immobrowse.config.filters.roomsMin > Number(realEstate.flaechen.anzahl_zimmer))
+  else if (immobrowse.config.filters.roomsMin > realEstate.flaechen.anzahl_zimmer)
     return false;
   else if (immobrowse.config.filters.ebk) {
     if (realEstate.ausstattung != null) {
