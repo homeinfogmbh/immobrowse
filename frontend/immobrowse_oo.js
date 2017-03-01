@@ -593,10 +593,10 @@ immobrowse.List = function (cid, filters, sorting) {
     }
 
     if (html == '') {
-      html = 'Es konnten keine Angebote gefunden werden.';
+     return 'Es konnten keine Angebote gefunden werden.';
+    } else {
+      return '<div class="ib-preview-list">' + html + '</div>';
     }
-
-    return html;
   }
 
   this.getRealEstates = function (htmlElement, loadAnimation) {
@@ -634,8 +634,6 @@ immobrowse.List = function (cid, filters, sorting) {
       this.getRealEstates(htmlElement, loadAnimation);
     } else {
       htmlElement.innerHTML = this.htmlList(this.filter(this.realEstates));
-      immobrowse.logger.debug('htmlElement=' + htmlElement);
-      immobrowse.logger.debug('innerHTML=' + htmlElement.innerHTML);
 
       if (loadAnimation != null) {
         loadAnimation.hide();
