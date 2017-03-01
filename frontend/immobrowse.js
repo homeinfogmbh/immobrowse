@@ -54,9 +54,12 @@ immobrowse.config = {
     property: null,
     order: null
   },
-  listContainer: null,
-  exposeContainer: null,
-  districtsContainer: null
+  mapping: {
+    listContainer: null,
+    exposeContainer: null,
+    districtsContainer: null,
+    loadAnimation: null
+  }
 };
 
 
@@ -533,7 +536,7 @@ immobrowse.matchMarketing = function (immobilie) {
   } else {
     var types = immobrowse.marketingTypes(immobilie);
 
-    for (var i=0; i<types.length; i++) {
+    for (var i = 0; i < types.length; i++) {
       var type = types[i];
 
       if (immobrowse.config.filters.marketing.indexOf(type) >= 0) {
@@ -627,11 +630,11 @@ immobrowse.getRealEstates = function (cid) {
     url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
     dataType: "json",
     success: function (realEstates) {
-    //console.log(JSON.stringify(realEstates));
-    immobrowse.logger.debug('Retrieved ' + realEstates.length + ' real estates.');
-    immobrowse.realEstates = immobrowse.filter(realEstates);
-    toggleSorting('rooms');
-    $('.loader').hide();
+      immobrowse.logger.info('Retrieved ' + realEstates.length + ' real estates.');
+      immobrowse.logger.debug('Got real estates:\n' + JSON.stringify(realEstates));
+      immobrowse.realEstates = immobrowse.filter(realEstates);
+      toggleSorting('rooms');
+      immobrowse.config.mapping.loadAnimation.hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
       immobrowse.logger.error(xhr.responseText);
@@ -653,7 +656,7 @@ immobrowse.getRealEstate = function (object_extern, cid) {
     success: function (realEstate) {
       immobrowse.realEstate = realEstate;
       immobrowse.expose();
-      $('.loader').hide();
+      immobrowse.config.mapping.loadAnimation.hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
       immobrowse.logger.error(xhr.responseText);
@@ -1138,7 +1141,7 @@ immobrowse.list = function () {
       immobrowse.logger.warning('No real estates available after filtering.');
     }
 
-    immobrowse.config.listContainer.innerHTML = '<div class="ib-preview-list">' + html + '</div>';
+    immobrowse.config.mapping.listContainer.innerHTML = '<div class="ib-preview-list">' + html + '</div>';
   }
 }
 
@@ -1149,7 +1152,7 @@ immobrowse.expose = function () {
   if (immobilie == null) {
     immobrowse.logger.error('Could not show real estate');
   } else {
-    immobrowse.config.exposeContainer.innerHTML = immobrowse.details(immobilie);
+    immobrowse.config.mapping.exposeContainer.innerHTML = immobrowse.details(immobilie);
     $('.showimage').click(function() {
       for (var i = 0; i < $(this).data("nrmax"); i++) {
         $('#image'+ i).hide();

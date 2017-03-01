@@ -50,7 +50,7 @@
       for (var i=0; i<immobrowse.realEstates.length; i++) {
         var realEstate = immobrowse.realEstates[i];
 
-        immobrowse.config.listContainer.innerHTML = immobrowse.details(realEstate);
+        immobrowse.config.mapping.listContainer.innerHTML = immobrowse.details(realEstate);
         break;
       }
     }
@@ -74,8 +74,8 @@
       });
 
       immobrowse.config.customer = location.search.slice(1);
-      immobrowse.config.listContainer = document.getElementById('container');
-      immobrowse.config.exposeContainer = document.getElementById('container');
+      immobrowse.config.mapping.listContainer = document.getElementById('container');
+      immobrowse.config.mapping.exposeContainer = document.getElementById('container');
       immobrowse.config.filters.types = ['WOHNUNG'];
       immobrowse.config.filters.marketing = ['MIETE_PACHT'];
       immobrowse.getRealEstates();
