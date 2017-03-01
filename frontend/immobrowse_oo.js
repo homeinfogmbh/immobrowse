@@ -604,7 +604,7 @@ immobrowse.List = function (cid, filters, sorting) {
         }
 
         if (htmlElement != null) {
-          this_.render(htmlElement, loadAnimation);
+          //this_.render(htmlElement, loadAnimation);
         }
       },
       error: function (xhr, ajaxOptions, thrownError) {
