@@ -329,6 +329,17 @@ immobrowse.coldRent = function (immobilie) {
 }
 
 
+immobrowse.rent = function (immobilie) {
+  var netColdRent = immobrowse.netColdRent(immobilie);
+
+  if (netColdRent == null) {
+    return immobrowse.coldRent(immobilie);
+  } else {
+    return netColdRent;
+  }
+}
+
+
 immobrowse.cableSatTv = function (immobilie) {
   if (immobilie.ausstattung == null) {
     return null;
@@ -1386,13 +1397,15 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 }
 
 immobrowse.checkFilter = function (realEstate) {
-  if (immobrowse.config.filters.priceMin > realEstate.preise.nettokaltmiete)
+  var rent = immobrowse.rent(realEstate);
+
+  if (immobrowse.config.filters.priceMin >= rent)
     return false;
-  else if (immobrowse.config.filters.priceMax < realEstate.preise.nettokaltmiete)
+  else if (immobrowse.config.filters.priceMax <= rent)
     return false;
-  else if (immobrowse.config.filters.areaMin > realEstate.flaechen.wohnflaeche)
+  else if (immobrowse.config.filters.areaMin >= realEstate.flaechen.wohnflaeche)
     return false;
-  else if (immobrowse.config.filters.roomsMin > realEstate.flaechen.anzahl_zimmer)
+  else if (immobrowse.config.filters.roomsMin >= realEstate.flaechen.anzahl_zimmer)
     return false;
   else if (immobrowse.config.filters.ebk) {
     if (realEstate.ausstattung != null) {
