@@ -621,7 +621,7 @@ immobrowse.List = function (cid, filters, sorting) {
     if (this.realEstates == null) {
       this.getRealEstates(htmlElement, loadAnimation);
     } else {
-      htmlElement.innerHTML = this.htmlList(this.filter(realEstates));
+      htmlElement.innerHTML = this.htmlList(this.filter(this.realEstates));
 
       if (loadAnimation != null) {
         immobrowse.logger.debug('Hiding loading animation.');
