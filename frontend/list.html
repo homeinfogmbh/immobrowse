@@ -79,18 +79,19 @@
     immobrowse.getRealEstates();
     });
   function setFilter() {
-    immobrowse.config.filters.pricefrom = $('#pricefrom').val();
-    immobrowse.config.filters.pricetill = $('#pricetill').val();
-    immobrowse.config.filters.areafrom = $('#areafrom').val();
-    immobrowse.config.filters.roomsfrom = $('#roomsfrom').val();
-    immobrowse.config.filters.checkbox_ebk = $("#checkbox_ebk").is(':checked');
-    immobrowse.config.filters.checkbox_bathtub = $("#checkbox_bathtub").is(':checked');
-    immobrowse.config.filters.checkbox_window = $("#checkbox_window").is(':checked');
-    immobrowse.config.filters.checkbox_balcony = $("#checkbox_balcony").is(':checked');
-    immobrowse.config.filters.checkbox_pitch = $("#checkbox_pitch").is(':checked');
-    immobrowse.config.filters.checkbox_guestwc = $("#checkbox_guestwc").is(':checked');
-    immobrowse.config.filters.checkbox_elevator = $("#checkbox_elevator").is(':checked');
-    immobrowse.config.filters.checkbox_garden = $("#checkbox_garden").is(':checked');
+    immobrowse.config.filters.priceMin = homeinfo.num.parseNumber($('#price_min').val());
+    var priceMax = homeinfo.num.parseNumber($('#price_max').val());
+    immobrowse.config.filters.priceMax = priceMax == 0 ? Infinity: priceMax;
+    immobrowse.config.filters.areaMin = homeinfo.num.parseNumber($('#area_min').val());
+    immobrowse.config.filters.roomsMin = homeinfo.num.parseNumber($('#rooms_min').val());
+    immobrowse.config.filters.ebk = $("#checkbox_ebk").is(':checked');
+    immobrowse.config.filters.bathtub = $("#checkbox_bathtub").is(':checked');
+    immobrowse.config.filters.window = $("#checkbox_window").is(':checked');
+    immobrowse.config.filters.balcony = $("#checkbox_balcony").is(':checked');
+    immobrowse.config.filters.carSpace = $("#checkbox_carSpace").is(':checked');
+    immobrowse.config.filters.guestwc = $("#checkbox_guestwc").is(':checked');
+    immobrowse.config.filters.elevator = $("#checkbox_elevator").is(':checked');
+    immobrowse.config.filters.garden = $("#checkbox_garden").is(':checked');
   }
   </script>
 </head>
@@ -103,10 +104,10 @@
   <button id="btn_extendedsearch">Erweiterte Suche</button>
   </div><br><br>
   <div id="extendedsearch" style="display: none;">
-    <input id="pricefrom" class="btn_filter" type="number" placeholder="Preis von">
-    <input id="pricetill" class="btn_filter" type="number" placeholder="Preis bis">
-    <input id="areafrom" class="btn_filter" type="number" placeholder="Größe ab in m²">
-    <input id="roomsfrom" class="btn_filter" type="number" placeholder="Zimmer ab"><br><br>
+    <input id="price_min" class="btn_filter" type="number" placeholder="Preis von">
+    <input id="price_max" class="btn_filter" type="number" placeholder="Preis bis">
+    <input id="area_min" class="btn_filter" type="number" placeholder="Größe ab in m²">
+    <input id="rooms_min" class="btn_filter" type="number" placeholder="Zimmer ab"><br><br>
     <div class="btn-group" data-toggle="buttons">
     <!--
       <label><strong>Austattung</strong></label><br>
@@ -114,7 +115,7 @@
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtub"> Badewanne<br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_pitch"> Stellplatz<br>
+      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_carSpace"> Stellplatz<br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>

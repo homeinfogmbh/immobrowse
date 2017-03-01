@@ -37,18 +37,18 @@ immobrowse.config = {
   filters: {
     types: null,
     marketing: null,
-  pricefrom: "",
-  pricetill: "",
-  areafrom: "",
-  roomsfrom: "",
-  checkbox_ebk: false,
-  checkbox_bathtub: false,
-  checkbox_window: false,
-  checkbox_balcony: false,
-  checkbox_pitch: false,
-  checkbox_guestwc: false,
-  checkbox_elevator: false,
-  checkbox_garden: false
+    priceMin: 0,
+    priceMax: Infinity,
+    areaMin: 0,
+    roomsMin: 0,
+    ebk: false,
+    bathtub: false,
+    window: false,
+    balcony: false,
+    carSpace: false,
+    guestwc: false,
+    elevator: false,
+    garden: false
   },
   sorting: {
     property: null,
@@ -95,6 +95,7 @@ immobrowse.compare = function (alice, bob, descending) {
     }
   }
 }
+
 
 /*** HTML formatting ***/
 
@@ -1385,15 +1386,15 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 }
 
 immobrowse.checkFilter = function (realEstate) {
-  if (Number(immobrowse.config.filters.pricefrom.replace(",",".")) > Number(realEstate.preise.nettokaltmiete) && immobrowse.config.filters.pricefrom != "")
+  if (immobrowse.config.filters.priceMin > Number(realEstate.preise.nettokaltmiete))
     return false;
-  else if (Number(immobrowse.config.filters.pricetill.replace(",",".")) < Number(realEstate.preise.nettokaltmiete) && immobrowse.config.filters.pricetill != "")
+  else if (immobrowse.config.filters.priceMax < Number(realEstate.preise.nettokaltmiete))
     return false;
-  else if (Number(immobrowse.config.filters.areafrom.replace(",",".")) > Number(realEstate.flaechen.wohnflaeche) && immobrowse.config.filters.areafrom != "")
+  else if (immobrowse.config.filters.areaMin > Number(realEstate.flaechen.wohnflaeche))
     return false;
-  else if (Number(immobrowse.config.filters.roomsfrom.replace(",",".")) > Number(realEstate.flaechen.anzahl_zimmer) && immobrowse.config.filters.roomsfrom != "")
+  else if (immobrowse.config.filters.roomsMin > Number(realEstate.flaechen.anzahl_zimmer))
     return false;
-  else if (immobrowse.config.filters.checkbox_ebk) {
+  else if (immobrowse.config.filters.ebk) {
     if (realEstate.ausstattung != null) {
       if (jQuery.isEmptyObject(realEstate.ausstattung))
         return false;
@@ -1401,7 +1402,7 @@ immobrowse.checkFilter = function (realEstate) {
         if (!realEstate.ausstattung.kueche.EBK)
           return false;
     }
-  } else if (immobrowse.config.filters.checkbox_bathtub) {
+  } else if (immobrowse.config.filters.bathtub) {
     if (realEstate.ausstattung != null) {
       if (jQuery.isEmptyObject(realEstate.ausstattung))
         return false;
@@ -1409,7 +1410,7 @@ immobrowse.checkFilter = function (realEstate) {
         if (!realEstate.ausstattung.bad.WANNE)
           return false;
     }
-  } else if (immobrowse.config.filters.checkbox_pitch) {
+  } else if (immobrowse.config.filters.carSpace) {
     if (realEstate.ausstattung != null) {
       if (jQuery.isEmptyObject(realEstate.ausstattung))
         return false;
@@ -1417,7 +1418,7 @@ immobrowse.checkFilter = function (realEstate) {
         if (!realEstate.ausstattung.stellplatzart.TIEFGARAGE)
           return false;
     }
-  } else if (immobrowse.config.filters.checkbox_elevator) {
+  } else if (immobrowse.config.filters.elevator) {
     if (realEstate.ausstattung != null) {
       if (jQuery.isEmptyObject(realEstate.ausstattung))
         return false;
@@ -1425,7 +1426,7 @@ immobrowse.checkFilter = function (realEstate) {
         if (!realEstate.ausstattung.fahrstuhl.PERSONEN)
           return false;
     }
-  } else if (immobrowse.config.filters.checkbox_garden) {
+  } else if (immobrowse.config.filters.garden) {
     if (realEstate.ausstattung != null) {
       if (jQuery.isEmptyObject(realEstate.ausstattung))
         return false;
