@@ -471,7 +471,7 @@ immobrowse.List = function (cid, filters, sorting) {
     var filteredRealEstates = [];
 
     for (var i = 0; i < realEstates.length; i++) {
-      if (this.match(realEstates[i]) {
+      if (this.match(realEstates[i])) {
         filteredRealEstates.push(realEstates[i]);
       }
     }
