@@ -1159,7 +1159,7 @@ immobrowse.expose = function () {
 
   if (immobilie == null) {
     immobrowse.logger.error('Could not show real estate');
-    immobrowse.immobrowse.expose);
+    immobrowse.getRealEstate(immobrowse.immobrowse.expose);
   } else {
     immobrowse.config.mapping.exposeContainer.innerHTML = immobrowse.details(immobilie);
     $('.showimage').click(function() {
