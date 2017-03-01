@@ -579,7 +579,7 @@ immobrowse.List = function (cid, filters, sorting) {
 
     for (var i = 0; i < realEstates.length; i++) {
       html += realEstates[i].preview();
-      html += 'foo<br>';
+      html += '<br>';
     }
 
     if (html == '') {
@@ -624,6 +624,8 @@ immobrowse.List = function (cid, filters, sorting) {
       this.getRealEstates(htmlElement, loadAnimation);
     } else {
       htmlElement.innerHTML = this.htmlList(this.filter(this.realEstates));
+      immobrowse.logger.debug('htmlElement=' + htmlElement);
+      immobrowse.logger.debug('innerHTML=' + htmlElement.innerHTML);
 
       if (loadAnimation != null) {
         loadAnimation.hide();
