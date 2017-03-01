@@ -633,7 +633,6 @@ immobrowse.getRealEstates = function (cid) {
       immobrowse.logger.info('Retrieved ' + realEstates.length + ' real estates.');
       immobrowse.logger.debug('Got real estates:\n' + JSON.stringify(realEstates));
       immobrowse.realEstates = immobrowse.filter(realEstates);
-      toggleSorting('rooms');
       immobrowse.config.mapping.loadAnimation.hide();
     },
     error: function (xhr, ajaxOptions, thrownError) {
