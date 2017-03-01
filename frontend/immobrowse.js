@@ -1386,8 +1386,6 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 }
 
 immobrowse.checkFilter = function (realEstate) {
-  immobrowse.logger.debug(realEstate.preise.nettokaltmiete + ' (' + typeof(realEstate.preise.nettokaltmiete) + ')');
-
   if (immobrowse.config.filters.priceMin > realEstate.preise.nettokaltmiete)
     return false;
   else if (immobrowse.config.filters.priceMax < realEstate.preise.nettokaltmiete)
