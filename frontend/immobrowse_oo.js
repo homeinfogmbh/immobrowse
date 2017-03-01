@@ -487,7 +487,7 @@ immobrowse.List = function (cid, filters, sorting) {
   }
 
   // Converts real estates to HTML
-  this.htmlList(realEstates) {
+  this.htmlList = function (realEstates) {
     var html = '';
 
     for (var i = 0; i < realEstates.length; i++) {
