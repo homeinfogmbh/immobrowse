@@ -103,7 +103,7 @@
       });
 
       updateFilters();
-      list = new immobrowse.List(cid, filters, sorting);
+      list = new immobrowse.List(cid, filters, sorting, 'detailexpose.html');
       container = document.getElementById('container');
       loader = $('#loader');
       list.render(container, loader);
