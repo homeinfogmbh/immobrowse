@@ -32,11 +32,11 @@
       return previousOrder;
     }
 
-    function toggleSorting(newProperty) {
+    function toggleSorting(property) {
       var previousIssuer = document.getElementById(sorting.property);
-      var issuer = document.getElementById(newProperty);
+      var issuer = document.getElementById(property);
       toggleOrder();
-      sorting.option = newProperty;
+      sorting.property = property;
 
       // Remove arrow symbol
       if (previousIssuer != null) {
