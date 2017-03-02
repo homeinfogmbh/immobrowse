@@ -577,10 +577,9 @@ immobrowse.List = function (cid, filters, sorting) {
   }
 
   // Sorts real estates
-  this.sort = function (realEstates) {
+  this.sort = function (property, order) {
     immobrowse.logger.debug('Sorting...');
-    var sorter = immobrowse.getSorter(this.sorting.property, this.sorting.order);
-    return realEstates.sort(sorter);
+    this.realEstates.sort(immobrowse.getSorter(property, order));
   }
 
   // Converts real estates to HTML
