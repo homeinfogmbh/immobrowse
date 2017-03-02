@@ -15,6 +15,10 @@
       property: 'rooms',
       order: 'ascending'
     }
+    var filters;
+    var list;
+    var container;
+    var loader;
 
     function toggleOrder() {
       var previousOrder = sorting.order;
@@ -55,9 +59,10 @@
       window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
     }
 
-    $(document).ready(function () {
+    // Updates filtering settings
+    function updateFilters() {
       var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
-      var filters = {
+      filters = {
         types: ['WOHNUNG'],
         marketing: ['MIETE_PACHT'],
         priceMin: Number(homeinfo.str.comma2dot($('#price_min').val())),
@@ -76,7 +81,9 @@
 
       immobrowse.logger.debug('Filters:');
       immobrowse.logger.debug(JSON.stringify(filters));
-      var list = new immobrowse.List(cid, filters, sorting);
+    }
+
+    $(document).ready(function () {
       $('#btn_extendedsearch').click(function() {
         if ($('#extendedsearch').attr('style') == "display: none;")
           $('#extendedsearch').slideDown();
@@ -92,8 +99,10 @@
         list.render($("#container"));
       });
 
-      var container = document.getElementById('container');
-      var loader = $('#loader');
+      updateFilters();
+      list = new immobrowse.List(cid, filters, sorting);
+      container = document.getElementById('container');
+      loader = $('#loader');
       list.render(container, loader);
     });
   </script>
