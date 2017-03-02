@@ -124,7 +124,7 @@
       grecaptcha.reset();
     }
 
-    function showExpose() {
+    function postRender() {
       expose.render();
 
       $('.showimage').click(function() {
@@ -153,16 +153,8 @@
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
 
-      immobrowse.config.mapping.loadAnimation = $('#loader');
-      immobrowse.config.mapping.exposeContainer = document.getElementById('containerdetails');
-
-      if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern')) {
-        immobrowse.config.mapping.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
-      } else {
-        immobrowse.expose();
-        //immobrowse.getRealEstate("0003.0377.0046", "1028001");
-        document.getElementById('contact_form_objektnr_extern').value = getUrlParameter('extern');
-      }
+      expose.render(document.getElementById('containerdetails'), $('#loader'));
+      postRender();
     });
   </script>
 </head>
