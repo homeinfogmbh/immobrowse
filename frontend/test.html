@@ -12,8 +12,8 @@
   <script>
     var cid = location.search.slice(1);
     var sorting = {
-      property: 'rooms',
-      order: 'ascending'
+      property: null,
+      order: null
     }
     var filters;
     var list;
@@ -29,7 +29,7 @@
         sorting.order = 'descending';
       }
 
-      return sorting.previousOrder;
+      return previousOrder;
     }
 
     function toggleSorting(newProperty) {
