@@ -2,39 +2,50 @@
 <head>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="default.css">
-  <link rel="stylesheet" href="https://tls.homeinfo.de/css/immobrowse.css">
+  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <link rel="stylesheet" href="https://tls.homeinfo.de/css/immobrowse.css">
+  <link rel="stylesheet" href="default.css">
+  <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
+  <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
+  <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
   <script>
-    var option = null;
-    var order = null;
+    var cid = location.search.slice(1);
+    var sorting = {
+      property: null,
+      order: null
+    }
+    var filters;
+    var list;
+    var container;
+    var loader;
 
     function toggleOrder() {
-      var previousOrder = order;
+      var previousOrder = sorting.order;
 
-      if (order == 'descending') {
-        order = 'ascending';
+      if (sorting.order == 'descending') {
+        sorting.order = 'ascending';
       } else {
-        order = 'descending';
+        sorting.order = 'descending';
       }
 
       return previousOrder;
     }
 
-    function toggleSorting(newOption) {
-      var previousIssuer = document.getElementById(option);
-      var issuer = document.getElementById(newOption);
+    function toggleSorting(property) {
+      var previousIssuer = document.getElementById(sorting.property);
+      var issuer = document.getElementById(property);
       toggleOrder();
-      option = newOption;
+      sorting.property = property;
 
+      // Remove arrow symbol
       if (previousIssuer != null) {
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
       }
 
-      switch (order) {
+      switch (sorting.order) {
         case 'ascending':
           issuer.innerHTML += ' &darr;';
           break;
@@ -43,20 +54,36 @@
           break;
       }
 
-      immobrowse.sortRealEstates(option, order);
-    }
-
-    function testDetails() {
-      for (var i=0; i<immobrowse.realEstates.length; i++) {
-        var realEstate = immobrowse.realEstates[i];
-
-        immobrowse.config.mapping.listContainer.innerHTML = immobrowse.details(realEstate);
-        break;
-      }
+      list.sort(sorting.property, sorting.order);
+      list.render(container, loader);
     }
 
     function showDetailExpose(extern) {
       window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
+    }
+
+    // Updates filtering settings
+    function updateFilters() {
+      var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
+      filters = {
+        types: ['WOHNUNG'],
+        marketing: ['MIETE_PACHT'],
+        priceMin: Number(homeinfo.str.comma2dot($('#price_min').val())),
+        priceMax: priceMax == 0 ? Infinity: priceMax,
+        areaMin: Number(homeinfo.str.comma2dot($('#area_min').val())),
+        roomsMin: Number(homeinfo.str.comma2dot($('#rooms_min').val())),
+        ebk: $("#checkbox_ebk").is(':checked'),
+        bathtub: $("#checkbox_bathtub").is(':checked'),
+        window: $("#checkbox_window").is(':checked'),
+        balcony: $("#checkbox_balcony").is(':checked'),
+        carSpace: $("#checkbox_carSpace").is(':checked'),
+        guestwc: $("#checkbox_guestwc").is(':checked'),
+        elevator: $("#checkbox_elevator").is(':checked'),
+        garden: $("#checkbox_garden").is(':checked')
+      }
+
+      immobrowse.logger.debug('Filters:');
+      immobrowse.logger.debug(JSON.stringify(filters));
     }
 
     $(document).ready(function () {
@@ -68,51 +95,25 @@
       });
 
       $('.btn_filter').on('input',function(e) {
-        setFilters();
-        immobrowse.list();
+        list.render($("#container"));
       });
 
       $('.btn_filter_checkbox').click(function() {
-        setFilters();
-        immobrowse.list();
+        list.render($("#container"));
       });
 
-      configure();
-      immobrowse.getRealEstates();
-      immobrowse.list();
+      updateFilters();
+      list = new immobrowse.List(cid, filters, sorting);
+      container = document.getElementById('container');
+      loader = $('#loader');
+      list.render(container, loader);
     });
-
-    function configure() {
-      immobrowse.config.customer = location.search.slice(1);
-      immobrowse.config.mapping.listContainer = document.getElementById('container');
-      immobrowse.config.mapping.exposeContainer = document.getElementById('container');
-      immobrowse.config.mapping.loadAnimation = $('#loader');
-      immobrowse.config.filters.types = ['WOHNUNG'];
-      immobrowse.config.filters.marketing = ['MIETE_PACHT'];
-    }
-
-    function setFilters() {
-      immobrowse.config.filters.priceMin = Number(homeinfo.str.comma2dot($('#price_min').val()));
-      var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
-      immobrowse.config.filters.priceMax = priceMax == 0 ? Infinity: priceMax;
-      immobrowse.config.filters.areaMin = Number(homeinfo.str.comma2dot($('#area_min').val()));
-      immobrowse.config.filters.roomsMin = Number(homeinfo.str.comma2dot($('#rooms_min').val()));
-      immobrowse.config.filters.ebk = $("#checkbox_ebk").is(':checked');
-      immobrowse.config.filters.bathtub = $("#checkbox_bathtub").is(':checked');
-      immobrowse.config.filters.window = $("#checkbox_window").is(':checked');
-      immobrowse.config.filters.balcony = $("#checkbox_balcony").is(':checked');
-      immobrowse.config.filters.carSpace = $("#checkbox_carSpace").is(':checked');
-      immobrowse.config.filters.guestwc = $("#checkbox_guestwc").is(':checked');
-      immobrowse.config.filters.elevator = $("#checkbox_elevator").is(':checked');
-      immobrowse.config.filters.garden = $("#checkbox_garden").is(':checked');
-      immobrowse.logger.debug(JSON.stringify(immobrowse.config));
-    }
   </script>
 </head>
 <header>
-  <button id="rooms" onclick="toggleSorting('rooms')" class="w3-btn w3-blue">Zimmer</button>
-  <button id="area" onclick="toggleSorting('area')" class="w3-btn w3-blue">Fl&auml;che</button>
-  <button id="street" onclick="toggleSorting('street')" class="w3-btn w3-blue">Stra&szlig;e</button>
+  <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary">Zimmer</button>
+  <button id="area" onclick="toggleSorting('area')" class="btn btn-primary">Fl&auml;che</button>
+  <button id="street" onclick="toggleSorting('street')" class="btn btn-primary">Stra&szlig;e</button>
 
   <div style="float:right; margin-right: 30%;">
   <button id="btn_extendedsearch">Erweiterte Suche</button>
