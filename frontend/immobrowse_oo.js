@@ -502,55 +502,56 @@ immobrowse.List = function (cid, filters, sorting) {
   this.sorting = sorting;
   this.realEstates = null;
 
-  // Match filters on a real estate
+  // Match filters on a real estate's JSON data
   this.match = function (realEstate) {
-    var rent = immobrowse.rent(realEstate);
+    var json = realEstate.json;
+    var rent = immobrowse.rent(json);
 
     if (this.filters.priceMin >= rent)
       return false;
     else if (this.filters.priceMax <= rent)
       return false;
-    else if (this.filters.areaMin >= realEstate.flaechen.wohnflaeche)
+    else if (this.filters.areaMin >= json.flaechen.wohnflaeche)
       return false;
-    else if (this.filters.roomsMin >= realEstate.flaechen.anzahl_zimmer)
+    else if (this.filters.roomsMin >= json.flaechen.anzahl_zimmer)
       return false;
     else if (this.filters.ebk) {
-      if (realEstate.ausstattung != null) {
-        if (jQuery.isEmptyObject(realEstate.ausstattung))
+      if (json.ausstattung != null) {
+        if (jQuery.isEmptyObject(json.ausstattung))
           return false;
-        else if (realEstate.ausstattung.kueche != null)
-          if (!realEstate.ausstattung.kueche.EBK)
+        else if (json.ausstattung.kueche != null)
+          if (!json.ausstattung.kueche.EBK)
             return false;
       }
     } else if (this.filters.bathtub) {
-      if (realEstate.ausstattung != null) {
-        if (jQuery.isEmptyObject(realEstate.ausstattung))
+      if (json.ausstattung != null) {
+        if (jQuery.isEmptyObject(json.ausstattung))
           return false;
-        else if (realEstate.ausstattung.bad != null)
-          if (!realEstate.ausstattung.bad.WANNE)
+        else if (json.ausstattung.bad != null)
+          if (!json.ausstattung.bad.WANNE)
             return false;
       }
     } else if (this.filters.carSpace) {
-      if (realEstate.ausstattung != null) {
-        if (jQuery.isEmptyObject(realEstate.ausstattung))
+      if (json.ausstattung != null) {
+        if (jQuery.isEmptyObject(json.ausstattung))
           return false;
-        else if (realEstate.ausstattung.stellplatzart != null)
-          if (!realEstate.ausstattung.stellplatzart.TIEFGARAGE)
+        else if (json.ausstattung.stellplatzart != null)
+          if (!json.ausstattung.stellplatzart.TIEFGARAGE)
             return false;
       }
     } else if (this.filters.elevator) {
-      if (realEstate.ausstattung != null) {
-        if (jQuery.isEmptyObject(realEstate.ausstattung))
+      if (json.ausstattung != null) {
+        if (jQuery.isEmptyObject(json.ausstattung))
           return false;
-        else if (realEstate.ausstattung.fahrstuhl != null)
-          if (!realEstate.ausstattung.fahrstuhl.PERSONEN)
+        else if (json.ausstattung.fahrstuhl != null)
+          if (!json.ausstattung.fahrstuhl.PERSONEN)
             return false;
       }
     } else if (this.filters.garden) {
-      if (realEstate.ausstattung != null) {
-        if (jQuery.isEmptyObject(realEstate.ausstattung))
+      if (json.ausstattung != null) {
+        if (jQuery.isEmptyObject(json.ausstattung))
           return false;
-        else if (!realEstate.ausstattung.gartennutzung)
+        else if (!json.ausstattung.gartennutzung)
           return false;
       }
     }
@@ -562,7 +563,7 @@ immobrowse.List = function (cid, filters, sorting) {
     var filteredRealEstates = [];
 
     for (var i = 0; i < realEstates.length; i++) {
-      if (this.match(realEstates[i].realEstate)) {
+      if (this.match(realEstates[i])) {
         filteredRealEstates.push(realEstates[i]);
       } else {
         immobrowse.logger.debug('Discarding: ' + realEstates[i].objektnr_extern());
