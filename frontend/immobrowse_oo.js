@@ -578,7 +578,7 @@ immobrowse.List = function (cid, filters, sorting) {
 
   // Sorts real estates
   this.sort = function (property, order) {
-    immobrowse.logger.debug('Sorting...');
+    immobrowse.logger.debug('Sorting after ' + property + ' ' + order + '.');
     this.realEstates.sort(immobrowse.getSorter(property, order));
   }
 
