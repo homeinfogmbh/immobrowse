@@ -607,13 +607,11 @@ immobrowse.List = function (cid, filters, sorting) {
     }
   }
 
-
   this.sortByArea = function (descending) {
     return function (immobilie1, immobilie2) {
       return immobrowse.compare(immobilie1.area(), immobilie2.area(), descending);
     }
   }
-
 
   this.sortByStreet = function (descending) {
     return function (immobilie1, immobilie2) {
