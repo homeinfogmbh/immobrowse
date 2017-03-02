@@ -96,23 +96,23 @@ a:hover {
 }
 
 a:active {
-    text-decoration: underline;
+  text-decoration: underline;
 	color: #008fc4;
 }
 
 td {
-    border-bottom: 1px solid #cfcfcf;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
+  border-bottom: 1px solid #cfcfcf;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 tr {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 table {
