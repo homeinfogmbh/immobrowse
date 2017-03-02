@@ -27,7 +27,9 @@
           return sParameterName[1] === undefined ? true : sParameterName[1];
         }
       }
-    };
+    }
+
+    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'));
 
     function goBack() {
       window.history.back();
@@ -122,6 +124,29 @@
       grecaptcha.reset();
     }
 
+    function showExpose() {
+      expose.render();
+
+      $('.showimage').click(function() {
+        for (var i = 0; i < $(this).data("nrmax"); i++) {
+          $('#image'+ i).hide();
+        }
+        $('#image'+ $(this).data("nr")).show();
+      });
+      $('.btn_contact').click(function(e) {
+        //$('#contact').scrollIntoView(true);
+        if ($('#contact').attr('style') == "display: none;") {
+          $('#contact').slideDown();
+        } else {
+          $('#contact').slideUp();
+        }
+        $('html, body').animate({
+          scrollTop: $('#contact').offset().top
+        }, 500);
+        return false; // Not scrolling to top alternative: e.preventDefault();
+      });
+    }
+
     $(document).ready(function () {
       clearContactForm();
       $("#send_form").click(sendEmail);
@@ -134,8 +159,6 @@
       if (getUrlParameter('cid') == undefined || getUrlParameter('cid') == getUrlParameter('extern')) {
         immobrowse.config.mapping.exposeContainer.innerHTML = "Immobilie konnte nicht gefunden werden.";
       } else {
-        immobrowse.config.customer = getUrlParameter('cid');
-        immobrowse.config.objektnr_extern = getUrlParameter('extern');
         immobrowse.expose();
         //immobrowse.getRealEstate("0003.0377.0046", "1028001");
         document.getElementById('contact_form_objektnr_extern').value = getUrlParameter('extern');
