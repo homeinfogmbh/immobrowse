@@ -11,28 +11,29 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
   <script>
     function toggleOrder() {
-      var previousOrder = order;
+      var previousOrder = sorting.order;
 
       if (order == 'descending') {
-        order = 'ascending';
+        sorting.order = 'ascending';
       } else {
-        order = 'descending';
+        sorting.order = 'descending';
       }
 
-      return previousOrder;
+      return sorting.previousOrder;
     }
 
-    function toggleSorting(newOption) {
-      var previousIssuer = document.getElementById(option);
-      var issuer = document.getElementById(newOption);
+    function toggleSorting(newProperty) {
+      var previousIssuer = document.getElementById(sorting.property);
+      var issuer = document.getElementById(newProperty);
       toggleOrder();
-      option = newOption;
+      sorting.option = newProperty;
 
+      // Remove arrow symbol
       if (previousIssuer != null) {
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
       }
 
-      switch (order) {
+      switch (sorting.order) {
         case 'ascending':
           issuer.innerHTML += ' &darr;';
           break;
@@ -41,7 +42,7 @@
           break;
       }
 
-      immobrowse.sortRealEstates(option, order);
+      list.render(container, loader);
     }
 
     function showDetailExpose(extern) {
