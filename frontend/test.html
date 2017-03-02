@@ -10,6 +10,12 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
   <script>
+    var cid = location.search.slice(1);
+    var sorting = {
+      property: 'rooms',
+      order: 'ascending'
+    }
+
     function toggleOrder() {
       var previousOrder = sorting.order;
 
@@ -50,8 +56,6 @@
     }
 
     $(document).ready(function () {
-      var cid = location.search.slice(1);
-
       var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
       var filters = {
         types: ['WOHNUNG'],
@@ -68,11 +72,6 @@
         guestwc: $("#checkbox_guestwc").is(':checked'),
         elevator: $("#checkbox_elevator").is(':checked'),
         garden: $("#checkbox_garden").is(':checked')
-      }
-
-      var sorting = {
-        property: 'rooms',
-        order: 'ascending'
       }
 
       immobrowse.logger.debug('Filters:');
