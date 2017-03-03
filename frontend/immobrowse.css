@@ -232,5 +232,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .ib-extsearch-container{
+  padding-top: 1em;
   padding-bottom: 1em;
 }
