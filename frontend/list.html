@@ -117,15 +117,16 @@
   </script>
 </head>
 <header>
-  <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary">Zimmer</button>
-  <button id="area" onclick="toggleSorting('area')" class="btn btn-primary">Fl&auml;che</button>
-  <button id="street" onclick="toggleSorting('street')" class="btn btn-primary">Stra&szlig;e</button>
-  <div style="float:right; margin-right: 30%;">
-  <button id="btn_extendedsearch" class="btn btn-default">Erweiterte Suche</button>
-  </div><br><br>
-
-  <div id="extendedsearch" class="container" style="display: none;">
-    <div class="table-responsive">
+  <div id="topmenu" class="container">
+    <table class="row">
+      <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary">Zimmer</button>
+      <button id="area" onclick="toggleSorting('area')" class="btn btn-primary">Fl&auml;che</button>
+      <button id="street" onclick="toggleSorting('street')" class="btn btn-primary">Stra&szlig;e</button>
+      <div style="float:right; margin-right: 30%;">
+        <button id="btn_extendedsearch" class="btn btn-default">Erweiterte Suche</button>
+      </div>
+    </table>
+    <div id="extendedsearch" class="row" style="display: none;">
       <table class="row">
         <div class="col-sm-5">
           <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
@@ -134,7 +135,7 @@
         <div class="col-sm-5">
           <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
         </div>
-      </div>
+      </table>
       <table class="row">
         <div class="col-sm-5">
           <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis">
@@ -143,7 +144,7 @@
         <div class="col-sm-5">
           <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
         </div>
-      </div>
+      </table>
       <!--
       <label><strong>Austattung</strong></label><br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
