@@ -57,12 +57,6 @@
       list.render(container);
     }
 
-    function filter() {
-      list.filter(filters());
-      list.sort(sorting.property, sorting.order);
-      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
-    }
-
     function filters() {
       var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
       filters = {
@@ -84,6 +78,12 @@
       immobrowse.logger.debug('Filters:');
       immobrowse.logger.debug(JSON.stringify(filters));
       return filters;
+    }
+
+    function filter() {
+      list.filter(filters());
+      list.sort(sorting.property, sorting.order);
+      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
     }
 
     $(document).ready(function () {
