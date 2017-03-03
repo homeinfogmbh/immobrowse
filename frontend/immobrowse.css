@@ -215,3 +215,8 @@ input[type=number]::-webkit-outer-spin-button {
 .ib-btn-filter {
   float: right;
 }
+
+.ib-header {
+  width: 75%;
+  margin: 0 auto;
+}
