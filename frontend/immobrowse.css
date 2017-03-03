@@ -25,6 +25,18 @@ body {
 	background-color: #dfdfdf;
 }
 
+.oval {
+	padding-left: 6px;
+	padding-right: 6px;
+	width: auto;
+	height: 20px;
+	background: #a84909;
+	border-radius: 40px;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+}
+
 .ib-centerframe {
   width: 75%;
   margin: 0 auto;
@@ -253,16 +265,4 @@ body {
 
 .ib-btn-filter {
   float: right;
-}
-
-.ib-feature-tag {
-	padding-left: 6px;
-	padding-right: 6px;
-	width: auto;
-	height: 20px;
-	background: #a84909;
-	border-radius: 40px;
-	text-align: center;
-	color: #fff;
-	font-weight: bold;
 }
