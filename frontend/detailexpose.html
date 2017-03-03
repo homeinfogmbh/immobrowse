@@ -146,6 +146,8 @@
         }, 500);
         return false; // Not scrolling to top alternative: e.preventDefault();
       });
+
+      $('#loader').hide();
     }
 
     $(document).ready(function () {
@@ -154,7 +156,7 @@
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
 
-      expose.render(document.getElementById('containerdetails'), $('#loader'));
+      expose.render(document.getElementById('containerdetails'));
       postRender();
     });
   </script>
