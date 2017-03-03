@@ -116,57 +116,58 @@
     });
   </script>
 </head>
-<div class="ib-header">
-  <div col-sm-8>
-    <table class="row">
-      <div class="col-sm-1">
-        <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary ib-btn-sort" align="left">Zimmer</button>
-      </div>
-      <div class="col-sm-1">
-        <button id="area" onclick="toggleSorting('area')" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
-      </div>
-      <div class="col-sm-1">
-        <button id="street" onclick="toggleSorting('street')" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
-      </div>
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-1">
-        <button id="btn_extendedsearch" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
-    </table>
-    <div id="extendedsearch" class="row" style="display: none;">
+
+<div id="ib-centerframe">
+  <div class="ib-header">
+    <div col-sm-8>
       <table class="row">
-        <div class="col-sm-5">
-          <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
+        <div class="col-sm-1">
+          <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary ib-btn-sort" align="left">Zimmer</button>
         </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-5">
-          <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
+        <div class="col-sm-1">
+          <button id="area" onclick="toggleSorting('area')" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
         </div>
+        <div class="col-sm-1">
+          <button id="street" onclick="toggleSorting('street')" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-1">
+          <button id="btn_extendedsearch" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
       </table>
-      <table class="row">
-        <div class="col-sm-5">
-          <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis">
-        </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-5">
-          <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
-        </div>
+      <div id="extendedsearch" class="row" style="display: none;">
+        <table class="row">
+          <div class="col-sm-5">
+            <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
+          </div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-5">
+            <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
+          </div>
+        </table>
+        <table class="row">
+          <div class="col-sm-5">
+            <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis">
+          </div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-5">
+            <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
+          </div>
+        </table>
+        <!--
+        <label><strong>Austattung</strong></label><br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtub"> Badewanne<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_carSpace"> Stellplatz<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
+        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
+        -->
       </table>
-      <!--
-      <label><strong>Austattung</strong></label><br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtub"> Badewanne<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_carSpace"> Stellplatz<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
-      <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
-      -->
-    </table>
+    </div>
   </div>
-</div>
-<div id="main">
   <div id="loader" class="loader"></div>
   <div id="container">Immobilien werden geladen, bitte warten...</div>
 </div>

@@ -221,4 +221,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .ib-header {
+  height: 5%;
+  top: 0;
+  position: fixed;
 }
