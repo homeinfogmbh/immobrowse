@@ -86,8 +86,6 @@
       if (sorting.property != null) {
         list.sort(sorting.property, sorting.order);
       }
-
-      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
     }
 
     $(document).ready(function () {
@@ -99,11 +97,11 @@
       });
 
       $('.btn_filter').on('input',function(e) {
-        list.render($("#container"));
+        filter();
       });
 
       $('.btn_filter_checkbox').click(function() {
-        list.render($("#container"));
+        filter();
       });
 
       container = document.getElementById('container');
@@ -125,10 +123,10 @@
   <button id="btn_extendedsearch" class="btn btn-default">Erweiterte Suche</button>
   </div><br><br>
   <div id="extendedsearch" style="display: none;">
-    <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von" onchange="filter()">
-    <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis" onchange="filter()">
-    <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²" onchange="filter()">
-    <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab" onchange="filter()"><br><br>
+    <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
+    <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis">
+    <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
+    <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab"><br><br>
     <div class="btn-group" data-toggle="buttons">
     <!--
       <label><strong>Austattung</strong></label><br>
