@@ -13,7 +13,7 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
   <script>
     var cid = location.search.slice(1);
-    var baseUrl = 'detailexpose.html?cid={cid}&extern={objektnr_extern}';
+    var exposeUrl = 'detailexpose.html?cid={cid}&extern={objektnr_extern}';
     var sorting = {
       property: null,
       order: null
@@ -104,7 +104,7 @@
       });
 
       updateFilters();
-      list = new immobrowse.List(cid, filters, sorting, baseUrl);
+      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
       container = document.getElementById('container');
       loader = $('#loader');
       list.render(container, loader);

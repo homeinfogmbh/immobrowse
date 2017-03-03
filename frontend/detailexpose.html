@@ -17,6 +17,7 @@
   <script>
     // XXX: Change config for appropriate productive setting
     var mailer = new immobrowse.Mailer('homeinfo-testing');
+    var listUrl = 'list.html?{cid}';
 
     function getUrlParameter(sParam) {
       var sPageURL = decodeURIComponent(window.location.search.substring(1));
@@ -30,7 +31,7 @@
       }
     }
 
-    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'));
+    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'), listUrl);
 
     function goBack() {
       window.history.back();
