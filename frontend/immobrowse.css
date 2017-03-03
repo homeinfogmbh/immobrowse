@@ -6,6 +6,57 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media print {
+  .ib-preview-back {
+    display: none;
+  }
+
+  #contact {
+    display: none;
+  }
+}
+
+body {
+	background-color: #dfdfdf;
+}
+
+.ib-centerframe {
+  width: 75%;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.ib-header {
+  height: 10%;
+  top: 0;
+}
+
+.ib-mainmenu {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.ib-extsearch-container{
+  padding-top: 1em;
+}
+
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
 .ib-contact-textfield {
   height:200px;
   font-size:14pt;
@@ -40,12 +91,6 @@ input[type=number]::-webkit-outer-spin-button {
 .ib-preview-back:hover{
   cursor: pointer;
   font-style: italic;
-}
-
-@media print {
-  .ib-preview-back {
-    display: none;
-  }
 }
 
 .ib-preview-entry:hover {
@@ -136,7 +181,7 @@ input[type=number]::-webkit-outer-spin-button {
   clear: both;
   text-align: center;
   font-weight: bold;
-  color: #00658a;  
+  color: #00658a;
 }
 
 .ib-preview-area-caption {
@@ -179,7 +224,7 @@ input[type=number]::-webkit-outer-spin-button {
   clear: both;
   text-align: center;
   font-weight: bold;
-  color: #00658a;  
+  color: #00658a;
 }
 
 .ib-preview-freefrom-caption {
@@ -202,12 +247,6 @@ input[type=number]::-webkit-outer-spin-button {
   max-height: 400px;
 }
 
-@media print {
-  #contact {
-  display: none;
-  }
-}
-
 .ib-btn-sort {
   align: left;
 }
@@ -216,24 +255,14 @@ input[type=number]::-webkit-outer-spin-button {
   float: right;
 }
 
-.ib-centerframe {
-  width: 75%;
-  margin: 0 auto;
-  background-color: white;
-}
-
-.ib-header {
-  height: 10%;
-  top: 0;
-}
-
-.ib-mainmenu {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  padding-left: 1%;
-  padding-right: 1%;
-}
-
-.ib-extsearch-container{
-  padding-top: 1em;
+.ib-feature-tag {
+	padding-left: 6px;
+	padding-right: 6px;
+	width: auto;
+	height: 20px;
+	background: #a84909;
+	border-radius: 40px;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
 }
