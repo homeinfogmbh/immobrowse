@@ -127,13 +127,16 @@
     }
 
     function postRender() {
+      $('#loader').hide();
       $('#main').attr('style', 'padding-top: 80px');
+
       $('.showimage').click(function() {
         for (var i = 0; i < $(this).data("nrmax"); i++) {
           $('#image'+ i).hide();
         }
         $('#image'+ $(this).data("nr")).show();
       });
+
       $('.btn_contact').click(function(e) {
         //$('#contact').scrollIntoView(true);
         if ($('#contact').attr('style') == "display: none;") {
@@ -146,8 +149,6 @@
         }, 500);
         return false; // Not scrolling to top alternative: e.preventDefault();
       });
-
-      $('#loader').hide();
     }
 
     $(document).ready(function () {
