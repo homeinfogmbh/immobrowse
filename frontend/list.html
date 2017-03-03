@@ -92,10 +92,10 @@
 
     $(document).ready(function () {
       $('#btn_extendedsearch').click(function() {
-        if ($('#extendedsearch').attr('style') == "display: none;")
-          $('#extendedsearch').slideDown();
+        if ($('.ib-extsearch').attr('style') == "display: none;")
+          $('.ib-extsearch').slideDown();
         else
-          $('#extendedsearch').slideUp();
+          $('.ib-extsearch').slideUp();
       });
 
       $('.btn_filter').on('input',function(e) {
