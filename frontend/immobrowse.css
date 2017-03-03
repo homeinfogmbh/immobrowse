@@ -53,8 +53,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .ib-preview-image {
-  padding-top: auto;
-  padding-bottom: auto;
+  padding-top: 1em;
+  padding-bottom: 1em;
   padding-left: 1em;
   float: left;
   display: table-column;
