@@ -117,13 +117,21 @@
   </script>
 </head>
 <header>
+  <div col-sm-8>
     <table class="row">
-      <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary">Zimmer</button>
-      <button id="area" onclick="toggleSorting('area')" class="btn btn-primary">Fl&auml;che</button>
-      <button id="street" onclick="toggleSorting('street')" class="btn btn-primary">Stra&szlig;e</button>
-      <div style="float:right; margin-right: 30%;">
-        <button id="btn_extendedsearch" class="btn btn-default">Erweiterte Suche</button>
+      <div class="col-sm-1">
+        <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary">Zimmer</button>
       </div>
+      <div class="col-sm-1">
+        <button id="area" onclick="toggleSorting('area')" class="btn btn-primary">Fl&auml;che</button>
+      </div>
+      <div class="col-sm-1">
+        <button id="street" onclick="toggleSorting('street')" class="btn btn-primary">Stra&szlig;e</button>
+      </div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-1">
+        <button id="btn_extendedsearch" class="btn btn-default">Erweiterte Suche</button>
     </table>
     <div id="extendedsearch" class="row" style="display: none;">
       <table class="row">
@@ -156,6 +164,7 @@
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
       -->
     </table>
+  </div>
 </header>
 <div id="main">
   <div id="loader" class="loader"></div>
