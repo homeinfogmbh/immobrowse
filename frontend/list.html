@@ -35,12 +35,6 @@
       return previousOrder;
     }
 
-    function filter() {
-      updateFilters();
-      list.sort(sorting.property, sorting.order);
-      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
-    }
-
     function toggleSorting(property) {
       var previousIssuer = document.getElementById(sorting.property);
       var issuer = document.getElementById(property);
@@ -65,12 +59,13 @@
       list.render(container, loader);
     }
 
-    function showDetailExpose(extern) {
-      window.open('detailexpose.html?extern=' + extern + '&cid=' + immobrowse.config.customer + '&parent', '_self', false);
+    function filter() {
+      list.filter(filters());
+      list.sort(sorting.property, sorting.order);
+      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
     }
 
-    // Updates filtering settings
-    function updateFilters() {
+    function filters() {
       var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
       filters = {
         types: ['WOHNUNG'],
@@ -88,9 +83,9 @@
         elevator: $("#checkbox_elevator").is(':checked'),
         garden: $("#checkbox_garden").is(':checked')
       }
-
       immobrowse.logger.debug('Filters:');
       immobrowse.logger.debug(JSON.stringify(filters));
+      return filters;
     }
 
     $(document).ready(function () {
@@ -109,8 +104,8 @@
         list.render($("#container"));
       });
 
-      updateFilters();
-      list = new immobrowse.List(cid, filters, sorting, exposeUrl);
+      list = new immobrowse.List(cid, sorting, exposeUrl);
+      list.filter(filters());
       container = document.getElementById('container');
       loader = $('#loader');
       list.render(container, loader);
