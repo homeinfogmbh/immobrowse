@@ -37,8 +37,8 @@ def settings(customer):
     try:
         return Settings.get(Settings.customer == customer)
     except DoesNotExist:
-        raise Error(
-            'Customer not unlocked for ImmoBrowse', status=403) from None
+        raise Error('Customer not unlocked for ImmoBrowse',
+                    status=403) from None
 
 
 def real_estate(customer, ident):
