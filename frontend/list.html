@@ -56,7 +56,7 @@
       }
 
       list.sort(sorting.property, sorting.order);
-      list.render(container, loader);
+      list.render(container);
     }
 
     function filter() {
@@ -110,7 +110,7 @@
       list = new immobrowse.List(cid, sorting, exposeUrl);
       list.getRealEstates();
       list.filter(filters());
-      list.render(container, loader);
+      list.render(container);
     });
   </script>
 </head>
