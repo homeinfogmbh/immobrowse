@@ -92,10 +92,10 @@
 
     $(document).ready(function () {
       $('#btn_extendedsearch').click(function() {
-        if ($('.ib-extsearch').attr('style') == "display: none;")
-          $('.ib-extsearch').slideDown();
+        if ($('#extsearch').attr('style') == "display: none;")
+          $('#extsearch').slideDown();
         else
-          $('.ib-extsearch').slideUp();
+          $('#extsearch').slideUp();
       });
 
       $('.btn_filter').on('input',function(e) {
@@ -126,7 +126,7 @@
         <button id="street" onclick="toggleSorting('street')" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
         <button id="btn_extendedsearch" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
       </table>
-      <div class="ib-extsearch">
+      <div id="extsearch" class="ib-extsearch">
         <table class="row">
           <div class="col-sm-5">
             <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
