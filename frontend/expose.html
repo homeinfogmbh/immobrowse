@@ -149,17 +149,16 @@
     }
 
     $(document).ready(function () {
-      headerElement = $('#header');
-      exposeElement = $('#expose');
-      /* clearContactForm();
+      headerElement = document.getElementById('header');
+      exposeElement = document.getElementById('expose');
+       clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
-      */
       expose.getRealEstate();
       expose.render(headerElement, exposeElement);
       immobrowse.logger.debug('Rendered.')
-      //postRender();
+      postRender();
     });
   </script>
 </head>
