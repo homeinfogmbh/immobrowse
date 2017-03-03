@@ -127,8 +127,7 @@
     }
 
     function postRender() {
-      expose.render();
-
+      $('#main').attr('style', 'padding-top: 80px');
       $('.showimage').click(function() {
         for (var i = 0; i < $(this).data("nrmax"); i++) {
           $('#image'+ i).hide();
