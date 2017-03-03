@@ -226,10 +226,10 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .ib-mainmenu {
-  margin-top: 5%;
-  margin-bottom: 5%;
-  margin-left: 5%;
-  margin-right: 5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .ib-extsearch {
