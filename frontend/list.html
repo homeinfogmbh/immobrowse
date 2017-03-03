@@ -128,25 +128,23 @@
     <h2>Erweiterte Suchoptionen</h2>
     <p>Tolle Suchoptionen</p>
     <div class="table-responsive">
-      <table class="table">
-        <table>
-          <tr>
-            <td>
-              <input id="price_min" class="form-control btn_filter col-md-3" type="number" placeholder="Preis von">
-            </td>
-            <td>
-              <input id="area_min" class="form-control btn_filter col-md-3" type="number" placeholder="Größe ab in m²">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id="price_max" class="form-control btn_filter col-md-3" type="number" placeholder="Preis bis">
-            </td>
-            <td>
-              <input id="rooms_min" class="form-control btn_filter col-md-3" type="number" placeholder="Zimmer ab"><br><br>
-            </td>
-          </tr>
-        </table>
+      <table class="row">
+        <div class="col-sm-5">
+          <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+          <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
+        </div>
+      </div>
+      <table class="row">
+        <div class="col-sm-5">
+          <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis">
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+          <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
+        </div>
       </div>
       <!--
       <label><strong>Austattung</strong></label><br>
@@ -159,7 +157,7 @@
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
       <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
       -->
-  </div>
+    </table>
   </div>
 </header>
 <div id="main">
