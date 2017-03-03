@@ -72,6 +72,7 @@ input[type=number]::-webkit-outer-spin-button {
   width: auto;
   clear: both;
   font-weight: bold;
+  color: black;
 }
 
 .ib-preview-header-main {
