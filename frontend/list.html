@@ -82,7 +82,11 @@
 
     function filter() {
       list.filter(filters());
-      list.sort(sorting.property, sorting.order);
+
+      if (sorting.property != null) {
+        list.sort(sorting.property, sorting.order);
+      }
+
       list = new immobrowse.List(cid, filters, sorting, exposeUrl);
     }
 
