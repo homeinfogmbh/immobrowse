@@ -207,3 +207,11 @@ input[type=number]::-webkit-outer-spin-button {
   display: none;
   }
 }
+
+.ib-btn-sort {
+  float: left;
+}
+
+.ib-btn-filter {
+  float: right;
+}
