@@ -150,7 +150,7 @@
 
     $(document).ready(function () {
       headerElement = document.getElementById('header');
-      exposeElement = document.getElementById('expose');
+      exposeElement = document.getElementById('container');
        clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
@@ -164,7 +164,7 @@
 <div class="ib-centerframe">
   <div id="header" class="ib-header"></div>
   <div id="loader" class="loader"></div>
-  <div id="expose">Immobilie wird aufgerufen, bitte warten...</div>
+  <div id="container">Immobilie wird aufgerufen, bitte warten...</div>
   <!-- Trigger the modal with a button -->
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#contact_form">
     Kontaktformular
