@@ -34,10 +34,15 @@ input[type=number]::-webkit-outer-spin-button {
   color: white;
 }
 
+.ib-preview-back:hover{
+  cursor: pointer;
+  color: green;
+}
+
 @media print {
-	.ib-preview-back {
-	  display: none;
-	}
+  .ib-preview-back {
+    display: none;
+  }
 }
 
 .ib-preview-entry:hover {
