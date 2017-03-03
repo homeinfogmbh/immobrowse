@@ -230,3 +230,7 @@ input[type=number]::-webkit-outer-spin-button {
   padding-left: 1%;
   padding-right: 1%;
 }
+
+#exsearch {
+  padding-bottom: 1em;
+}
