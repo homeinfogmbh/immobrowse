@@ -23,6 +23,7 @@ input[type=number]::-webkit-outer-spin-button {
   border-spacing: 5px;
   cursor: pointer;
   box-shadow: 0px 0px 10px #ccc;
+  width: 100%;
 }
 
 .ib-preview-entry:nth-child(2) {
@@ -152,7 +153,7 @@ input[type=number]::-webkit-outer-spin-button {
   clear: both;
   text-align: center;
   font-weight: bold;
-  color: #00658a;  
+  color: #00658a;
 }
 .ib-preview-rooms-caption {
   display: table-row;
@@ -160,14 +161,14 @@ input[type=number]::-webkit-outer-spin-button {
   clear: both;
 }
 
-.ib-preview-zimmer {
+.ib-preview-freefrom {
   padding: 15px;
   display: table-column;
   width: auto;
   float: left;
 }
 
-.ib-preview-zimmer-data {
+.ib-preview-freefrom-data {
   display: table-row;
   width: auto;
   clear: both;
@@ -176,7 +177,7 @@ input[type=number]::-webkit-outer-spin-button {
   color: #00658a;  
 }
 
-.ib-preview-zimmer-caption {
+.ib-preview-freefrom-caption {
   display: table-row;
   width: auto;
   clear: both;
@@ -208,11 +209,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 a {
-  color: white;
   text-decoration: none;
 }
 
 a:hover {
-  color: white;
   text-decoration: none;
 }
