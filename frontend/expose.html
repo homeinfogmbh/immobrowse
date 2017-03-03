@@ -18,6 +18,9 @@
     // XXX: Change config for appropriate productive setting
     var mailer = new immobrowse.Mailer('homeinfo-testing');
     var listUrl = 'list.html?{cid}';
+    var headerElement;
+    var exposeElement;
+    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'), listUrl);
 
     function getUrlParameter(sParam) {
       var sPageURL = decodeURIComponent(window.location.search.substring(1));
@@ -30,8 +33,6 @@
         }
       }
     }
-
-    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'), listUrl);
 
     function goBack() {
       window.history.back();
@@ -152,20 +153,23 @@
     }
 
     $(document).ready(function () {
+      headerElement = $('#header');
+      exposeElement = $('#expose');
       clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
 
       expose.getRealEstate();
-      expose.render(document.getElementById('containerdetails'));
+      expose.render(header, expose);
       postRender();
     });
   </script>
 </head>
 <div class="ib-centerframe">
+  <div id="header" class="ib-header"></div>
   <div id="loader" class="loader"></div>
-  <div id="containerdetails">Immobilie wird aufgerufen, bitte warten...</div>
+  <div id="expose">Immobilie wird aufgerufen, bitte warten...</div>
   <!-- Trigger the modal with a button -->
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#contact_form">
     Kontaktformular
