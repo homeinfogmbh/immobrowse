@@ -232,6 +232,6 @@ input[type=number]::-webkit-outer-spin-button {
   padding-top: 1%;
 }
 
-.ib-meta-container {
+#container {
   padding-top: 1%;
 }
