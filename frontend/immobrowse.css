@@ -207,11 +207,3 @@ input[type=number]::-webkit-outer-spin-button {
   display: none;
   }
 }
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
