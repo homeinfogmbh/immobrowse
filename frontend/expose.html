@@ -18,9 +18,9 @@
     // XXX: Change config for appropriate productive setting
     var mailer = new immobrowse.Mailer('homeinfo-testing');
     var listUrl = 'list.html?{cid}';
+    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'), listUrl);
     var headerElement;
     var exposeElement;
-    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'), listUrl);
 
     function getUrlParameter(sParam) {
       var sPageURL = decodeURIComponent(window.location.search.substring(1));
@@ -32,10 +32,6 @@
           return sParameterName[1] === undefined ? true : sParameterName[1];
         }
       }
-    }
-
-    function goBack() {
-      window.history.back();
     }
 
     function clearContactForm() {
@@ -155,11 +151,11 @@
     $(document).ready(function () {
       headerElement = $('#header');
       exposeElement = $('#expose');
-      clearContactForm();
+      /* clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
-
+      */
       expose.getRealEstate();
       expose.render(headerElement, exposeElement);
       immobrowse.logger.debug('Rendered.')
