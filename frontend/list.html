@@ -125,9 +125,9 @@
       districtsElement.innerHTML = '';
 
       container = document.getElementById('ib-container');
-      districts = list.districts();
       list = new immobrowse.List(cid, sorting, exposeUrl);
       list.getRealEstates(function () {
+        districts = list.districts();
         list.filter(filters());
 
         for (district in districts) {
