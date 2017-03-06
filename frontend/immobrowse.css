@@ -95,8 +95,6 @@ body {
 }
 
 .ib-preview-back{
-  padding-left: 1em;
-  padding-bottom: 1em;
   cursor: pointer;
   color: black;
 }
@@ -260,6 +258,12 @@ body {
   padding-bottom: 1em;
 }
 
+.ib-detail-id {
+  padding-left: 1em;
+  font-size: medium;
+  font-variant: small-caps;
+}
+
 .ib-detail-image {
   display: table-column;
   max-width: 500px;
@@ -313,6 +317,18 @@ body {
 
 .ib-detail-datacolumn {
   border: none;
+}
+
+.ib-detail-description {
+  padding-left: 1em;
+}
+
+.ib-detail-exposure {
+  padding-left: 1em;
+}
+
+.ib-detail-misc {
+  padding-left: 1em;
 }
 
 .ib-detail-document-table{
