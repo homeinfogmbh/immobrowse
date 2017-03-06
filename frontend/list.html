@@ -10,6 +10,7 @@
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse_oo.js"></script>
+  <script src="config.js"></script>
   <script>
     var cid = location.search.slice(1);
     var exposeUrl = 'expose.html?cid={cid}&extern={objektnr_extern}';
@@ -72,8 +73,8 @@
     function filters() {
       var priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
       var filters = {
-        types: ['WOHNUNG'],
-        marketing: ['MIETE_PACHT'],
+        types: immobrowse.config.types,
+        marketing: immobrowse.config.marketing,
         priceMin: Number(homeinfo.str.comma2dot($('#ib-price-min').val())),
         priceMax: priceMax == 0 ? Infinity: priceMax,
         areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
@@ -105,11 +106,11 @@
     }
 
     $(document).ready(function () {
-      $('#btn_extendedsearch').click(function() {
-        if ($('#extsearch').attr('style') == "display: none;")
-          $('#extsearch').slideDown();
+      $('#ib-extsearch-button').click(function() {
+        if ($('#ib-extsearch').attr('style') == "display: none;")
+          $('#ib-extsearch').slideDown();
         else
-          $('#extsearch').slideUp();
+          $('#ib-extsearch').slideUp();
       });
 
       $('.btn_filter').on('input',function(e) {
@@ -148,11 +149,11 @@
         <button id="area" onclick="toggleSorting('area')" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
         <button id="street" onclick="toggleSorting('street')" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
       </div>
-      <div class="ib-extsearch">
-        <button id="btn_extendedsearch" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
+      <div class="ib-extsearch-button">
+        <button id="ib-extsearch-button" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
       </div>
     </div>
-    <div id="extsearch" style="display: none;">
+    <div id="ib-extsearch" style="display: none;">
       <div class="ib-extsearch-container">
         <div class="ib-extsearch-row">
           <div class="ib-extsearch-column-left">
@@ -170,18 +171,25 @@
             <input id="ib-rooms-min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
           </div>
         </div>
-        <div class="ib-filter-amenities">
-          <label><strong>Austattung</strong></label><br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-kitchen"> Einbauküche (EBK)<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-bathtub"> Badewanne<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-window"> Fenster im Bad<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-balcony"> Balkon<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-carspace"> Stellplatz<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-guestwc"> Gäste-WC<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-elevator"> Fahrstuhl<br>
-          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-garden"> Gartennutzung<br>
+        <div class="ib-selectors">
+          <div class="ib-extsearch-row">
+            <div class="ib-extsearch-column-left">
+              <label><strong>Austattung</strong></label><br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="filter();"> Einbauküche (EBK)<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="filter();"> Badewanne<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="filter();"> Fenster im Bad<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="filter();"> Balkon<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="filter();"> Stellplatz<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="filter();"> Gäste-WC<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="filter();"> Fahrstuhl<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="filter();"> Gartennutzung<br>
+            </div>
+            <div class="ib-extsearch-column-right">
+              <label><strong>Stadtteile</strong></label><br>
+              <div id="ib-districts"></div>
+            </div>
+          </div>
         </div>
-        <div id="ib-districts"></div>
       </div>
     </div>
   </div>

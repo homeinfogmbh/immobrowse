@@ -61,15 +61,15 @@ body {
 
 #ib-extsearch {
   clear: both;
+  padding-bottom: 1em;
 }
 
 #ib-districts {
   clear: both;
 }
 
-.ib-extsearch {
+.ib-extsearch-button {
   float: right;
-  padding-bottom: 1em;
 }
 
 .ib-extsearch-container{
@@ -89,6 +89,12 @@ body {
   float: right;
   text-align: left;
   padding-right: 11%;
+}
+
+.ib-filter-amenities {
+}
+
+.ib-districts {
 }
 
 .ib-loader {
