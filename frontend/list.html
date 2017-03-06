@@ -56,6 +56,23 @@
       list.render(container);
     }
 
+    function selectedDistricts() {
+      var districts = [];
+      var checkboxes = document.getElementsByClassName('ib-select-district');
+
+      for (i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          districts.push(checkboxes[i].subject);
+        }
+      }
+
+      if (districts == []) {
+        return null; // Means "all"
+      } else {
+        return districts;
+      }
+    }
+
     function filters() {
       var priceMax = Number(homeinfo.str.comma2dot($('#price_max').val()));
       var filters = {
@@ -72,8 +89,10 @@
         carSpace: $("#checkbox_carSpace").is(':checked'),
         guestwc: $("#checkbox_guestwc").is(':checked'),
         elevator: $("#checkbox_elevator").is(':checked'),
-        garden: $("#checkbox_garden").is(':checked')
+        garden: $("#checkbox_garden").is(':checked'),
+        districts: selectedDistricts();
       }
+
       immobrowse.logger.debug('Filters:');
       immobrowse.logger.debug(JSON.stringify(filters));
       return filters;
@@ -87,23 +106,6 @@
       }
 
       list.render(container);
-    }
-
-    function selectedDistricts() {
-      var districts = [];
-      var checkboxes = document.getElementsByClassName('ib-select-district');
-
-      for (i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          districts.push(checkboxes[i].subject);
-        }
-      }
-
-      if (districts == []) {
-        return null; // Means "all"
-      } else {
-        return districts;
-      }
     }
 
     $(document).ready(function () {
