@@ -78,14 +78,14 @@
         priceMax: priceMax == 0 ? Infinity: priceMax,
         areaMin: Number(homeinfo.str.comma2dot($('#area_min').val())),
         roomsMin: Number(homeinfo.str.comma2dot($('#rooms_min').val())),
-        ebk: $("#checkbox_ebk").is(':checked'),
-        bathtub: $("#checkbox_bathtub").is(':checked'),
-        window: $("#checkbox_window").is(':checked'),
-        balcony: $("#checkbox_balcony").is(':checked'),
-        carSpace: $("#checkbox_carSpace").is(':checked'),
-        guestwc: $("#checkbox_guestwc").is(':checked'),
-        elevator: $("#checkbox_elevator").is(':checked'),
-        garden: $("#checkbox_garden").is(':checked'),
+        ebk: $("#ib-filter-kitchen").is(':checked'),
+        bathtub: $("#ib-filter-bathtub").is(':checked'),
+        window: $("#ib-filter-window").is(':checked'),
+        balcony: $("#ib-filter-balcony").is(':checked'),
+        carSpace: $("#ib-filter-carspace").is(':checked'),
+        guestwc: $("#ib-filter-guestwc").is(':checked'),
+        elevator: $("#ib-filter-elevator").is(':checked'),
+        garden: $("#ib-filter-garden").is(':checked'),
         districts: selectedDistricts()
       }
 
@@ -116,7 +116,7 @@
         filter();
       });
 
-      $('.btn_filter_checkbox').click(function() {
+      $('.ib-filter-amenities-option').click(function() {
         filter();
       });
 
@@ -131,7 +131,7 @@
       districtsElement.innerHTML = '';
 
       for (district in districts) {
-        districtsElement.innerHTML += '<input class="ib-select-district" type="checkbox" subject="'
+        districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" subject="'
           + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
       }
 
@@ -170,17 +170,17 @@
             <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
           </div>
         </div>
-        <!--
-        <label><strong>Austattung</strong></label><br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_bathtub"> Badewanne<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_window"> Fenster im Bad<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_balcony"> Balkon<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_carSpace"> Stellplatz<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_guestwc"> Gäste-WC<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
-        <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
-        -->
+        <div class="ib-filter-amenities">
+          <label><strong>Austattung</strong></label><br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-kitchen"> Einbauküche (EBK)<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-bathtub"> Badewanne<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-window"> Fenster im Bad<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-balcony"> Balkon<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-carspace"> Stellplatz<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-guestwc"> Gäste-WC<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-elevator"> Fahrstuhl<br>
+          <input class="ib-filter-amenities-option" type="checkbox" id="ib-filter-garden"> Gartennutzung<br>
+        </div>
         <div id="districts"></div>
       </div>
     </div>
