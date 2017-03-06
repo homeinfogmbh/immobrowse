@@ -74,11 +74,11 @@ body {
 }
 
 .ib-selectors {
-  padding-top: 1em;
 }
 
 .ib-extsearch-row {
   clear: both;
+  padding-top: 1em;
 }
 
 .ib-extsearch-column-left {
