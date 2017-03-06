@@ -34,7 +34,7 @@
     }
 
     function toggleSorting(property) {
-      var previousIssuer = document.getElementById(sorting.property);
+      var previousIssuer = document.getElementById('ib-sort-' + sorting.property);
       var issuer = document.getElementById('ib-sort-' + property);
       toggleOrder();
       sorting.property = property;
