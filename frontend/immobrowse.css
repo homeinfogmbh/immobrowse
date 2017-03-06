@@ -63,6 +63,10 @@ body {
   clear: both;
 }
 
+#districts {
+  clear: both;
+}
+
 .ib-extsearch {
   float: right;
   padding-bottom: 1em;
