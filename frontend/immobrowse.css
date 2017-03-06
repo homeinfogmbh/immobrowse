@@ -59,6 +59,12 @@ body {
   padding-right: 1%;
 }
 
+#extsearch {
+  width: 75%;
+  margin: 0 auto;
+  background-color: white;
+}
+
 .ib-extsearch-container{
   padding-top: 1em;
 }
