@@ -149,7 +149,7 @@
 
     $(document).ready(function () {
       headerElement = document.getElementById('header');
-      exposeElement = document.getElementById('container');
+      exposeElement = document.getElementById('ib-container');
        clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
@@ -174,8 +174,8 @@
   </div>
 
   <div class="ib-detail-body">
-    <div id="loader" class="loader"></div>
-    <div id="container">Immobilie wird aufgerufen, bitte warten...</div>
+    <div id="ib-loader" class="loader"></div>
+    <div id="ib-container">Immobilie wird aufgerufen, bitte warten...</div>
   </div>
 </div>
 
