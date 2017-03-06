@@ -155,20 +155,22 @@
     </div>
     <div id="ib-extsearch" style="display: none;">
       <div class="ib-extsearch-container">
-        <div class="ib-extsearch-row">
-          <div class="ib-extsearch-column-left">
-            <input id="ib-price-min" class="form-control btn_filter" type="number" placeholder="Preis von">
+        <div class="ib-extsearch-imputs">
+          <div class="ib-extsearch-row">
+            <div class="ib-extsearch-column-left">
+              <input id="ib-price-min" class="form-control btn_filter" type="number" placeholder="Preis von">
+            </div>
+            <div class="ib-extsearch-column-right">
+              <input id="ib-area-min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
+            </div>
           </div>
-          <div class="ib-extsearch-column-right">
-            <input id="ib-area-min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
-          </div>
-        </div>
-        <div class="ib-extsearch-row">
-          <div class="ib-extsearch-column-left">
-            <input id="ib-price-max" class="form-control btn_filter" type="number" placeholder="Preis bis">
-          </div>
-          <div class="ib-extsearch-column-right">
-            <input id="ib-rooms-min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
+          <div class="ib-extsearch-row">
+            <div class="ib-extsearch-column-left">
+              <input id="ib-price-max" class="form-control btn_filter" type="number" placeholder="Preis bis">
+            </div>
+            <div class="ib-extsearch-column-right">
+              <input id="ib-rooms-min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
+            </div>
           </div>
         </div>
         <div class="ib-selectors">
@@ -194,5 +196,9 @@
     </div>
   </div>
   <div id="ib-loader"></div>
-  <div id="ib-container">Immobilien werden geladen, bitte warten...</div>
+  <div>
+    <div id="ib-container" class="ib-preview-list">
+      Immobilien werden geladen, bitte warten...
+    </div>
+  </div>
 </div>

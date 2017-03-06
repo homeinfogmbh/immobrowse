@@ -71,25 +71,25 @@ body {
 }
 
 .ib-extsearch-container {
+  padding-left: 45%;
+  padding-right: 11%;
 }
 
 .ib-selectors {
+  padding-top: 10%;
 }
 
 .ib-extsearch-row {
   clear: both;
-  padding-top: 1em;
 }
 
 .ib-extsearch-column-left {
   float: left;
-  padding-left: 45%;
 }
 
 .ib-extsearch-column-right {
   float: right;
   text-align: left;
-  padding-right: 11%;
 }
 
 .ib-filter-amenities {
