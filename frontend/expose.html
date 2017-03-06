@@ -161,118 +161,127 @@
   </script>
 </head>
 <div class="ib-centerframe">
-  <div id="header" class="ib-header"></div>
-  <div id="loader" class="loader"></div>
-  <div id="container">Immobilie wird aufgerufen, bitte warten...</div>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#contact_form">
-    Kontaktformular
-  </button>
+  <div class="ib-header">
+    <div class="ib-detail-header">
+      <div id="header" class="ib-detail-headertitle"></div>
+      <div class="ib-detail-contactform">
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#contact_form">
+          Kontaktformular
+        </button>
+      </div>
+  </div>
+  </div>
 
-  <!-- Modal -->
-  <div id="contact_form" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Kontaktformular</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row" id="the_form" style="margin-top:10px;">
-            <div class="col-md-6">
-             <p><strong>Anrede</strong></p>
-               <div class="btn-group" data-toggle="buttons">
-                 <label class="btn btn-default">
-                   <input type="radio" name="gender" id="gender_male" value="1">Herr
-                 </label>
-                 <label class="btn btn-default">
-                   <input type="radio" name="gender" id="gender_female" value="0">Frau
-                 </label>
-               </div>
-            </div>
-            <div class="col-md-6" id="contact_form_object_nr">
-              <p><strong>Objektnummer</strong></p>
-              <input type="text" class="form-control" id="contact_form_objektnr_extern" disabled>
-            </div>
-            <div class="row">
-              <div class="col-md-12">&nbsp;</div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="forename">Vorname</label>
-                <input type="text" class="form-control" id="forename" placeholder="Vorname*">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="surname">Nachname</label>
-                <input type="text" class="form-control" id="surname" placeholder="Nachname*">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="email">E-Mail Adresse</label>
-                <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="phone">Telefon</label>
-                <input type="text" class="form-control" id="phone" placeholder="Telefon">
-              </div>
-            </div>
-            <div class="col-md-8">
-              <div class="form-group">
-                <label for="street">Straße</label>
-                <input type="text" class="form-control" id="street" placeholder="Straße">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="house_number">Haus-Nr.</label>
-                <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="zip_code">PLZ</label>
-                <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
-              </div>
-            </div>
-            <div class="col-md-9">
-              <div class="form-group">
-                <label for="city">Ort</label>
-                <input type="text" class="form-control" id="city" placeholder="Ort">
-              </div>
-            </div>
-            <div class="col-md-12">
-              <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
-            </div>
-            <div class="col-md-12" style="color:#979696; font-size:10px;">
-              Mit einem (*) gekennzeichnete Felder sind Pflichfelder
-            </div>
-            <div class="col-md-12" style="margin-top:20px;">
-              <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+  <div class="ib-detail-body">
+    <div id="loader" class="loader"></div>
+    <div id="container">Immobilie wird aufgerufen, bitte warten...</div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="contact_form" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kontaktformular</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" id="the_form" style="margin-top:10px;">
+          <div class="col-md-6">
+           <p><strong>Anrede</strong></p>
+             <div class="btn-group" data-toggle="buttons">
+               <label class="btn btn-default">
+                 <input type="radio" name="gender" id="gender_male" value="1">Herr
+               </label>
+               <label class="btn btn-default">
+                 <input type="radio" name="gender" id="gender_female" value="0">Frau
+               </label>
+             </div>
+          </div>
+          <div class="col-md-6" id="contact_form_object_nr">
+            <p><strong>Objektnummer</strong></p>
+            <input type="text" class="form-control" id="contact_form_objektnr_extern" disabled>
+          </div>
+          <div class="row">
+            <div class="col-md-12">&nbsp;</div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="forename">Vorname</label>
+              <input type="text" class="form-control" id="forename" placeholder="Vorname*">
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="surname">Nachname</label>
+              <input type="text" class="form-control" id="surname" placeholder="Nachname*">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">E-Mail Adresse</label>
+              <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="text" class="form-control" id="phone" placeholder="Telefon">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label for="street">Straße</label>
+              <input type="text" class="form-control" id="street" placeholder="Straße">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="house_number">Haus-Nr.</label>
+              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="zip_code">PLZ</label>
+              <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="city">Ort</label>
+              <input type="text" class="form-control" id="city" placeholder="Ort">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
+          </div>
+          <div class="col-md-12" style="color:#979696; font-size:10px;">
+            Mit einem (*) gekennzeichnete Felder sind Pflichfelder
+          </div>
+          <div class="col-md-12" style="margin-top:20px;">
+            <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+          </div>
+        </div>
+        <hr>
+        <div class="row" id="contact_form_response" style="display:none;">
           <hr>
-          <div class="row" id="contact_form_response" style="display:none;">
-            <hr>
-            <div class="col-md-2">
-              <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
-            </div>
-            <div class="col-md-9">
-              <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
-            </div>
+          <div class="col-md-2">
+            <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
+          </div>
+          <div class="col-md-9">
+            <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
           </div>
         </div>
-        <div class="modal-footer">
-          <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
-          <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
-          <img src="img/preloader.gif" id="loading" style="display:none;"></span>
-          <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
+        <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
+        <img src="img/preloader.gif" id="loading" style="display:none;"></span>
+        <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
       </div>
     </div>
   </div>

@@ -119,33 +119,33 @@
 <div class="ib-centerframe">
   <div class="ib-header">
     <div class="ib-mainmenu">
-      <table class="row">
+      <div class="ib-sorting">
         <button id="rooms" onclick="toggleSorting('rooms')" class="btn btn-primary ib-btn-sort" align="left">Zimmer</button>
         <button id="area" onclick="toggleSorting('area')" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
         <button id="street" onclick="toggleSorting('street')" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
+      </div>
+      <div class="ib-extsearch">
         <button id="btn_extendedsearch" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
-      </table>
+      </div>
     </div>
     <div id="extsearch" style="display: none;">
       <div class="container ib-extsearch-container">
-        <table class="row">
-          <div class="col-sm-5">
+        <div class="ib-extsearch-row">
+          <div class="ib-extsearch-column-left">
             <input id="price_min" class="form-control btn_filter" type="number" placeholder="Preis von">
           </div>
-          <div class="col-sm-2"></div>
-          <div class="col-sm-5">
+          <div class="ib-extsearch-column-right">
             <input id="area_min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
           </div>
-        </table>
-        <table class="row">
-          <div class="col-sm-5">
+        </div>
+        <div class="ib-extsearch-row">
+          <div class="ib-extsearch-column-left">
             <input id="price_max" class="form-control btn_filter" type="number" placeholder="Preis bis">
           </div>
-          <div class="col-sm-2"></div>
-          <div class="col-sm-5">
+          <div class="ib-extsearch-column-right">
             <input id="rooms_min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
           </div>
-        </table>
+        </div>
         <!--
         <label><strong>Austattung</strong></label><br>
         <input class="btn_filter_checkbox" type="checkbox" id="checkbox_ebk"> Einbauküche (EBK)<br>

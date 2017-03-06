@@ -38,7 +38,7 @@ body {
 }
 
 .ib-centerframe {
-  width: 75%;
+  width: 55%;
   margin: 0 auto;
   background-color: white;
 }
@@ -50,13 +50,41 @@ body {
 
 .ib-mainmenu {
   padding-top: 1em;
-  padding-bottom: 1em;
   padding-left: 1%;
   padding-right: 1%;
 }
 
+.ib-sorting {
+  float: left;
+  padding-bottom: 1em;
+}
+
+#extsearch {
+  clear: both;
+}
+
+.ib-extsearch {
+  float: right;
+  padding-bottom: 1em;
+}
+
 .ib-extsearch-container{
   padding-bottom: 1em;
+}
+
+.ib-extsearch-row {
+  clear: both;
+}
+
+.ib-extsearch-column-left {
+  float: left;
+  padding-left: 45%;
+}
+
+.ib-extsearch-column-right {
+  float: right;
+  text-align: left;
+  padding-right: 11%;
 }
 
 .loader {
@@ -251,17 +279,33 @@ body {
   float: left;
 }
 
-.ib-detail-title {
+.ib-detail-header {
   padding-top: 1em;
+  padding-bottom: 1em;
   padding-left: 1em;
   padding-right: 1em;
-  padding-bottom: 1em;
+}
+
+.ib-detail-title {
+  float: left;
+}
+
+.ib-detail-contactform {
+  float: right;
+  padding-right: 1em;
+}
+
+.ib-detail-title {
 }
 
 .ib-detail-id {
   padding-left: 1em;
   font-size: medium;
   font-variant: small-caps;
+}
+
+.ib-detail-body{
+  clear: both;
 }
 
 .ib-detail-image {
@@ -272,7 +316,7 @@ body {
 }
 
 .ib-detail-row {
-  clear:both;
+  clear: both;
 }
 
 .ib-detail-images {
@@ -321,14 +365,20 @@ body {
 
 .ib-detail-description {
   padding-left: 1em;
+  padding-right: 1em;
+  text-align: justify;
 }
 
 .ib-detail-exposure {
   padding-left: 1em;
+  padding-right: 1em;
+  text-align: justify;
 }
 
 .ib-detail-misc {
   padding-left: 1em;
+  padding-right: 1em;
+  text-align: justify;
 }
 
 .ib-detail-document-table{
