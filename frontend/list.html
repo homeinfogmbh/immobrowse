@@ -20,6 +20,7 @@
     }
     var list;
     var container;
+    var districts;
 
     function toggleOrder() {
       var previousOrder = sorting.order;
@@ -120,23 +121,23 @@
       $('.ib-filter-amenities-option').click(function() {
         filter();
       });
-
-      container = document.getElementById('ib-container');
-      list = new immobrowse.List(cid, sorting, exposeUrl);
-      list.getRealEstates();
-      list.filter(filters());
-      list.render(container);
-
-      var districts = list.districts();
       var districtsElement = document.getElementById('ib-districts');
       districtsElement.innerHTML = '';
 
-      for (district in districts) {
-        districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" subject="'
-          + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
-      }
+      container = document.getElementById('ib-container');
+      districts = list.districts();
+      list = new immobrowse.List(cid, sorting, exposeUrl);
+      list.getRealEstates(function () {
+        list.filter(filters());
 
-      $('#ib-loader').hide();
+        for (district in districts) {
+          districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" subject="'
+            + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+        }
+
+        list.render(container);
+        $('#ib-loader').hide();
+      });
     });
   </script>
 </head>
