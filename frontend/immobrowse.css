@@ -83,7 +83,6 @@ body {
 
 .ib-preview-entry {
   display: table-row;
-  /*clear: both;*/
   background-color: #eee;
   border-spacing: 5px;
   cursor: pointer;
