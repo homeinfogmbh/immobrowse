@@ -70,7 +70,11 @@ body {
   float: right;
 }
 
-.ib-extsearch-container{
+.ib-extsearch-container {
+}
+
+.ib-selectors {
+  padding-top: 1em;
 }
 
 .ib-extsearch-row {
