@@ -89,6 +89,23 @@
       list.render(container);
     }
 
+    function selectedDistricts() {
+      var districts = [];
+      var checkboxes = document.getElementsByClassName('ib-select-district');
+
+      for (i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          districts.push(checkboxes[i].subject);
+        }
+      }
+
+      if (districts == []) {
+        return null; // Means "all"
+      } else {
+        return districts;
+      }
+    }
+
     $(document).ready(function () {
       $('#btn_extendedsearch').click(function() {
         if ($('#extsearch').attr('style') == "display: none;")
@@ -116,8 +133,8 @@
       districtsElement.innerHTML = '';
 
       for (district in districts) {
-        districtsElement.innerHTML += '<input class="btn_filter_checkbox" type="checkbox" id="cb-district-'
-          + district + '">' + district + ' (' + districts[district] + ')' + '</input><br>';
+        districtsElement.innerHTML += '<input class="ib-select-district" type="checkbox" subject="'
+          + district + '"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
       }
 
       $('#loader').hide();
