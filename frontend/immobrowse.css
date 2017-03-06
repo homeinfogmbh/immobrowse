@@ -113,6 +113,10 @@ body {
   font-size:14pt;
 }
 
+.ib-container {
+  clear: both;
+}
+
 .ib-preview-list {
   background-color: #dfdfdf;
   padding-top: 1%;
