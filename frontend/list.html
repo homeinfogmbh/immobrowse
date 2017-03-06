@@ -113,7 +113,7 @@
       var districts = document.getElementById('districts');
       districts.innerHTML = '';
       for (district in list.districts()) {
-        districts.innerHTML += '<input class="btn_filter_checkbox" type="checkbox" id="cb-district-' + district + '"> Gartennutzung<br>';
+        districts.innerHTML += '<input class="btn_filter_checkbox" type="checkbox" id="cb-district-' + district + '">' + district + '</input><br>';
       }
       $('#loader').hide();
     });
