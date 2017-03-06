@@ -110,8 +110,12 @@
       list.getRealEstates();
       list.filter(filters());
       list.render(container);
+      var districts = document.getElementById('districts');
+      districts.innerHTML = '';
+      for (district in list.districts()) {
+        districts.innerHTML += '<input class="btn_filter_checkbox" type="checkbox" id="cb-district-' + district + '"> Gartennutzung<br>';
+      }
       $('#loader').hide();
-      immobrowse.logger.debug('Document is ready!');
     });
   </script>
 </head>
@@ -157,6 +161,7 @@
         <input class="btn_filter_checkbox" type="checkbox" id="checkbox_elevator"> Fahrstuhl<br>
         <input class="btn_filter_checkbox" type="checkbox" id="checkbox_garden"> Gartennutzung<br>
         -->
+        <div id="districts"></div>
       </div>
     </div>
   </div>
