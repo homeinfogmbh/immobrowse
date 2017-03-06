@@ -258,28 +258,49 @@ body {
   max-height: 400px;
 }
 
+.ib-detail-row {
+  clear:both;
+}
+
 .ib-detail-images {
+  float: left;
 }
 
 .ib-detail-floorplans {
+  float: right;
 }
 
 .ib-detail-prices {
+  float: left;
 }
 
 .ib-detail-properties {
+  float: right;
 }
 
 .ib-detail-enev {
+  float: left;
 }
 
 .ib-detail-amenities {
+  float: right;
 }
 
 .ib-detail-contact {
+  float: left;
 }
 
 .ib-detail-documents {
+  float: right;
+}
+
+.ib-detail-datacolumn {
+  border: none;
+}
+
+.ib-detail-document-table{
+  background-color: #efefef;
+  box-shadow: none;
 }
 
 .ib-btn-sort {
