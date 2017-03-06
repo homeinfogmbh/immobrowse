@@ -95,6 +95,8 @@ body {
 }
 
 .ib-preview-back{
+  padding-left: 1em;
+  padding-bottom: 1em;
   cursor: pointer;
   color: black;
 }
@@ -251,6 +253,13 @@ body {
   float: left;
 }
 
+.ib-detail-title {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+}
+
 .ib-detail-image {
   display: table-column;
   max-width: 500px;
@@ -264,34 +273,42 @@ body {
 
 .ib-detail-images {
   float: left;
+  padding-left: 1em;
 }
 
 .ib-detail-floorplans {
   float: right;
+  padding-right: 1em;
 }
 
 .ib-detail-prices {
   float: left;
+  padding-left: 1em;
 }
 
 .ib-detail-properties {
   float: right;
+  padding-right: 1em;
 }
 
 .ib-detail-enev {
   float: left;
+  padding-left: 1em;
 }
 
 .ib-detail-amenities {
   float: right;
+  padding-right: 1em;
 }
 
 .ib-detail-contact {
   float: left;
+  padding-left: 1em;
 }
 
 .ib-detail-documents {
   float: right;
+  padding-right: 1em;
 }
 
 .ib-detail-datacolumn {
