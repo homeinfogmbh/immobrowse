@@ -303,6 +303,7 @@ body {
 }
 
 .ib-detail-title {
+  clear: both;
 }
 
 .ib-detail-id {
