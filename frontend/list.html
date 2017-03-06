@@ -62,15 +62,11 @@
 
       for (i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
-          districts.push(checkboxes[i].subject);
+          districts.push(checkboxes[i].getAttribute('subject'));
         }
       }
 
-      if (! districts) {
-        return null; // Means "all"
-      } else {
-        return districts;
-      }
+      return districts;
     }
 
     function filters() {
