@@ -136,7 +136,7 @@
 
       for (district in districts) {
         districtsElement.innerHTML += '<input class="ib-select-district" type="checkbox" subject="'
-          + district + '"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+          + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
       }
 
       $('#loader').hide();
