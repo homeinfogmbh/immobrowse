@@ -84,14 +84,12 @@ body {
 .ib-extsearch-column-left {
   float: left;
   padding-left: 45%;
-  padding-top: 1em;
 }
 
 .ib-extsearch-column-right {
   float: right;
   text-align: left;
   padding-right: 11%;
-  padding-top: 1em;
 }
 
 .ib-filter-amenities {
