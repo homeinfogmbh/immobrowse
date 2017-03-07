@@ -115,7 +115,7 @@
           $('#ib-extsearch').slideUp();
       });
 
-      $('.btn_filter').on('input',function(e) {
+      $('.ib-btn-filter-option').on('input',function(e) {
         filter();
       });
 
@@ -168,20 +168,20 @@
         <div class="row row-centered">
           <div class="col-md-6 col-centered">
             <div class="container">
-              <div class="row row-centered">
-                <div class="col-md-3 col-centered">
-                  <input id="ib-price-min" class="form-control btn_filter" type="number" placeholder="Preis von">
+              <div class="row">
+                <div class="col-md-3">
+                  <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
                 </div>
-                <div class="col-md-3 col-centered">
-                  <input id="ib-price-max" class="form-control btn_filter" type="number" placeholder="Preis bis">
+                <div class="col-md-3">
+                  <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
                 </div>
               </div>
-              <div class="row row-centered">
-                <div class="col-md-3 col-centered">
-                  <input id="ib-area-min" class="form-control btn_filter" type="number" placeholder="Größe ab in m²">
+              <div class="row">
+                <div class="col-md-3">
+                  <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
                 </div>
-                <div class="col-md-3 col-centered">
-                  <input id="ib-rooms-min" class="form-control btn_filter" type="number" placeholder="Zimmer ab">
+                <div class="col-md-3">
+                  <input id="ib-rooms-min" class="form-control ib-btn-filter-option" type="number" placeholder="Zimmer ab">
                 </div>
               </div>
             </div>
