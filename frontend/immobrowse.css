@@ -48,39 +48,11 @@ body {
   padding-bottom: 1em;
 }
 
-.ib-sorting {
-  float: left;
-  padding-bottom: 1em;
-}
-
 #ib-districts {
 }
 
 .ib-extsearch-button {
   float: right;
-}
-
-.ib-extsearch-container {
-  padding-top: 3em;
-  padding-right: 50%;
-  padding-left: 1%;
-}
-
-.ib-selectors {
-  padding-top: 10%;
-}
-
-.ib-extsearch-row {
-  clear: both;
-}
-
-.ib-extsearch-column-left {
-  float: left;
-}
-
-.ib-extsearch-column-right {
-  float: right;
-  text-align: left;
 }
 
 .ib-filter-amenities {
