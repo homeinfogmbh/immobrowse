@@ -143,16 +143,22 @@
   </script>
 </head>
 
-<div class="ib-centerframe">
-  <div class="ib-header">
-    <div class="ib-mainmenu">
-      <div class="ib-sorting">
-        <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort" align="left">Zimmer</button>
-        <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
-        <button id="ib-sort-street" onclick="toggleSorting('street');" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
+<div id="ib-centerframe" class="container">
+  <div id="ib-header" class="row row-centered">
+    <div class="col-xs-6 col-centered">
+      <div class="item">
+        <div class="content">
+          <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort" align="left">Zimmer</button>
+          <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
+          <button id="ib-sort-street" onclick="toggleSorting('street');" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
+        </div>
       </div>
-      <div class="ib-extsearch-button">
-        <button id="ib-extsearch-button" class="btn btn-default ib-btn-filter" align="right">Erweiterte Suche</button>
+    </div>
+    <div class="col-xs-6 col-centered">
+      <div class="item">
+        <div class="content">
+          <button id="ib-extsearch-button" class="btn btn-default ib-btn-filter">Erweiterte Suche</button>
+        </div>
       </div>
     </div>
     <div id="ib-extsearch" style="display: none;">
@@ -197,10 +203,12 @@
       </div>
     </div>
   </div>
-  <div id="ib-loader"></div>
-  <div "ib-container">
-    <div id="ib-container" class="ib-preview-list">
-      Immobilien werden geladen, bitte warten...
+  <div id="ib-body" class="row row-centered">
+    <div id="ib-loader"></div>
+    <div "ib-container">
+      <div id="ib-container" class="ib-preview-list">
+        Immobilien werden geladen, bitte warten...
+      </div>
     </div>
   </div>
 </div>

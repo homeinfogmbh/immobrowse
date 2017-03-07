@@ -37,30 +37,20 @@ body {
 	font-weight: bold;
 }
 
-.ib-centerframe {
-  width: 55%;
-  margin: 0 auto;
+#ib-centerframe {
   background-color: white;
 }
 
-.ib-header {
-  height: 10%;
-  top: 0;
-}
-
-.ib-mainmenu {
+#ib-header {
   padding-top: 1em;
-  padding-left: 1%;
-  padding-right: 1%;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
 }
 
 .ib-sorting {
   float: left;
   padding-bottom: 1em;
-}
-
-#ib-extsearch {
-  clear: both;
 }
 
 #ib-districts {
@@ -71,6 +61,7 @@ body {
 }
 
 .ib-extsearch-container {
+  padding-top: 3em;
   padding-right: 50%;
   padding-left: 1%;
 }
