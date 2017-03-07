@@ -34,7 +34,9 @@
     // XXX: Change config for appropriate productive setting
     var mailer = new immobrowse.Mailer('homeinfo-testing');
     var listUrl = 'list.html?{cid}';
-    var expose = new immobrowse.Expose(getUrlParameter('cid'), getUrlParameter('extern'), listUrl);
+    var cid = getUrlParameter('cid');
+    var objektnr_extern = getUrlParameter('extern');
+    var expose = new immobrowse.Expose(cid, objektnr_extern, listUrl);
     var headerElement;
     var exposeElement;
 
@@ -48,6 +50,10 @@
           return sParameterName[1] === undefined ? true : sParameterName[1];
         }
       }
+    }
+
+    function back() {
+      immobrowse.open('list.html?' + cid);
     }
 
     function clearContactForm() {
@@ -178,22 +184,28 @@
     });
   </script>
 </head>
-<div class="ib-centerframe">
-  <div class="ib-header">
-    <div class="ib-detail-header">
+<div id="ib-centerframe" class="container">
+  <div id="ib-header" class="row row-centered">
+    <div class="col-md-2 col-centered">
+      <button type="button" class="btn btn-default" onclick="back();">
+        « Zur&uuml;ck
+      </button>
+    </div>
+    <div class="col-md-8 col-centered">
       <div id="header" class="ib-detail-headertitle"></div>
+    </div>
+    <div class="col-md-2 col-centered">
       <div class="ib-detail-contactform">
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#contact_form">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_form">
           Kontaktformular
         </button>
       </div>
-  </div>
-  </div>
+    </div>
 
-  <div class="ib-detail-body">
-    <div id="ib-loader" class="loader"></div>
-    <div id="ib-container">Immobilie wird aufgerufen, bitte warten...</div>
+    <div class="ib-detail-body">
+      <div id="ib-loader" class="loader"></div>
+      <div id="ib-container">Immobilie wird aufgerufen, bitte warten...</div>
+    </div>
   </div>
 </div>
 
