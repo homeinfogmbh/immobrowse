@@ -52,16 +52,17 @@ def real_estate(customer, ident):
                 (Immobilie.customer == customer) &
                 (Immobilie.objektnr_extern == ident))
         except DoesNotExist:
-            raise Error('No such real estate: {}'.format(ident)) from None
+            raise Error('No such real estate: {}'.format(ident),
+                        status=404) from None
         else:
             if immobilie.active:
                 if settings(customer).override or immobilie.approve(PORTAL):
                     return immobilie
                 else:
-                    raise Error(
-                        'Real estate not allowed on this portal') from None
+                    raise Error('Real estate not allowed on this portal',
+                                status=403) from None
             else:
-                raise Error('Real estate is not active') from None
+                raise Error('Real estate is not active', status=403) from None
 
 
 def real_estates(customer):
@@ -86,7 +87,8 @@ def attachment(real_estate, ident):
                 (Anhang._immobilie == real_estate) &
                 (Anhang.id == ident))
         except DoesNotExist:
-            raise Error('No such attachment: {}'.format(ident)) from None
+            raise Error('No such attachment: {}'.format(ident),
+                        status=404) from None
 
 
 class ImmoBrowseModel(Model):
