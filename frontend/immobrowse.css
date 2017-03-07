@@ -363,6 +363,6 @@ body {
   align: left;
 }
 
-.ib-btn-filter {
-  float: right;
+.ib-btn-filter-option {
+  float: left;
 }
