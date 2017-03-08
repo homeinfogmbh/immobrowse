@@ -37,6 +37,20 @@ body {
 	font-weight: bold;
 }
 
+.fraction, .numerator, .denominator {
+    padding: 0 5px;
+}
+
+.fraction {
+    display: inline-block;
+    text-align: center;
+}
+
+.denominator{
+    border-top: 1px solid #000;
+    display: block;
+}
+
 #ib-centerframe {
   background-color: white;
 }
@@ -48,7 +62,8 @@ body {
   padding-bottom: 1em;
 }
 
-#ib-districts {
+#ib-list-item-template-container {
+  display: none;
 }
 
 .ib-extsearch-button {
@@ -70,7 +85,7 @@ body {
   font-size:14pt;
 }
 
-.ib-container {
+.ib-expose {
   clear: both;
 }
 

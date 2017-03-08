@@ -139,12 +139,25 @@
       $('.ib-filter-amenities-option').click(function() {
         filter();
       });
+
       var districtsElement = document.getElementById('ib-districts');
       districtsElement.innerHTML = '';
 
-      container = document.getElementById('ib-container');
-      list = new immobrowse.List(cid, sorting, exposeUrl);
-      list.getRealEstates(function () {
+      var elements = {
+        freeTexts: {
+          objectTitle: $('#objectTitle')
+        },
+        state: {
+          energyCertificate: {
+            consumption: $('#consumption')
+          }
+        }
+      };
+
+      immobrowse.logger.debug('Elements: ' + JSON.stringify(elements));
+
+      immobrowse.getRealEstates(cid, function (realEstates) {
+        list = new immobrowse.List(cid, realEstates);
         districts = list.districts();
         list.filter(filters());
 
@@ -153,7 +166,8 @@
             + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
         }
 
-        list.render(container);
+        immobrowse.logger.debug('Elements2: ' + JSON.stringify(elements));
+        list.render($('#ib-list'), $('#ib-list-item-template'), elements);
         $('#ib-loader').hide();
       });
     });
@@ -232,10 +246,14 @@
   </div>
   <div id="ib-body" class="row row-centered">
     <div id="ib-loader"></div>
-    <div "ib-container">
-      <div id="ib-container" class="ib-preview-list">
-        Immobilien werden geladen, bitte warten...
+    <div id="ib-list-item-template-container">
+      <div id="ib-list-item-template">
+        <div id="objectTitle">Objekttiteldingenskirchen</div>
+        <div id="consumption">Energieverbrauch</div>
       </div>
+    </div>
+    <div id="ib-list">
+      Immobilien werden geladen, bitte warten...
     </div>
   </div>
 </div>
