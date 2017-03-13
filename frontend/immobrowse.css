@@ -25,7 +25,7 @@ body {
 	background-color: #dfdfdf;
 }
 
-.oval {
+.oval-inner {
 	padding-left: 6px;
 	padding-right: 6px;
 	width: auto;
@@ -35,6 +35,13 @@ body {
 	text-align: center;
 	color: #fff;
 	font-weight: bold;
+}
+
+.oval-outer{
+  padding-left: 5px;
+  display: table-column;
+  width: auto;
+  float: left;
 }
 
 .fraction, .numerator, .denominator {
