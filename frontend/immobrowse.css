@@ -92,6 +92,7 @@ body {
 .ib-preview-item {
   margin-top: 2em;
   background-color: white;
+  padding-top: 1em;
 }
 
 .ib-preview-container {
