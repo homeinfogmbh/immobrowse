@@ -14,3 +14,8 @@
   margin-top: 2em;
   background-color: white;
 }
+
+.ib-section-header {
+  font-size: large;
+  font-variant: small-caps;
+}
