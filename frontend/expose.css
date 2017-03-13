@@ -21,7 +21,11 @@
   text-align: center;
 }
 
-.ib-section-header {
+.ib-section-caption {
   font-size: large;
   font-variant: small-caps;
+}
+
+.ib-price-caption {
+  font-size: large;
 }
