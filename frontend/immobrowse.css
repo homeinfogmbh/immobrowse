@@ -103,3 +103,7 @@ body {
   font-size: large;
   font-variant: small-caps;
 }
+
+.ib-preview-data-caption {
+  font-weight: bold;
+}
