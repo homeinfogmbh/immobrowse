@@ -15,6 +15,11 @@
   background-color: white;
 }
 
+.ib-title {
+  font-size: large;
+  font-variant: small-caps;
+}
+
 .ib-section-header {
   font-size: large;
   font-variant: small-caps;
