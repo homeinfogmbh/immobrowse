@@ -80,11 +80,3 @@ body {
   animation: spin 1s linear infinite;
   margin: 0 auto;
 }
-
-.ib-preview-item {
-  width: 75%;
-}
-
-.ib-preview-titleimage {
-  width: 30%;
-}
