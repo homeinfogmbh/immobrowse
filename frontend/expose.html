@@ -33,7 +33,7 @@
   <script>
     // XXX: Change config for appropriate productive setting
     var mailer = new immobrowse.Mailer('homeinfo-testing');
-    var listUrl = 'list.html?{customer}';
+    var listUrl = 'list.html?{cid}';
     var cid = getUrlParameter('customer');
     var objektnr_extern = getUrlParameter('objektnr_extern');
     var expose = new immobrowse.Expose(cid, objektnr_extern, listUrl);
