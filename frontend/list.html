@@ -144,10 +144,10 @@
       var districtsElement = document.getElementById('ib-districts');
       districtsElement.innerHTML = '';
 
-      listElement = $('#ib-list');
-      template = $('#ib-list-item-template-container');
+      listElement = $('#list');
+      template = $('#templateContainer');
       elements = {
-        linkElement: $('#ib-list-item-template'),
+        linkElement: $('#template'),
         objectTitle: $('#objectTitle'),
         prices: {
           coldRent: $('#coldRent'),
@@ -221,7 +221,7 @@
 </head>
 
 <div id="ib-centerframe" class="container">
-  <div id="ib-header" class="row row-centered">
+  <div class="row row-centered ib-header">
     <div class="col-md-3 col-centered">
       <div class="item">
         <div class="content">
@@ -291,8 +291,8 @@
     </div>
   </div>
   <div id="ib-body" class="row row-centered">
-    <div id="ib-list-item-template-container">
-      <div id="ib-list-item-template" class="container ib-preview-item">
+    <div id="templateContainer" class="ib-template-container">
+      <div id="template" class="container ib-preview-item">
         <div class="row row-centered ib-preview-container">
           <div class="col-md-4">
             <img src='img/dummy.jpg' id="titleImage" class="img-responsive ib-preview-titleimage" alt="Titelbild">
@@ -340,8 +340,7 @@
         </div>
       </div>
     </div>
-    <div id="ib-list">
-      Immobilien werden geladen, bitte warten...
-    </div>
+    <div id="list"></div>
+    <div id="loader" class="loader"></div>
   </div>
 </div>

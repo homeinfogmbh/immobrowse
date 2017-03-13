@@ -50,7 +50,7 @@ body {
     display: block;
 }
 
-#ib-header {
+.ib-header {
   padding-top: 1em;
   padding-left: 1em;
   padding-right: 1em;
@@ -58,7 +58,7 @@ body {
   background-color: white;
 }
 
-#ib-list-item-template-container {
+.ib-template-container {
   display: none;
 }
 
