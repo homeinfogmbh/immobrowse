@@ -31,11 +31,12 @@
   <script src="config.js"></script>
   <script>
     var cid = location.search.slice(1);
-    var exposeUrl = 'expose.html?cid={cid}&extern={objektnr_extern}';
     var sorting = {
       property: null,
       order: null
     };
+    var listElement;
+    var template;
     var elements;
     var list;
     var districts;
@@ -143,7 +144,9 @@
       var districtsElement = document.getElementById('ib-districts');
       districtsElement.innerHTML = '';
 
-      lements = {
+      listElement = $('#ib-list');
+      template = $('#ib-list-item-template-container');
+      elements = {
         linkElement: $('#ib-list-item-template'),
         objectTitle: $('#objectTitle'),
         prices: {
@@ -210,7 +213,7 @@
             + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
         }
 
-        list.render($('#ib-list'), $('#ib-list-item-template-container'), elements);
+        list.render(listElement, template, elements);
         $('#ib-loader').hide();
       });
     });
