@@ -74,7 +74,7 @@
       }
 
       list.sort(sorting.property, sorting.order);
-      list.render(elements);
+      list.render(listElement, template, elements);
     }
 
     function selectedDistricts() {
@@ -122,7 +122,7 @@
         list.sort(sorting.property, sorting.order);
       }
 
-      list.render(elements);
+      list.render(listElement, template, elements);
     }
 
     $(document).ready(function () {
