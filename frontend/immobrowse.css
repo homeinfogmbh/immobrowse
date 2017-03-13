@@ -111,3 +111,7 @@ body {
 .ib-preview-data-caption {
   font-weight: bold;
 }
+
+.ib-preview-tags {
+  padding-top: 1em;
+}
