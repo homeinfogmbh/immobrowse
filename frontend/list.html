@@ -289,32 +289,42 @@
   <div id="ib-body" class="row row-centered">
     <div id="ib-loader"></div>
     <div id="ib-list-item-template-container">
-      <div id="ib-list-item-template" class="ib-list-item">
-        <div>
-          <div class="ib-title-image-container">
+      <div id="ib-list-item-template" class="container">
+        <div class="row">
+          <div class="col">
             <img id="titleImage" class="ib-title-image img-responsive" alt="Titelbild">
           </div>
-          <div class="ib-item-data">
-            <div id="objectTitle" class="ib-preview-title"></div>
-            <div class="ib-preview-data">
-              <div class="ib-preview-data-field">
-                <div class="ib-preview-data-caption">Kaltmiete</div>
-                <div id="coldRent" class="ib-preview-data-value"></div>
+          <div class="col">
+            <div class="container">
+              <div id="objectTitle" class="row"></div>
+              <div class="row">
+                <div class="col">
+                  <div class="container">
+                    <div class="row">Kaltmiete</div>
+                    <div id="coldRent" class="row"></div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="container">
+                    <div class="ib-preview-data-caption">Nebenkosten</div>
+                    <div id="serviceCharge" class="row"></div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="container">
+                    <div class="ib-preview-data-caption">Zimmer</div>
+                    <div id="rooms" class="row"></div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="container">
+                    <div class="ib-preview-data-caption">Fläche</div>
+                    <div id="livingArea" class="row"></div>
+                  </div>
+                </div>
               </div>
-              <div class="ib-preview-data-field">
-                <div class="ib-preview-data-caption">Nebenkosten</div>
-                <div id="serviceCharge" class="ib-preview-data-value"></div>
-              </div>
-              <div class="ib-preview-data-field">
-                <div class="ib-preview-data-caption">Zimmer</div>
-                <div id="rooms" class="ib-preview-data-value"></div>
-              </div>
-              <div class="ib-preview-data-field">
-                <div class="ib-preview-data-caption">Fläche</div>
-                <div id="livingArea" class="ib-preview-data-value"></div>
-              </div>
+              <div id="furnishingTags" class="row"></div>
             </div>
-            <div id="furnishingTags" class="ib-furnishing-tags"></div>
           </div>
         </div>
         <div id="objectTitle"></div>
