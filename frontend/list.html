@@ -17,8 +17,9 @@
   @licend  The above is the entire license notice
 -->
 <head>
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immobrowse Immobiliensuche</title>
   <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
@@ -224,9 +225,9 @@
     <div class="col-md-3 col-centered">
       <div class="item">
         <div class="content">
-          <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort" align="left">Zimmer</button>
-          <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort" align="left">Fl&auml;che</button>
-          <button id="ib-sort-street" onclick="toggleSorting('street');" class="btn btn-primary ib-btn-sort" align="left">Stra&szlig;e</button>
+          <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
+          <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
+          <button id="ib-sort-street" onclick="toggleSorting('street');" class="btn btn-primary ib-btn-sort">Stra&szlig;e</button>
         </div>
       </div>
     </div>
@@ -294,7 +295,7 @@
       <div id="ib-list-item-template" class="container ib-preview-item">
         <div class="row row-centered ib-preview-container">
           <div class="col-md-4">
-            <img id="titleImage" class="img-responsive ib-preview-titleimage" alt="Titelbild">
+            <img src='' id="titleImage" class="img-responsive ib-preview-titleimage" alt="Titelbild">
           </div>
           <div class="col-md-8">
             <div class="row row-centered">
