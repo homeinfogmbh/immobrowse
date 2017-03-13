@@ -69,6 +69,7 @@ body {
 
 #ib-list-item-template-container {
   display: none;
+  background-color: white;
 }
 
 .ib-extsearch-button {
