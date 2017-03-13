@@ -1,0 +1,17 @@
+/*
+  Default stylesheets for the list view
+*/
+
+.ib-header {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+}
+
+.ib-preview-container {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+}
