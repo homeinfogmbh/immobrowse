@@ -36,8 +36,8 @@
       property: null,
       order: null
     };
+    var elements;
     var list;
-    var container;
     var districts;
 
     function toggleOrder() {
@@ -73,7 +73,7 @@
       }
 
       list.sort(sorting.property, sorting.order);
-      list.render(container);
+      list.render(elements);
     }
 
     function selectedDistricts() {
@@ -121,7 +121,7 @@
         list.sort(sorting.property, sorting.order);
       }
 
-      list.render(container);
+      list.render(elements);
     }
 
     $(document).ready(function () {
@@ -143,7 +143,7 @@
       var districtsElement = document.getElementById('ib-districts');
       districtsElement.innerHTML = '';
 
-      var elements = {
+      lements = {
         linkElement: $('#ib-list-item-template'),
         objectTitle: $('#objectTitle'),
         prices: {
