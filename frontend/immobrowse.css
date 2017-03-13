@@ -69,11 +69,14 @@ body {
 
 #ib-list-item-template-container {
   display: none;
-  background-color: white;
 }
 
 .ib-extsearch-button {
   float: right;
+}
+
+#ib-extsearch {
+  background-color: white;
 }
 
 .ib-loader {
