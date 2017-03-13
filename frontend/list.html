@@ -144,14 +144,56 @@
       districtsElement.innerHTML = '';
 
       var elements = {
-        freeTexts: {
-          objectTitle: $('#objectTitle')
+        prices: {
+          coldRent: $('#coldRent'),
+          serviceCharge: $('#serviceCharge'),
+          heatingCosts: null,
+          heatingCostsInServiceCharge: null,
+          securityDeposit: null,
+          subjectToCommission: null
+        },
+        area: {
+          livingArea: $('#livingArea'),
+          rooms: $('#rooms')
+        },
+        geo: {
+          floor: null
+        },
+        management: {
+          availableFrom: null,
+          councilFlat: null
         },
         state: {
+          constructionYear: null,
+          state: null,
+          lastModernization: null,
           energyCertificate: {
-            consumption: $('#consumption')
+            type: null,
+            consumption: null,
+            primaryEnergyCarrier: null,
+            valueClass: null
           }
+        },
+        freeTexts: {
+          objectTitle: $('#objectTitle'),
+          description: null,
+          exposure: null,
+          miscellanea: null
         }
+        contact: {
+          salutation: null,
+          firstName: null,
+          lastName: null,
+          company: null,
+          street: null,
+          houseNumber: null,
+          streetAndHouseNumber: null,
+          zipCode: null,
+          city: null,
+          zipCodeAndCity: null,
+          website: null
+        },
+        furnishingTags: $('#furnishingTags')
       };
 
       immobrowse.logger.debug('Elements: ' + JSON.stringify(elements));
@@ -166,7 +208,6 @@
             + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
         }
 
-        immobrowse.logger.debug('Elements2: ' + JSON.stringify(elements));
         list.render($('#ib-list'), $('#ib-list-item-template'), elements);
         $('#ib-loader').hide();
       });
@@ -247,9 +288,34 @@
   <div id="ib-body" class="row row-centered">
     <div id="ib-loader"></div>
     <div id="ib-list-item-template-container">
-      <div id="ib-list-item-template">
-        <div id="objectTitle">Objekttiteldingenskirchen</div>
-        <div id="consumption">Energieverbrauch</div>
+      <div id="ib-list-item-template" class="ib-list-item">
+        <div>
+          <div id="titlePicture" class="ib-title-picture"></div>
+          <div class="ib-item-data">
+            <div id="objectTitle" class="ib-preview-title"></div>
+            <div class="ib-preview-data">
+              <div class="ib-preview-data-field">
+                <div class="ib-preview-data-caption">Kaltmiete</div>
+                <div id="coldRent" class="ib-preview-data-value"></div>
+              </div>
+              <div class="ib-preview-data-field">
+                <div class="ib-preview-data-caption">Nebenkosten</div>
+                <div id="serviceCharge" class="ib-preview-data-value"></div>
+              </div>
+              <div class="ib-preview-data-field">
+                <div class="ib-preview-data-caption">Zimmer</div>
+                <div id="rooms" class="ib-preview-data-value"></div>
+              </div>
+              <div class="ib-preview-data-field">
+                <div class="ib-preview-data-caption">Fläche</div>
+                <div id="livingArea" class="ib-preview-data-value"></div>
+              </div>
+            </div>
+            <div id="furnishingTags" class="ib-furnishing-tags"></div>
+          </div>
+        </div>
+        <div id="objectTitle"></div>
+        <div id="consumption"></div>
       </div>
     </div>
     <div id="ib-list">
