@@ -17,12 +17,14 @@
   @licend  The above is the entire license notice
 -->
 <head>
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immobrowse Exposé</title>
   <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
   <link rel="stylesheet" href="immobrowse.css">
+  <link rel="stylesheet" href="expose.css">
   <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
@@ -31,25 +33,32 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script src="config.js"></script>
   <script>
+    var args = queryArgs();
     // XXX: Change config for appropriate productive setting
     var mailer = new immobrowse.Mailer('homeinfo-testing');
-    var customer = getUrlParameter('customer');
+    var customer = args['customer'];
     var listUrl = 'list.html?' + customer;
-    var objektnr_extern = getUrlParameter('objektnr_extern');
+    var objektnrExtern = args['objektnr_extern'];
     var expose = new immobrowse.Expose(cid, objektnr_extern, listUrl);
     var headerElement;
     var exposeElement;
 
-    function getUrlParameter(sParam) {
-      var sPageURL = decodeURIComponent(window.location.search.substring(1));
-      var sURLVariables = sPageURL.split('&');
-      var sParameterName;
-      for (var i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] === sParam) {
-          return sParameterName[1] === undefined ? true : sParameterName[1];
+    function queryArgs() {
+      var queryString = decodeURIComponent(window.location.search.substring(1));
+      var assignments = queryString.split('&');
+      var args = {};
+
+      for (var i = 0; i < assignments.length; i++) {
+        var parts = sURLVariables[i].split('=');
+
+        if (parts[1] == null) {
+          args[parts[0] = true;
+        } else {
+          args[parts[0] = parts[1];
         }
       }
+
+      return args;
     }
 
     function back() {
@@ -136,8 +145,8 @@
       var zip_code = $('#zip_code').val().trim();
       var city = $('#city').val().trim();
       var message = $('#message').val().trim();
-      var objektnr_extern = getUrlParameter('extern');
-      var recipient = getUrlParameter('kontakt_email');
+      var objektnr_extern = objektnrExtern;
+      var recipient = args['kontakt_email'];
       var html = immobrowse.mkContactMail(
         objektnr_extern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
