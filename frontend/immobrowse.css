@@ -97,6 +97,10 @@ body {
   cursor: pointer;
 }
 
+.ib-preview-item:hover {
+  background-color: #ffffcc;
+}
+
 .ib-preview-container {
   padding-top: 1em;
   padding-bottom: 1em;
