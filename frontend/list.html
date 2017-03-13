@@ -127,10 +127,10 @@
 
     $(document).ready(function () {
       $('#ib-extsearch-button').click(function() {
-        if ($('#ib-extsearch').attr('style') == "display: none;")
-          $('#ib-extsearch').slideDown();
+        if ($('#extendedSearch').attr('style') == "display: none;")
+          $('#extendedSearch').slideDown();
         else
-          $('#ib-extsearch').slideUp();
+          $('#extendedSearch').slideUp();
       });
 
       $('.ib-btn-filter-option').on('input',function(e) {
@@ -269,7 +269,7 @@
     </div>
   </div>
   <div class="row row-centered">
-    <div id="ib-extsearch" style="display: none;">
+    <div id="extendedSearch" class="ib-extsearch" style="display: none;">
       <div class="container">
         <div class="row row-centered">
           <div class="col-xs-6 col-centered">
