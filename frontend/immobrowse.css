@@ -81,6 +81,10 @@ body {
   margin: 0 auto;
 }
 
+.ib-preview-item {
+  width: 75%;
+}
+
 .ib-preview-titleimage {
   width: 30%;
 }
