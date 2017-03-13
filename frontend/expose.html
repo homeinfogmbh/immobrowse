@@ -193,8 +193,8 @@
     });
   </script>
 </head>
-<div id="ib-centerframe" class="container">
-  <div id="ib-header" class="row row-centered">
+<div class="container">
+  <div id="header" class="row row-centered ib-header">
     <div class="col-md-2 col-centered">
       <button type="button" class="btn btn-default" onclick="back();">
         « Zur&uuml;ck
@@ -210,10 +210,37 @@
         </button>
       </div>
     </div>
-
-    <div class="ib-detail-body">
-      <div id="ib-loader" class="loader"></div>
-      <div id="ib-expose">Immobilie wird aufgerufen, bitte warten...</div>
+  </div>
+  <div class="row row-centered">
+    <div id="expose" class="ib-detail-body">
+      <div class="row row-centered">
+        <div class="col-md-6">
+          <img src='img/dummy.jpg' id="titleImage" class="img-responsive ib-titleimage" alt="Titelbild">
+        </div>
+        <div class="col-md-6">
+          <img src='img/dummy.jpg' id="floorplan" class="img-responsive ib-titleimage" alt="Grundriss">
+        </div>
+      </div>
+      <div class="row row-centered">
+        <div id="prices" class="col-md-6">Preise</div>
+        <div id="state" class="col-md-6">Zustand</div>
+      </div>
+      <div class="row row-centered">
+        <div id="enercyCertificate" class="col-md-6">Energiepass</div>
+        <div id="furinishing" class="col-md-6">Ausstattung</div>
+      </div>
+      <div class="row row-centered">
+        <div id="objectDescription" class="col-md-12">Objektbeschreibung</div>
+      </div>
+      <div class="row row-centered">
+        <div id="exposure" class="col-md-12">Lagebeschreibung</div>
+      </div>
+      <div class="row row-centered">
+        <div id="miscellanea" class="col-md-12">Sonstiges</div>
+      </div>
+    </div>
+    <div id="loader">
+      <div class="loader"></div>
     </div>
   </div>
 </div>
@@ -316,7 +343,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="visible:false;">
         <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
         <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
         <img src="img/preloader.gif" id="loading" style="display:none;"></span>
