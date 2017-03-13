@@ -104,6 +104,10 @@ body {
   font-variant: small-caps;
 }
 
+.ib-preview-data {
+  padding-top: 1em;
+}
+
 .ib-preview-data-caption {
   font-weight: bold;
 }
