@@ -40,7 +40,6 @@
     var template;
     var elements;
     var list;
-    var districts;
 
     function toggleOrder() {
       var previousOrder = sorting.order;
@@ -206,8 +205,9 @@
 
       immobrowse.getRealEstates(cid, function (realEstates) {
         list = new immobrowse.List(cid, realEstates);
-        districts = list.districts();
         list.filter(filters());
+
+        var districts = list.districts();
 
         for (district in districts) {
           districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
