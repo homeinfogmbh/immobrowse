@@ -38,7 +38,8 @@ body {
 }
 
 .oval-outer{
-  padding-left: 5px;
+  padding-top: 1em;
+  padding-left: 1em;
   display: table-column;
   width: auto;
   float: left;
@@ -92,7 +93,6 @@ body {
 .ib-preview-item {
   margin-top: 2em;
   background-color: white;
-  padding-top: 1em;
 }
 
 .ib-preview-container {
