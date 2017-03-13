@@ -193,7 +193,8 @@
           zipCodeAndCity: null,
           website: null
         },
-        furnishingTags: $('#furnishingTags')
+        furnishingTags: $('#furnishingTags'),
+        titleImage: $('#titleImage')
       };
 
       immobrowse.logger.debug('Elements: ' + JSON.stringify(elements));
@@ -290,7 +291,9 @@
     <div id="ib-list-item-template-container">
       <div id="ib-list-item-template" class="ib-list-item">
         <div>
-          <div id="titlePicture" class="ib-title-picture"></div>
+          <div class="ib-title-image-container">
+            <img id="titleImage" class="ib-title-image img-responsive" alt="Titelbild">
+          </div>
           <div class="ib-item-data">
             <div id="objectTitle" class="ib-preview-title"></div>
             <div class="ib-preview-data">
