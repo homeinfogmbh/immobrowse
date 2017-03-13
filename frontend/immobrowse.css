@@ -87,3 +87,7 @@ body {
   animation: spin 1s linear infinite;
   margin: 0 auto;
 }
+
+.ib-preview-item {
+  margin-top: 5em;
+}
