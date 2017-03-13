@@ -209,7 +209,7 @@
             + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
         }
 
-        list.render($('#ib-list'), $('#ib-list-item-template'), elements);
+        list.render($('#ib-list'), $('#ib-list-item-template-container'), elements);
         $('#ib-loader').hide();
       });
     });
