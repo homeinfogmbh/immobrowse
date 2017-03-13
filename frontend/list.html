@@ -84,7 +84,7 @@
 
       for (i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
-          districts.push(checkboxes[i].getAttribute('subject'));
+          districts.push(checkboxes[i].getAttribute('name'));
         }
       }
 
@@ -210,7 +210,7 @@
         list.filter(filters());
 
         for (district in districts) {
-          districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" subject="'
+          districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
             + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
         }
 
