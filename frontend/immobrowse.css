@@ -60,7 +60,6 @@ body {
 }
 
 #ib-centerframe {
-  background-color: white;
 }
 
 #ib-header {
@@ -68,6 +67,7 @@ body {
   padding-left: 1em;
   padding-right: 1em;
   padding-bottom: 1em;
+  background-color: white;
 }
 
 #ib-list-item-template-container {
@@ -90,4 +90,5 @@ body {
 
 .ib-preview-item {
   margin-top: 5em;
+  background-color: white;
 }
