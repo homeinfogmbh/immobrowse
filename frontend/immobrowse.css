@@ -94,6 +94,7 @@ body {
 .ib-preview-item {
   margin-top: 2em;
   background-color: white;
+  cursor: pointer;
 }
 
 .ib-preview-container {
