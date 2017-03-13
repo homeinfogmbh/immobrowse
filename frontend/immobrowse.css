@@ -26,6 +26,8 @@ body {
 }
 
 .oval-inner {
+  padding-top: 3px;
+  padding-bottom: 3px;
 	padding-left: 6px;
 	padding-right: 6px;
 	width: auto;
