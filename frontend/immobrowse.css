@@ -1,11 +1,5 @@
 /* ImmoBrowse default style sheet */
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
 @media print {
   .ib-preview-back {
     display: none;
