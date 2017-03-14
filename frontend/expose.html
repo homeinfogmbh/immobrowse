@@ -49,7 +49,7 @@
       var args = {};
 
       for (var i = 0; i < assignments.length; i++) {
-        var parts = sURLVariables[i].split('=');
+        var parts = assignments[i].split('=');
 
         if (parts[1] == null) {
           args[parts[0]] = true;
