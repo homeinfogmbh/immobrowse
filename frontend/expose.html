@@ -81,7 +81,7 @@
     function sendEmail() {
       var response = grecaptcha.getResponse();
 
-      if (response.length == 0) {//check for re-captcha
+      if (response.length == 0) {
         swal({
           title: 'Achtung!',
           text: 'Bitte den CAPTCHA lösen.',
