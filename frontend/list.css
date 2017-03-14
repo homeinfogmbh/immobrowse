@@ -39,6 +39,10 @@
   padding-bottom: 1em;
 }
 
+#titleImage {
+  margin-left: -1em;
+}
+
 .ib-preview-title {
   font-size: large;
   font-variant: small-caps;
