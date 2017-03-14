@@ -272,6 +272,9 @@
 
         if (images.length > 0) {
           $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
+        }
+
+        if (images.length > 1) {
           $('#titleImage').click(nextImage);
           $('#titleImage').addClass('ib-browsable');
         }
@@ -281,6 +284,9 @@
 
         if (floorplans.length > 0) {
           $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+        }
+
+        if (floorplans.length > 1) {
           $('#floorplan').click(nextFloorplan);
           $('#floorplan').addClass('ib-browsable');
         }
