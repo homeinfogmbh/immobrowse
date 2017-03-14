@@ -40,15 +40,6 @@
     var template;
     var list;
 
-    /*
-      Customer's individual ImmoBrowse configuration
-    */
-    immobrowse.config = {
-      types: ['WOHNUNG'],
-      marketing: ['MIETE_PACHT'],
-      shortFloorNames: true
-    };
-
     function elements(index) {
       var suffix = '_' + index;
 
@@ -172,6 +163,16 @@
       districtsElement.innerHTML = '';
       listElement = $('#list');
       template = $('#templateContainer');
+
+      /*
+        Customer's individual ImmoBrowse configuration
+      */
+      immobrowse.config = {
+        types: ['WOHNUNG'],
+        marketing: ['MIETE_PACHT'],
+        shortFloorNames: true
+      };
+
       immobrowse.getRealEstates(customer, function (realEstates) {
         list = new immobrowse.List(customer, realEstates);
         list.filter(filters());
