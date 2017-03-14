@@ -239,6 +239,9 @@
           energyCertificate: {
             type: $('#energyCertificateType'),
             consumption: $('#energyConsumption'),
+            consumptionContainer: $('#energyConsumptionContainer'),
+            demand: $('#energyDemand'),
+            demandContainer: $('#energyDemandContainer'),
             primaryEnergyCarrier: $('#primaryEnergyCarrier'),
             valueClass: $('#valueClass')
           }
@@ -411,11 +414,17 @@
             </div>
             <div id="energyCertificateType" class="col-md-6"></div>
           </div>
-          <div class="row row-centered">
+          <div id="energyConsumptionContainer" class="row row-centered">
             <div class="col-md-6 ib-price-caption">
-              Endenergieverbrauch / -bedarf
+              Endenergieverbrauch
             </div>
             <div id="energyConsumption" class="col-md-6"></div>
+          </div>
+          <div id="energyDemandContainer" class="row row-centered">
+            <div class="col-md-6 ib-price-caption">
+              Endenergiebedarf
+            </div>
+            <div id="energyDemand" class="col-md-6"></div>
           </div>
           <div class="row row-centered">
             <div class="col-md-6 ib-price-caption">
