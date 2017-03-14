@@ -195,7 +195,7 @@
         currentImage = 0;
       }
 
-      $('#titleImage').attr('src', images[currentImage]);
+      $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
     }
 
     function nextFloorplan() {
@@ -205,7 +205,7 @@
         currentFloorplan = 0;
       }
 
-      $('#floorplan').attr('src', floorplans[currentFloorplan]);
+      $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
     }
 
     $(document).ready(function () {
