@@ -34,9 +34,10 @@
 
 .ib-preview-container {
   padding-top: 1em;
-  padding-left: 1em;
-  padding-right: 1em;
   padding-bottom: 1em;
+}
+
+.preview-data-container {
 }
 
 .ib-preview-title {
@@ -46,6 +47,8 @@
 
 .ib-preview-data {
   padding-top: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .ib-preview-data-caption {
