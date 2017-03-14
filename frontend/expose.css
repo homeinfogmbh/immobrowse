@@ -42,3 +42,7 @@
 .ib-browsable {
   cursor: pointer;
 }
+
+.ib-justified {
+  text-align: justify;
+}
