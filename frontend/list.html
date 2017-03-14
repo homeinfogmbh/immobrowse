@@ -30,7 +30,6 @@
   <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
-  <script src="config.js"></script>
   <script>
     var customer = location.search.slice(1);
     var sorting = {
@@ -40,6 +39,15 @@
     var listElement;
     var template;
     var list;
+
+    /*
+      Customer's individual ImmoBrowse configuration
+    */
+    immobrowse.config = {
+      types: ['WOHNUNG'],
+      marketing: ['MIETE_PACHT'],
+      shortFloorNames: true
+    };
 
     function elements(index) {
       var suffix = '_' + index;
