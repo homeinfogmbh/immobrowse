@@ -41,6 +41,10 @@
     var objektnrExtern = args['objektnr_extern'];
     var elements;
     var realEstate;
+    var images;
+    var currentImage = 0;
+    var floorplans;
+    var currentFloorplan = 0;
 
     function queryArgs() {
       var queryString = decodeURIComponent(window.location.search.substring(1));
@@ -184,6 +188,26 @@
       $("#clear_form").click(clearContactForm);
     }
 
+    function nextImage() {
+      currentImage++;
+
+      if (currentImage >= images.length) {
+        currentImage = 0;
+      }
+
+      $('#titleImage').attr('src', images[currentImage]);
+    }
+
+    function nextFloorplan() {
+      currentFloorplan++;
+
+      if (currentFloorplan >= floorplans.length) {
+        currentFloorplan = 0;
+      }
+
+      $('#floorplan').attr('src', floorplans[currentFloorplan]);
+    }
+
     $(document).ready(function () {
       initContactForm();
 
@@ -243,7 +267,13 @@
 
       immobrowse.getRealEstate(customer, objektnrExtern, function (json) {
         realEstate = new immobrowse.RealEstate(customer, json);
+        images = realEstate.images();
+        floorplans = realEstate.floorplans();
         realEstate.render(elements);
+        $('#titleImage').attr('src', images[currentImage]);
+        $('#titleImage').click(nextImage);
+        $('#floorplan').attr('src', floorplans[currentFloorplan]);
+        $('#floorplan').click(nextFloorplan);
         postRender();
       });
     });
