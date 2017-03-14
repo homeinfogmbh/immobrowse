@@ -173,6 +173,9 @@
         shortFloorNames: true
       };
 
+      console.log('Config: ' + immobrowse.config);
+      console.log('shortFloorNames: ' + immobrowse.config.shortFloorNames);
+
       immobrowse.getRealEstates(customer, function (realEstates) {
         list = new immobrowse.List(customer, realEstates);
         list.filter(filters());
