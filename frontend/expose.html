@@ -39,8 +39,6 @@
     var customer = args['customer'];
     var listUrl = 'list.html?' + customer;
     var objektnrExtern = args['objektnr_extern'];
-    var headerElement;
-    var exposeElement;
     var elements;
     var realEstate;
 
@@ -188,8 +186,6 @@
 
     $(document).ready(function () {
       initContactForm();
-      headerElement = document.getElementById('header');
-      exposeElement = document.getElementById('ib-container');
 
       elements = {
         objectTitle: $('#objectTitle'),
@@ -247,7 +243,7 @@
 
       immobrowse.getRealEstate(customer, objektnrExtern, function (json) {
         realEstate = new immobrowse.RealEstate(customer, json);
-        realEstate.render(headerElement, exposeElement);
+        realEstate.render(elements);
         postRender();
       });
     });
