@@ -39,9 +39,10 @@
     var customer = args['customer'];
     var listUrl = 'list.html?' + customer;
     var objektnrExtern = args['objektnr_extern'];
-    var realEstates;
     var headerElement;
     var exposeElement;
+    var elements;
+    var realEstate;
 
     function queryArgs() {
       var queryString = decodeURIComponent(window.location.search.substring(1));
@@ -145,12 +146,11 @@
       var zip_code = $('#zip_code').val().trim();
       var city = $('#city').val().trim();
       var message = $('#message').val().trim();
-      var objektnr_extern = objektnrExtern;
       var recipient = args['kontakt_email'];
       var html = immobrowse.mkContactMail(
-        objektnr_extern, salutation, forename, surname,
+        objektnrExtern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
-      mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnr_extern, html, null, email);
+      mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, null, email);
       grecaptcha.reset();
     }
 
@@ -179,13 +179,72 @@
       });
     }
 
-    $(document).ready(function () {
-      headerElement = document.getElementById('header');
-      exposeElement = document.getElementById('ib-container');
+    function initContactForm() {
       clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
+    }
+
+    $(document).ready(function () {
+      initContactForm();
+      headerElement = document.getElementById('header');
+      exposeElement = document.getElementById('ib-container');
+
+      elements = {
+        objectTitle: $('#objectTitle'),
+        prices: {
+          coldRent: $('#coldRent'),
+          serviceCharge: $('#serviceCharge'),
+          heatingCosts: $('#heatingCosts'),
+          heatingCostsInServiceCharge: $('#heatingCostsInServiceCharge'),
+          securityDeposit: $('#securityDeposit'),
+          subjectToCommission: $('#subjectToCommission'),
+        },
+        area: {
+          livingArea: $('#livingArea'),
+          rooms: $('#rooms')
+        },
+        geo: {
+          floor: $('#floor')
+        },
+        management: {
+          availableFrom: $('#availableFrom'),
+          councilFlat: $('#councilFlat')
+        },
+        state: {
+          constructionYear: $('#constructionYear'),
+          state: $('#state'),
+          lastModernization: $('#lastModernization'),
+          energyCertificate: {
+            type: $('#energyCertificateType'),
+            consumption: $('#energyConsumption'),
+            primaryEnergyCarrier: $('#primaryEnergyCarrier'),
+            valueClass: $('#valueClass')
+          }
+        },
+        freeTexts: {
+          description: $('#description'),
+          exposure: $('#exposure'),
+          miscellanea: $('#miscellanea')
+        },
+        contact: {
+          salutation: $('#salutation'),
+          firstName: $('#firstName'),
+          lastName: $('#lastName'),
+          company: $('#company'),
+          street: $('#street'),
+          houseNumber: $('#houseNumber'),
+          streetAndHouseNumber: $('#streetAndHouseNumber'),
+          zipCode: $('#zipCode'),
+          city: $('#city'),
+          zipCodeAndCity: $('#zipCodeAndCity'),
+          website: $('#website')
+        },
+        furnishingTags: $('#furnishingTags'),
+        titleImage: $('#titleImage')
+      };
+
       immobrowse.getRealEstate(customer, objektnrExtern, function (json) {
         realEstate = new immobrowse.RealEstate(customer, json);
         realEstate.render(headerElement, exposeElement);
