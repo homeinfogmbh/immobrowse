@@ -267,7 +267,10 @@
 
       immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
         realEstate = realEstate_;
-        console.log('Attachments: ' + JSON.stringify(realEstate_.attachments()));
+        console.log('Attachments_: ' + JSON.stringify(realEstate_.attachments()));
+        console.log('Attachments: ' + JSON.stringify(realEstate.attachments()));
+        console.log('Images_: ' + JSON.stringify(realEstate_.images()));
+        console.log('Images: ' + JSON.stringify(realEstate.images()));
         images = realEstate.images();
         console.log('Images: ' + JSON.stringify(images));
 
