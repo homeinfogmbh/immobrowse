@@ -70,3 +70,9 @@ body {
     border-top: 1px solid #000;
     display: block;
 }
+
+.image-frame {
+  background-color: #666666;
+  margin: auto;
+  height: 250px;
+}
