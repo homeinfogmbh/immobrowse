@@ -30,6 +30,7 @@
   <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://tls.homeinfo.de/javascript/homeinfo.js"></script>
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
+  <script src="config.js"></script>
   <script>
     var customer = location.search.slice(1);
     var sorting = {
@@ -163,19 +164,6 @@
       districtsElement.innerHTML = '';
       listElement = $('#list');
       template = $('#templateContainer');
-
-      /*
-        Customer's individual ImmoBrowse configuration
-      */
-      immobrowse.config = {
-        types: ['WOHNUNG'],
-        marketing: ['MIETE_PACHT'],
-        shortFloorNames: true
-      };
-
-      console.log('Config: ' + immobrowse.config);
-      console.log('shortFloorNames: ' + immobrowse.config.shortFloorNames);
-
       immobrowse.getRealEstates(customer, function (realEstates) {
         list = new immobrowse.List(customer, realEstates);
         list.filter(filters());
