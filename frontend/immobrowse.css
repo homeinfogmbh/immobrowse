@@ -57,18 +57,18 @@ body {
 }
 
 .fraction, .numerator, .denominator {
-    padding: 0 5px;
+  padding: 0 5px;
 }
 
 .fraction {
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .denominator{
-    border-top: 1px solid #000;
-    display: block;
+  border-top: 1px solid #000;
+  display: block;
 }
 
 .ib-image-frame {
@@ -87,4 +87,6 @@ body {
   max-width:100%;
   max-height:100%;
   vertical-align: middle
+  top: 0;
+  bottom: 0;
 }
