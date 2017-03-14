@@ -268,6 +268,7 @@
       immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
         realEstate = realEstate_;
         images = realEstate.images();
+        console.log('Images: ' + JSON.stringify(images));
 
         if (images.length > 0) {
           $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
@@ -275,6 +276,7 @@
         }
 
         floorplans = realEstate.floorplans();
+        console.log('Floorplans: ' + JSON.stringify(floorplans));
 
         if (floorplans.length > 0) {
           $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
