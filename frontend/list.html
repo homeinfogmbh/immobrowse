@@ -39,8 +39,26 @@
     };
     var listElement;
     var template;
-    var elements;
     var list;
+
+    function elements(index) {
+      var suffix = '_' + index;
+
+      return {
+        linkElement: $('#template' + suffix),
+        objectTitle: $('#objectTitle' + suffix),
+        prices: {
+          coldRent: $('#coldRent' + suffix),
+          serviceCharge: $('#serviceCharge' + suffix),
+        },
+        area: {
+          livingArea: $('#livingArea' + suffix),
+          rooms: $('#rooms' + suffix)
+        },
+        furnishingTags: $('#furnishingTags' + suffix),
+        titleImage: $('#titleImage' + suffix)
+      };
+    }
 
     function toggleOrder() {
       var previousOrder = sorting.order;
@@ -144,66 +162,8 @@
 
       var districtsElement = document.getElementById('ib-districts');
       districtsElement.innerHTML = '';
-
       listElement = $('#list');
       template = $('#templateContainer');
-      elements = {
-        linkElement: $('#template'),
-        objectTitle: $('#objectTitle'),
-        prices: {
-          coldRent: $('#coldRent'),
-          serviceCharge: $('#serviceCharge'),
-          heatingCosts: null,
-          heatingCostsInServiceCharge: null,
-          securityDeposit: null,
-          subjectToCommission: null
-        },
-        area: {
-          livingArea: $('#livingArea'),
-          rooms: $('#rooms')
-        },
-        geo: {
-          floor: null
-        },
-        management: {
-          availableFrom: null,
-          councilFlat: null
-        },
-        state: {
-          constructionYear: null,
-          state: null,
-          lastModernization: null,
-          energyCertificate: {
-            type: null,
-            consumption: null,
-            primaryEnergyCarrier: null,
-            valueClass: null
-          }
-        },
-        freeTexts: {
-          description: null,
-          exposure: null,
-          miscellanea: null
-        },
-        contact: {
-          salutation: null,
-          firstName: null,
-          lastName: null,
-          company: null,
-          street: null,
-          houseNumber: null,
-          streetAndHouseNumber: null,
-          zipCode: null,
-          city: null,
-          zipCodeAndCity: null,
-          website: null
-        },
-        furnishingTags: $('#furnishingTags'),
-        titleImage: $('#titleImage')
-      };
-
-      immobrowse.logger.debug('Elements: ' + JSON.stringify(elements));
-
       immobrowse.getRealEstates(customer, function (realEstates) {
         list = new immobrowse.List(customer, realEstates);
         list.filter(filters());
