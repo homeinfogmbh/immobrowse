@@ -39,7 +39,7 @@
     var customer = args['customer'];
     var listUrl = 'list.html?' + customer;
     var objektnrExtern = args['objektnr_extern'];
-    var expose = new immobrowse.Expose(customer, objektnrExtern, listUrl);
+    var realEstates;
     var headerElement;
     var exposeElement;
 
@@ -182,12 +182,13 @@
     $(document).ready(function () {
       headerElement = document.getElementById('header');
       exposeElement = document.getElementById('ib-container');
-       clearContactForm();
+      clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
-      expose.getRealEstate(function () {
-        expose.render(headerElement, exposeElement);
+      immobrowse.getRealEstate(customer, objektnrExtern, function (json) {
+        realEstate = new immobrowse.RealEstate(customer, json);
+        realEstate.render(headerElement, exposeElement);
         postRender();
       });
     });
