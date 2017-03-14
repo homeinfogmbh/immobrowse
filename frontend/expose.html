@@ -268,14 +268,20 @@
       immobrowse.getRealEstate(customer, objektnrExtern, function (json) {
         realEstate = new immobrowse.RealEstate(customer, json);
         images = realEstate.images();
+
+        if (images.length > 0) {
+          $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
+          $('#titleImage').click(nextImage);
+        }
+
         floorplans = realEstate.floorplans();
+
+        if (floorplans.length > 0) {
+          $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+          $('#floorplan').click(nextFloorplan);
+        }
+
         realEstate.render(elements);
-        console.log('Images: ' + JSON.stringify(images));
-        console.log('Floorplans: ' + JSON.stringify(floorplans));
-        $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
-        $('#titleImage').click(nextImage);
-        $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
-        $('#floorplan').click(nextFloorplan);
         postRender();
       });
     });
