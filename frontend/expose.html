@@ -270,9 +270,9 @@
         images = realEstate.images();
         floorplans = realEstate.floorplans();
         realEstate.render(elements);
-        $('#titleImage').attr('src', realEstate.attachmentUrl(images[currentImage]));
+        $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
         $('#titleImage').click(nextImage);
-        $('#floorplan').attr('src', realEstate.attachmentUrl(floorplans[currentFloorplan]));
+        $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
         $('#floorplan').click(nextFloorplan);
         postRender();
       });
