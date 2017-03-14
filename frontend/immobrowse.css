@@ -75,12 +75,7 @@ body {
   background-color: #666666;
   margin: 1em 0;
   height: 250px;
-}
-
-.interim-frame {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
+  position:relative;
 }
 
 .ib-framed-image {
