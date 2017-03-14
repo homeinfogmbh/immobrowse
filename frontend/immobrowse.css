@@ -72,15 +72,20 @@ body {
 }
 
 .ib-image-frame {
-  background-color: #666666;
-  margin: 1em 0;
   height: 250px;
   position:relative;
+  background-color: #666666;
 }
 
 .ib-framed-image {
-  position:absolute;
-  top:0;
-  bottom:0;
-  margin:auto;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
