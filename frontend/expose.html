@@ -273,6 +273,7 @@
         if (images.length > 0) {
           $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
           $('#titleImage').click(nextImage);
+          $('#titleImage').addClass('ib-browsable');
         }
 
         floorplans = realEstate.floorplans();
@@ -281,6 +282,7 @@
         if (floorplans.length > 0) {
           $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
           $('#floorplan').click(nextFloorplan);
+          $('#floorplan').addClass('ib-browsable');
         }
 
         realEstate.render(elements);
