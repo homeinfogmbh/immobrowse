@@ -73,6 +73,6 @@ body {
 
 .image-frame {
   background-color: #666666;
-  margin: auto;
+  margin: 0 auto;
   height: 250px;
 }
