@@ -19,6 +19,10 @@
   background-color: white;
 }
 
+.ib-expose-data {
+  padding-top: 2em;
+}
+
 .ib-title {
   font-size: large;
   font-variant: small-caps;
