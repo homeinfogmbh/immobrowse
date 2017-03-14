@@ -265,8 +265,8 @@
         titleImage: $('#titleImage')
       };
 
-      immobrowse.getRealEstate(customer, objektnrExtern, function (json) {
-        realEstate = new immobrowse.RealEstate(customer, json);
+      immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
+        realEstate = realEstate_;
         images = realEstate.images();
 
         if (images.length > 0) {
