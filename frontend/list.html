@@ -32,7 +32,7 @@
   <script src="https://tls.homeinfo.de/javascript/immobrowse.js"></script>
   <script src="config.js"></script>
   <script>
-    var cid = location.search.slice(1);
+    var customer = location.search.slice(1);
     var sorting = {
       property: null,
       order: null
@@ -204,8 +204,8 @@
 
       immobrowse.logger.debug('Elements: ' + JSON.stringify(elements));
 
-      immobrowse.getRealEstates(cid, function (realEstates) {
-        list = new immobrowse.List(cid, realEstates);
+      immobrowse.getRealEstates(customer, function (realEstates) {
+        list = new immobrowse.List(customer, realEstates);
         list.filter(filters());
 
         var districts = list.districts();
