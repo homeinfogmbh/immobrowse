@@ -52,9 +52,9 @@
         var parts = sURLVariables[i].split('=');
 
         if (parts[1] == null) {
-          args[parts[0] = true;
+          args[parts[0]] = true;
         } else {
-          args[parts[0] = parts[1];
+          args[parts[0]] = parts[1];
         }
       }
 
@@ -227,7 +227,7 @@
             Preise
           </div>
           <div class="row row-centered">
-            <div class="col-md-6">
+            <div class="col-md-6 ib-price-caption">
               Kaltmiete
             </div>
             <div id="coldRent" class="col-md-6"></div>
@@ -259,9 +259,25 @@
         </div>
         <div class="col-md-6">
           <div class="row row-centered ib-section-caption">
-            Zustand
+            Zustand und Ausstattung
+          </div><div class="row row-centered">
+            <div class="col-md-6 ib-price-caption">
+              Kaltmiete
+            </div>
+            <div id="coldRent" class="col-md-6"></div>
           </div>
-          <div id="state" class="row row-centered"></div>
+          <div class="row row-centered">
+            <div class="col-md-6 ib-price-caption">
+              Nebenkosten
+            </div>
+            <div id="serviceCharge" class="col-md-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-md-6 ib-price-caption">
+              Kaution oder Genossenschaftsanteile
+            </div>
+            <div id="securityDeposit" class="col-md-6"></div>
+          </div>
         </div>
       </div>
       <div class="row row-centered">
