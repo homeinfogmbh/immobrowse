@@ -34,13 +34,9 @@
 
 .ib-preview-container {
   padding-top: 1em;
-  margin-left: 1em;
-  margin-right: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
   padding-bottom: 1em;
-}
-
-#titleImage {
-  margin-left: -1em;
 }
 
 .ib-preview-title {
