@@ -71,9 +71,14 @@ body {
     display: block;
 }
 
-.image-frame {
+.ib-image-frame {
   background-color: #666666;
   margin: 0 auto;
   vertical-align: middle;
   height: 250px;
+}
+
+.ib-framed-image {
+  max-width:100%;
+  max-height:100%;
 }
