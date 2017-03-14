@@ -270,8 +270,8 @@
         images = realEstate.images();
         floorplans = realEstate.floorplans();
         realEstate.render(elements);
-        console.log('Images: ' + JSON.stringify(images);
-        console.log('Floorplans: ' + JSON.stringify(floorplans);
+        console.log('Images: ' + JSON.stringify(images));
+        console.log('Floorplans: ' + JSON.stringify(floorplans));
         $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
         $('#titleImage').click(nextImage);
         $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
