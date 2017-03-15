@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -19,297 +20,298 @@
   through which recipients can access the Corresponding Source.
   @licend  The above is the entire license notice
 -->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Immobrowse Immobiliensuche</title>
-  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
-  <link rel="stylesheet" href="immobrowse.css">
-  <link rel="stylesheet" href="list.css">
-  <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
-  <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
-  <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://tls.homeinfo.de/jslibs/homeinfo.min.js"></script>
-  <script src="https://tls.homeinfo.de/jslibs/immobrowse.min.js"></script>
-  <script src="config.js"></script>
-  <script>
-    var customer = location.search.slice(1);
-    var sorting = {
-      property: null,
-      order: null
-    };
-    var listElement;
-    var template;
-    var list;
-
-    function elements(index) {
-      var suffix = '_' + index;
-
-      return {
-        linkElement: $('#entry' + suffix),
-        objectTitle: $('#objectTitle' + suffix),
-        prices: {
-          coldRent: $('#coldRent' + suffix),
-          serviceCharge: $('#serviceCharge' + suffix),
-        },
-        area: {
-          livingArea: $('#livingArea' + suffix),
-          rooms: $('#rooms' + suffix)
-        },
-        furnishingTags: $('#furnishingTags' + suffix),
-        titleImage: $('#titleImage' + suffix)
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Immobrowse Immobiliensuche</title>
+    <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
+    <link rel="stylesheet" href="immobrowse.css">
+    <link rel="stylesheet" href="list.css">
+    <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
+    <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://tls.homeinfo.de/jslibs/homeinfo.min.js"></script>
+    <script src="https://tls.homeinfo.de/jslibs/immobrowse.min.js"></script>
+    <script src="config.js"></script>
+    <script>
+      var customer = location.search.slice(1);
+      var sorting = {
+        property: null,
+        order: null
       };
-    }
+      var listElement;
+      var template;
+      var list;
 
-    function toggleOrder() {
-      var previousOrder = sorting.order;
+      function elements(index) {
+        var suffix = '_' + index;
 
-      if (sorting.order == 'descending') {
-        sorting.order = 'ascending';
-      } else {
-        sorting.order = 'descending';
+        return {
+          linkElement: $('#entry' + suffix),
+          objectTitle: $('#objectTitle' + suffix),
+          prices: {
+            coldRent: $('#coldRent' + suffix),
+            serviceCharge: $('#serviceCharge' + suffix),
+          },
+          area: {
+            livingArea: $('#livingArea' + suffix),
+            rooms: $('#rooms' + suffix)
+          },
+          furnishingTags: $('#furnishingTags' + suffix),
+          titleImage: $('#titleImage' + suffix)
+        };
       }
 
-      return previousOrder;
-    }
+      function toggleOrder() {
+        var previousOrder = sorting.order;
 
-    function toggleSorting(property) {
-      var previousIssuer = document.getElementById('ib-sort-' + sorting.property);
-      var issuer = document.getElementById('ib-sort-' + property);
-      toggleOrder();
-      sorting.property = property;
-
-      // Remove arrow symbol
-      if (previousIssuer != null) {
-        previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
-      }
-
-      switch (sorting.order) {
-        case 'ascending':
-          issuer.innerHTML += ' &darr;';
-          break;
-        case 'descending':
-          issuer.innerHTML += ' &uarr;';
-          break;
-      }
-
-      list.sort(sorting.property, sorting.order);
-      list.render(listElement, template, elements);
-    }
-
-    function selectedDistricts() {
-      var districts = [];
-      var checkboxes = document.getElementsByClassName('ib-select-district');
-
-      for (i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          districts.push(checkboxes[i].getAttribute('name'));
+        if (sorting.order == 'descending') {
+          sorting.order = 'ascending';
+        } else {
+          sorting.order = 'descending';
         }
+
+        return previousOrder;
       }
 
-      return districts;
-    }
+      function toggleSorting(property) {
+        var previousIssuer = document.getElementById('ib-sort-' + sorting.property);
+        var issuer = document.getElementById('ib-sort-' + property);
+        toggleOrder();
+        sorting.property = property;
 
-    function filters() {
-      var priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
-      var filters = {
-        types: immobrowse.config.types,
-        marketing: immobrowse.config.marketing,
-        priceMin: Number(homeinfo.str.comma2dot($('#ib-price-min').val())),
-        priceMax: priceMax == 0 ? Infinity: priceMax,
-        areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
-        roomsMin: Number(homeinfo.str.comma2dot($('#ib-rooms-min').val())),
-        ebk: $("#ib-filter-kitchen").is(':checked'),
-        bathtub: $("#ib-filter-bathtub").is(':checked'),
-        window: $("#ib-filter-window").is(':checked'),
-        balcony: $("#ib-filter-balcony").is(':checked'),
-        carSpace: $("#ib-filter-carspace").is(':checked'),
-        guestwc: $("#ib-filter-guestwc").is(':checked'),
-        elevator: $("#ib-filter-elevator").is(':checked'),
-        garden: $("#ib-filter-garden").is(':checked'),
-        districts: selectedDistricts()
-      }
+        // Remove arrow symbol
+        if (previousIssuer != null) {
+          previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
+        }
 
-      immobrowse.logger.debug('Filters:');
-      immobrowse.logger.debug(JSON.stringify(filters));
-      return filters;
-    }
+        switch (sorting.order) {
+          case 'ascending':
+            issuer.innerHTML += ' &darr;';
+            break;
+          case 'descending':
+            issuer.innerHTML += ' &uarr;';
+            break;
+        }
 
-    function filter() {
-      list.filter(filters());
-
-      if (sorting.property != null) {
         list.sort(sorting.property, sorting.order);
+        list.render(listElement, template, elements);
       }
 
-      list.render(listElement, template, elements);
-    }
+      function selectedDistricts() {
+        var districts = [];
+        var checkboxes = document.getElementsByClassName('ib-select-district');
 
-    $(document).ready(function () {
-      $('#ib-extsearch-button').click(function() {
-        if ($('#extendedSearch').attr('style') == "display: none;")
-          $('#extendedSearch').slideDown();
-        else
-          $('#extendedSearch').slideUp();
-      });
+        for (i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            districts.push(checkboxes[i].getAttribute('name'));
+          }
+        }
 
-      $('.ib-btn-filter-option').on('input',function(e) {
-        filter();
-      });
+        return districts;
+      }
 
-      $('.ib-filter-amenities-option').click(function() {
-        filter();
-      });
+      function filters() {
+        var priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
+        var filters = {
+          types: immobrowse.config.types,
+          marketing: immobrowse.config.marketing,
+          priceMin: Number(homeinfo.str.comma2dot($('#ib-price-min').val())),
+          priceMax: priceMax == 0 ? Infinity: priceMax,
+          areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
+          roomsMin: Number(homeinfo.str.comma2dot($('#ib-rooms-min').val())),
+          ebk: $("#ib-filter-kitchen").is(':checked'),
+          bathtub: $("#ib-filter-bathtub").is(':checked'),
+          window: $("#ib-filter-window").is(':checked'),
+          balcony: $("#ib-filter-balcony").is(':checked'),
+          carSpace: $("#ib-filter-carspace").is(':checked'),
+          guestwc: $("#ib-filter-guestwc").is(':checked'),
+          elevator: $("#ib-filter-elevator").is(':checked'),
+          garden: $("#ib-filter-garden").is(':checked'),
+          districts: selectedDistricts()
+        }
 
-      var districtsElement = document.getElementById('ib-districts');
-      districtsElement.innerHTML = '';
-      listElement = $('#list');
-      template = $('#templateContainer');
-      immobrowse.getRealEstates(customer, function (realEstates) {
-        list = new immobrowse.List(customer, realEstates);
+        immobrowse.logger.debug('Filters:');
+        immobrowse.logger.debug(JSON.stringify(filters));
+        return filters;
+      }
+
+      function filter() {
         list.filter(filters());
 
-        var districts = list.districts();
-
-        for (district in districts) {
-          districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
-            + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+        if (sorting.property != null) {
+          list.sort(sorting.property, sorting.order);
         }
 
         list.render(listElement, template, elements);
-        $('#loader').hide();
-      });
-    });
-  </script>
-</head>
+      }
 
-<div class="container">
-  <div class="row row-centered ib-header">
-    <div class="col-md-3 col-centered">
-      <div class="item">
-        <div class="content">
-          <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
-          <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
-          <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
+      $(document).ready(function () {
+        $('#ib-extsearch-button').click(function() {
+          if ($('#extendedSearch').attr('style') == "display: none;")
+            $('#extendedSearch').slideDown();
+          else
+            $('#extendedSearch').slideUp();
+        });
+
+        $('.ib-btn-filter-option').on('input',function(e) {
+          filter();
+        });
+
+        $('.ib-filter-amenities-option').click(function() {
+          filter();
+        });
+
+        var districtsElement = document.getElementById('ib-districts');
+        districtsElement.innerHTML = '';
+        listElement = $('#list');
+        template = $('#templateContainer');
+        immobrowse.getRealEstates(customer, function (realEstates) {
+          list = new immobrowse.List(customer, realEstates);
+          list.filter(filters());
+
+          var districts = list.districts();
+
+          for (district in districts) {
+            districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
+              + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+          }
+
+          list.render(listElement, template, elements);
+          $('#loader').hide();
+        });
+      });
+    </script>
+  </head>
+
+  <div class="container">
+    <div class="row row-centered ib-header">
+      <div class="col-md-3 col-centered">
+        <div class="item">
+          <div class="content">
+            <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
+            <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
+            <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="item">
+          <div class="content">
+            <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="item">
+          <div class="content">
+            <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="item">
+          <div class="content">
+            <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="item">
+          <div class="content">
+            <input id="ib-rooms-min" class="form-control ib-btn-filter-option" type="number" placeholder="Zimmer ab">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="item">
+          <div class="content">
+            <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
+    <div class="row row-centered">
+      <div id="extendedSearch" class="ib-extsearch" style="display: none;">
+        <div class="container">
+          <div class="row row-centered">
+            <div class="col-xs-6 col-centered">
+              <label><strong>Austattung</strong></label><br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="filter();"> Einbauküche (EBK)<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="filter();"> Badewanne<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="filter();"> Fenster im Bad<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="filter();"> Balkon<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="filter();"> Stellplatz<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="filter();"> Gäste-WC<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="filter();"> Fahrstuhl<br>
+              <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="filter();"> Gartennutzung<br>
+            </div>
+            <div class="col-xs-6 col-centered">
+              <label><strong>Stadtteile</strong></label><br>
+              <div id="ib-districts"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
+    <div class="row row-centered">
+      <div id="templateContainer" class="ib-template-container">
+        <div id="entry" class="container ib-preview-item">
+          <div class="row row-centered ib-preview-container">
+            <div class="col-md-4">
+              <div class="ib-image-frame">
+                <img src='img/dummy.jpg' id="titleImage" class="ib-framed-image" alt="Titelbild">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="row row-centered">
+                <div id="objectTitle" class="ib-preview-title"></div>
+              </div>
+              <div class="row row-centered ib-preview-data">
+                <div class="col-xs-3">
+                  <div class="row">
+                    <div class="ib-preview-data-caption">Kaltmiete</div>
+                  </div>
+                  <div class="row">
+                    <div id="coldRent"></div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="row">
+                    <div class="ib-preview-data-caption">Nebenkosten</div>
+                  </div>
+                  <div class="row">
+                    <div id="serviceCharge"></div>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="row">
+                    <div class="ib-preview-data-caption">Zimmer</div>
+                  </div>
+                  <div class="row">
+                    <div id="rooms"></div>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="row">
+                    <div class="ib-preview-data-caption">Fläche</div>
+                  </div>
+                  <div class="row">
+                    <div id="livingArea"></div>
+                  </div>
+                </div>
+              </div>
+              <div id="furnishingTags" class="ib-preview-tags"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-rooms-min" class="form-control ib-btn-filter-option" type="number" placeholder="Zimmer ab">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="item">
-        <div class="content">
-          <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
-        </div>
+      <div id="list"></div>
+      <div id="loader">
+        <div class="loader"></div>
       </div>
     </div>
   </div>
-  <div class="row row-centered">
-    <div id="extendedSearch" class="ib-extsearch" style="display: none;">
-      <div class="container">
-        <div class="row row-centered">
-          <div class="col-xs-6 col-centered">
-            <label><strong>Austattung</strong></label><br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="filter();"> Einbauküche (EBK)<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="filter();"> Badewanne<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="filter();"> Fenster im Bad<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="filter();"> Balkon<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="filter();"> Stellplatz<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="filter();"> Gäste-WC<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="filter();"> Fahrstuhl<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="filter();"> Gartennutzung<br>
-          </div>
-          <div class="col-xs-6 col-centered">
-            <label><strong>Stadtteile</strong></label><br>
-            <div id="ib-districts"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row row-centered">
-    <div id="templateContainer" class="ib-template-container">
-      <div id="entry" class="container ib-preview-item">
-        <div class="row row-centered ib-preview-container">
-          <div class="col-md-4">
-            <div class="ib-image-frame">
-              <img src='img/dummy.jpg' id="titleImage" class="ib-framed-image" alt="Titelbild">
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="row row-centered">
-              <div id="objectTitle" class="ib-preview-title"></div>
-            </div>
-            <div class="row row-centered ib-preview-data">
-              <div class="col-xs-3">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Kaltmiete</div>
-                </div>
-                <div class="row">
-                  <div id="coldRent"></div>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Nebenkosten</div>
-                </div>
-                <div class="row">
-                  <div id="serviceCharge"></div>
-                </div>
-              </div>
-              <div class="col-xs-2">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Zimmer</div>
-                </div>
-                <div class="row">
-                  <div id="rooms"></div>
-                </div>
-              </div>
-              <div class="col-xs-3">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Fläche</div>
-                </div>
-                <div class="row">
-                  <div id="livingArea"></div>
-                </div>
-              </div>
-            </div>
-            <div id="furnishingTags" class="ib-preview-tags"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="list"></div>
-    <div id="loader">
-      <div class="loader"></div>
-    </div>
-  </div>
-</div>
+</html>

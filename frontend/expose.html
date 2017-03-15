@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -19,575 +20,576 @@
   through which recipients can access the Corresponding Source.
   @licend  The above is the entire license notice
 -->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Immobrowse Exposé</title>
-  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
-  <link rel="stylesheet" href="immobrowse.css">
-  <link rel="stylesheet" href="expose.css">
-  <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js"></script>
-  <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
-  <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://tls.homeinfo.de/jslibs/homeinfo.min.js"></script>
-  <script src="https://tls.homeinfo.de/jslibs/immobrowse.min.js"></script>
-  <script src="config.js"></script>
-  <script>
-    var args = queryArgs();
-    // XXX: Change config for appropriate productive setting
-    var mailer = new immobrowse.Mailer('homeinfo-testing');
-    var customer = args['customer'];
-    var listUrl = 'list.html?' + customer;
-    var objektnrExtern = args['objektnr_extern'];
-    var elements;
-    var realEstate;
-    var images;
-    var currentImage = 0;
-    var floorplans;
-    var currentFloorplan = 0;
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Immobrowse Exposé</title>
+    <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
+    <link rel="stylesheet" href="immobrowse.css">
+    <link rel="stylesheet" href="expose.css">
+    <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://tls.homeinfo.de/jslibs/homeinfo.min.js"></script>
+    <script src="https://tls.homeinfo.de/jslibs/immobrowse.min.js"></script>
+    <script src="config.js"></script>
+    <script>
+      var args = queryArgs();
+      // XXX: Change config for appropriate productive setting
+      var mailer = new immobrowse.Mailer('homeinfo-testing');
+      var customer = args['customer'];
+      var listUrl = 'list.html?' + customer;
+      var objektnrExtern = args['objektnr_extern'];
+      var elements;
+      var realEstate;
+      var images;
+      var currentImage = 0;
+      var floorplans;
+      var currentFloorplan = 0;
 
-    function queryArgs() {
-      var queryString = decodeURIComponent(window.location.search.substring(1));
-      var assignments = queryString.split('&');
-      var args = {};
+      function queryArgs() {
+        var queryString = decodeURIComponent(window.location.search.substring(1));
+        var assignments = queryString.split('&');
+        var args = {};
 
-      for (var i = 0; i < assignments.length; i++) {
-        var parts = assignments[i].split('=');
+        for (var i = 0; i < assignments.length; i++) {
+          var parts = assignments[i].split('=');
 
-        if (parts[1] == null) {
-          args[parts[0]] = true;
-        } else {
-          args[parts[0]] = parts[1];
-        }
-      }
-
-      return args;
-    }
-
-    function back() {
-      immobrowse.open('list.html?' + customer);
-    }
-
-    function clearContactForm() {
-      $('#gender_female').click();
-      $('#forename').val('');
-      $('#surname').val('');
-      $('#email').val('');
-      $('#phone').val('');
-      $('#street').val('');
-      $('#house_number').val('');
-      $('#zip_code').val('');
-      $('#city').val('');
-      $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
-      $('#contact_form_response').hide();
-    }
-
-    function sendEmail() {
-      var response = grecaptcha.getResponse();
-
-      if (response.length == 0) {
-        swal({
-          title: 'Achtung!',
-          text: 'Bitte den CAPTCHA lösen.',
-          type: 'warning'
-        });
-        return;
-      }
-
-      var forename = $("#forename").val().trim();
-
-      if (forename == '') {
-        swal({
-          title: 'Achtung!',
-          text: 'Bitte Pflichtfeld "Vorname" ausfüllen.',
-          type: 'warning'
-        });
-        return;
-      }
-
-      var surname = $("#surname").val().trim();
-
-      if (surname == '') {
-        swal({
-          title: 'Achtung!',
-          text: 'Bitte Pflichtfeld "Nachname" ausfüllen.',
-          type: 'warning'
-        });
-        return;
-      }
-
-      var email = $('#email').val().trim();
-
-      if (email == '') {
-        swal({
-          title: 'Achtung!',
-          text: 'Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.',
-          type: 'warning'
-        });
-        return;
-      } else if (homeinfo.str.isEmail(email) == false) {
-        swal({
-          title: 'Achtung!',
-          text: 'Bitte geben Sie eine gültige E-Mail Adresse an.',
-          type: 'warning'
-        });
-        return;
-      }
-
-      var salutation;
-
-      if ($("input:radio[name='gender']:checked").val() == 1) {
-        salutation = "Herr";
-      } else {
-        salutation = "Frau";
-      }
-
-      var phone = $('#phone').val().trim();
-      var street = $('#street').val().trim();
-      var house_number = $('#house_number').val().trim();
-      var zip_code = $('#zip_code').val().trim();
-      var city = $('#city').val().trim();
-      var message = $('#message').val().trim();
-      var recipient = args['kontakt_email'];
-      var html = immobrowse.mkContactMail(
-        objektnrExtern, salutation, forename, surname,
-        phone, street, house_number, zip_code, city, message)
-      mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, null, email);
-      grecaptcha.reset();
-    }
-
-    function postRender() {
-      $('#loader').hide();
-      $('#main').attr('style', 'padding-top: 80px');
-
-      $('.showimage').click(function() {
-        for (var i = 0; i < $(this).data("nrmax"); i++) {
-          $('#image'+ i).hide();
-        }
-        $('#image'+ $(this).data("nr")).show();
-      });
-
-      $('.btn_contact').click(function(e) {
-        //$('#contact').scrollIntoView(true);
-        if ($('#contact').attr('style') == "display: none;") {
-          $('#contact').slideDown();
-        } else {
-          $('#contact').slideUp();
-        }
-        $('html, body').animate({
-          scrollTop: $('#contact').offset().top
-        }, 500);
-        return false; // Not scrolling to top alternative: e.preventDefault();
-      });
-    }
-
-    function initContactForm() {
-      clearContactForm();
-      $("#send_form").click(sendEmail);
-      $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-      $("#clear_form").click(clearContactForm);
-    }
-
-    function nextImage() {
-      currentImage++;
-
-      if (currentImage >= images.length) {
-        currentImage = 0;
-      }
-
-      $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
-    }
-
-    function nextFloorplan() {
-      currentFloorplan++;
-
-      if (currentFloorplan >= floorplans.length) {
-        currentFloorplan = 0;
-      }
-
-      $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
-    }
-
-    $(document).ready(function () {
-      initContactForm();
-
-      elements = {
-        objectTitle: $('#objectTitle'),
-        prices: {
-          coldRent: $('#coldRent'),
-          serviceCharge: $('#serviceCharge'),
-          heatingCosts: $('#heatingCosts'),
-          heatingCostsInServiceCharge: $('#heatingCostsInServiceCharge'),
-          securityDeposit: $('#securityDeposit'),
-          subjectToCommission: $('#subjectToCommission'),
-        },
-        area: {
-          livingArea: $('#livingArea'),
-          rooms: $('#rooms')
-        },
-        geo: {
-          floor: $('#floor')
-        },
-        management: {
-          availableFrom: $('#availableFrom'),
-          councilFlat: $('#councilFlat')
-        },
-        state: {
-          constructionYear: $('#constructionYear'),
-          state: $('#state'),
-          lastModernization: $('#lastModernization'),
-          energyCertificate: {
-            type: $('#energyCertificateType'),
-            consumption: $('#energyConsumption'),
-            consumptionContainer: $('#energyConsumptionContainer'),
-            demand: $('#energyDemand'),
-            demandContainer: $('#energyDemandContainer'),
-            primaryEnergyCarrier: $('#primaryEnergyCarrier'),
-            valueClass: $('#valueClass')
+          if (parts[1] == null) {
+            args[parts[0]] = true;
+          } else {
+            args[parts[0]] = parts[1];
           }
-        },
-        freeTexts: {
-          description: $('#description'),
-          exposure: $('#exposure'),
-          miscellanea: $('#miscellanea')
-        },
-        contact: {
-          salutation: $('#salutation'),
-          firstName: $('#firstName'),
-          lastName: $('#lastName'),
-          company: $('#company'),
-          street: $('#street'),
-          houseNumber: $('#houseNumber'),
-          streetAndHouseNumber: $('#streetAndHouseNumber'),
-          zipCode: $('#zipCode'),
-          city: $('#city'),
-          zipCodeAndCity: $('#zipCodeAndCity'),
-          website: $('#website')
-        },
-        furnishingTags: $('#furnishingTags'),
-        titleImage: $('#titleImage')
-      };
-
-      immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
-        realEstate = realEstate_;
-        images = realEstate.images();
-
-        if (images.length > 0) {
-          $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
         }
 
-        if (images.length > 1) {
-          $('#titleImage').click(nextImage);
-          $('#titleImage').addClass('ib-browsable');
+        return args;
+      }
+
+      function back() {
+        immobrowse.open('list.html?' + customer);
+      }
+
+      function clearContactForm() {
+        $('#gender_female').click();
+        $('#forename').val('');
+        $('#surname').val('');
+        $('#email').val('');
+        $('#phone').val('');
+        $('#street').val('');
+        $('#house_number').val('');
+        $('#zip_code').val('');
+        $('#city').val('');
+        $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
+        $('#contact_form_response').hide();
+      }
+
+      function sendEmail() {
+        var response = grecaptcha.getResponse();
+
+        if (response.length == 0) {
+          swal({
+            title: 'Achtung!',
+            text: 'Bitte den CAPTCHA lösen.',
+            type: 'warning'
+          });
+          return;
         }
 
-        floorplans = realEstate.floorplans();
+        var forename = $("#forename").val().trim();
 
-        if (floorplans.length > 0) {
-          $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+        if (forename == '') {
+          swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "Vorname" ausfüllen.',
+            type: 'warning'
+          });
+          return;
         }
 
-        if (floorplans.length > 1) {
-          $('#floorplan').click(nextFloorplan);
-          $('#floorplan').addClass('ib-browsable');
+        var surname = $("#surname").val().trim();
+
+        if (surname == '') {
+          swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "Nachname" ausfüllen.',
+            type: 'warning'
+          });
+          return;
         }
 
-        realEstate.render(elements);
-        postRender();
+        var email = $('#email').val().trim();
+
+        if (email == '') {
+          swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.',
+            type: 'warning'
+          });
+          return;
+        } else if (homeinfo.str.isEmail(email) == false) {
+          swal({
+            title: 'Achtung!',
+            text: 'Bitte geben Sie eine gültige E-Mail Adresse an.',
+            type: 'warning'
+          });
+          return;
+        }
+
+        var salutation;
+
+        if ($("input:radio[name='gender']:checked").val() == 1) {
+          salutation = "Herr";
+        } else {
+          salutation = "Frau";
+        }
+
+        var phone = $('#phone').val().trim();
+        var street = $('#street').val().trim();
+        var house_number = $('#house_number').val().trim();
+        var zip_code = $('#zip_code').val().trim();
+        var city = $('#city').val().trim();
+        var message = $('#message').val().trim();
+        var recipient = args['kontakt_email'];
+        var html = immobrowse.mkContactMail(
+          objektnrExtern, salutation, forename, surname,
+          phone, street, house_number, zip_code, city, message)
+        mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, null, email);
+        grecaptcha.reset();
+      }
+
+      function postRender() {
+        $('#loader').hide();
+        $('#main').attr('style', 'padding-top: 80px');
+
+        $('.showimage').click(function() {
+          for (var i = 0; i < $(this).data("nrmax"); i++) {
+            $('#image'+ i).hide();
+          }
+          $('#image'+ $(this).data("nr")).show();
+        });
+
+        $('.btn_contact').click(function(e) {
+          //$('#contact').scrollIntoView(true);
+          if ($('#contact').attr('style') == "display: none;") {
+            $('#contact').slideDown();
+          } else {
+            $('#contact').slideUp();
+          }
+          $('html, body').animate({
+            scrollTop: $('#contact').offset().top
+          }, 500);
+          return false; // Not scrolling to top alternative: e.preventDefault();
+        });
+      }
+
+      function initContactForm() {
+        clearContactForm();
+        $("#send_form").click(sendEmail);
+        $('#contactFormModal').on('shown.bs.modal', clearContactForm);
+        $("#clear_form").click(clearContactForm);
+      }
+
+      function nextImage() {
+        currentImage++;
+
+        if (currentImage >= images.length) {
+          currentImage = 0;
+        }
+
+        $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
+      }
+
+      function nextFloorplan() {
+        currentFloorplan++;
+
+        if (currentFloorplan >= floorplans.length) {
+          currentFloorplan = 0;
+        }
+
+        $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+      }
+
+      $(document).ready(function () {
+        initContactForm();
+
+        elements = {
+          objectTitle: $('#objectTitle'),
+          prices: {
+            coldRent: $('#coldRent'),
+            serviceCharge: $('#serviceCharge'),
+            heatingCosts: $('#heatingCosts'),
+            heatingCostsInServiceCharge: $('#heatingCostsInServiceCharge'),
+            securityDeposit: $('#securityDeposit'),
+            subjectToCommission: $('#subjectToCommission'),
+          },
+          area: {
+            livingArea: $('#livingArea'),
+            rooms: $('#rooms')
+          },
+          geo: {
+            floor: $('#floor')
+          },
+          management: {
+            availableFrom: $('#availableFrom'),
+            councilFlat: $('#councilFlat')
+          },
+          state: {
+            constructionYear: $('#constructionYear'),
+            state: $('#state'),
+            lastModernization: $('#lastModernization'),
+            energyCertificate: {
+              type: $('#energyCertificateType'),
+              consumption: $('#energyConsumption'),
+              consumptionContainer: $('#energyConsumptionContainer'),
+              demand: $('#energyDemand'),
+              demandContainer: $('#energyDemandContainer'),
+              primaryEnergyCarrier: $('#primaryEnergyCarrier'),
+              valueClass: $('#valueClass')
+            }
+          },
+          freeTexts: {
+            description: $('#description'),
+            exposure: $('#exposure'),
+            miscellanea: $('#miscellanea')
+          },
+          contact: {
+            salutation: $('#salutation'),
+            firstName: $('#firstName'),
+            lastName: $('#lastName'),
+            company: $('#company'),
+            street: $('#street'),
+            houseNumber: $('#houseNumber'),
+            streetAndHouseNumber: $('#streetAndHouseNumber'),
+            zipCode: $('#zipCode'),
+            city: $('#city'),
+            zipCodeAndCity: $('#zipCodeAndCity'),
+            website: $('#website')
+          },
+          furnishingTags: $('#furnishingTags'),
+          titleImage: $('#titleImage')
+        };
+
+        immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
+          realEstate = realEstate_;
+          images = realEstate.images();
+
+          if (images.length > 0) {
+            $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
+          }
+
+          if (images.length > 1) {
+            $('#titleImage').click(nextImage);
+            $('#titleImage').addClass('ib-browsable');
+          }
+
+          floorplans = realEstate.floorplans();
+
+          if (floorplans.length > 0) {
+            $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+          }
+
+          if (floorplans.length > 1) {
+            $('#floorplan').click(nextFloorplan);
+            $('#floorplan').addClass('ib-browsable');
+          }
+
+          realEstate.render(elements);
+          postRender();
+        });
       });
-    });
-  </script>
-</head>
-<div class="container">
-  <div id="header" class="row row-centered ib-header">
-    <div class="col-md-2 col-centered">
-      <button type="button" class="btn btn-default" onclick="back();">
-        « Zur&uuml;ck
-      </button>
-    </div>
-    <div id="objectTitle" class="col-md-8 col-centered ib-title">
-      Objekttitel
-    </div>
-    <div class="col-md-2 col-centered">
-      <div class="ib-detail-contactform">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_form">
-          Kontaktformular
+    </script>
+  </head>
+  <div class="container">
+    <div id="header" class="row row-centered ib-header">
+      <div class="col-md-2 col-centered">
+        <button type="button" class="btn btn-default" onclick="back();">
+          « Zur&uuml;ck
         </button>
       </div>
-    </div>
-  </div>
-  <div class="row row-centered">
-    <div id="expose" class="col-md-12 ib-expose">
-      <div class="row row-centered">
-        <div class="col-md-6">
-          <div class="ib-image-frame ib-expose-image">
-            <img src='img/dummy.jpg' id="titleImage" class="ib-framed-image" alt="Titelbild">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="ib-image-frame ib-expose-image">
-            <img src='img/dummy.jpg' id="floorplan" class="ib-framed-image" alt="Grundriss">
-          </div>
-        </div>
+      <div id="objectTitle" class="col-md-8 col-centered ib-title">
+        Objekttitel
       </div>
-      <div class="row row-centered ib-expose-data">
-        <div class="col-md-6">
-          <div class="row row-centered ib-section-caption">
-            Preise
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Kaltmiete
-            </div>
-            <div id="coldRent" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Nebenkosten
-            </div>
-            <div id="serviceCharge" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Kaution / Genoss.-Ant.
-            </div>
-            <div id="securityDeposit" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Heizkosten in NK enthalten?
-            </div>
-            <div id="heatingCostsInServiceCharge" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Heizkosten
-            </div>
-            <div id="heatingCosts" class="col-md-6"></div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="row row-centered ib-section-caption">
-            Zustand und Ausstattung
-          </div><div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Wohnfläche
-            </div>
-            <div id="livingArea" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Zimmer
-            </div>
-            <div id="rooms" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Etage
-            </div>
-            <div id="floor" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Baujahr
-            </div>
-            <div id="constructionYear" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Zustand
-            </div>
-            <div id="state" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Letzte Modernisierung
-            </div>
-            <div id="lastModernization" class="col-md-6"></div>
-          </div>
-        </div>
-      </div>
-      <div class="row row-centered ib-expose-data">
-        <div class="col-md-6">
-          <div class="row row-centered ib-section-caption">
-            Energieausweis
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Ausweisart
-            </div>
-            <div id="energyCertificateType" class="col-md-6"></div>
-          </div>
-          <div id="energyConsumptionContainer" class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Endenergieverbrauch
-            </div>
-            <div id="energyConsumption" class="col-md-6"></div>
-          </div>
-          <div id="energyDemandContainer" class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Endenergiebedarf
-            </div>
-            <div id="energyDemand" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Primärenergieträger
-            </div>
-            <div id="primaryEnergyCarrier" class="col-md-6"></div>
-          </div>
-          <div class="row row-centered">
-            <div class="col-md-6 ib-price-caption">
-              Wertklasse
-            </div>
-            <div id="valueClass" class="col-md-6"></div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="row row-centered ib-section-caption">
-            Ausstattung
-          </div>
-          <div id="furnishing" class="row row-centered"></div>
-        </div>
-      </div>
-      <div class="row row-centered ib-expose-data">
-        <div class="col-md-12">
-          <div class="row row-centered ib-section-caption">
-            Objektbeschreibung
-          </div>
-          <div id="description" class="row row-centered ib-justified"></div>
-        </div>
-      </div>
-      <div class="row row-centered ib-expose-data">
-        <div class="col-md-12">
-          <div class="row row-centered ib-section-caption">
-            Lagebeschreibung
-          </div>
-          <div id="exposure" class="row row-centered ib-justified"></div>
-        </div>
-      </div>
-      <div class="row row-centered ib-expose-data">
-        <div class="col-md-12">
-          <div class="row row-centered ib-section-caption">
-            Sonstiges
-          </div>
-          <div id="miscellanea" class="row row-centered ib-justified"></div>
+      <div class="col-md-2 col-centered">
+        <div class="ib-detail-contactform">
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_form">
+            Kontaktformular
+          </button>
         </div>
       </div>
     </div>
-    <div id="loader">
-      <div class="loader"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div id="contact_form" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Kontaktformular</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row" id="the_form" style="margin-top:10px;">
+    <div class="row row-centered">
+      <div id="expose" class="col-md-12 ib-expose">
+        <div class="row row-centered">
           <div class="col-md-6">
-           <p><strong>Anrede</strong></p>
-             <div class="btn-group" data-toggle="buttons">
-               <label class="btn btn-default">
-                 <input type="radio" name="gender" id="gender_male" value="1">Herr
-               </label>
-               <label class="btn btn-default">
-                 <input type="radio" name="gender" id="gender_female" value="0">Frau
-               </label>
-             </div>
-          </div>
-          <div class="col-md-6" id="contact_form_object_nr">
-            <p><strong>Objektnummer</strong></p>
-            <input type="text" class="form-control" id="contact_form_objektnr_extern" disabled>
-          </div>
-          <div class="row">
-            <div class="col-md-12">&nbsp;</div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="forename">Vorname</label>
-              <input type="text" class="form-control" id="forename" placeholder="Vorname*">
+            <div class="ib-image-frame ib-expose-image">
+              <img src='img/dummy.jpg' id="titleImage" class="ib-framed-image" alt="Titelbild">
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <label for="surname">Nachname</label>
-              <input type="text" class="form-control" id="surname" placeholder="Nachname*">
+            <div class="ib-image-frame ib-expose-image">
+              <img src='img/dummy.jpg' id="floorplan" class="ib-framed-image" alt="Grundriss">
+            </div>
+          </div>
+        </div>
+        <div class="row row-centered ib-expose-data">
+          <div class="col-md-6">
+            <div class="row row-centered ib-section-caption">
+              Preise
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Kaltmiete
+              </div>
+              <div id="coldRent" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Nebenkosten
+              </div>
+              <div id="serviceCharge" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Kaution / Genoss.-Ant.
+              </div>
+              <div id="securityDeposit" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Heizkosten in NK enthalten?
+              </div>
+              <div id="heatingCostsInServiceCharge" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Heizkosten
+              </div>
+              <div id="heatingCosts" class="col-md-6"></div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <label for="email">E-Mail Adresse</label>
-              <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
+            <div class="row row-centered ib-section-caption">
+              Zustand und Ausstattung
+            </div><div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Wohnfläche
+              </div>
+              <div id="livingArea" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Zimmer
+              </div>
+              <div id="rooms" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Etage
+              </div>
+              <div id="floor" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Baujahr
+              </div>
+              <div id="constructionYear" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Zustand
+              </div>
+              <div id="state" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Letzte Modernisierung
+              </div>
+              <div id="lastModernization" class="col-md-6"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-centered ib-expose-data">
+          <div class="col-md-6">
+            <div class="row row-centered ib-section-caption">
+              Energieausweis
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Ausweisart
+              </div>
+              <div id="energyCertificateType" class="col-md-6"></div>
+            </div>
+            <div id="energyConsumptionContainer" class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Endenergieverbrauch
+              </div>
+              <div id="energyConsumption" class="col-md-6"></div>
+            </div>
+            <div id="energyDemandContainer" class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Endenergiebedarf
+              </div>
+              <div id="energyDemand" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Primärenergieträger
+              </div>
+              <div id="primaryEnergyCarrier" class="col-md-6"></div>
+            </div>
+            <div class="row row-centered">
+              <div class="col-md-6 ib-price-caption">
+                Wertklasse
+              </div>
+              <div id="valueClass" class="col-md-6"></div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <label for="phone">Telefon</label>
-              <input type="text" class="form-control" id="phone" placeholder="Telefon">
+            <div class="row row-centered ib-section-caption">
+              Ausstattung
             </div>
+            <div id="furnishing" class="row row-centered"></div>
           </div>
-          <div class="col-md-8">
-            <div class="form-group">
-              <label for="street">Straße</label>
-              <input type="text" class="form-control" id="street" placeholder="Straße">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="house_number">Haus-Nr.</label>
-              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="zip_code">PLZ</label>
-              <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="form-group">
-              <label for="city">Ort</label>
-              <input type="text" class="form-control" id="city" placeholder="Ort">
-            </div>
-          </div>
+        </div>
+        <div class="row row-centered ib-expose-data">
           <div class="col-md-12">
-            <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
-          </div>
-          <div class="col-md-12" style="color:#979696; font-size:10px;">
-            Mit einem (*) gekennzeichnete Felder sind Pflichfelder
-          </div>
-          <div class="col-md-12" style="margin-top:20px;">
-            <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+            <div class="row row-centered ib-section-caption">
+              Objektbeschreibung
+            </div>
+            <div id="description" class="row row-centered ib-justified"></div>
           </div>
         </div>
-        <hr>
-        <div class="row" id="contact_form_response" style="display:none;">
-          <hr>
-          <div class="col-md-2">
-            <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
+        <div class="row row-centered ib-expose-data">
+          <div class="col-md-12">
+            <div class="row row-centered ib-section-caption">
+              Lagebeschreibung
+            </div>
+            <div id="exposure" class="row row-centered ib-justified"></div>
           </div>
-          <div class="col-md-9">
-            <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
+        </div>
+        <div class="row row-centered ib-expose-data">
+          <div class="col-md-12">
+            <div class="row row-centered ib-section-caption">
+              Sonstiges
+            </div>
+            <div id="miscellanea" class="row row-centered ib-justified"></div>
           </div>
         </div>
       </div>
-      <div class="modal-footer" style="visible:false;">
-        <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
-        <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
-        <img src="img/preloader.gif" id="loading" style="display:none;"></span>
-        <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
+      <div id="loader">
+        <div class="loader"></div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Modal -->
+  <div id="contact_form" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Kontaktformular</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row" id="the_form" style="margin-top:10px;">
+            <div class="col-md-6">
+             <p><strong>Anrede</strong></p>
+               <div class="btn-group" data-toggle="buttons">
+                 <label class="btn btn-default">
+                   <input type="radio" name="gender" id="gender_male" value="1">Herr
+                 </label>
+                 <label class="btn btn-default">
+                   <input type="radio" name="gender" id="gender_female" value="0">Frau
+                 </label>
+               </div>
+            </div>
+            <div class="col-md-6" id="contact_form_object_nr">
+              <p><strong>Objektnummer</strong></p>
+              <input type="text" class="form-control" id="contact_form_objektnr_extern" disabled>
+            </div>
+            <div class="row">
+              <div class="col-md-12">&nbsp;</div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="forename">Vorname</label>
+                <input type="text" class="form-control" id="forename" placeholder="Vorname*">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="surname">Nachname</label>
+                <input type="text" class="form-control" id="surname" placeholder="Nachname*">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">E-Mail Adresse</label>
+                <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="text" class="form-control" id="phone" placeholder="Telefon">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="street">Straße</label>
+                <input type="text" class="form-control" id="street" placeholder="Straße">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="house_number">Haus-Nr.</label>
+                <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="zip_code">PLZ</label>
+                <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <label for="city">Ort</label>
+                <input type="text" class="form-control" id="city" placeholder="Ort">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
+            </div>
+            <div class="col-md-12" style="color:#979696; font-size:10px;">
+              Mit einem (*) gekennzeichnete Felder sind Pflichfelder
+            </div>
+            <div class="col-md-12" style="margin-top:20px;">
+              <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+            </div>
+          </div>
+          <hr>
+          <div class="row" id="contact_form_response" style="display:none;">
+            <hr>
+            <div class="col-md-2">
+              <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
+            </div>
+            <div class="col-md-9">
+              <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="visible:false;">
+          <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
+          <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
+          <img src="img/preloader.gif" id="loading" style="display:none;"></span>
+          <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
