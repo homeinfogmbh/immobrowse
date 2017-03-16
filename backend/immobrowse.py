@@ -1,5 +1,7 @@
 """ImmoBrowse real estate backend"""
 
+from configparser import ConfigParser
+
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField, \
     BooleanField
 
