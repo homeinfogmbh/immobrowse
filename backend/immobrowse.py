@@ -14,6 +14,9 @@ __all__ = ['HANDLERS']
 
 PORTAL = 'immobrowse'
 
+config = ConfigParser()
+config.read('/etc/immobrowse.conf')
+
 
 def customer(ident):
     """Returns a customer for the respective string"""
@@ -96,10 +99,10 @@ class ImmoBrowseModel(Model):
 
     class Meta:
         database = MySQLDatabase(
-            'immobrowse',
-            host='localhost',
-            user='immobrowse',
-            passwd='SAgNBGNXf4uWTn47',
+            config['db']['database'],
+            host=config['db']['host'],
+            user=config['db']['user'],
+            passwd=config['db']['passwd'],
             closing=True)
 
     id = PrimaryKeyField()
