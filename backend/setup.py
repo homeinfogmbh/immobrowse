@@ -10,5 +10,4 @@ setup(
     data_files=[
         ('/usr/share', ['immobrowse.wsgi']),
         ('/etc/uwsgi/apps-available', ['immobrowse.ini'])],
-    license=open('LICENSE.txt').read(),
     description='Real estate search engine')
