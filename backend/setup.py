@@ -9,6 +9,5 @@ setup(
     py_modules=['immobrowse'],
     data_files=[
         ('/usr/share', ['immobrowse.wsgi']),
-        ('/etc', ['immobrowse.conf']),
         ('/etc/uwsgi/apps-available', ['immobrowse.ini'])],
     description='Real estate search engine')
