@@ -60,3 +60,11 @@
   margin-right: 1em;
   height: 300px;
 }
+
+.ib-amenities-list {
+  list-style-image: url('img/ok.png');
+}
+
+.ib-print-frame {
+  display: none;
+}

@@ -211,6 +211,12 @@
       $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
     }
 
+    function printExpose() {
+      window.frames["print_frame"].document.body.innerHTML = $('#expose').html();
+      window.frames["print_frame"].window.focus();
+      window.frames["print_frame"].window.print();
+    }
+
     $(document).ready(function () {
       elements = {
         objectId: $('#objectId'),
@@ -304,6 +310,11 @@
       Objekt ID
     </div>
     <div class="col-md-2 col-centered">
+      <div class="ib-detail-print">
+        <button type="button" class="btn btn-info" onclick="printExpose();">
+          Drucken
+        </button>
+      </div>
       <div class="ib-detail-contactform">
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_form">
           Kontaktformular
@@ -474,6 +485,7 @@
       <div class="loader"></div>
     </div>
   </div>
+  <iframe class="ib-print-frame" name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 </div>
 
 <!-- Modal -->
