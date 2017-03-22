@@ -211,15 +211,6 @@
       $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
     }
 
-    function printExpose() {
-      var printDivCSS = '<link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">'
-      printDivCSS += '<link rel="stylesheet" href="immobrowse.css">'
-      printDivCSS += '<link rel="stylesheet" href="expose.css">';
-      window.frames["print_frame"].document.body.innerHTML = printDivCSS + $('#expose').html();
-      window.frames["print_frame"].window.focus();
-      window.frames["print_frame"].window.print();
-    }
-
     $(document).ready(function () {
       elements = {
         objectId: $('#objectId'),
@@ -306,18 +297,20 @@
         « Zur&uuml;ck
       </button>
     </div>
-    <div id="objectTitle" class="col-md-6 col-centered ib-title">
+    <div id="objectTitle" class="col-md-5 col-centered ib-title">
       Objekttitel
     </div>
     <div id="objectId" class="col-md-2 col-centered ib-id">
       Objekt ID
     </div>
-    <div class="col-md-2 col-centered">
+    <div class="col-md-1 col-centered">
       <div class="ib-detail-print">
-        <button type="button" class="btn btn-info" onclick="printExpose();">
+        <button type="button" class="btn btn-info" onclick="print();">
           Drucken
         </button>
       </div>
+    </div>
+    <div class="col-md-2 col-centered">
       <div class="ib-detail-contactform">
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_form">
           Kontaktformular
@@ -488,7 +481,6 @@
       <div class="loader"></div>
     </div>
   </div>
-  <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 </div>
 
 <!-- Modal -->

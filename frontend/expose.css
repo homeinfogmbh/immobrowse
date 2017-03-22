@@ -1,6 +1,15 @@
 /*
   Default stylesheets for the list view
 */
+@media print {
+  .ib-header {
+    display: none;
+  }
+
+  #contact {
+    display: none;
+  }
+}
 
 .ib-header {
   padding-top: 1em;
