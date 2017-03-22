@@ -89,3 +89,7 @@ body {
   right: 0;
   margin: auto;
 }
+
+.ib-amenities-list {
+  list-style-image: url('img/ok.png');
+}
