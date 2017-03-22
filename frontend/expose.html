@@ -162,6 +162,7 @@
     }
 
     function postRender() {
+      console.log('objectId.value() = ' + $('#objectId').value());
       initContactForm();
 
       $('#loader').hide();
@@ -189,7 +190,6 @@
     }
 
     function initContactForm() {
-      clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
