@@ -71,7 +71,7 @@
     }
 
     function clearContactForm() {
-      $('#object_id').val($('#objectId').val());
+      $('#object_id').attr('placeholder', $('#objectId').val());
       $('#gender_female').click();
       $('#forename').val('');
       $('#surname').val('');
