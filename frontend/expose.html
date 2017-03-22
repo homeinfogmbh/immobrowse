@@ -151,11 +151,11 @@
       var zip_code = $('#zip_code').val().trim();
       var city = $('#city').val().trim();
       var message = $('#message').val().trim();
-      var recipient = args['kontakt_email'];
+      var recipient = realEstate.contact().email;
       var html = immobrowse.mkContactMail(
         objektnrExtern, salutation, forename, surname,
         phone, street, house_number, zip_code, city, message)
-      mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, null, email);
+      mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, , email);
       grecaptcha.reset();
     }
 
