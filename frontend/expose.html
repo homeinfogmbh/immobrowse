@@ -160,6 +160,8 @@
     }
 
     function postRender() {
+      initContactForm();
+
       $('#loader').hide();
       $('#main').attr('style', 'padding-top: 80px');
 
@@ -212,8 +214,6 @@
     }
 
     $(document).ready(function () {
-      initContactForm();
-
       elements = {
         objectId: $('#objectId'),
         objectTitle: $('#objectTitle'),
