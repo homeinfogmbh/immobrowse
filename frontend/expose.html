@@ -255,7 +255,8 @@
         zipCodeAndCity: $('#zipCodeAndCity'),
         website: $('#website'),
         furnishingTags: $('#furnishingTags'),
-        titleImage: $('#titleImage')
+        titleImage: $('#titleImage'),
+        amenitiesList = $('#amenitiesList')
       };
 
       immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
@@ -360,7 +361,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="row row-centered ib-section-caption">
+          <div id="amenitiesList" class="row row-centered ib-section-caption">
             Zustand und Ausstattung
           </div><div class="row row-centered">
             <div class="col-md-6 ib-price-caption">
