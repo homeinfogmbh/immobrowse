@@ -189,6 +189,7 @@
     }
 
     function initContactForm() {
+      clearContactForm();
       $("#send_form").click(sendEmail);
       $('#contactFormModal').on('shown.bs.modal', clearContactForm);
       $("#clear_form").click(clearContactForm);
