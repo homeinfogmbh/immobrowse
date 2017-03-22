@@ -31,6 +31,12 @@
   text-align: center;
 }
 
+.ib-id {
+  font-size: large;
+  font-variant: monospace;
+  text-align: center;
+}
+
 .ib-section-caption {
   font-size: large;
   font-variant: small-caps;
