@@ -233,10 +233,14 @@
         lastModernization: $('#lastModernization'),
         energyCertificate: {
           type: $('#energyCertificateType'),
-          consumption: $('#energyConsumption'),
-          consumptionContainer: $('#energyConsumptionContainer'),
-          demand: $('#energyDemand'),
-          demandContainer: $('#energyDemandContainer'),
+          consumption: {
+            value: $('#energyConsumption'),
+            container: $('#energyConsumptionContainer')
+          },
+          demand: {
+            value: $('#energyDemand'),
+            container: $('#energyDemandContainer')
+          },
           primaryEnergyCarrier: $('#primaryEnergyCarrier'),
           valueClass: $('#valueClass')
         },
