@@ -71,6 +71,7 @@
     }
 
     function clearContactForm() {
+      $('#object_id').val($('#objectId');
       $('#gender_female').click();
       $('#forename').val('');
       $('#surname').val('');
@@ -294,8 +295,11 @@
         « Zur&uuml;ck
       </button>
     </div>
-    <div id="objectTitle" class="col-md-8 col-centered ib-title">
+    <div id="objectTitle" class="col-md-4 col-centered ib-title">
       Objekttitel
+    </div>
+    <div id="objectId" class="col-md-4 col-centered ib-title">
+      Objekt ID
     </div>
     <div class="col-md-2 col-centered">
       <div class="ib-detail-contactform">
@@ -494,7 +498,7 @@
           </div>
           <div class="col-md-6" id="contact_form_object_nr">
             <p><strong>Objektnummer</strong></p>
-            <input id="objectId" type="text" class="form-control" id="contact_form_objektnr_extern" disabled>
+            <input type="text" class="form-control" id="object_id" disabled>
           </div>
           <div class="row">
             <div class="col-md-12">&nbsp;</div>
