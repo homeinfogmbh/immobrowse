@@ -212,7 +212,8 @@
     }
 
     function printExpose() {
-      window.frames["print_frame"].document.body.innerHTML = $('#expose').html();
+      var printDivCSS = '<link rel="stylesheet" href="immobrowse.css"><link rel="stylesheet" href="expose.css">';
+      window.frames["print_frame"].document.body.innerHTML = printDivCSS + $('#expose').html();
       window.frames["print_frame"].window.focus();
       window.frames["print_frame"].window.print();
     }
