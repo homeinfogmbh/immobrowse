@@ -252,7 +252,8 @@ $(document).ready(function () {
       image: $('#titleImage'),
       caption: $('#titleImageCaption')
     },
-    amenitiesList: $('#amenitiesList')
+    amenitiesList: $('#amenitiesList'),
+    contact: $('#contact')
   };
 
   immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
