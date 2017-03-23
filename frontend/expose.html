@@ -211,20 +211,6 @@
       $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
     }
 
-    function printExpose() {
-      var titleImage = $('#titleImage');
-      var floorplan = $('#floorplan');
-      titleImage.removeClass('col-md-6');
-      floorplan.removeClass('col-md-6');
-      titleImage.addClass('col-xs-6');
-      floorplan.addClass('col-xs-6');
-      print();
-      titleImage.removeClass('col-xs-6');
-      floorplan.removeClass('col-xs-6');
-      titleImage.addClass('col-md-6');
-      floorplan.addClass('col-md-6');
-    }
-
     $(document).ready(function () {
       elements = {
         objectId: $('#objectId'),
@@ -319,7 +305,7 @@
     </div>
     <div class="col-md-1 col-centered">
       <div class="ib-detail-print">
-        <button type="button" class="btn btn-info" onclick="printExpose();">
+        <button type="button" class="btn btn-info" onclick="print();">
           Drucken
         </button>
       </div>
