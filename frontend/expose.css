@@ -77,3 +77,7 @@
 .ib-centered {
   text-align: center;
 }
+
+.ib-wrappable-column {
+  margin-top: 2em;
+}
