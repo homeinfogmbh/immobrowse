@@ -275,7 +275,7 @@ $(document).ready(function () {
     }
 
     realEstate.render(elements);
-    document.title = 'Exposé Nr. ' + realEstate.objectId;
+    document.title = 'Exposé Nr. ' + realEstate.objectId();
     postRender();
   });
 });
