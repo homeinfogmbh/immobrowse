@@ -149,33 +149,6 @@ function sendEmail() {
   grecaptcha.reset();
 }
 
-function postRender() {
-  initContactForm();
-
-  $('#loader').hide();
-  $('#main').attr('style', 'padding-top: 80px');
-
-  $('.showimage').click(function() {
-    for (var i = 0; i < $(this).data("nrmax"); i++) {
-      $('#image'+ i).hide();
-    }
-    $('#image'+ $(this).data("nr")).show();
-  });
-
-  $('.btn_contact').click(function(e) {
-    //$('#contact').scrollIntoView(true);
-    if ($('#contact').attr('style') == "display: none;") {
-      $('#contact').slideDown();
-    } else {
-      $('#contact').slideUp();
-    }
-    $('html, body').animate({
-      scrollTop: $('#contact').offset().top
-    }, 500);
-    return false; // Not scrolling to top alternative: e.preventDefault();
-  });
-}
-
 function initContactForm() {
   clearContactForm();
   $("#send_form").click(sendEmail);
@@ -203,6 +176,33 @@ function nextFloorplan() {
 
   $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
   $('#floorplanCaption').html(floorplans[currentFloorplan].anhangtitel);
+}
+
+function postRender() {
+  initContactForm();
+
+  $('#loader').hide();
+  $('#main').attr('style', 'padding-top: 80px');
+
+  $('.showimage').click(function() {
+    for (var i = 0; i < $(this).data("nrmax"); i++) {
+      $('#image'+ i).hide();
+    }
+    $('#image'+ $(this).data("nr")).show();
+  });
+
+  $('.btn_contact').click(function(e) {
+    //$('#contact').scrollIntoView(true);
+    if ($('#contact').attr('style') == "display: none;") {
+      $('#contact').slideDown();
+    } else {
+      $('#contact').slideUp();
+    }
+    $('html, body').animate({
+      scrollTop: $('#contact').offset().top
+    }, 500);
+    return false; // Not scrolling to top alternative: e.preventDefault();
+  });
 }
 
 $(document).ready(function () {
