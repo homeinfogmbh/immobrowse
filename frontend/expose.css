@@ -73,3 +73,7 @@
 .ib-amenities-list {
   list-style-image: url('img/ok.png');
 }
+
+.ib-centered {
+  text-align: center;
+}
