@@ -264,8 +264,8 @@ $(document).ready(function () {
     }
 
     if (images.length > 1) {
-      $('#titleImage').click(nextImage);
-      $('#titleImage').addClass('ib-browsable');
+      $('#titleImageFrame').click(nextImage);
+      $('#titleImageFrame').addClass('ib-browsable');
     }
 
     floorplans = realEstate.floorplans();
@@ -275,8 +275,8 @@ $(document).ready(function () {
     }
 
     if (floorplans.length > 1) {
-      $('#floorplan').click(nextFloorplan);
-      $('#floorplan').addClass('ib-browsable');
+      $('#floorplanFrame').click(nextFloorplan);
+      $('#floorplanFrame').addClass('ib-browsable');
     }
 
     realEstate.render(elements);
