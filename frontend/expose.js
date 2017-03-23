@@ -133,16 +133,18 @@ function sendEmail() {
     salutation = "Frau";
   }
 
+  var objectTitle = realEstate.objectTitle();
+  var objectAddress = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
   var phone = $('#phone').val().trim();
   var street = $('#street').val().trim();
-  var house_number = $('#house_number').val().trim();
-  var zip_code = $('#zip_code').val().trim();
+  var houseNumber = $('#house_number').val().trim();
+  var zipCode = $('#zip_code').val().trim();
   var city = $('#city').val().trim();
   var message = $('#message').val().trim();
   var recipient = realEstate.contact().email;
   var html = immobrowse.mkContactMail(
-    objektnrExtern, salutation, forename, surname,
-    phone, street, house_number, zip_code, city, message)
+    objectTitle, objectAddress, salutation, forename, surname,
+    phone, street, houseNumber, zipCode, city, message)
   mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, null, email);
   grecaptcha.reset();
 }
