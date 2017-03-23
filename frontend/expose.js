@@ -145,7 +145,7 @@ function sendEmail() {
   var html = immobrowse.mkContactMail(
     objectTitle, objectAddress, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, message)
-  mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, null, email);
+  mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, recipient, email);
   grecaptcha.reset();
 }
 
