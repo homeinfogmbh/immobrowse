@@ -189,6 +189,7 @@ function nextImage() {
   }
 
   $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
+  $('#titleImageCaption').html(images[currentImage].anhangtitel);
 }
 
 function nextFloorplan() {
@@ -199,6 +200,7 @@ function nextFloorplan() {
   }
 
   $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+  $('#floorplanCaption').html(floorplans[currentFloorplan].anhangtitel);
 }
 
 $(document).ready(function () {
@@ -246,7 +248,10 @@ $(document).ready(function () {
     city: $('#city'),
     zipCodeAndCity: $('#zipCodeAndCity'),
     website: $('#website'),
-    titleImage: $('#titleImage'),
+    titleImage: {
+      image: $('#titleImage'),
+      caption: $('#titleImageCaption')
+    },
     amenitiesList: $('#amenitiesList')
   };
 
