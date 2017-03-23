@@ -9,6 +9,14 @@
   #contact {
     display: none;
   }
+
+  #titleImageContainer {
+    .col-xs-6;
+  }
+
+  #floorplanContainer {
+    .col-xs-6;
+  }
 }
 
 .ib-header {
