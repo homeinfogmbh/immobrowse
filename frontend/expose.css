@@ -28,10 +28,13 @@
   background-color: white;
 }
 
-.ib-expose-data {
-  margin-top: 2em;
+.ib-expose-data-row {
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.ib-expose-data-col {
+  padding-top: 2em;
 }
 
 .ib-title {
@@ -76,8 +79,4 @@
 
 .ib-centered {
   text-align: center;
-}
-
-.ib-data-block {
-  margin-top: 2em;
 }
