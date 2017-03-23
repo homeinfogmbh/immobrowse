@@ -253,7 +253,13 @@ $(document).ready(function () {
       caption: $('#titleImageCaption')
     },
     amenitiesList: $('#amenitiesList'),
-    contact: $('#contact')
+    contact: {
+      name: $('#contactName'),
+      company: $('#contactCompany'),
+      address: $('#contactAddress'),
+      phone: $('#contactPhone'),
+      website: $('#contactWebsite')
+    }
   };
 
   immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
