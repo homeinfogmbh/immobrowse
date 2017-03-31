@@ -21,20 +21,20 @@
 }
 
 body {
-	background-color: #dfdfdf;
+  background-color: #dfdfdf;
 }
 
 .oval-inner {
   padding-top: 2px;
-	padding-left: 6px;
-	padding-right: 6px;
-	width: auto;
-	height: 20px;
-	background: #666666;
-	border-radius: 40px;
-	text-align: center;
-	color: #fff;
-	font-weight: bold;
+  padding-left: 6px;
+  padding-right: 6px;
+  width: auto;
+  height: 20px;
+  background: #666666;
+  border-radius: 40px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
 }
 
 .oval-outer{
