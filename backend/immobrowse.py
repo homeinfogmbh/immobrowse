@@ -5,9 +5,8 @@ from configparser import ConfigParser
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField, \
     BooleanField
 
-from homeinfo.peewee import MySQLDatabase
-from homeinfo.lib.rest import ResourceHandler
-from homeinfo.lib.wsgi import Error, JSON, Binary
+from peeweeplus import MySQLDatabase
+from wsgilib import Error, JSON, Binary, ResourceHandler
 from homeinfo.crm import Customer
 
 from openimmodb import Immobilie, Anhang
