@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
   <link rel="stylesheet" href="immobrowse.css">
   <link rel="stylesheet" href="expose.css">
+  <link rel="stylesheet" href="gallery.css">
   <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
@@ -33,6 +34,7 @@
   <script src="https://tls.homeinfo.de/jslibs/immobrowse.min.js"></script>
   <script src="config.js"></script>
   <script src="expose.js"></script>
+  <script src="gallery.js"></script>
 </head>
 <div class="container">
   <div id="header" class="row row-centered ib-header">
@@ -56,7 +58,7 @@
     </div>
     <div class="col-md-2 col-centered">
       <div class="ib-detail-contactform ib-centered">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contact_form">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contactForm">
           Kontaktformular
         </button>
       </div>
@@ -275,9 +277,8 @@
 </div>
 
 <!-- Modal -->
-<div id="contact_form" class="modal fade" role="dialog">
+<div id="contactForm" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -377,6 +378,43 @@
         <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
         <img src="img/preloader.gif" id="loading" style="display:none;">
         <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="gallery" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" id="close_modal">
+            <span class="glyphicon glyphicon-remove btn-lg .ib-gallery-close-button"></span>
+          </span>
+        </button>
+        <div class="ib-gallery-title">
+          <h3 class="modal-title" id="exposeGalleryTitle"></h3>
+        </div>
+      </div>
+      <div class="modal-body ib-gallery-image-container">
+         <img id="exposeGalleryImage" src="" class="img-thumbnail">
+      </div>
+      <div class="modal-footer">
+        <table width="100%">
+          <tr>
+              <td>
+                <span id="exposeGalleryNext" class="glyphicon glyphicon-chevron-left btn-lg pull-left ib-gallery-scroll-button" aria-hidden="true"></span>
+              </td>
+              <td align="middle">
+                <span id="exposeGalleryIndex"></span>
+                  /
+                <span id="exposeGalleryImages"></span>
+              </td>
+              <td>
+                <span id="exposeGalleryPrevious" class="glyphicon glyphicon-chevron-right btn-lg pull-right ib-gallery-scroll-button" aria-hidden="true"></span>
+              </td>
+            </tr>
+        </table>
       </div>
     </div>
   </div>

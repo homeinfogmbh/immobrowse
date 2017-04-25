@@ -32,9 +32,7 @@ var objektnrExtern = args['objektnr_extern'];
 var elements;
 var realEstate;
 var images;
-var currentImage = 0;
 var floorplans;
-var currentFloorplan = 0;
 
 function queryArgs() {
   var queryString = decodeURIComponent(window.location.search.substring(1));
@@ -156,28 +154,6 @@ function initContactForm() {
   $("#clear_form").click(clearContactForm);
 }
 
-function nextImage() {
-  currentImage++;
-
-  if (currentImage >= images.length) {
-    currentImage = 0;
-  }
-
-  $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
-  $('#titleImageCaption').html(images[currentImage].anhangtitel);
-}
-
-function nextFloorplan() {
-  currentFloorplan++;
-
-  if (currentFloorplan >= floorplans.length) {
-    currentFloorplan = 0;
-  }
-
-  $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
-  $('#floorplanCaption').html(floorplans[currentFloorplan].anhangtitel);
-}
-
 function postRender() {
   initContactForm();
 
@@ -188,6 +164,7 @@ function postRender() {
     for (var i = 0; i < $(this).data("nrmax"); i++) {
       $('#image'+ i).hide();
     }
+
     $('#image'+ $(this).data("nr")).show();
   });
 
@@ -198,9 +175,11 @@ function postRender() {
     } else {
       $('#contact').slideUp();
     }
+
     $('html, body').animate({
       scrollTop: $('#contact').offset().top
     }, 500);
+
     return false; // Not scrolling to top alternative: e.preventDefault();
   });
 }
@@ -269,22 +248,30 @@ $(document).ready(function () {
     images = realEstate.images();
 
     if (images.length > 0) {
-      $('#titleImage').attr('src', realEstate.attachmentURL(images[currentImage]));
+      $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
     }
 
     if (images.length > 1) {
-      $('#titleImageFrame').click(nextImage);
+      $('#titleImageFrame').click(function() {
+        exposeGallery.initGallery(images);
+        $('#gallery').modal('toggle');
+      });
+
       $('#titleImageFrame').addClass('ib-browsable');
     }
 
     floorplans = realEstate.floorplans();
 
     if (floorplans.length > 0) {
-      $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[currentFloorplan]));
+      $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
     }
 
     if (floorplans.length > 1) {
-      $('#floorplanFrame').click(nextFloorplan);
+      $('#floorplanFrame').click(function() {
+        exposeGallery.initGallery(floorplans);
+        $('#gallery').modal('toggle');
+      });
+
       $('#floorplanFrame').addClass('ib-browsable');
     }
 
