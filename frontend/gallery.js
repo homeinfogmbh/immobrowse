@@ -25,54 +25,37 @@
 
 var gallery = gallery || {};
 
-gallery.galleryIndex = 0;
 
+gallery.Gallery = function (images, mapping, urlCallback) {
+  this.images = images;
+  this.mapping = mapping;
+  this.urlCallback = urlCallback;
+  this.index = 0;
 
-gallery.nextImage = function (images) {
-  gallery.galleryIndex++;
+  this.next = function () {
+    this.index++;
 
-  if (gallery.galleryIndex >= images.length) {
-    gallery.galleryIndex = 0;
+    if (this.index >= this.images.length) {
+      this.index = 0;
+    }
+
+    this.render();
   }
 
-  gallery.updateGallery(images, gallery.galleryIndex);
-}
+  this.previous = function () {
+    this.index--;
 
+    if (this.index < 0) {
+      this.index = this.images.length - 1;
+    }
 
-gallery.previousImage = function (images) {
-  gallery.galleryIndex--;
-
-  if (gallery.galleryIndex < 0) {
-    gallery.galleryIndex = images.length - 1;
+    this.render();
   }
 
-  gallery.updateGallery(images, gallery.galleryIndex);
-}
-
-
-gallery.updateGallery = function (images) {
-  $('#galleryImage').attr('src', realEstate.attachmentURL(images[gallery.galleryIndex]));
-  $('#galleryTitle').html(images[gallery.galleryIndex].anhangtitel);
-  $('#galleryIndex').html(gallery.galleryIndex + 1);
-  $('#galleryImages').html(images.length);
-}
-
-
-gallery.initGallery = function (images) {
-  gallery.galleryIndex = 0;
-
-  if (images.length > 0) {
-    $('#galleryImage').attr('src', realEstate.attachmentURL(images[0]));
+  this.render = function () {
+    this.mapping.image.attr('src', this.urlCallback(this.images[this.index]));
+    this.mapping.title.html(this.images[this.index].anhangtitel);
+    this.mapping.index.html(this.index + 1);
+    this.mapping.count.html(this.images.length);
   }
-
-  if (images.length > 1) {
-    $('#galleryNext').click(function() {
-      gallery.nextImage(images)
-    });
-    $('#galleryPrevious').click(function() {
-      gallery.previousImage(images)
-    });
-  }
-
-  gallery.updateGallery(images, 0);
 }
