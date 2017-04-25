@@ -26,6 +26,30 @@
 var gallery = gallery || {};
 
 
+gallery.next = function (galleryObj) {
+  galleryObj.next();
+}
+
+
+gallery.previous = function (galleryObj) {
+  galleryObj.previous();
+}
+
+
+gallery.nextCallback = function (galleryObj) {
+  return function () {
+    galleryObj.next();
+  }
+}
+
+
+gallery.previousCallback = function (galleryObj) {
+  return function () {
+    galleryObj.previous();
+  }
+}
+
+
 gallery.Gallery = function (images, mapping, urlCallback) {
   this.images = images;
   this.mapping = mapping;
@@ -50,6 +74,13 @@ gallery.Gallery = function (images, mapping, urlCallback) {
     }
 
     this.render();
+  }
+
+  this.bind = function () {
+    this.mapping.next.unbind( "click" );
+    this.mapping.next.click(gallery.nextCallback(this));
+    this.mapping.previous.unbind( "click" );
+    this.mapping.previous.click(gallery.previousCallback(this));
   }
 
   this.render = function () {

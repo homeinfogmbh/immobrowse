@@ -34,6 +34,7 @@ var realEstate;
 var imageGallery;
 var floorplanGallery;
 
+
 function queryArgs() {
   var queryString = decodeURIComponent(window.location.search.substring(1));
   var assignments = queryString.split('&');
@@ -52,9 +53,11 @@ function queryArgs() {
   return args;
 }
 
+
 function back() {
   immobrowse.open('list.html?' + customer);
 }
+
 
 function clearContactForm() {
   $('#object_id').attr('placeholder', $('#objectId').html());
@@ -70,6 +73,7 @@ function clearContactForm() {
   $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
   $('#contact_form_response').hide();
 }
+
 
 function sendEmail() {
   var response = grecaptcha.getResponse();
@@ -147,12 +151,14 @@ function sendEmail() {
   grecaptcha.reset();
 }
 
+
 function initContactForm() {
   clearContactForm();
   $("#send_form").click(sendEmail);
   $('#contactFormModal').on('shown.bs.modal', clearContactForm);
   $("#clear_form").click(clearContactForm);
 }
+
 
 function postRender() {
   initContactForm();
@@ -183,6 +189,57 @@ function postRender() {
     return false; // Not scrolling to top alternative: e.preventDefault();
   });
 }
+
+
+function setupGalleries() {
+  var galleryMapping = {
+      'image': $('#galleryImage'),
+      'title': $('#galleryTitle'),
+      'index': $('#galleryIndex'),
+      'count': $('#galleryImages'),
+      'next': $('#galleryNext'),
+      'previous': $('#galleryPrevious')
+  };
+  var images = realEstate.images();
+
+  function attachmentUrlCallback(attachment) {
+    return realEstate.attachmentURL(attachment);
+  }
+
+  imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
+
+  if (images.length > 0) {
+    $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
+  }
+
+  if (images.length > 1) {
+    $('#titleImageFrame').click(function() {
+      imageGallery.bind();
+      imageGallery.render();
+      $('#gallery').modal('toggle');
+    });
+
+    $('#titleImageFrame').addClass('ib-browsable');
+  }
+
+  var floorplans = realEstate.floorplans();
+  floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
+
+  if (floorplans.length > 0) {
+    $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
+  }
+
+  if (floorplans.length > 1) {
+    $('#floorplanFrame').click(function() {
+      floorplanGallery.bind();
+      floorplanGallery.render();
+      $('#gallery').modal('toggle');
+    });
+
+    $('#floorplanFrame').addClass('ib-browsable');
+  }
+}
+
 
 $(document).ready(function () {
   elements = {
@@ -243,49 +300,9 @@ $(document).ready(function () {
     }
   };
 
-  var galleryMapping = {
-      'image': $('#galleryImage'),
-      'title': $('#galleryTitle'),
-      'index': $('#galleryIndex'),
-      'count': $('#galleryImages'),
-  };
-
   immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
     realEstate = realEstate_;
-    var images = realEstate.images();
-    imageGallery = gallery.Gallery(images, galleryMapping, realEstate.attachmentURL);
-
-    if (images.length > 0) {
-      $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
-    }
-
-    if (images.length > 1) {
-      $('#titleImageFrame').click(function() {
-        $('#galleryNext').click(imageGallery.next);
-        $('#galleryPrevious').click(imageGallery.previous);
-        $('#gallery').modal('toggle');
-      });
-
-      $('#titleImageFrame').addClass('ib-browsable');
-    }
-
-    var floorplans = realEstate.floorplans();
-    floorplanGallery = gallery.Gallery(floorplans, galleryMapping, realEstate.attachmentURL);
-
-    if (floorplans.length > 0) {
-      $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
-    }
-
-    if (floorplans.length > 1) {
-      $('#floorplanFrame').click(function() {
-        $('#galleryNext').click(floorplanGallery.next);
-        $('#galleryPrevious').click(floorplanGallery.previous);
-        $('#gallery').modal('toggle');
-      });
-
-      $('#floorplanFrame').addClass('ib-browsable');
-    }
-
+    setupGalleries();
     realEstate.render(elements);
     document.title = 'Exposé Nr. ' + realEstate.objectId();
     postRender();
