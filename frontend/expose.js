@@ -253,7 +253,7 @@ $(document).ready(function () {
 
     if (images.length > 1) {
       $('#titleImageFrame').click(function() {
-        exposeGallery.initGallery(images);
+        gallery.initGallery(images);
         $('#gallery').modal('toggle');
       });
 
@@ -268,7 +268,7 @@ $(document).ready(function () {
 
     if (floorplans.length > 1) {
       $('#floorplanFrame').click(function() {
-        exposeGallery.initGallery(floorplans);
+        gallery.initGallery(floorplans);
         $('#gallery').modal('toggle');
       });
 

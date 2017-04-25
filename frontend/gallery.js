@@ -23,56 +23,56 @@
     * immobrowse.js
 */
 
-var exposeGallery = exposeGallery || {};
+var gallery = gallery || {};
 
-exposeGallery.galleryIndex = 0;
+gallery.galleryIndex = 0;
 
 
-exposeGallery.nextImage = function (images) {
-  exposeGallery.galleryIndex++;
+gallery.nextImage = function (images) {
+  gallery.galleryIndex++;
 
-  if (exposeGallery.galleryIndex >= images.length) {
-    exposeGallery.galleryIndex = 0;
+  if (gallery.galleryIndex >= images.length) {
+    gallery.galleryIndex = 0;
   }
 
-  exposeGallery.updateGallery(images, exposeGallery.galleryIndex);
+  gallery.updateGallery(images, gallery.galleryIndex);
 }
 
 
-exposeGallery.previousImage = function (images) {
-  exposeGallery.galleryIndex--;
+gallery.previousImage = function (images) {
+  gallery.galleryIndex--;
 
-  if (exposeGallery.galleryIndex < 0) {
-    exposeGallery.galleryIndex = images.length - 1;
+  if (gallery.galleryIndex < 0) {
+    gallery.galleryIndex = images.length - 1;
   }
 
-  exposeGallery.updateGallery(images, exposeGallery.galleryIndex);
+  gallery.updateGallery(images, gallery.galleryIndex);
 }
 
 
-exposeGallery.updateGallery = function (images) {
-  $('#exposeGalleryImage').attr('src', realEstate.attachmentURL(images[exposeGallery.galleryIndex]));
-  $('#exposeGalleryTitle').html(images[exposeGallery.galleryIndex].anhangtitel);
-  $('#exposeGalleryIndex').html(exposeGallery.galleryIndex + 1);
-  $('#exposeGalleryImages').html(images.length);
+gallery.updateGallery = function (images) {
+  $('#galleryImage').attr('src', realEstate.attachmentURL(images[gallery.galleryIndex]));
+  $('#galleryTitle').html(images[gallery.galleryIndex].anhangtitel);
+  $('#galleryIndex').html(gallery.galleryIndex + 1);
+  $('#galleryImages').html(images.length);
 }
 
 
-exposeGallery.initGallery = function (images) {
-  exposeGallery.galleryIndex = 0;
+gallery.initGallery = function (images) {
+  gallery.galleryIndex = 0;
 
   if (images.length > 0) {
-    $('#exposeGalleryImage').attr('src', realEstate.attachmentURL(images[0]));
+    $('#galleryImage').attr('src', realEstate.attachmentURL(images[0]));
   }
 
   if (images.length > 1) {
-    $('#exposeGalleryNext').click(function() {
-      exposeGallery.nextImage(images)
+    $('#galleryNext').click(function() {
+      gallery.nextImage(images)
     });
-    $('#exposeGalleryPrevious').click(function() {
-      exposeGallery.previousImage(images)
+    $('#galleryPrevious').click(function() {
+      gallery.previousImage(images)
     });
   }
 
-  exposeGallery.updateGallery(images, 0);
+  gallery.updateGallery(images, 0);
 }
