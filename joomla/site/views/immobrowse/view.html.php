@@ -14,7 +14,7 @@ class ImmoBrowseViewImmoBrowse extends JView
     function display($tpl = null)
     {
         // Assign data to the view
-        $this->msg = 'Welcome to ImmoBrowse.';
+        $this->msg = 'Welcome to ImmoBrowse, yolo.';
 
         // Display the view
         parent::display($tpl);

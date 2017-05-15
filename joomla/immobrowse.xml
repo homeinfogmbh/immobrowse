@@ -9,7 +9,7 @@
   <copyright>2017 HOMEINFO - Digitale Informationssysteme GmbH</copyright>
   <license>GPL v.3</license>
   <!--  The version string is recorded in the components table -->
-  <version>0.0.1</version>
+  <version>0.0.4</version>
   <!-- The description is optional and defaults to the name -->
   <description>A real estate browsing front-end.</description>
 
@@ -26,6 +26,8 @@
   <files folder="site">
     <filename>index.html</filename>
     <filename>immobrowse.php</filename>
+    <filename>controller.php</filename>
+    <folder>views</folder>
   </files>
 
   <administration>
@@ -43,4 +45,5 @@
       <folder>sql</folder>
     </files>
   </administration>
+
 </extension>
