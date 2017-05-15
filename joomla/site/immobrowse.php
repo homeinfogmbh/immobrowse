@@ -1,17 +1,17 @@
 <?php
-// Restrict direct access
+// No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// Include dependencies
+// import joomla controller library
 jimport('joomla.application.component.controller');
 
-$objektnr_extern = JRequest::getVar('objektnr_extern', null);
+// Get an instance of the controller prefixed by ImmoBrowse
+$controller = JController::getInstance('ImmoBrowse');
 
-if ($objektnr_extern == null) {
-    // List mode
-    echo 'List mode';
-} else {
-    // Expose mode
-    echo 'Exposé mode';
-}
+// Perform the Request task
+$input = JFactory::getApplication()->input;
+$controller->execute($input->getCmd('task'));
+
+// Redirect if set by the controller
+$controller->redirect();
 ?>
