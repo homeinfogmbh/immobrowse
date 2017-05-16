@@ -14,7 +14,7 @@ class ImmoBrowseControllerCustomers extends JControllerAdmin
      * Proxy for getModel.
      * @since    2.5
      */
-    public function getModel($name = 'ImmoBrowse', $prefix = 'ImmoBrowseModel')
+    public function getModel($name = 'Customer', $prefix = 'ImmoBrowseModel')
     {
         $model = parent::getModel($name, $prefix, array('ignore_request' => true));
         return $model;
