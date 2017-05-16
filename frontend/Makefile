@@ -3,7 +3,7 @@
 default: | pull install
 
 install:
-	@ /bin/cp -auv * /srv/http/de/homeinfo/testing/immobrowse/
+	@ install -vm 644 * /srv/http/de/homeinfo/testing/immobrowse/
 
 pull:
 	@ git pull
