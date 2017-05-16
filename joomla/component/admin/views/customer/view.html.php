@@ -8,7 +8,7 @@ jimport('joomla.application.component.view');
 /**
  * ImmoBrowse View
  */
-class ImmoBrowseViewImmoBrowse extends JView
+class ImmoBrowseViewCustomer extends JView
 {
     /**
      * display method of Hello view
@@ -45,8 +45,8 @@ class ImmoBrowseViewImmoBrowse extends JView
         $input = JFactory::getApplication()->input;
         $input->set('hidemainmenu', true);
         $isNew = ($this->item->id == 0);
-        JToolBarHelper::title($isNew ? JText::_('COM_IMMOBROWSE_MANAGER_IMMOBROWSE_NEW')
-                                     : JText::_('COM_IMMOBROWSE_MANAGER_IMMOBROWSE_EDIT'));
+        JToolBarHelper::title($isNew ? JText::_('COM_IMMOBROWSE_MANAGER_CUSTOMER_NEW')
+                                     : JText::_('COM_IMMOBROWSE_MANAGER_CUSTOMER_EDIT'));
         JToolBarHelper::save('immobrowse.save');
         JToolBarHelper::cancel('immobrowse.cancel', $isNew ? 'JTOOLBAR_CANCEL'
                                                            : 'JTOOLBAR_CLOSE');
