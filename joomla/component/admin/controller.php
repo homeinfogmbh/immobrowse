@@ -19,7 +19,7 @@ class ImmoBrowseController extends JController
     {
         // set default view if not set
         $input = JFactory::getApplication()->input;
-        $input->set('view', $input->getCmd('view', 'ImmoBrowse'));
+        $input->set('view', $input->getCmd('view', 'Customers'));
 
         // call parent behavior
         parent::display($cachable);
