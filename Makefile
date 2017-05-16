@@ -13,4 +13,4 @@ frontend:
 	@ make -C frontend
 
 joomla:
-	@ rm -f immobrowse.zip; cd joomla/component; zip -r ../immobrowse.zip *; cd ../..
+	@ rm -f joomla/immobrowse.zip; cd joomla/component; zip -r ../immobrowse.zip *; cd ../..
