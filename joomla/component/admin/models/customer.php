@@ -34,7 +34,7 @@ class ImmoBrowseModelCustomer extends JModelAdmin
     public function getForm($data = array(), $loadData = true)
     {
         // Get the form.
-        $form = $this->loadForm('com_immobrowse.immobrowse', 'immobrowse',
+        $form = $this->loadForm('com_immobrowse.customer', 'customer',
                                 array('control' => 'jform', 'load_data' => $loadData));
         if (empty($form))
         {
@@ -51,7 +51,7 @@ class ImmoBrowseModelCustomer extends JModelAdmin
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = JFactory::getApplication()->getUserState('com_immobrowse.edit.immobrowse.data', array());
+        $data = JFactory::getApplication()->getUserState('com_immobrowse.edit.customer.data', array());
         if (empty($data))
         {
             $data = $this->getItem();
