@@ -1,4 +1,4 @@
-.PHONY: pull push install
+.PHONY: pull install
 
 default: | pull install
 
@@ -7,6 +7,3 @@ install:
 
 pull:
 	@ git pull
-
-push:
-	@ git push
