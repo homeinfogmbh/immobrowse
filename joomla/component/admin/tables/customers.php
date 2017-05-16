@@ -6,9 +6,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.database.table');
 
 /**
- * Hello Table class
+ * Customers Table class
  */
-class ImmoBrowseTableImmoBrowse extends JTable
+class ImmoBrowseTableCustomers extends JTable
 {
     /**
      * Constructor

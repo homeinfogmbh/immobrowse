@@ -19,7 +19,7 @@ class ImmoBrowseModelCustomer extends JModelAdmin
      * @return    JTable    A database object
      * @since    2.5
      */
-    public function getTable($type = 'ImmoBrowse', $prefix = 'ImmoBrowseTable', $config = array())
+    public function getTable($type = 'Customers', $prefix = 'ImmoBrowseTable', $config = array())
     {
         return JTable::getInstance($type, $prefix, $config);
     }
