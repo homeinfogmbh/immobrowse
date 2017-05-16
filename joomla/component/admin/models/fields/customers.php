@@ -7,16 +7,16 @@ jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
 
 /**
- * ImmoBrowse Form Field class for the ImmoBrowse component
+ * Customer Form Field class for the ImmoBrowse component
  */
-class JFormFieldImmoBrowse extends JFormFieldList
+class JFormFieldCustomer extends JFormFieldList
 {
     /**
      * The field type.
      *
      * @var        string
      */
-    protected $type = 'ImmoBrowse';
+    protected $type = 'customers';
 
     /**
      * Method to get a list of options for a list input.

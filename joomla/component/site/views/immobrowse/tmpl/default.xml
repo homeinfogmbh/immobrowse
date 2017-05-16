@@ -12,7 +12,7 @@
     <fieldset name="request">
       <field
         name="id"
-        type="immobrowse"
+        type="customers"
         label="COM_IMMOBROWSE_IMMOBROWSE_FIELD_CUSTOMER_LABEL"
         description="COM_IMMOBROWSE_IMMOBROWSE_FIELD_CUSTOMER_DESC"
       />

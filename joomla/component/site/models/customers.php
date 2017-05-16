@@ -6,9 +6,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modelitem');
 
 /**
- * ImmoBrowse Model
+ * Customers Model
  */
-class ImmoBrowseModelImmoBrowse extends JModelItem
+class ImmoBrowseModelCustomers extends JModelItem
 {
     /**
      * @var string msg
