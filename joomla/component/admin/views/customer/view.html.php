@@ -47,9 +47,8 @@ class ImmoBrowseViewCustomer extends JView
         $isNew = ($this->item->id == 0);
         JToolBarHelper::title($isNew ? JText::_('COM_IMMOBROWSE_MANAGER_CUSTOMER_NEW')
                                      : JText::_('COM_IMMOBROWSE_MANAGER_CUSTOMER_EDIT'));
-        JToolBarHelper::save('immobrowse.save');
-        JToolBarHelper::cancel('immobrowse.cancel', $isNew ? 'JTOOLBAR_CANCEL'
-                                                           : 'JTOOLBAR_CLOSE');
+        JToolBarHelper::save('customer.save');
+        JToolBarHelper::cancel('customer.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
     }
 }
 ?>
