@@ -47,7 +47,7 @@ class ImmoBrowseModelImmoBrowse extends JModelItem
             $jinput = JFactory::getApplication()->input;
             $id = $jinput->get('id', 1, 'INT' );
 
-            // Get a TableHelloWorld instance
+            // Get a TableImmoBrowse instance
             $table = $this->getTable();
 
             // Load the message
