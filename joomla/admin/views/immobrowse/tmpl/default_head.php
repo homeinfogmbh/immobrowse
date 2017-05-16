@@ -10,6 +10,6 @@ defined('_JEXEC') or die('Restricted Access');
     <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count($this->items); ?>);" />
   </th>
   <th>
-    <?php echo JText::_('COM_IMMOBROWSE_IMMOBROWSE_HEADING_GREETING'); ?>
+    <?php echo JText::_('COM_IMMOBROWSE_IMMOBROWSE_HEADING_CUSTOMER'); ?>
   </th>
 </tr>

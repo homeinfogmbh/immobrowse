@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="2.5.0" method="upgrade">
-  <name>ImmoBrowse</name>
+  <name>COM_IMMOBROWSE</name>
   <!-- The following elements are optional and free of formatting constraints -->
   <creationDate>May 2017</creationDate>
   <author>HOMEINFO - Digitale Informationssysteme GmbH</author>
@@ -9,9 +9,9 @@
   <copyright>2017 HOMEINFO - Digitale Informationssysteme GmbH</copyright>
   <license>GPL v.3</license>
   <!--  The version string is recorded in the components table -->
-  <version>0.1.2</version>
+  <version>0.2.0</version>
   <!-- The description is optional and defaults to the name -->
-  <description>A real estate browsing front-end.</description>
+  <description>COM_IMMOBROWSE_DESCRIPTION</description>
 
   <install> <!-- Runs on install -->
     <sql>
@@ -39,6 +39,7 @@
     <filename>controller.php</filename>
     <folder>views</folder>
     <folder>models</folder>
+    <folder>language</folder>
   </files>
 
   <administration>
@@ -49,15 +50,21 @@
       to copy FROM in the package to install therefore files copied
       in this section are copied from /admin/ in the package -->
     <files folder="admin">
-      <!-- Admin Main File Copy Section -->
       <filename>index.html</filename>
       <filename>immobrowse.php</filename>
+      <filename>controller.php</filename>
       <!-- SQL files section -->
       <folder>sql</folder>
       <!-- tables files section -->
       <folder>tables</folder>
       <!-- models files section -->
       <folder>models</folder>
+      <!-- views files section -->
+      <folder>views</folder>
     </files>
+    <languages folder="admin">
+      <language tag="de-DE">language/de-DE/de-DE.com_immobrowse.ini</language>
+      <language tag="de-DE">language/de-DE/de-DE.com_immobrowse.sys.ini</language>
+    </languages>
   </administration>
 </extension>
