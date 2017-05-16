@@ -2,16 +2,13 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// import Joomla controllerform library
-jimport('joomla.application.component.controllerform');
-
 // import Joomla controlleradmin library
 jimport('joomla.application.component.controlleradmin');
 
 /**
- * ImmoBrowse Controller
+ * Customers Controller
  */
-class ImmoBrowseControllerImmoBrowse extends JControllerForm
+class ImmoBrowseControllerCustomers extends JControllerAdmin
 {
     /**
      * Proxy for getModel.
@@ -23,3 +20,4 @@ class ImmoBrowseControllerImmoBrowse extends JControllerForm
         return $model;
     }
 }
+?>

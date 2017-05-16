@@ -1,33 +1,24 @@
 <?php
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 // import Joomla modelform library
 jimport('joomla.application.component.modeladmin');
 
 /**
- * ImmoBrowseList Model
+ * ImmoBrowse Model
  */
-class ImmoBrowseModelImmoBrowse extends JModelList
+class ImmoBrowseModelCustomer extends JModelAdmin
 {
     /**
-     * Method to build an SQL query to load the list data.
+     * Returns a reference to the a Table object, always creating it.
      *
-     * @return    string    An SQL query
+     * @param    type    The table type to instantiate
+     * @param    string    A prefix for the table class name. Optional.
+     * @param    array    Configuration array for model. Optional.
+     * @return    JTable    A database object
+     * @since    2.5
      */
-    protected function getListQuery()
-    {
-        // Create a new query object.
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-        // Select some fields
-        $query->select('id, customer');
-        // From the immobrowse table
-        $query->from('#__immobrowse');
-        return $query;
-    }
     public function getTable($type = 'ImmoBrowse', $prefix = 'ImmoBrowseTable', $config = array())
     {
         return JTable::getInstance($type, $prefix, $config);
@@ -68,4 +59,3 @@ class ImmoBrowseModelImmoBrowse extends JModelList
         return $data;
     }
 }
-?>
