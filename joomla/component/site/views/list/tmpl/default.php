@@ -3,7 +3,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 function _prefixAsset($asset) {
-    return 'components/com_immobrowse/views/list/tmpl/' + asset;
+    return 'components/com_immobrowse/views/list/tmpl/' + $asset;
 }
 
 $document = JFactory::getDocument();
