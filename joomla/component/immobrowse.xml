@@ -9,7 +9,7 @@
   <copyright>2017 HOMEINFO - Digitale Informationssysteme GmbH</copyright>
   <license>GPL v.3</license>
   <!--  The version string is recorded in the components table -->
-  <version>0.5.4</version>
+  <version>0.0.1</version>
   <!-- The description is optional and defaults to the name -->
   <description>COM_IMMOBROWSE_DESCRIPTION</description>
 
@@ -23,7 +23,6 @@
     <filename>controller.php</filename>
     <folder>views</folder>
     <folder>models</folder>
-    <folder>language</folder>
   </files>
 
   <administration>

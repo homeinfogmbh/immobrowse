@@ -1,28 +1,28 @@
 <?php
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-?>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Immobrowse Immobiliensuche</title>
-  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css">
-  <link rel="stylesheet" href="immobrowse.css">
-  <link rel="stylesheet" href="list.css">
-  <script src="https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js"></script>
-  <script src="https://tls.homeinfo.de/libs/bootstrap/latest/js/bootstrap.min.js"></script>
-  <script src="https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://tls.homeinfo.de/jslibs/homeinfo.min.js"></script>
-  <script src="https://tls.homeinfo.de/jslibs/immobrowse.min.js"></script>
-  <script>
-    var customer = <?php echo $this->cid; ?>;
-  </script>
-  <script src="config.js"></script>
-  <script src="list.js"></script>
-</head>
 
+function _prefixAsset($asset) {
+    return 'components/com_immobrowse/views/list/tmpl/' + asset;
+}
+
+$document = JFactory::getDocument();
+
+$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
+$document->addStyleSheet('https://fonts.googleapis.com/icon?family=Material+Icons');
+$document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
+$document->addStyleSheet(_prefixAsset('immobrowse.css'));
+$document->addStyleSheet(_prefixAsset('list.css'));
+
+$document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
+$document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
+$document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js');
+$document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
+$document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
+$document->addScriptDeclaration('var customer = ' . $this->cid. ';');
+$document->addScript(_prefixAsset('config.js'));
+$document->addScript(_prefixAsset('list.js'));
+?>
 <div class="container">
   <div class="row row-centered ib-header">
     <div class="col-md-3 col-centered">
