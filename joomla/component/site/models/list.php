@@ -8,7 +8,7 @@ jimport('joomla.application.component.modelitem');
 /**
  * Customers Model
  */
-class ImmoBrowseModelCustomers extends JModelItem
+class ImmoBrowseModelList extends JModelItem
 {
     /**
      * @var string msg
