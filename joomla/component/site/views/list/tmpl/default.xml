@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <layout title="COM_IMMOBROWSE_IMMOBROWSE_VIEW_DEFAULT_TITLE">
+  <layout title="COM_IMMOBROWSE_LIST_VIEW_DEFAULT_TITLE">
     <message>
-      <![CDATA[COM_IMMOBROWSE_IMMOBROWSE_VIEW_DEFAULT_DESC]]>
+      COM_IMMOBROWSE_LIST_VIEW_DEFAULT_DESC
     </message>
   </layout>
   <fields
@@ -13,8 +13,8 @@
       <field
         name="id"
         type="customers"
-        label="COM_IMMOBROWSE_IMMOBROWSE_FIELD_CUSTOMER_LABEL"
-        description="COM_IMMOBROWSE_IMMOBROWSE_FIELD_CUSTOMER_DESC"
+        label="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_LABEL"
+        description="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_DESC"
       />
     </fieldset>
   </fields>

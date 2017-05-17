@@ -6,9 +6,9 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
 
 /**
- * HTML View class for the ImmoBrowse Component
+ * List View class for the ImmoBrowse Component
  */
-class ImmoBrowseViewImmoBrowse extends JView
+class ImmoBrowseViewList extends JView
 {
     // Overwriting JView display method
     function display($tpl = null)

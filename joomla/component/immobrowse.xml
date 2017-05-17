@@ -9,7 +9,7 @@
   <copyright>2017 HOMEINFO - Digitale Informationssysteme GmbH</copyright>
   <license>GPL v.3</license>
   <!--  The version string is recorded in the components table -->
-  <version>0.3.8</version>
+  <version>0.4.5</version>
   <!-- The description is optional and defaults to the name -->
   <description>COM_IMMOBROWSE_DESCRIPTION</description>
 
