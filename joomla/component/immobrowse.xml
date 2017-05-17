@@ -9,7 +9,7 @@
   <copyright>2017 HOMEINFO - Digitale Informationssysteme GmbH</copyright>
   <license>GPL v.3</license>
   <!--  The version string is recorded in the components table -->
-  <version>0.4.9</version>
+  <version>0.5.4</version>
   <!-- The description is optional and defaults to the name -->
   <description>COM_IMMOBROWSE_DESCRIPTION</description>
 
@@ -27,21 +27,10 @@
   </files>
 
   <administration>
-    <!-- Administration Menu Section -->
-    <menu>ImmoBrowse</menu>
-    <!-- Administration Main File Copy Section -->
-    <!-- Note the folder attribute: This attribute describes the folder
-      to copy FROM in the package to install therefore files copied
-      in this section are copied from /admin/ in the package -->
-    <files folder="admin">
-      <!-- Admin Main File Copy Section -->
-      <filename>index.html</filename>
-      <filename>immobrowse.php</filename>
-      <filename>controller.php</filename>
-    </files>
-    <languages folder="admin">
-      <language tag="de-DE">language/de-DE/de-DE.com_immobrowse.ini</language>
-      <language tag="de-DE">language/de-DE/de-DE.com_immobrowse.sys.ini</language>
+    <menu>COM_IMMOBROWSE_MENU</menu>
+    <languages folder="language">
+      <language tag="de-DE">de-DE/de-DE.com_immobrowse.ini</language>
+      <language tag="de-DE">de-DE/de-DE.com_immobrowse.sys.ini</language>
     </languages>
   </administration>
 </extension>
