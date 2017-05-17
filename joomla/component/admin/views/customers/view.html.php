@@ -45,7 +45,7 @@ class ImmoBrowseViewCustomers extends JView
     protected function addToolBar()
     {
         JToolBarHelper::title(JText::_('COM_IMMOBROWSE_MANAGER_CUSTOMERS'));
-        JToolBarHelper::deleteList('', 'customer.delete');
+        JToolBarHelper::deleteList('', 'customers.delete');
         JToolBarHelper::editList('customer.edit');
         JToolBarHelper::addNew('customer.add');
     }
