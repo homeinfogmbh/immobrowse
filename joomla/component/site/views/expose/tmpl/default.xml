@@ -2,13 +2,10 @@
 <metadata>
   <layout title="COM_IMMOBROWSE_EXPOSE_VIEW_DEFAULT_TITLE">
     <message>
-      COM_IMMOBROWSE_LIST_VIEW_DEFAULT_DESC
+      COM_IMMOBROWSE_EXPOSE_VIEW_DEFAULT_DESC
     </message>
   </layout>
-  <fields
-    name="request"
-    addfieldpath="/administrator/components/com_immobrowse/models/fields"
-  >
+  <fields name="request">
     <fieldset name="request">
       <field
         name="customerId"
