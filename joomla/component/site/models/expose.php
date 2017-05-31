@@ -16,23 +16,23 @@ class ImmoBrowseModelExpose extends JModelItem
         return JTable::getInstance($type, $prefix, $config);
     }
 
-    public function getCustomer($id = 1)
+    public function getCustomer($cid)
     {
         if (! is_array($this->customer))
         {
             $this->customer = array();
         }
 
-        if (! isset($this->customer[$id]))
+        if (! isset($this->customer[$cid]))
         {
             $jinput = JFactory::getApplication()->input;
-            $id = $jinput->get('id', 1, 'INT' );
+            $cid = $jinput->get('customer', null, 'INT');
             $table = $this->getTable();
-            $table->load($id);
-            $this->customer[$id] = $table->customer;
+            $table->load($cid);
+            $this->customer[$cid] = $table->customer;
         }
 
-        return $this->customer[$id];
+        return $this->customer[$cid];
     }
 
     public function getObjectId()
@@ -40,23 +40,23 @@ class ImmoBrowseModelExpose extends JModelItem
         return JRequest::getVar('objectId');
     }
 
-    public function getSitekey($id = 1)
+    public function getSitekey($cid)
     {
         if (! is_array($this->sitekey))
         {
             $this->sitekey = array();
         }
 
-        if (! isset($this->sitekey[$id]))
+        if (! isset($this->sitekey[$cid]))
         {
             $jinput = JFactory::getApplication()->input;
-            $id = $jinput->get('id', 1, 'INT' );
+            $cid = $jinput->get('customer', 1, 'INT' );
             $table = $this->getTable();
-            $table->load($id);
-            $this->sitekey[$id] = $table->sitekey;
+            $table->load($cid);
+            $this->sitekey[$cid] = $table->sitekey;
         }
 
-        return $this->sitekey[$id];
+        return $this->sitekey[$cid];
     }
 }
 ?>

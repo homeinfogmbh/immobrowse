@@ -14,7 +14,7 @@ class JFormFieldConfig extends JFormFieldList
     {
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
-        $query->select('id, customer');
+        $query->select('customer');
         $query->from('#__immobrowse');
         $db->setQuery((string)$query);
         $messages = $db->loadObjectList();
@@ -24,7 +24,7 @@ class JFormFieldConfig extends JFormFieldList
         {
             foreach($messages as $message)
             {
-                $options[] = JHtml::_('select.option', $message->id, $message->customer);
+                $options[] = JHtml::_('select.option', $message->customer, $message->customer);
             }
         }
 

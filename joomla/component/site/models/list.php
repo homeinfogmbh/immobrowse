@@ -14,23 +14,23 @@ class ImmoBrowseModelList extends JModelItem
         return JTable::getInstance($type, $prefix, $config);
     }
 
-    public function getCustomer($id = 1)
+    public function getCustomer($cid)
     {
         if (! is_array($this->customer))
         {
             $this->customer = array();
         }
 
-        if (! isset($this->customer[$id]))
+        if (! isset($this->customer[$cid]))
         {
             $jinput = JFactory::getApplication()->input;
-            $id = $jinput->get('id', 1, 'INT' );
+            $cid = $jinput->get('customer', 1, 'INT' );
             $table = $this->getTable();
-            $table->load($id);
-            $this->customer[$id] = $table->customer;
+            $table->load($cid);
+            $this->customer[$cid] = $table->customer;
         }
 
-        return $this->customer[$id];
+        return $this->customer[$cid];
     }
 }
 ?>
