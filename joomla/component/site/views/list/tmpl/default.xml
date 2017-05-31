@@ -5,4 +5,17 @@
       COM_IMMOBROWSE_LIST_VIEW_DEFAULT_DESC
     </message>
   </layout>
+  <fields
+    name="request"
+    addfieldpath="/administrator/components/com_immobrowse/models/fields"
+  >
+    <fieldset name="request">
+      <field
+        name="customer"
+        type="ImmoBrowse"
+        label="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_LABEL"
+        description="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_DESC"
+      />
+    </fieldset>
+  </fields>
 </metadata>

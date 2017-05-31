@@ -8,10 +8,10 @@
   <fields name="request">
     <fieldset name="request">
       <field
-        name="customerId"
+        name="objectId"
         type="immobrowse"
         label="COM_IMMOBROWSE_EXPOSE_FIELD_OBJECTID_LABEL"
-        description="COM_IMMOBROWSE_EXPOSE_VIEW_DEFAULT_DESC"
+        description="COM_IMMOBROWSE_EXPOSE_FIELD_OBJECTID_DESC"
       />
     </fieldset>
   </fields>

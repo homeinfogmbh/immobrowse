@@ -29,7 +29,7 @@ class ImmoBrowseModelExpose extends JModelItem
             $id = $jinput->get('id', 1, 'INT' );
             $table = $this->getTable();
             $table->load($id);
-            $this->customer[$id] = $table->customer;
+            $this->customer[$id] = $table->id;
         }
 
         return $this->customer[$id];
