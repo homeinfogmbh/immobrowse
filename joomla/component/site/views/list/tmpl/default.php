@@ -2,13 +2,30 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-$json = file_get_contents('https://tls.homeinfo.de/immobrowse/list/' . $this->cid);
-//$real_estates = json_decode($json);
+function _prefixAsset($asset) {
+    return 'components/com_immobrowse/views/list/tmpl/' . $asset;
+}
+
+//$json = file_get_contents('https://tls.homeinfo.de/immobrowse/list/' . $this->cid);
 $document = JFactory::getDocument();
 
 //$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
+$document->addStyleSheet('https://fonts.googleapis.com/icon?family=Material+Icons');
+$document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
+//$document->addStyleSheet(_prefixAsset('immobrowse.css'));
+//$document->addStyleSheet(_prefixAsset('list.css'));
+
+$document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
+$document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
+$document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js');
+$document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
-$document->addScriptDeclaration('var realEstates = ' . $json . ';');
+//$document->addScriptDeclaration('var realEstates = ' . $json . ';');
+$document->addScriptDeclaration('var customer = ' . $this->cid . ';');
+$document->addScript(_prefixAsset('config.js'));
+$document->addScript(_prefixAsset('list.js'));
+
+//$real_estates = json_decode($json);
 ?>
 <h1>Customer: <?php echo($this->cid) ?></h1>
 <div class="container">

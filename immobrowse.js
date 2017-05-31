@@ -182,7 +182,7 @@ immobrowse.yesNo = function (boolean) {
   Queries real estate data from the API and runs callback function.
 */
 immobrowse.getRealEstate = function (cid, objectId, callback) {
-  $.ajax({
+  jQuery.ajax({
     url: 'https://tls.homeinfo.de/immobrowse/real_estate/' + objectId + '?customer=' + cid,
     success: function (json) {
       callback(new immobrowse.RealEstate(cid, json));
@@ -202,7 +202,7 @@ immobrowse.getRealEstate = function (cid, objectId, callback) {
   Queries API for real estate list and runs callback function.
 */
 immobrowse.getRealEstates = function (cid, callback) {
-  $.ajax({
+  jQuery.ajax({
     url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
     success: function (json) {
       var realEstates = [];
@@ -368,7 +368,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
   };
 
   this.send = function (response, subject, body, recipient, reply_to) {
-    $.ajax(this.getAjax(this.getUrl(response, subject, recipient, reply_to), body));
+    jQuery.ajax(this.getAjax(this.getUrl(response, subject, recipient, reply_to), body));
   };
 }
 
