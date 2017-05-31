@@ -189,7 +189,7 @@ immobrowse.getRealEstate = function (cid, objectId, callback) {
     },
     error: function() {
       swal({
-        title: 'Immobilie "' + objectId + '" konnte nicht geladen werden.',
+        title: 'Immobilie "' + objectId + '@' + cid + '" konnte nicht geladen werden.',
         text: 'Bitte versuchen Sie es später noch ein Mal.',
         type: 'error'
       });
