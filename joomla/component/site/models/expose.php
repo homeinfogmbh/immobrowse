@@ -8,7 +8,7 @@ jimport('joomla.application.component.modelitem');
 /**
  * Customers Model
  */
-class ImmoBrowseModelList extends JModelItem
+class ImmoBrowseModelExpose extends JModelItem
 {
     /**
      * Get the message
@@ -18,6 +18,11 @@ class ImmoBrowseModelList extends JModelItem
     public function getCid()
     {
         return JRequest::getVar('cid');
+    }
+
+    public function getObjectId()
+    {
+        return JRequest::getVar('objectId');
     }
 }
 ?>
