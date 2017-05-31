@@ -15,6 +15,7 @@ class ImmoBrowseViewList extends JView
     {
         // Assign data to the view
         $this->cid = $this->get('Cid');
+        $this->objectId = $this->get('ObjectId');
 
         // Check for errors.
         if (count($errors = $this->get('Errors')))

@@ -15,9 +15,14 @@ class ImmoBrowseModelList extends JModelItem
      * @param  int    The corresponding id of the message to be retrieved
      * @return string The message to be displayed to the user
      */
-    public function getCid($id = 1)
+    public function getCid()
     {
         return JRequest::getVar('cid');
+    }
+
+    public function getObjectId()
+    {
+        return JRequest::getVar('objectId');
     }
 }
 ?>
