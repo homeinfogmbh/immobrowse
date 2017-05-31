@@ -13,20 +13,37 @@
   <!-- The description is optional and defaults to the name -->
   <description>COM_IMMOBROWSE_DESCRIPTION</description>
 
-  <!-- Site Main File Copy Section -->
-  <!-- Note the folder attribute: This attribute describes the folder
-    to copy FROM in the package to install therefore files copied
-    in this section are copied from /site/ in the package -->
+  <install> <!-- Runs on install -->
+    <sql>
+      <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+    </sql>
+  </install>
+  <uninstall> <!-- Runs on uninstall -->
+    <sql>
+      <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+    </sql>
+  </uninstall>
+
   <files folder="site">
     <filename>index.html</filename>
     <filename>immobrowse.php</filename>
     <filename>controller.php</filename>
     <folder>views</folder>
     <folder>models</folder>
+    <folder>assets</folder>
   </files>
 
   <administration>
     <menu>COM_IMMOBROWSE_MENU</menu>
+    <files folder="admin">
+      <filename>index.html</filename>
+      <filename>immobrowse.php</filename>
+      <filename>controller.php</filename>
+      <folder>sql</folder>
+      <folder>tables</folder>
+      <folder>models</folder>
+      <folder>views</folder>
+    </files>
     <languages folder="language">
       <language tag="de-DE">de-DE/de-DE.com_immobrowse.ini</language>
       <language tag="de-DE">de-DE/de-DE.com_immobrowse.sys.ini</language>

@@ -10,11 +10,13 @@ jimport('joomla.application.component.modelitem');
  */
 class ImmoBrowseModelExpose extends JModelItem
 {
-    /**
-     * Get the message
-     * @param  int    The corresponding id of the message to be retrieved
-     * @return string The message to be displayed to the user
-     */
+    protected $sitekey;
+
+    public function getTable($type = 'ImmoBrowse', $prefix = 'ImmoBrowseTable', $config = array())
+    {
+        return JTable::getInstance($type, $prefix, $config);
+    }
+
     public function getCid()
     {
         return JRequest::getVar('cid');
@@ -23,6 +25,25 @@ class ImmoBrowseModelExpose extends JModelItem
     public function getObjectId()
     {
         return JRequest::getVar('objectId');
+    }
+
+    public function getSitekey($id = 1)
+    {
+        if (! is_array($this->sitekey))
+        {
+            $this->sitekey = array();
+        }
+
+        if (! isset($this->sitekey[$id]))
+        {
+            $jinput = JFactory::getApplication()->input;
+            $id = $jinput->get('id', 1, 'INT' );
+            $table = $this->getTable();
+            $table->load($id);
+            $this->sitekey[$id] = $table->sitekey;
+        }
+
+        return $this->sitekey[$id];
     }
 }
 ?>

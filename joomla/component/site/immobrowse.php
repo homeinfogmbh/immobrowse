@@ -2,6 +2,10 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+function immobrowseAsset($asset) {
+    return 'components/com_immobrowse/assets/' . $asset;
+}
+
 // import joomla controller library
 jimport('joomla.application.component.controller');
 

@@ -2,17 +2,13 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-function _prefixAsset($asset) {
-    return 'components/com_immobrowse/views/expose/tmpl/' . $asset;
-}
-
 $document = JFactory::getDocument();
 
 //$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
-$document->addStyleSheet(_prefixAsset('immobrowse.css'));
-$document->addStyleSheet(_prefixAsset('gallery.css'));
-$document->addStyleSheet(_prefixAsset('expose.css'));
+$document->addStyleSheet(immobrowseAsset('immobrowse.css'));
+$document->addStyleSheet(immobrowseAsset('gallery.css'));
+$document->addStyleSheet(immobrowseAsset('expose.css'));
 
 $document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
 $document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -22,13 +18,14 @@ $document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->cid . ';');
 $document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
-$document->addScript(_prefixAsset('config.js'));
-$document->addScript(_prefixAsset('gallery.js'));
-$document->addScript(_prefixAsset('expose.js'));
+$document->addScript(immobrowseAsset('config.js'));
+$document->addScript(immobrowseAsset('gallery.js'));
+$document->addScript(immobrowseAsset('expose.js'));
 ?>
 <h1>Expose</h1>
 <h2>Customer: <?php echo($this->cid); ?></h2>
 <h2>Object Id: <?php echo($this->objectId); ?></h2>
+<h2>Site Key: <?php echo($this->sitekey); ?></h2>
 <div class="container">
   <div id="header" class="row row-centered ib-header">
     <div class="col-md-2 col-centered ib-centered">
@@ -352,7 +349,7 @@ $document->addScript(_prefixAsset('expose.js'));
             Mit einem (*) gekennzeichnete Felder sind Pflichfelder
           </div>
           <div class="col-md-12" style="margin-top:20px;">
-            <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+            <div class="g-recaptcha" data-sitekey="<?php echo($this->sitekey); ?>"></div>
           </div>
         </div>
         <hr>
