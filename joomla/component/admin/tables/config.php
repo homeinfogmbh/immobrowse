@@ -17,7 +17,7 @@ class ImmoBrowseTableConfig extends JTable
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__immobrowse', 'id', $db);
+		parent::__construct('#__immobrowse', 'customer', $db);
 	}
 }
 ?>

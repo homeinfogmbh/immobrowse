@@ -26,7 +26,7 @@ class ImmoBrowseModelExpose extends JModelItem
         if (! isset($this->customer[$cid]))
         {
             $jinput = JFactory::getApplication()->input;
-            $cid = $jinput->get('customer', null, 'INT');
+            $cid = $jinput->get('customer', 1, 'INT');
             $table = $this->getTable();
             $table->load($cid);
             $this->customer[$cid] = $table->customer;
