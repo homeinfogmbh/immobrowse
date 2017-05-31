@@ -14,7 +14,7 @@ class ImmoBrowseViewList extends JView
     function display($tpl = null)
     {
         // Assign data to the view
-        $this->cid = $this->get('Cid');
+        $this->customer = $this->get('Customer');
         $this->objectId = $this->get('ObjectId');
 
         // Check for errors.

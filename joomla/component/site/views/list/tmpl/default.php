@@ -14,12 +14,12 @@ $document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
 $document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
-$document->addScriptDeclaration('var customer = ' . $this->cid . ';');
+$document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('list.js'));
 ?>
 <h1>Liste</h1>
-<h2>Customer: <?php echo($this->cid); ?></h2>
+<h2>Customer: <?php echo($this->customer); ?></h2>
 <div class="container">
   <div class="row row-centered ib-header">
     <div class="col-md-3 col-centered">

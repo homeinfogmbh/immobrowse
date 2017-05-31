@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <layout title="COM_IMMOBROWSE_LIST_VIEW_DEFAULT_TITLE">
+  <layout title="COM_IMMOBROWSE_EXPOSE_VIEW_DEFAULT_TITLE">
     <message>
       COM_IMMOBROWSE_LIST_VIEW_DEFAULT_DESC
     </message>
@@ -11,16 +11,10 @@
   >
     <fieldset name="request">
       <field
-        name="cid"
-        type="customers"
-        label="COM_IMMOBROWSE_EXPOSE_FIELD_CUSTOMER_LABEL"
-        description="COM_IMMOBROWSE_EXPOSE_FIELD_CUSTOMER_DESC"
-      />
-      <field
-        name="objectId"
-        type="customers"
+        name="customerId"
+        type="immobrowse"
         label="COM_IMMOBROWSE_EXPOSE_FIELD_OBJECTID_LABEL"
-        description="COM_IMMOBROWSE_EXPOSE_FIELD_OBJECTID_DESC"
+        description="COM_IMMOBROWSE_EXPOSE_VIEW_DEFAULT_DESC"
       />
     </fieldset>
   </fields>

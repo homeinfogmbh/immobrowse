@@ -16,14 +16,14 @@ $document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.mi
 $document->addScript('https://www.google.com/recaptcha/api.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
-$document->addScriptDeclaration('var customer = ' . $this->cid . ';');
+$document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('gallery.js'));
 $document->addScript(immobrowseAsset('expose.js'));
 ?>
 <h1>Expose</h1>
-<h2>Customer: <?php echo($this->cid); ?></h2>
+<h2>Customer: <?php echo($this->customer); ?></h2>
 <h2>Object Id: <?php echo($this->objectId); ?></h2>
 <h2>Site Key: <?php echo($this->sitekey); ?></h2>
 <div class="container">
