@@ -11,8 +11,8 @@
   >
     <fieldset name="request">
       <field
-        name="customer"
-        type="ImmoBrowse"
+        name="config"
+        type="Config"
         label="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_LABEL"
         description="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_DESC"
       />

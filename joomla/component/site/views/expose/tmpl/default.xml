@@ -5,13 +5,20 @@
       COM_IMMOBROWSE_EXPOSE_VIEW_DEFAULT_DESC
     </message>
   </layout>
-  <fields name="request">
+  <fields
+      name="request"
+      addfieldpath="/administrator/components/com_immobrowse/models/fields">
     <fieldset name="request">
       <field
         name="objectId"
-        type="immobrowse"
         label="COM_IMMOBROWSE_EXPOSE_FIELD_OBJECTID_LABEL"
         description="COM_IMMOBROWSE_EXPOSE_FIELD_OBJECTID_DESC"
+      />
+      <field
+        name="config"
+        type="Config"
+        label="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_LABEL"
+        description="COM_IMMOBROWSE_LIST_FIELD_CUSTOMER_DESC"
       />
     </fieldset>
   </fields>

@@ -6,9 +6,9 @@ defined('_JEXEC') or die;
 jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
 
-class JFormFieldImmoBrowse extends JFormFieldList
+class JFormFieldConfig extends JFormFieldList
 {
-    protected $type = 'ImmoBrowse';
+    protected $type = 'Config';
 
     protected function getOptions()
     {
