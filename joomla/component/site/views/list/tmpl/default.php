@@ -4,6 +4,11 @@ defined('_JEXEC') or die('Restricted access');
 
 $json = file_get_contents('https://tls.homeinfo.de/immobrowse/list/' . $this->cid);
 //$real_estates = json_decode($json);
+$document = JFactory::getDocument();
+
+//$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
+$document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
+$document->addScriptDeclaration('var realEstates = ' . $json . ';');
 ?>
 <h1>Customer: <?php echo($this->cid) ?></h1>
 <div class="container">
