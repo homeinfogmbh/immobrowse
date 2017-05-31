@@ -158,8 +158,10 @@ $(document).ready(function () {
     var districts = list.districts();
 
     for (district in districts) {
-      districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
-        + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+      if (districts.hasOwnProperty(district)) {
+        districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
+          + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+      }
     }
 
     list.render(listElement, template, elements);
