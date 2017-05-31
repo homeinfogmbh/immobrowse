@@ -17,6 +17,7 @@ $document->addStyleSheet(_prefixAsset('expose.css'));
 $document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
 $document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
 $document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js');
+$document->addScript('https://www.google.com/recaptcha/api.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->cid . ';');
