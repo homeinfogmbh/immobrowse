@@ -26,7 +26,6 @@
 var args = queryArgs();
 // XXX: Change config for appropriate productive setting
 var mailer = new immobrowse.Mailer('homeinfo-testing');
-var listUrl = 'list.html?' + customer;
 var elements;
 var realEstate;
 var imageGallery;
@@ -58,18 +57,18 @@ function back() {
 
 
 function clearContactForm() {
-  $('#object_id').attr('placeholder', $('#objectId').html());
-  $('#gender_female').click();
-  $('#forename').val('');
-  $('#surname').val('');
-  $('#email').val('');
-  $('#phone').val('');
-  $('#street').val('');
-  $('#house_number').val('');
-  $('#zip_code').val('');
-  $('#city').val('');
-  $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
-  $('#contact_form_response').hide();
+  jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
+  jQuery('#gender_female').click();
+  jQuery('#forename').val('');
+  jQuery('#surname').val('');
+  jQuery('#email').val('');
+  jQuery('#phone').val('');
+  jQuery('#street').val('');
+  jQuery('#house_number').val('');
+  jQuery('#zip_code').val('');
+  jQuery('#city').val('');
+  jQuery('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
+  jQuery('#contact_form_response').hide();
 }
 
 
@@ -85,7 +84,7 @@ function sendEmail() {
     return;
   }
 
-  var forename = $("#forename").val().trim();
+  var forename = jQuery("#forename").val().trim();
 
   if (forename == '') {
     swal({
@@ -96,7 +95,7 @@ function sendEmail() {
     return;
   }
 
-  var surname = $("#surname").val().trim();
+  var surname = jQuery("#surname").val().trim();
 
   if (surname == '') {
     swal({
@@ -107,7 +106,7 @@ function sendEmail() {
     return;
   }
 
-  var email = $('#email').val().trim();
+  var email = jQuery('#email').val().trim();
 
   if (email == '') {
     swal({
@@ -127,7 +126,7 @@ function sendEmail() {
 
   var salutation;
 
-  if ($("input:radio[name='gender']:checked").val() == 1) {
+  if (jQuery("input:radio[name='gender']:checked").val() == 1) {
     salutation = "Herr";
   } else {
     salutation = "Frau";
@@ -135,12 +134,12 @@ function sendEmail() {
 
   var objectTitle = realEstate.objectTitle();
   var objectAddress = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
-  var phone = $('#phone').val().trim();
-  var street = $('#street').val().trim();
-  var houseNumber = $('#house_number').val().trim();
-  var zipCode = $('#zip_code').val().trim();
-  var city = $('#city').val().trim();
-  var message = $('#message').val().trim();
+  var phone = jQuery('#phone').val().trim();
+  var street = jQuery('#street').val().trim();
+  var houseNumber = jQuery('#house_number').val().trim();
+  var zipCode = jQuery('#zip_code').val().trim();
+  var city = jQuery('#city').val().trim();
+  var message = jQuery('#message').val().trim();
   var recipient = realEstate.contact().email;
   var html = immobrowse.mkContactMail(
     objectTitle, objectAddress, salutation, forename, surname,
@@ -152,36 +151,36 @@ function sendEmail() {
 
 function initContactForm() {
   clearContactForm();
-  $("#send_form").click(sendEmail);
-  $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-  $("#clear_form").click(clearContactForm);
+  jQuery("#send_form").click(sendEmail);
+  jQuery('#contactFormModal').on('shown.bs.modal', clearContactForm);
+  jQuery("#clear_form").click(clearContactForm);
 }
 
 
 function postRender() {
   initContactForm();
 
-  $('#loader').hide();
-  $('#main').attr('style', 'padding-top: 80px');
+  jQuery('#loader').hide();
+  jQuery('#main').attr('style', 'padding-top: 80px');
 
-  $('.showimage').click(function() {
-    for (var i = 0; i < $(this).data("nrmax"); i++) {
-      $('#image'+ i).hide();
+  jQuery('.showimage').click(function() {
+    for (var i = 0; i < jQuery(this).data("nrmax"); i++) {
+      jQuery('#image'+ i).hide();
     }
 
-    $('#image'+ $(this).data("nr")).show();
+    jQuery('#image'+ jQuery(this).data("nr")).show();
   });
 
-  $('.btn_contact').click(function(e) {
-    //$('#contact').scrollIntoView(true);
-    if ($('#contact').attr('style') == "display: none;") {
-      $('#contact').slideDown();
+  jQuery('.btn_contact').click(function(e) {
+    //jQuery('#contact').scrollIntoView(true);
+    if (jQuery('#contact').attr('style') == "display: none;") {
+      jQuery('#contact').slideDown();
     } else {
-      $('#contact').slideUp();
+      jQuery('#contact').slideUp();
     }
 
-    $('html, body').animate({
-      scrollTop: $('#contact').offset().top
+    jQuery('html, body').animate({
+      scrollTop: jQuery('#contact').offset().top
     }, 500);
 
     return false; // Not scrolling to top alternative: e.preventDefault();
@@ -191,12 +190,12 @@ function postRender() {
 
 function setupGalleries() {
   var galleryMapping = {
-      'image': $('#galleryImage'),
-      'title': $('#galleryTitle'),
-      'index': $('#galleryIndex'),
-      'count': $('#galleryImages'),
-      'next': $('#galleryNext'),
-      'previous': $('#galleryPrevious')
+      'image': jQuery('#galleryImage'),
+      'title': jQuery('#galleryTitle'),
+      'index': jQuery('#galleryIndex'),
+      'count': jQuery('#galleryImages'),
+      'next': jQuery('#galleryNext'),
+      'previous': jQuery('#galleryPrevious')
   };
   var images = realEstate.images();
 
@@ -207,94 +206,94 @@ function setupGalleries() {
   imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
 
   if (images.length > 0) {
-    $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
+    jQuery('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
   }
 
   if (images.length > 1) {
-    $('#titleImageFrame').click(function() {
+    jQuery('#titleImageFrame').click(function() {
       imageGallery.bind();
       imageGallery.render();
-      $('#gallery').modal('toggle');
+      jQuery('#gallery').modal('toggle');
     });
 
-    $('#titleImageFrame').addClass('ib-browsable');
+    jQuery('#titleImageFrame').addClass('ib-browsable');
   }
 
   var floorplans = realEstate.floorplans();
   floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
   if (floorplans.length > 0) {
-    $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
+    jQuery('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
   }
 
   if (floorplans.length > 1) {
-    $('#floorplanFrame').click(function() {
+    jQuery('#floorplanFrame').click(function() {
       floorplanGallery.bind();
       floorplanGallery.render();
-      $('#gallery').modal('toggle');
+      jQuery('#gallery').modal('toggle');
     });
 
-    $('#floorplanFrame').addClass('ib-browsable');
+    jQuery('#floorplanFrame').addClass('ib-browsable');
   }
 }
 
 
-$(document).ready(function () {
+jQuery(document).ready(function () {
   elements = {
-    objectId: $('#objectId'),
-    objectTitle: $('#objectTitle'),
-    coldRent: $('#coldRent'),
-    serviceCharge: $('#serviceCharge'),
-    heatingCosts: $('#heatingCosts'),
-    heatingCostsInServiceCharge: $('#heatingCostsInServiceCharge'),
-    securityDeposit: $('#securityDeposit'),
-    subjectToCommission: $('#subjectToCommission'),
-    livingArea: $('#livingArea'),
-    rooms: $('#rooms'),
-    floor: $('#floor'),
-    availableFrom: $('#availableFrom'),
-    councilFlat: $('#councilFlat'),
-    constructionYear: $('#constructionYear'),
-    state: $('#state'),
-    lastModernization: $('#lastModernization'),
+    objectId: jQuery('#objectId'),
+    objectTitle: jQuery('#objectTitle'),
+    coldRent: jQuery('#coldRent'),
+    serviceCharge: jQuery('#serviceCharge'),
+    heatingCosts: jQuery('#heatingCosts'),
+    heatingCostsInServiceCharge: jQuery('#heatingCostsInServiceCharge'),
+    securityDeposit: jQuery('#securityDeposit'),
+    subjectToCommission: jQuery('#subjectToCommission'),
+    livingArea: jQuery('#livingArea'),
+    rooms: jQuery('#rooms'),
+    floor: jQuery('#floor'),
+    availableFrom: jQuery('#availableFrom'),
+    councilFlat: jQuery('#councilFlat'),
+    constructionYear: jQuery('#constructionYear'),
+    state: jQuery('#state'),
+    lastModernization: jQuery('#lastModernization'),
     energyCertificate: {
-      type: $('#energyCertificateType'),
+      type: jQuery('#energyCertificateType'),
       consumption: {
-        value: $('#energyConsumption'),
-        container: $('#energyConsumptionContainer')
+        value: jQuery('#energyConsumption'),
+        container: jQuery('#energyConsumptionContainer')
       },
       demand: {
-        value: $('#energyDemand'),
-        container: $('#energyDemandContainer')
+        value: jQuery('#energyDemand'),
+        container: jQuery('#energyDemandContainer')
       },
-      primaryEnergyCarrier: $('#primaryEnergyCarrier'),
-      valueClass: $('#valueClass')
+      primaryEnergyCarrier: jQuery('#primaryEnergyCarrier'),
+      valueClass: jQuery('#valueClass')
     },
-    description: $('#description'),
-    exposure: $('#exposure'),
-    miscellanea: $('#miscellanea'),
-    salutation: $('#salutation'),
-    firstName: $('#firstName'),
-    lastName: $('#lastName'),
-    company: $('#company'),
-    street: $('#street'),
-    houseNumber: $('#houseNumber'),
-    streetAndHouseNumber: $('#streetAndHouseNumber'),
-    zipCode: $('#zipCode'),
-    city: $('#city'),
-    zipCodeAndCity: $('#zipCodeAndCity'),
-    website: $('#website'),
+    description: jQuery('#description'),
+    exposure: jQuery('#exposure'),
+    miscellanea: jQuery('#miscellanea'),
+    salutation: jQuery('#salutation'),
+    firstName: jQuery('#firstName'),
+    lastName: jQuery('#lastName'),
+    company: jQuery('#company'),
+    street: jQuery('#street'),
+    houseNumber: jQuery('#houseNumber'),
+    streetAndHouseNumber: jQuery('#streetAndHouseNumber'),
+    zipCode: jQuery('#zipCode'),
+    city: jQuery('#city'),
+    zipCodeAndCity: jQuery('#zipCodeAndCity'),
+    website: jQuery('#website'),
     titleImage: {
-      image: $('#titleImage'),
-      caption: $('#titleImageCaption')
+      image: jQuery('#titleImage'),
+      caption: jQuery('#titleImageCaption')
     },
-    amenitiesList: $('#amenitiesList'),
+    amenitiesList: jQuery('#amenitiesList'),
     contact: {
-      name: $('#contactName'),
-      company: $('#contactCompany'),
-      address: $('#contactAddress'),
-      phone: $('#contactPhone'),
-      website: $('#contactWebsite')
+      name: jQuery('#contactName'),
+      company: jQuery('#contactCompany'),
+      address: jQuery('#contactAddress'),
+      phone: jQuery('#contactPhone'),
+      website: jQuery('#contactWebsite')
     }
   };
 

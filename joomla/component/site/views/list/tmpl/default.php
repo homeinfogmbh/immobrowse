@@ -9,7 +9,6 @@ function _prefixAsset($asset) {
 $document = JFactory::getDocument();
 
 //$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
-$document->addStyleSheet('https://fonts.googleapis.com/icon?family=Material+Icons');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(_prefixAsset('immobrowse.css'));
 $document->addStyleSheet(_prefixAsset('list.css'));
