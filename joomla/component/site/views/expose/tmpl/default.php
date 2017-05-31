@@ -20,6 +20,7 @@ $document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.mi
 $document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->cid . ';');
+$document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
 $document->addScript(_prefixAsset('config.js'));
 $document->addScript(_prefixAsset('expose.js'));
 ?>
