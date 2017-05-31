@@ -3,11 +3,9 @@
 defined('_JEXEC') or die('Restricted access');
 
 $json = file_get_contents('https://tls.homeinfo.de/immobrowse/list/' . $this->cid);
-$real_estates = json_decode($json)
-}
+//$real_estates = json_decode($json);
 ?>
 <h1>Customer: <?php echo($this->cid) ?></h1>
-<h2>Real estates: <?php print_r($real_estates) ?></h2>
 <div class="container">
   <div class="row row-centered ib-header">
     <div class="col-md-3 col-centered">
