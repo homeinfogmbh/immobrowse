@@ -8,7 +8,7 @@ jimport('joomla.database.table');
 /**
  * Hello Table class
  */
-class ImmoBrowseTableImmoBrowse extends JTable
+class ImmoBrowseTableConfig extends JTable
 {
 	/**
 	 * Constructor

@@ -5,19 +5,32 @@ defined('_JEXEC') or die('Restricted access');
 // import Joomla modelitem library
 jimport('joomla.application.component.modelitem');
 
-/**
- * Customers Model
- */
 class ImmoBrowseModelList extends JModelItem
 {
-    /**
-     * Get the message
-     * @param  int    The corresponding id of the message to be retrieved
-     * @return string The message to be displayed to the user
-     */
-    public function getCid()
+    protected $customer;
+
+    public function getTable($type = 'Config', $prefix = 'ImmoBrowseTable', $config = array())
     {
-        return JRequest::getVar('cid');
+        return JTable::getInstance($type, $prefix, $config);
+    }
+
+    public function getCustomer($id = 1)
+    {
+        if (! is_array($this->customer))
+        {
+            $this->customer = array();
+        }
+
+        if (! isset($this->customer[$id]))
+        {
+            $jinput = JFactory::getApplication()->input;
+            $id = $jinput->get('id', 1, 'INT' );
+            $table = $this->getTable();
+            $table->load($id);
+            $this->customer[$id] = $table->customer;
+        }
+
+        return $this->customer[$id];
     }
 }
 ?>
