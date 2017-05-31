@@ -7,6 +7,6 @@ immobrowse.config = {
   marketing: ['MIETE_PACHT'],
   shortFloorNames: true,
   exposeURLCallback: function (cid, objectId) {
-    return window.location.href.split('?')[0] + 'option=com_immobrowse&view=expose&cid=' + cid + '&objectId=' + objectId;
+    return window.location.href.split('?')[0] + '?option=com_immobrowse&view=expose&cid=' + cid + '&objectId=' + objectId;
   }
 };
