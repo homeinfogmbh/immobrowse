@@ -2,27 +2,12 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-function _prefixAsset($asset) {
-    return 'components/com_immobrowse/views/list/tmpl/' . $asset;
+$json = file_get_contents('https://tls.homeinfo.de/immobrowse/list/' . $this->cid);
+$real_estates = json_decode($json)
 }
-
-$document = JFactory::getDocument();
-
-$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
-$document->addStyleSheet('https://fonts.googleapis.com/icon?family=Material+Icons');
-$document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
-$document->addStyleSheet(_prefixAsset('immobrowse.css'));
-$document->addStyleSheet(_prefixAsset('list.css'));
-
-$document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
-$document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
-$document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js');
-$document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
-$document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
-$document->addScriptDeclaration('var customer = ' . $this->cid. ';');
-$document->addScript(_prefixAsset('config.js'));
-$document->addScript(_prefixAsset('list.js'));
 ?>
+<h1>Customer: <?php echo($this->cid) ?></h1>
+<h2>Real estates: <?php print_r($real_estates) ?></h2>
 <div class="container">
   <div class="row row-centered ib-header">
     <div class="col-md-3 col-centered">
