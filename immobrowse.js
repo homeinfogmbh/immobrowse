@@ -377,7 +377,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
   Real estate wrapper class
 */
 immobrowse.RealEstate = function (cid, realEstate) {
-  this.oval = '<span class="oval-outer"><span class="oval-inner">{}</span></span>';
+  this.oval = '<div class="oval-outer"><div class="oval-inner">{}</div></div>';
   this.kwh = '<span class="fraction"><span class="numerator">kWh</span><span class="denominator">m<sup>2</sup>&middot;a</span></span>';
   this.na = 'k. A.';
 
