@@ -7,6 +7,13 @@ immobrowse.config = {
   marketing: ['MIETE_PACHT'],
   shortFloorNames: true,
   exposeURLCallback: function (customer, objectId) {
-    return window.location.href.split('?')[0] + '?option=com_immobrowse&view=expose&customer=' + customer + '&objectId=' + objectId;
+    var options = {
+      option: 'com_immobrowse',
+      view: 'expose',
+      customer: customer,
+      objectId: objectId
+    };
+
+    return window.location.href.split('?')[0] + homeinfo.queryString(homeinfo.queryArgs(options));
   }
 };

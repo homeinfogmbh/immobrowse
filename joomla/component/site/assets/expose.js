@@ -23,8 +23,6 @@
     * sweetalert.js
     * immobrowse.js
 */
-var args = queryArgs();
-// XXX: Change config for appropriate productive setting
 var mailer = new immobrowse.Mailer('homeinfo-testing');
 var elements;
 var realEstate;
@@ -32,27 +30,9 @@ var imageGallery;
 var floorplanGallery;
 
 
-function queryArgs() {
-  var queryString = decodeURIComponent(window.location.search.substring(1));
-  var assignments = queryString.split('&');
-  var args = {};
-
-  for (var i = 0; i < assignments.length; i++) {
-    var parts = assignments[i].split('=');
-
-    if (parts[1] == null) {
-      args[parts[0]] = true;
-    } else {
-      args[parts[0]] = parts[1];
-    }
-  }
-
-  return args;
-}
-
-
 function back() {
-  immobrowse.open('list.html?' + customer);
+  var backLink = window.location.href.split('?')[0] + '?option=com_immobrowse&view=list&customer=' + customer;
+  immobrowse.open(backLink);
 }
 
 
