@@ -37,6 +37,7 @@ function elements(index) {
   return {
     linkElement: jQuery('#entry' + suffix),
     objectTitle: jQuery('#objectTitle' + suffix),
+    address: jQuery('#address' + suffix),
     coldRent: jQuery('#coldRent' + suffix),
     serviceCharge: jQuery('#serviceCharge' + suffix),
     livingArea: jQuery('#livingArea' + suffix),

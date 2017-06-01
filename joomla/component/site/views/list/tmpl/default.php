@@ -18,30 +18,27 @@ $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('list.js'));
 ?>
-<div class="container">
-  <div class="row row-centered ib-header">
-    <div class="col-md-3 col-centered">
-      <div class="item">
-        <div class="content">
-          <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
-          <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
-          <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row row-centered">
+<div>
+  <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="ib-btn-sort">Zimmer</button>
+  <button id="ib-sort-area" onclick="toggleSorting('area');" class="ib-btn-sort">Fl&auml;che</button>
+  <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="ib-btn-sort">Miete</button>
+  <div>
     <div id="templateContainer" class="ib-template-container">
-      <div id="entry" class="container ib-preview-item">
-        <table>
+      <div id="entry" class="ib-preview-item">
+        <table width="100%" style="table-layout: fixed;">
           <tr>
-            <td width="50%">
-              <img src='img/dummy.jpg' id="titleImage" alt="Titelbild" style="max-height:80px; max-width:100%">
+            <th id="objectTitle"></th>
+          </tr>
+          <tr>
+            <td width="33%">
+              <div>
+                <img src='img/dummy.jpg' id="titleImage" alt="Titelbild" style="max-height:120px">
+              </div>
             </td>
-            <td width="50%">
+            <td>
               <table>
                 <tr>
-                  <td><b id="objectTitle"></b></td>
+                  <td><b id="address"></b></td>
                 </tr>
                 <tr>
                   <table>

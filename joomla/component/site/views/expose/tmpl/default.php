@@ -26,38 +26,34 @@ $document->addScript(immobrowseAsset('expose.js'));
 <h2>Customer: <?php echo($this->customer); ?></h2>
 <h2>Object Id: <?php echo($this->objectId); ?></h2>
 <h2>Site Key: <?php echo($this->sitekey); ?></h2>
-<div class="container">
-  <div id="header" class="row row-centered ib-header">
-    <div class="col-md-2 col-centered ib-centered">
-      <button type="button" class="btn btn-default" onclick="back();">
+<div>
+  <div id="header" class="ib-header">
+    <div class="ib-centered">
+      <button type="button" onclick="back();">
         « Zur&uuml;ck
       </button>
     </div>
-    <div id="objectTitle" class="col-md-5 col-centered ib-title">
-      Objekttitel
-    </div>
-    <div id="objectId" class="col-md-2 col-centered ib-id">
-      Objekt ID
-    </div>
-    <div class="col-md-1 col-centered">
-      <div class="ib-detail-print ib-centered">
-        <button type="button" class="btn btn-info" onclick="print();">
-          Drucken
-        </button>
-      </div>
-    </div>
-    <div class="col-md-2 col-centered">
-      <div class="ib-detail-contactform ib-centered">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contactForm">
-          Kontaktformular
-        </button>
-      </div>
+    <table>
+      <tr>
+        <th id="objectTitle" class="ib-title"></th>
+      </tr>
+      <tr>
+        <td id="objectId" class="ib-id"></td>
+      </tr>
+      <tr>
+        <td id="objectId" class="ib-id"></td>
+      </tr>
+    </table>
+    <div class="ib-detail-print ib-centered">
+      <button type="button" class="btn btn-info" onclick="print();">
+        Drucken
+      </button>
     </div>
   </div>
-  <div class="row row-centered">
-    <div id="expose" class="col-md-12 ib-expose">
-      <div class="row row-centered">
-        <div class="col-sm-6">
+  <div>
+    <div id="expose" class="ib-expose">
+      <div>
+        <div>
           <div class="thumbnail">
             <div id="titleImageFrame" class="ib-image-frame">
               <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
@@ -78,184 +74,185 @@ $document->addScript(immobrowseAsset('expose.js'));
           </div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="ib-expose-data-row">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Preise
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Kaltmiete
             </div>
-            <div id="coldRent" class="col-xs-6"></div>
+            <div id="coldRent"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Nebenkosten
             </div>
-            <div id="serviceCharge" class="col-xs-6"></div>
+            <div id="serviceCharge"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Kaution / Genoss.-Ant.
             </div>
-            <div id="securityDeposit" class="col-xs-6"></div>
+            <div id="securityDeposit"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Heizkosten in NK enthalten?
             </div>
-            <div id="heatingCostsInServiceCharge" class="col-xs-6"></div>
+            <div id="heatingCostsInServiceCharge"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Heizkosten
             </div>
-            <div id="heatingCosts" class="col-xs-6"></div>
+            <div id="heatingCosts"></div>
           </div>
         </div>
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Zustand und Ausstattung
-          </div><div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          </div>
+          <div>
+            <div class="ib-price-caption">
               Wohnfläche
             </div>
-            <div id="livingArea" class="col-xs-6"></div>
+            <div id="livingArea"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Zimmer
             </div>
-            <div id="rooms" class="col-xs-6"></div>
+            <div id="rooms"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Etage
             </div>
-            <div id="floor" class="col-xs-6"></div>
+            <div id="floor"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Baujahr
             </div>
-            <div id="constructionYear" class="col-xs-6"></div>
+            <div id="constructionYear"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Zustand
             </div>
-            <div id="state" class="col-xs-6"></div>
+            <div id="state"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Letzte Modernisierung
             </div>
-            <div id="lastModernization" class="col-xs-6"></div>
+            <div id="lastModernization"></div>
           </div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="ib-expose-data-row">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Energieausweis
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div >
+            <div class="ib-price-caption">
               Ausweisart
             </div>
-            <div id="energyCertificateType" class="col-xs-6"></div>
+            <div id="energyCertificateType"></div>
           </div>
-          <div id="energyConsumptionContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="energyConsumptionContainer">
+            <div class="ib-price-caption">
               Endenergieverbrauch
             </div>
-            <div id="energyConsumption" class="col-xs-6"></div>
+            <div id="energyConsumption"></div>
           </div>
-          <div id="energyDemandContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="energyDemandContainer">
+            <div class="ib-price-caption">
               Endenergiebedarf
             </div>
-            <div id="energyDemand" class="col-xs-6"></div>
+            <div id="energyDemand"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Primärenergieträger
             </div>
-            <div id="primaryEnergyCarrier" class="col-xs-6"></div>
+            <div id="primaryEnergyCarrier"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Wertklasse
             </div>
-            <div id="valueClass" class="col-xs-6"></div>
+            <div id="valueClass"></div>
           </div>
         </div>
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Ausstattung
           </div>
-          <div id="amenitiesList" class="row row-centered"></div>
+          <div id="amenitiesList"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-12 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="ib-expose-data-row">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Objektbeschreibung
           </div>
-          <div id="description" class="row row-centered ib-justified"></div>
+          <div id="description" class="ib-justified"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-12 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="ib-expose-data-row">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Lagebeschreibung
           </div>
-          <div id="exposure" class="row row-centered ib-justified"></div>
+          <div id="exposure" class="ib-justified"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-12 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="ib-expose-data-row">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Sonstiges
           </div>
-          <div id="miscellanea" class="row row-centered ib-justified"></div>
+          <div id="miscellanea" class="ib-justified"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="ib-expose-data-row">
+        <div class="ib-expose-data-col">
+          <div class="ib-section-caption">
             Kontakt
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Name
             </div>
-            <div id="contactName" class="col-xs-6"></div>
+            <div id="contactName"></div>
           </div>
-          <div id="energyConsumptionContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="energyConsumptionContainer">
+            <div class="ib-price-caption">
               Firma
             </div>
-            <div id="contactCompany" class="col-xs-6"></div>
+            <div id="contactCompany"></div>
           </div>
-          <div id="energyDemandContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="energyDemandContainer" >
+            <div class="ib-price-caption">
               Adresse
             </div>
-            <div id="contactAddress" class="col-xs-6"></div>
+            <div id="contactAddress"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div >
+            <div class="ib-price-caption">
               Telefon
             </div>
-            <div id="contactPhone" class="col-xs-6"></div>
+            <div id="contactPhone"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div>
+            <div class="ib-price-caption">
               Website
             </div>
-            <div id="contactWebsite" class="col-xs-6"></div>
+            <div id="contactWebsite"></div>
           </div>
         </div>
       </div>
@@ -266,7 +263,6 @@ $document->addScript(immobrowseAsset('expose.js'));
   </div>
 </div>
 
-<!-- Modal -->
 <div id="contactForm" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
