@@ -12,7 +12,7 @@ immobrowse.config = {
       view: 'expose',
       customer: customer,
       objectId: objectId,
-      backlink: window.location.href
+      backlink: encodeURIComponent(window.location.href)
     };
 
     return window.location.href.split('?')[0] + homeinfo.queryString(homeinfo.queryArgs(options));

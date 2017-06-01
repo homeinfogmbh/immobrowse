@@ -32,7 +32,7 @@ var floorplanGallery;
 
 
 function back() {
-  immobrowse.open(queryString.backlink);
+  immobrowse.open(decodeURIComponent(queryString.backlink));
 }
 
 
