@@ -1245,17 +1245,17 @@ immobrowse.RealEstate = function (cid, realEstate) {
       energyCertificate.type = 'Verbrauchsausweis';
 
       if (energiepass.energieverbrauchkennwert != null && energiepass.energieverbrauchkennwert != '') {
-        var value = immobrowse.germanDecimal(energiepass.energieverbrauchkennwert) + this.kwh;
-        energyCertificate.value = value;
-        energyCertificate.consumption = value;
+        var consumption = immobrowse.germanDecimal(energiepass.energieverbrauchkennwert) + this.kwh;
+        energyCertificate.value = consumption;
+        energyCertificate.consumption = consumption;
       }
     } else {
       energyCertificate.type = 'Bedarfsausweis';
 
       if (energiepass.endenergiebedarf != null && energiepass.endenergiebedarf != '') {
-        var value = immobrowse.germanDecimal(energiepass.endenergiebedarf) + this.kwh;
-        energyCertificate.value = value;
-        energyCertificate.demand = value;
+        var demand = immobrowse.germanDecimal(energiepass.endenergiebedarf) + this.kwh;
+        energyCertificate.value = demand;
+        energyCertificate.demand = demand;
       }
     }
 
