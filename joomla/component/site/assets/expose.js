@@ -23,6 +23,7 @@
     * sweetalert.js
     * immobrowse.js
 */
+var queryString = new homeinfo.QueryString();
 var mailer = new immobrowse.Mailer('homeinfo-testing');
 var elements;
 var realEstate;
@@ -31,8 +32,7 @@ var floorplanGallery;
 
 
 function back() {
-  var backLink = window.location.href.split('?')[0] + '?option=com_immobrowse&view=list&customer=' + customer;
-  immobrowse.open(backLink);
+  immobrowse.open(queryString.backlink);
 }
 
 

@@ -11,7 +11,8 @@ immobrowse.config = {
       option: 'com_immobrowse',
       view: 'expose',
       customer: customer,
-      objectId: objectId
+      objectId: objectId,
+      backlink: window.location.href
     };
 
     return window.location.href.split('?')[0] + homeinfo.queryString(homeinfo.queryArgs(options));
