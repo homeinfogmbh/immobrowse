@@ -1600,9 +1600,11 @@ immobrowse.List = function (cid, realEstates) {
       }
     }
 
-    if (filters.districts != null && filters.districts.length > 0) {
-      if (filters.districts.indexOf(realEstate.district()) < 0) {
-        return false;
+    if (filters.districts != null) {
+      if (filters.districts.length > 0) {
+        if (filters.districts.indexOf(realEstate.district()) < 0) {
+          return false;
+        }
       }
     }
 
