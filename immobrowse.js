@@ -389,6 +389,34 @@ immobrowse.RealEstate = function (cid, realEstate) {
 
   this.cid = cid;
 
+  this.address = function () {
+    var address = [];
+
+    if (this.geo != null) {
+      if (this.geo.ort != null) {
+        address.push(this.geo.ort);
+      }
+
+      if (this.geo.regionaler_zusatz != null) {
+        address.push(this.geo.regionaler_zusatz);
+      }
+
+      if (this.geo.strasse != null) {
+        if (this.geo.hausnummer != null) {
+          address.push(this.geo.strasse + ' ' + this.geo.hausnummer);
+        } else {
+          address.push(this.geo.strasse);
+        }
+      }
+    }
+
+    if (address.length > 0) {
+      return address.join(', ');
+    } else {
+      return 'N/A';
+    }
+  }
+
   this.addressPreview = function () {
     if (this.geo == null) {
       return 'N/A';
@@ -1450,6 +1478,7 @@ immobrowse.RealEstate = function (cid, realEstate) {
 
     this.setValue(elements.objectId, this.objectId());
     this.setValue(elements.objectTitle, this.objectTitle());
+    this.setValue(elements.address, this.address());
     this.setValue(elements.coldRent, immobrowse.euro(this.rent()));
     this.setValue(elements.serviceCharge, immobrowse.euro(this.serviceCharge()));
     this.setValue(elements.operationalCosts, immobrowse.euro(this.operationalCosts()));

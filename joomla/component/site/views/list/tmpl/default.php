@@ -36,7 +36,7 @@ $document->addScript(immobrowseAsset('list.js'));
         <table>
           <tr>
             <td width="50%">
-              <img src='img/dummy.jpg' id="titleImage" alt="Titelbild" style="max-height:100%; max-width:100%">
+              <img src='img/dummy.jpg' id="titleImage" alt="Titelbild" style="max-height:80px; max-width:100%">
             </td>
             <td width="50%">
               <table>
