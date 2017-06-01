@@ -933,13 +933,18 @@ immobrowse.RealEstate = function (cid, realEstate) {
 
   this.amenitiesList = function () {
     var amenities = this.amenities();
-    var html = '<ul class="ib-amenities-list">';
 
-    for (var i = 0; i < amenities.length; i++) {
-      html += '<li>' + amenities[i] + '</li>';
+    if (amenities.length > 0) {
+      var html = '<ul class="ib-amenities-list">';
+
+      for (var i = 0; i < amenities.length; i++) {
+        html += '<li>' + amenities[i] + '</li>';
+      }
+
+      return html + '</ul>';
+    } else {
+      return '–';
     }
-
-    return html + '</ul>';
   }
 
   this.floor = function () {
