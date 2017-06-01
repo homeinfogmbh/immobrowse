@@ -18,8 +18,6 @@ $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('list.js'));
 ?>
-<h1>Liste</h1>
-<h2>Customer: <?php echo($this->customer); ?></h2>
 <div class="container">
   <div class="row row-centered ib-header">
     <div class="col-md-3 col-centered">
@@ -37,13 +35,13 @@ $document->addScript(immobrowseAsset('list.js'));
       <div id="entry" class="container ib-preview-item">
         <table>
           <tr>
-            <td>
-              <img src='img/dummy.jpg' id="titleImage" alt="Titelbild">
+            <td width="50%">
+              <img src='img/dummy.jpg' id="titleImage" alt="Titelbild" style="max-height:100%; max-width:100%">
             </td>
-            <td>
+            <td width="50%">
               <table>
                 <tr>
-                  <td id="objectTitle"></td>
+                  <td><b id="objectTitle"></b></td>
                 </tr>
                 <tr>
                   <table>
@@ -53,7 +51,7 @@ $document->addScript(immobrowseAsset('list.js'));
                     </tr>
                     <tr>
                       <td>Fläche ca.: </td>
-                      <td id="area"></td>
+                      <td id="livingArea"></td>
                     </tr>
                     <tr>
                       <td>Kaltmiete:</td>
