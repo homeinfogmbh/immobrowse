@@ -35,53 +35,40 @@ $document->addScript(immobrowseAsset('list.js'));
   <div class="row row-centered">
     <div id="templateContainer" class="ib-template-container">
       <div id="entry" class="container ib-preview-item">
-        <div class="row row-centered ib-preview-container">
-          <div class="col-md-4">
-            <div class="ib-image-frame">
-              <img src='img/dummy.jpg' id="titleImage" class="ib-framed-image" alt="Titelbild">
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="row row-centered">
-              <div id="objectTitle" class="ib-preview-title"></div>
-            </div>
-            <div class="row row-centered ib-preview-data">
-              <div class="col-xs-3">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Kaltmiete</div>
-                </div>
-                <div class="row">
-                  <div id="coldRent"></div>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Nebenkosten</div>
-                </div>
-                <div class="row">
-                  <div id="serviceCharge"></div>
-                </div>
-              </div>
-              <div class="col-xs-2">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Zimmer</div>
-                </div>
-                <div class="row">
-                  <div id="rooms"></div>
-                </div>
-              </div>
-              <div class="col-xs-3">
-                <div class="row">
-                  <div class="ib-preview-data-caption">Fläche</div>
-                </div>
-                <div class="row">
-                  <div id="livingArea"></div>
-                </div>
-              </div>
-            </div>
-            <div id="amenitiesTags" class="ib-preview-tags"></div>
-          </div>
-        </div>
+        <table>
+          <tr>
+            <td>
+              <img src='img/dummy.jpg' id="titleImage" alt="Titelbild">
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td id="objectTitle"></td>
+                </tr>
+                <tr>
+                  <table>
+                    <tr>
+                      <td>Anzahl Zimmer:</td>
+                      <td id="rooms"></td>
+                    </tr>
+                    <tr>
+                      <td>Fläche ca.: </td>
+                      <td id="area"></td>
+                    </tr>
+                    <tr>
+                      <td>Kaltmiete:</td>
+                      <td id="coldRent"></td>
+                    </tr>
+                    <tr>
+                      <td>Nebenkosten:</td>
+                      <td id="serviceCharge"></td>
+                    </tr>
+                  </table>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div id="list"></div>
