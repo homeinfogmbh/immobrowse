@@ -4,7 +4,6 @@ defined('_JEXEC') or die('Restricted access');
 
 $document = JFactory::getDocument();
 
-//$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
 $document->addStyleSheet(immobrowseAsset('gallery.css'));
@@ -22,179 +21,176 @@ $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('gallery.js'));
 $document->addScript(immobrowseAsset('expose.js'));
 ?>
-<h1>Expose</h1>
-<h2>Customer: <?php echo($this->customer); ?></h2>
-<h2>Object Id: <?php echo($this->objectId); ?></h2>
-<h2>Site Key: <?php echo($this->sitekey); ?></h2>
 <div>
   <div id="header" class="ib-header">
-    <div class="ib-centered">
-      <button type="button" onclick="back();">
-        « Zur&uuml;ck
-      </button>
-    </div>
-    <table>
+    <table width="100%">
       <tr>
-        <th id="objectTitle" class="ib-title"></th>
-      </tr>
-      <tr>
-        <td id="objectId" class="ib-id"></td>
-      </tr>
-      <tr>
-        <td id="objectId" class="ib-id"></td>
+        <td width="20%" style="text-align: left;">
+          <button type="button" onclick="back();">
+            « Zur&uuml;ck
+          </button>
+        </td>
+        <td width="60%" class="ib-centered">
+          <span id="objectTitle" class="ib-title">Objekttitel</span><br>
+          Objekt Nr. <span id="objectId" class="ib-id">Objektnummer</span>
+        </td>
+        <td width="20%" style="text-align: right;">
+          <button type="button" class="btn btn-info" onclick="print();">
+            Drucken
+          </button>
+        </td>
       </tr>
     </table>
-    <div class="ib-detail-print ib-centered">
-      <button type="button" class="btn btn-info" onclick="print();">
-        Drucken
-      </button>
-    </div>
   </div>
   <div>
     <div id="expose" class="ib-expose">
-      <div>
-        <div>
-          <div class="thumbnail">
+      <table width="100%">
+        <tr>
+          <td width="50%">
             <div id="titleImageFrame" class="ib-image-frame">
               <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
             </div>
-            <div id="titleImageCaption" class="caption">
+            <div id="titleImageCaption" class="ib-centered">
               Titelbild
             </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="thumbnail">
+          </td>
+          <td width="50%">
             <div id="floorplanFrame" class="ib-image-frame">
               <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
             </div>
-            <div id="floorplanCaption" class="caption">
+            <div id="floorplanCaption" class="ib-centered">
               Grundriss
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="ib-expose-data-row">
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
-            Preise
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Kaltmiete
-            </div>
-            <div id="coldRent"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Nebenkosten
-            </div>
-            <div id="serviceCharge"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Kaution / Genoss.-Ant.
-            </div>
-            <div id="securityDeposit"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Heizkosten in NK enthalten?
-            </div>
-            <div id="heatingCostsInServiceCharge"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Heizkosten
-            </div>
-            <div id="heatingCosts"></div>
-          </div>
-        </div>
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
-            Zustand und Ausstattung
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Wohnfläche
-            </div>
-            <div id="livingArea"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Zimmer
-            </div>
-            <div id="rooms"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Etage
-            </div>
-            <div id="floor"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Baujahr
-            </div>
-            <div id="constructionYear"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Zustand
-            </div>
-            <div id="state"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Letzte Modernisierung
-            </div>
-            <div id="lastModernization"></div>
-          </div>
-        </div>
-      </div>
-      <div class="ib-expose-data-row">
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
+          </td>
+        </tr>
+      </table>
+      <table width="100%">
+        <tr>
+          <td width="50%" class="ib-container-column">
+            <table>
+              <tr>
+                <th class="ib-section-caption ib-left">
+                  Preise
+                </th>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Kaltmiete: <span id="coldRent"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Nebenkosten: <span id="serviceCharge"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Kaution / Genoss.-Ant.: <span id="securityDeposit"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Heizkosten in NK enthalten: <span id="heatingCostsInServiceCharge"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Heizkosten: <span id="heatingCosts"></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td width="50%" class="ib-container-column">
+            <table>
+              <tr>
+                <th class="ib-section-caption ib-left">
+                  Zustand und Ausstattung
+                </th>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Wohnfläche: <span id="livingArea"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Zimmer: <span id="rooms"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Etage: <span id="floor"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Baujahr: <span id="constructionYear"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Zustand: <span id="state"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Letzte Modernisierung: <span id="lastModernization"></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table width="100%">
+        <tr>
+          <th class="ib-section-caption ib-left">
             Energieausweis
-          </div>
-          <div >
-            <div class="ib-price-caption">
-              Ausweisart
-            </div>
-            <div id="energyCertificateType"></div>
-          </div>
-          <div id="energyConsumptionContainer">
-            <div class="ib-price-caption">
-              Endenergieverbrauch
-            </div>
-            <div id="energyConsumption"></div>
-          </div>
-          <div id="energyDemandContainer">
-            <div class="ib-price-caption">
-              Endenergiebedarf
-            </div>
-            <div id="energyDemand"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Primärenergieträger
-            </div>
-            <div id="primaryEnergyCarrier"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Wertklasse
-            </div>
-            <div id="valueClass"></div>
-          </div>
-        </div>
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
-            Ausstattung
-          </div>
-          <div id="amenitiesList"></div>
-        </div>
-      </div>
+          </th>
+        </tr>
+        <tr>
+          <td width="50%" class="ib-container-column">
+            <table>
+              <tr>
+                <td class="ib-price-caption">
+                  Ausweisart: <span id="energyCertificateType"></span>
+                </td>
+              </tr>
+              <tr id="energyConsumptionContainer">
+                <td class="ib-price-caption">
+                  Endenergieverbrauch: <span id="energyConsumption"></span>
+                </td>
+              </tr>
+              <tr id="energyDemandContainer">
+                <td class="ib-price-caption">
+                  Endenergiebedarf: <span id="energyDemand"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Primärenergieträger: <span id="primaryEnergyCarrier"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Wertklasse: <span id="valueClass"></span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td width="50%" class="ib-container-column">
+            <table>
+              <tr>
+                <th class="ib-section-caption">
+                  Ausstattung
+                </th>
+              </tr>
+              <tr>
+                <td id="amenitiesList"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
       <div class="ib-expose-data-row">
         <div class="ib-expose-data-col">
           <div class="ib-section-caption">

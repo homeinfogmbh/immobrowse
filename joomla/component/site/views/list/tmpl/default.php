@@ -4,7 +4,6 @@ defined('_JEXEC') or die('Restricted access');
 
 $document = JFactory::getDocument();
 
-//$document->addStyleSheet('https://tls.homeinfo.de/libs/bootstrap/latest/css/bootstrap.min.css');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
 $document->addStyleSheet(immobrowseAsset('list.css'));
@@ -27,38 +26,43 @@ $document->addScript(immobrowseAsset('list.js'));
       <div id="entry" class="ib-preview-item">
         <table width="100%" style="table-layout: fixed;">
           <tr>
-            <th id="objectTitle"></th>
+            <th id="objectTitle" class="ib-left"></th>
           </tr>
           <tr>
-            <td width="33%">
+            <td width="20%">
               <div>
                 <img src='img/dummy.jpg' id="titleImage" alt="Titelbild" style="max-height:120px">
               </div>
             </td>
-            <td>
+            <td width="80%">
               <table>
                 <tr>
-                  <td><b id="address"></b></td>
+                  <th id="address"></td>
                 </tr>
                 <tr>
-                  <table>
-                    <tr>
-                      <td>Anzahl Zimmer:</td>
-                      <td id="rooms"></td>
-                    </tr>
-                    <tr>
-                      <td>Fläche ca.: </td>
-                      <td id="livingArea"></td>
-                    </tr>
-                    <tr>
-                      <td>Kaltmiete:</td>
-                      <td id="coldRent"></td>
-                    </tr>
-                    <tr>
-                      <td>Nebenkosten:</td>
-                      <td id="serviceCharge"></td>
-                    </tr>
-                  </table>
+                  <td class="ib-container-column">
+                    <table>
+                      <tr>
+                        <td>Anzahl Zimmer:</td>
+                        <td id="rooms"></td>
+                      </tr>
+                      <tr>
+                        <td>Fläche ca.: </td>
+                        <td id="livingArea"></td>
+                      </tr>
+                      <tr>
+                        <td>Kaltmiete:</td>
+                        <td id="coldRent"></td>
+                      </tr>
+                      <tr>
+                        <td>Nebenkosten:</td>
+                        <td id="serviceCharge"></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td id="amenitiesTags" class="ib-container-column"></td>
                 </tr>
               </table>
             </td>

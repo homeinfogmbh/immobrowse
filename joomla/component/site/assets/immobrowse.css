@@ -20,10 +20,6 @@
   padding-top: 2em;
 }
 
-body {
-  background-color: #dfdfdf;
-}
-
 .oval-inner {
   padding-top: 2px;
   padding-left: 6px;
@@ -63,7 +59,7 @@ body {
 .ib-image-frame {
   height: 300px;
   position:relative;
-  background-color: #666666;
+  background-color: #ffffff;
 }
 
 .ib-framed-image {
@@ -77,4 +73,17 @@ body {
   left: 0;
   right: 0;
   margin: auto;
+}
+
+.ib-centered {
+  text-align: center;
+}
+
+.ib-left {
+  text-align: left;
+}
+
+.ib-container-column {
+  vertical-align: top;
+  text-align: left;
 }

@@ -78,3 +78,7 @@ body {
   right: 0;
   margin: auto;
 }
+
+.ib-centered {
+  text-align: center;
+}
