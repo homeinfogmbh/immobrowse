@@ -143,36 +143,42 @@ $document->addScript(immobrowseAsset('expose.js'));
       </table>
       <table width="100%">
         <tr>
-          <th class="ib-section-caption ib-left">
-            Energieausweis
-          </th>
-        </tr>
-        <tr>
           <td width="50%" class="ib-container-column">
             <table>
               <tr>
-                <td class="ib-price-caption">
-                  Ausweisart: <span id="energyCertificateType"></span>
-                </td>
-              </tr>
-              <tr id="energyConsumptionContainer">
-                <td class="ib-price-caption">
-                  Endenergieverbrauch: <span id="energyConsumption"></span>
-                </td>
-              </tr>
-              <tr id="energyDemandContainer">
-                <td class="ib-price-caption">
-                  Endenergiebedarf: <span id="energyDemand"></span>
-                </td>
+                <th class="ib-section-caption ib-left">
+                  Energieausweis
+                </th>
               </tr>
               <tr>
-                <td class="ib-price-caption">
-                  Primärenergieträger: <span id="primaryEnergyCarrier"></span>
-                </td>
-              </tr>
-              <tr>
-                <td class="ib-price-caption">
-                  Wertklasse: <span id="valueClass"></span>
+                <td width="50%" class="ib-container-column">
+                  <table>
+                    <tr>
+                      <td class="ib-price-caption">
+                        Ausweisart: <span id="energyCertificateType"></span>
+                      </td>
+                    </tr>
+                    <tr id="energyConsumptionContainer">
+                      <td class="ib-price-caption">
+                        Endenergieverbrauch: <span id="energyConsumption"></span>
+                      </td>
+                    </tr>
+                    <tr id="energyDemandContainer">
+                      <td class="ib-price-caption">
+                        Endenergiebedarf: <span id="energyDemand"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="ib-price-caption">
+                        Primärenergieträger: <span id="primaryEnergyCarrier"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="ib-price-caption">
+                        Wertklasse: <span id="valueClass"></span>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
@@ -180,7 +186,7 @@ $document->addScript(immobrowseAsset('expose.js'));
           <td width="50%" class="ib-container-column">
             <table>
               <tr>
-                <th class="ib-section-caption">
+                <th class="ib-section-caption ib-left">
                   Ausstattung
                 </th>
               </tr>
@@ -191,67 +197,65 @@ $document->addScript(immobrowseAsset('expose.js'));
           </td>
         </tr>
       </table>
-      <div class="ib-expose-data-row">
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
-            Objektbeschreibung
-          </div>
-          <div id="description" class="ib-justified"></div>
-        </div>
-      </div>
-      <div class="ib-expose-data-row">
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
-            Lagebeschreibung
-          </div>
-          <div id="exposure" class="ib-justified"></div>
-        </div>
-      </div>
-      <div class="ib-expose-data-row">
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
-            Sonstiges
-          </div>
-          <div id="miscellanea" class="ib-justified"></div>
-        </div>
-      </div>
-      <div class="ib-expose-data-row">
-        <div class="ib-expose-data-col">
-          <div class="ib-section-caption">
+      <table>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th class="ib-section-caption">
+                  Objektbeschreibung
+                </th>
+              </tr>
+              <tr>
+                <td id="description" class="ib-justified"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th class="ib-section-caption">
+                  Lagebeschreibung
+                </th>
+              </tr>
+              <tr>
+                <td id="exposure" class="ib-justified"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th class="ib-section-caption">
+                  Sonstiges
+                </th>
+              </tr>
+              <tr>
+                <td id="miscellanea" class="ib-justified"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th class="ib-section-caption ib-left">
             Kontakt
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Name
-            </div>
-            <div id="contactName"></div>
-          </div>
-          <div id="energyConsumptionContainer">
-            <div class="ib-price-caption">
-              Firma
-            </div>
-            <div id="contactCompany"></div>
-          </div>
-          <div id="energyDemandContainer" >
-            <div class="ib-price-caption">
-              Adresse
-            </div>
-            <div id="contactAddress"></div>
-          </div>
-          <div >
-            <div class="ib-price-caption">
-              Telefon
-            </div>
-            <div id="contactPhone"></div>
-          </div>
-          <div>
-            <div class="ib-price-caption">
-              Website
-            </div>
-            <div id="contactWebsite"></div>
-          </div>
-        </div>
-      </div>
+          </th>
+        </tr>
+          <td>
+            Name: <span id="contactName"></span><br>
+            Firma: <span id="contactCompany"></span><br>
+            Adresse: <span id="contactAddress"></span><br>
+            Tel.: <span id="contactPhone"></span><br>
+            Website: <span id="contactWebsite"></span><br>
+          </td>
+        </tr>
+      </table>
     </div>
     <div id="loader">
       <div class="loader"></div>
