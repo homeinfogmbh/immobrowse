@@ -31,64 +31,6 @@ $document->addScript(immobrowseAsset('list.js'));
         </div>
       </div>
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-rooms-min" class="form-control ib-btn-filter-option" type="number" placeholder="Zimmer ab">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="item">
-        <div class="content">
-          <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row row-centered">
-    <div id="extendedSearch" class="ib-extsearch" style="display: none;">
-      <div class="container">
-        <div class="row row-centered">
-          <div class="col-xs-6 col-centered">
-            <label><strong>Austattung</strong></label><br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="filter();"> Einbauküche (EBK)<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="filter();"> Badewanne<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="filter();"> Fenster im Bad<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="filter();"> Balkon<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="filter();"> Stellplatz<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="filter();"> Gäste-WC<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="filter();"> Fahrstuhl<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="filter();"> Gartennutzung<br>
-          </div>
-          <div class="col-xs-6 col-centered">
-            <label><strong>Stadtteile</strong></label><br>
-            <div id="ib-districts"></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="row row-centered">
     <div id="templateContainer" class="ib-template-container">

@@ -82,37 +82,10 @@ function toggleSorting(property) {
   list.render(listElement, template, elements);
 }
 
-function selectedDistricts() {
-  var districts = [];
-  var checkboxes = document.getElementsByClassName('ib-select-district');
-
-  for (i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-      districts.push(checkboxes[i].getAttribute('name'));
-    }
-  }
-
-  return districts;
-}
-
 function filters() {
-  var priceMax = Number(homeinfo.str.comma2dot(jQuery('#ib-price-max').val()));
   var filters = {
     types: immobrowse.config.types,
-    marketing: immobrowse.config.marketing,
-    priceMin: Number(homeinfo.str.comma2dot(jQuery('#ib-price-min').val())),
-    priceMax: priceMax == 0 ? Infinity: priceMax,
-    areaMin: Number(homeinfo.str.comma2dot(jQuery('#ib-area-min').val())),
-    roomsMin: Number(homeinfo.str.comma2dot(jQuery('#ib-rooms-min').val())),
-    ebk: jQuery("#ib-filter-kitchen").is(':checked'),
-    bathtub: jQuery("#ib-filter-bathtub").is(':checked'),
-    window: jQuery("#ib-filter-window").is(':checked'),
-    balcony: jQuery("#ib-filter-balcony").is(':checked'),
-    carSpace: jQuery("#ib-filter-carspace").is(':checked'),
-    guestwc: jQuery("#ib-filter-guestwc").is(':checked'),
-    elevator: jQuery("#ib-filter-elevator").is(':checked'),
-    garden: jQuery("#ib-filter-garden").is(':checked'),
-    districts: selectedDistricts()
+    marketing: immobrowse.config.marketing
   }
 
   immobrowse.logger.debug('Filters:');
@@ -131,38 +104,11 @@ function filter() {
 }
 
 jQuery(document).ready(function () {
-  jQuery('#ib-extsearch-button').click(function() {
-    if (jQuery('#extendedSearch').attr('style') == "display: none;")
-      jQuery('#extendedSearch').slideDown();
-    else
-      jQuery('#extendedSearch').slideUp();
-  });
-
-  jQuery('.ib-btn-filter-option').on('input',function(e) {
-    filter();
-  });
-
-  jQuery('.ib-filter-amenities-option').click(function() {
-    filter();
-  });
-
-  var districtsElement = document.getElementById('ib-districts');
-  districtsElement.innerHTML = '';
   listElement = jQuery('#list');
   template = jQuery('#templateContainer');
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
-
-    var districts = list.districts();
-
-    for (district in districts) {
-      if (districts.hasOwnProperty(district)) {
-        districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
-          + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
-      }
-    }
-
     list.render(listElement, template, elements);
     jQuery('#loader').hide();
   });
