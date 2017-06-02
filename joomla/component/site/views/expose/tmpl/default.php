@@ -4,6 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 
 $document = JFactory::getDocument();
 
+$document->addStyleSheet('https://www.w3schools.com/w3css/4/w3.css');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
 $document->addStyleSheet(immobrowseAsset('gallery.css'));
