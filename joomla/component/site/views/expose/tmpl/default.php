@@ -7,7 +7,6 @@ $document = JFactory::getDocument();
 $document->addStyleSheet('https://www.w3schools.com/w3css/4/w3.css');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
-$document->addStyleSheet(immobrowseAsset('gallery.css'));
 $document->addStyleSheet(immobrowseAsset('expose.css'));
 
 $document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
@@ -20,6 +19,7 @@ $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('gallery.js'));
+$document->addScript(immobrowseAsset('slideshow.js'));
 $document->addScript(immobrowseAsset('expose.js'));
 ?>
 <div>
@@ -48,19 +48,21 @@ $document->addScript(immobrowseAsset('expose.js'));
       <table width="100%">
         <tr>
           <td width="50%">
-            <div id="titleImageFrame" class="ib-image-frame">
-              <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
-            </div>
-            <div id="titleImageCaption" class="ib-centered">
-              Titelbild
+            <div class="ib-image-frame">
+              <div id="titleImages">
+                <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="titleImages">
+              </div>
+              <button class="w3-button w3-display-left" onclick="plusTitleImage(-1)">&#10094;</button>
+              <button class="w3-button w3-display-right" onclick="plusTitleImage(+1)">&#10095;</button>
             </div>
           </td>
           <td width="50%">
-            <div id="floorplanFrame" class="ib-image-frame">
-              <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
-            </div>
-            <div id="floorplanCaption" class="ib-centered">
-              Grundriss
+            <div class="ib-image-frame">
+              <div id="floorplans">
+                <img src="img/dummy.jpg" alt="Grundriss" class="floorplans">
+              </div>
+              <button class="w3-button w3-display-left" onclick="plusFloorplan(-1)">&#10094;</button>
+              <button class="w3-button w3-display-right" onclick="plusFloorplan(+1)">&#10095;</button>
             </div>
           </td>
         </tr>

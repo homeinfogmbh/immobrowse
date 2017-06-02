@@ -27,8 +27,6 @@ var queryString = new homeinfo.QueryString();
 var mailer = new immobrowse.Mailer('hvo-eg');
 var elements;
 var realEstate;
-var imageGallery;
-var floorplanGallery;
 
 
 function back() {
@@ -164,56 +162,6 @@ function postRender() {
 }
 
 
-function setupGalleries() {
-  var galleryMapping = {
-      'image': jQuery('#galleryImage'),
-      'title': jQuery('#galleryTitle'),
-      'index': jQuery('#galleryIndex'),
-      'count': jQuery('#galleryImages'),
-      'next': jQuery('#galleryNext'),
-      'previous': jQuery('#galleryPrevious')
-  };
-  var images = realEstate.images();
-
-  function attachmentUrlCallback(attachment) {
-    return realEstate.attachmentURL(attachment);
-  }
-
-  imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
-
-  if (images.length > 0) {
-    jQuery('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
-  }
-
-  if (images.length > 1) {
-    jQuery('#titleImageFrame').click(function() {
-      imageGallery.bind();
-      imageGallery.render();
-      jQuery('#gallery').modal('toggle');
-    });
-
-    jQuery('#titleImageFrame').addClass('ib-browsable');
-  }
-
-  var floorplans = realEstate.floorplans();
-  floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
-
-  if (floorplans.length > 0) {
-    jQuery('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
-  }
-
-  if (floorplans.length > 1) {
-    jQuery('#floorplanFrame').click(function() {
-      floorplanGallery.bind();
-      floorplanGallery.render();
-      jQuery('#gallery').modal('toggle');
-    });
-
-    jQuery('#floorplanFrame').addClass('ib-browsable');
-  }
-}
-
-
 jQuery(document).ready(function () {
   elements = {
     objectId: jQuery('#objectId'),
@@ -259,10 +207,6 @@ jQuery(document).ready(function () {
     city: jQuery('#city'),
     zipCodeAndCity: jQuery('#zipCodeAndCity'),
     website: jQuery('#website'),
-    titleImage: {
-      image: jQuery('#titleImage'),
-      caption: jQuery('#titleImageCaption')
-    },
     amenitiesList: jQuery('#amenitiesList'),
     contact: {
       name: jQuery('#contactName'),
@@ -275,7 +219,7 @@ jQuery(document).ready(function () {
 
   immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
     realEstate = realEstate_;
-    setupGalleries();
+    setupSlideshows();
     realEstate.render(elements);
     document.title = 'Exposé Nr. ' + realEstate.objectId();
     postRender();
