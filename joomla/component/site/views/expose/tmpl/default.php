@@ -202,7 +202,7 @@ $document->addScript(immobrowseAsset('expose.js'));
           <td>
             <table>
               <tr>
-                <th class="ib-section-caption">
+                <th class="ib-section-caption ib-left">
                   Objektbeschreibung
                 </th>
               </tr>
@@ -216,7 +216,7 @@ $document->addScript(immobrowseAsset('expose.js'));
           <td>
             <table>
               <tr>
-                <th class="ib-section-caption">
+                <th class="ib-section-caption ib-left">
                   Lagebeschreibung
                 </th>
               </tr>
