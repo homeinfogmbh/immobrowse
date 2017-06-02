@@ -24,7 +24,7 @@
     * immobrowse.js
 */
 var queryString = new homeinfo.QueryString();
-var mailer = new immobrowse.Mailer('homeinfo-testing');
+var mailer = new immobrowse.Mailer('hvo-eg');
 var elements;
 var realEstate;
 var imageGallery;
@@ -36,7 +36,7 @@ function back() {
 }
 
 
-function clearContactForm() {
+function resetContactForm() {
   jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
   jQuery('#gender_female').click();
   jQuery('#forename').val('');
@@ -52,9 +52,13 @@ function clearContactForm() {
 }
 
 
-function sendEmail() {
-  var response = grecaptcha.getResponse();
+function commitForm(response) {
+  sendEmail(response);
+  grecaptcha.reset();
+}
 
+
+function sendEmail(response) {
   if (response.length == 0) {
     swal({
       title: 'Achtung!',
@@ -125,20 +129,12 @@ function sendEmail() {
     objectTitle, objectAddress, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, message)
   mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, recipient, email);
-  grecaptcha.reset();
-}
-
-
-function initContactForm() {
-  clearContactForm();
-  jQuery("#send_form").click(sendEmail);
-  jQuery('#contactFormModal').on('shown.bs.modal', clearContactForm);
-  jQuery("#clear_form").click(clearContactForm);
+  resetContactForm();
 }
 
 
 function postRender() {
-  initContactForm();
+  resetContactForm();
 
   jQuery('#loader').hide();
   jQuery('#main').attr('style', 'padding-top: 80px');

@@ -76,3 +76,7 @@
 .ib-amenities-list {
   list-style-image: url('components/com_immobrowse/assets/img/ok.png');
 }
+
+#message {
+  resize: none;
+}

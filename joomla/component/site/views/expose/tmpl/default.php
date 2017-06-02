@@ -243,165 +243,138 @@ $document->addScript(immobrowseAsset('expose.js'));
       </table>
       <table>
         <tr>
-          <th class="ib-section-caption ib-left">
-            Kontakt
-          </th>
-        </tr>
-          <td>
-            Name: <span id="contactName"></span><br>
-            Firma: <span id="contactCompany"></span><br>
-            Adresse: <span id="contactAddress"></span><br>
-            Tel.: <span id="contactPhone"></span><br>
-            Website: <span id="contactWebsite"></span><br>
+          <td width="50%" class="ib-container-column">
+            <table>
+              <tr>
+                <th class="ib-section-caption ib-left">
+                  Kontakt
+                </th>
+              </tr>
+                <td>
+                  Name: <span id="contactName"></span><br>
+                  Firma: <span id="contactCompany"></span><br>
+                  Adresse: <span id="contactAddress"></span><br>
+                  Tel.: <span id="contactPhone"></span><br>
+                  Website: <span id="contactWebsite"></span><br>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td width="50%" class="ib-container-column">
+            <table>
+              <tr>
+                <th class="ib-section-caption ib-left">
+                  Kontaktforumlar
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  Anrede
+                </td>
+                <td>
+                   <label class="btn btn-default">
+                     <input type="radio" name="gender" id="gender_male" value="1">Herr
+                   </label>
+                   <label class="btn btn-default">
+                     <input type="radio" name="gender" id="gender_female" value="0">Frau
+                   </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Objektnummer
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="object_id" disabled>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Vorname
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="forename" placeholder="Vorname*">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Nachname
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="surname" placeholder="Nachname*">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  E-Mail Adresse
+                </td>
+                <td>
+                   <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Telefon
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="phone" placeholder="Telefon">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Straße
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="street" placeholder="Straße">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Haus-Nr.
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  PLZ
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Ort
+                </td>
+                <td>
+                   <input type="text" class="form-control" id="city" placeholder="Ort">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Nachricht
+                </td>
+                <td>
+                  <textarea id="message" rows="4" cols="25"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Mit einem (*) gekennzeichnete Felder sind Pflichfelder
+                </td>
+                <td>
+                  <button class="g-recaptcha" data-sitekey="<?php echo($this->sitekey); ?>" data-callback="commitForm">Senden</button>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
       </table>
     </div>
     <div id="loader">
       <div class="loader"></div>
-    </div>
-  </div>
-</div>
-
-<div id="contactForm" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Kontaktformular</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row" id="the_form" style="margin-top:10px;">
-          <div class="col-md-6">
-           <p><strong>Anrede</strong></p>
-             <div class="btn-group" data-toggle="buttons">
-               <label class="btn btn-default">
-                 <input type="radio" name="gender" id="gender_male" value="1">Herr
-               </label>
-               <label class="btn btn-default">
-                 <input type="radio" name="gender" id="gender_female" value="0">Frau
-               </label>
-             </div>
-          </div>
-          <div class="col-md-6" id="contact_form_object_nr">
-            <p><strong>Objektnummer</strong></p>
-            <input type="text" class="form-control" id="object_id" disabled>
-          </div>
-          <div class="row">
-            <div class="col-md-12">&nbsp;</div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="forename">Vorname</label>
-              <input type="text" class="form-control" id="forename" placeholder="Vorname*">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="surname">Nachname</label>
-              <input type="text" class="form-control" id="surname" placeholder="Nachname*">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="email">E-Mail Adresse</label>
-              <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="phone">Telefon</label>
-              <input type="text" class="form-control" id="phone" placeholder="Telefon">
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="form-group">
-              <label for="street">Straße</label>
-              <input type="text" class="form-control" id="street" placeholder="Straße">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="house_number">Haus-Nr.</label>
-              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="zip_code">PLZ</label>
-              <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="form-group">
-              <label for="city">Ort</label>
-              <input type="text" class="form-control" id="city" placeholder="Ort">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
-          </div>
-          <div class="col-md-12" style="color:#979696; font-size:10px;">
-            Mit einem (*) gekennzeichnete Felder sind Pflichfelder
-          </div>
-          <div class="col-md-12" style="margin-top:20px;">
-            <div class="g-recaptcha" data-sitekey="<?php echo($this->sitekey); ?>"></div>
-          </div>
-        </div>
-        <hr>
-        <div class="row" id="contact_form_response" style="display:none;">
-          <hr>
-          <div class="col-md-2">
-            <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
-          </div>
-          <div class="col-md-9">
-            <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="visible:false;">
-        <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
-        <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
-        <img src="img/preloader.gif" id="loading" style="display:none;">
-        <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="gallery" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" id="close_modal">
-            <span class="glyphicon glyphicon-remove btn-lg .ib-gallery-close-button"></span>
-          </span>
-        </button>
-        <div class="ib-gallery-title">
-          <h3 class="modal-title" id="galleryTitle"></h3>
-        </div>
-      </div>
-      <div class="modal-body ib-gallery-image-container">
-         <img id="galleryImage" src="" class="img-thumbnail">
-      </div>
-      <div class="modal-footer">
-        <table width="100%">
-          <tr>
-              <td>
-                <span id="galleryPrevious" class="glyphicon glyphicon-chevron-left btn-lg pull-left ib-gallery-scroll-button" aria-hidden="true"></span>
-              </td>
-              <td align="middle">
-                <span id="galleryIndex"></span>
-                  /
-                <span id="galleryImages"></span>
-              </td>
-              <td>
-                <span id="galleryNext" class="glyphicon glyphicon-chevron-right btn-lg pull-right ib-gallery-scroll-button" aria-hidden="true"></span>
-              </td>
-            </tr>
-        </table>
-      </div>
     </div>
   </div>
 </div>
