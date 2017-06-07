@@ -2,10 +2,7 @@ DROP TABLE IF EXISTS `#__immobrowse`;
 
 CREATE TABLE `#__immobrowse` (
   `customer` INT(11) NOT NULL,
+  `hisecon_config` VARCHAR(64),
   `sitekey` VARCHAR(64),
    PRIMARY KEY  (`customer`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
-
-INSERT INTO `#__immobrowse` (`customer`, `sitekey`) VALUES
-  (1049003, '6Lc35SMUAAAAAH-JumNJ5xYtPRmvzyejJ65D4nYL'),
-  (1028001, '6Lc35SMUAAAAAH-JumNJ5xYtPRmvzyejJ65D4nYL');
