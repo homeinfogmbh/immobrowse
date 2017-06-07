@@ -49,6 +49,11 @@ function showFloorplan(n) {
 
 function setupSlideshows() {
   var template = '<div class="w3-display-container {group} ib-image-frame"><img src="{url}" class="ib-framed-image"><div class="w3-display-bottommiddle w3-container w3-padding-16 w3-black">{caption}</div></div>';
+  setupTitleImageSlideshow(template);
+  setupFloorplanSlideshow(template);
+}
+
+function setupTitleImageSlideshow(template) {
   var titleImages = realEstate.images();
   var titleImageSlideshow = [];
 
@@ -60,8 +65,11 @@ function setupSlideshows() {
   }
 
   jQuery('#titleImages').html(titleImageSlideshow.join('\n'));
+  jQuery('#titleImageGalleryContent').html(titleImageSlideshow.join('\n'));
   showTitleImage(titleImageIndex);
+}
 
+function setupFloorplanSlideshow(template) {
   var floorplans = realEstate.floorplans();
   var floorplanSlideshow = [];
 
@@ -73,5 +81,6 @@ function setupSlideshows() {
   }
 
   jQuery('#floorplans').html(floorplanSlideshow.join('\n'));
+  jQuery('#floorplanGalleryContent').html(titleImageSlideshow.join('\n'));
   showFloorplan(floorplanIndex);
 }

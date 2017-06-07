@@ -7,6 +7,7 @@ $document = JFactory::getDocument();
 $document->addStyleSheet('https://www.w3schools.com/w3css/4/w3.css');
 $document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
+$document->addStyleSheet(immobrowseAsset('slideshow.css'));
 $document->addStyleSheet(immobrowseAsset('expose.css'));
 
 $document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
@@ -380,4 +381,18 @@ $document->addScript(immobrowseAsset('expose.js'));
       <div class="loader"></div>
     </div>
   </div>
+</div>
+
+<div id="titleImageGallery" class="modal">
+  <span class="close" onclick="document.getElementById('gallery').style.display='none'">&times;</span>
+  <div id="titleImageGalleryContent" class="modal-content">
+  </div>
+  <div id="titleImageGalleryCaption"></div>
+</div>
+
+<div id="floorplanGallery" class="modal">
+  <span class="close" onclick="document.getElementById('gallery').style.display='none'">&times;</span>
+  <div id="floorplanGalleryContent" class="modal-content">
+  </div>
+  <div id="floorplanGalleryCaption"></div>
 </div>
