@@ -133,18 +133,9 @@ function sendEmail(response) {
 
 function postRender() {
   resetContactForm();
-
+  initGalleries();
   jQuery('#loader').hide();
   jQuery('#main').attr('style', 'padding-top: 80px');
-
-  jQuery('.showimage').click(function() {
-    for (var i = 0; i < jQuery(this).data("nrmax"); i++) {
-      jQuery('#image'+ i).hide();
-    }
-
-    jQuery('#image'+ jQuery(this).data("nr")).show();
-  });
-
   jQuery('.btn_contact').click(function(e) {
     //jQuery('#contact').scrollIntoView(true);
     if (jQuery('#contact').attr('style') == "display: none;") {

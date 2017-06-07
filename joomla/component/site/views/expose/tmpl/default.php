@@ -49,21 +49,19 @@ $document->addScript(immobrowseAsset('expose.js'));
       <table width="100%">
         <tr>
           <td width="50%">
-            <div class="ib-image-frame">
-              <div id="titleImages">
-                <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="titleImages">
-              </div>
-              <button class="w3-button w3-display-left" onclick="plusTitleImage(-1)">&#10094;</button>
-              <button class="w3-button w3-display-right" onclick="plusTitleImage(+1)">&#10095;</button>
+            <div class="w3-display-container titleImages ib-image-frame">
+              <img id="titleImage" src="img/dummy.jpg" alt="Titelbild" class="ib-framed-image">
+              <div id="titleImageCaption" class="w3-display-bottommiddle w3-container w3-padding-16 w3-black"></div>
+              <button class="w3-button w3-display-left" onclick="previousTitleImage()">&#10094;</button>
+              <button class="w3-button w3-display-right" onclick="nextTitleImage()">&#10095;</button>
             </div>
           </td>
           <td width="50%">
-            <div class="ib-image-frame">
-              <div id="floorplans">
-                <img src="img/dummy.jpg" alt="Grundriss" class="floorplans">
-              </div>
-              <button class="w3-button w3-display-left" onclick="plusFloorplan(-1)">&#10094;</button>
-              <button class="w3-button w3-display-right" onclick="plusFloorplan(+1)">&#10095;</button>
+            <div class="w3-display-container titleImages ib-image-frame">
+              <img id="floorplan" src="img/dummy.jpg" alt="Grundriss" class="ib-framed-image">
+              <div id="floorplanCaption" class="w3-display-bottommiddle w3-container w3-padding-16 w3-black"></div>
+              <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
+              <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
             </div>
           </td>
         </tr>
@@ -384,15 +382,17 @@ $document->addScript(immobrowseAsset('expose.js'));
 </div>
 
 <div id="titleImageGallery" class="modal">
-  <span class="close" onclick="document.getElementById('gallery').style.display='none'">&times;</span>
-  <div id="titleImageGalleryContent" class="modal-content">
-  </div>
+  <span class="close" onclick="document.getElementById('titleImageGallery').style.display='none'">&times;</span>
+  <img id="titleImageGalleryImage" src="img/dummy.jpg" alt="Grundriss" class="modal-content">
+  <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
+  <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
   <div id="titleImageGalleryCaption"></div>
 </div>
 
 <div id="floorplanGallery" class="modal">
-  <span class="close" onclick="document.getElementById('gallery').style.display='none'">&times;</span>
-  <div id="floorplanGalleryContent" class="modal-content">
-  </div>
+  <span class="close" onclick="document.getElementById('floorplanGallery').style.display='none'">&times;</span>
+  <img id="floorplanGalleryImage" src="img/dummy.jpg" alt="Grundriss" class="modal-content">
+  <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
+  <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
   <div id="floorplanGalleryCaption"></div>
 </div>
