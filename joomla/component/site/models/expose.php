@@ -9,7 +9,7 @@ jimport('joomla.application.component.modelitem');
 class ImmoBrowseModelExpose extends JModelItem
 {
     protected $customer;
-    protected $hisecon_config
+    protected $hiseconcfg;
     protected $sitekey;
 
     public function getTable($type = 'Config', $prefix = 'ImmoBrowseTable', $config = array())
@@ -36,26 +36,26 @@ class ImmoBrowseModelExpose extends JModelItem
         return $this->customer[$cid];
     }
 
-    public function getSitekey($cid)
+    public function getHiseconCfg($cid)
     {
-        if (! is_array($this->hisecon_config))
+        if (! is_array($this->hiseconcfg))
         {
-            $this->hisecon_config = array();
+            $this->hiseconcfg = array();
         }
 
-        if (! isset($this->hisecon_config[$cid]))
+        if (! isset($this->hiseconcfg[$cid]))
         {
             $jinput = JFactory::getApplication()->input;
             $cid = $jinput->get('customer', 1, 'INT' );
             $table = $this->getTable();
             $table->load($cid);
-            $this->hisecon_config[$cid] = $table->hisecon_config;
+            $this->hiseconcfg[$cid] = $table->hiseconcfg;
         }
 
-        return $this->hisecon_config[$cid];
+        return $this->hiseconcfg[$cid];
     }
 
-    public function getHiseconConfig($cid)
+    public function getSitekey($cid)
     {
         if (! is_array($this->sitekey))
         {

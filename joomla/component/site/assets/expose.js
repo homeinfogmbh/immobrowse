@@ -24,7 +24,7 @@
     * immobrowse.js
 */
 var queryString = new homeinfo.QueryString();
-var mailer = new immobrowse.Mailer('hvo-eg');
+var mailer;
 var elements;
 var realEstate;
 
@@ -132,6 +132,7 @@ function sendEmail(response) {
 
 
 function postRender() {
+  mailer = new immobrowse.Mailer(hiseconCfg);
   resetContactForm();
   jQuery('#loader').hide();
   jQuery('#main').attr('style', 'padding-top: 80px');

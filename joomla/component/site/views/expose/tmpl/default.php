@@ -18,6 +18,7 @@ $document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
 $document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
+$document->addScriptDeclaration('var hiseconCfg = "' . $this->hiseconcfg . '";');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('gallery.js'));
 $document->addScript(immobrowseAsset('slideshow.js'));
@@ -33,7 +34,9 @@ $document->addScript(immobrowseAsset('expose.js'));
           </button>
         </td>
         <td width="60%" class="ib-centered">
+          <h1>Wohnungsangebot</h1><br>
           <span id="objectTitle" class="ib-title">Objekttitel</span><br>
+          <span id="objectAddress" class="ib-title">Objektadresse</span><br>
           Objekt Nr. <span id="objectId" class="ib-id">Objektnummer</span>
         </td>
         <td width="20%" style="text-align: right;">
@@ -97,7 +100,7 @@ $document->addScript(immobrowseAsset('expose.js'));
               </tr>
               <tr>
                 <td class="ib-price-caption">
-                  Heizkosten: <span id="heatingCosts"></span>
+                  Heizkosten VZ: <span id="heatingCosts"></span>
                 </td>
               </tr>
             </table>
@@ -111,12 +114,12 @@ $document->addScript(immobrowseAsset('expose.js'));
               </tr>
               <tr>
                 <td class="ib-price-caption">
-                  Wohnfläche: <span id="livingArea"></span>
+                  Wohnfläche ca.: <span id="livingArea"></span>
                 </td>
               </tr>
               <tr>
                 <td class="ib-price-caption">
-                  Zimmer: <span id="rooms"></span>
+                  Anzahl Zimmer: <span id="rooms"></span>
                 </td>
               </tr>
               <tr>
@@ -127,6 +130,16 @@ $document->addScript(immobrowseAsset('expose.js'));
               <tr>
                 <td class="ib-price-caption">
                   Baujahr: <span id="constructionYear"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  Frei ab: <span id="availableFrom"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="ib-price-caption">
+                  WBS erforderlich: <span id="councilFlat"></span>
                 </td>
               </tr>
               <tr>
@@ -371,6 +384,11 @@ $document->addScript(immobrowseAsset('expose.js'));
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="ib-centered">
+            Alle Angaben ohne Gewähr.
           </td>
         </tr>
       </table>

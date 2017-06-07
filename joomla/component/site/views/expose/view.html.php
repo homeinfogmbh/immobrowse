@@ -15,8 +15,9 @@ class ImmoBrowseViewExpose extends JView
     {
         // Assign data to the view
         $this->customer = $this->get('Customer');
-        $this->objectId = $this->get('ObjectId');
         $this->sitekey = $this->get('Sitekey');
+        $this->hiseconcfg = $this->get('HiseconCfg');
+        $this->objectId = $this->get('ObjectId');
 
         // Check for errors.
         if (count($errors = $this->get('Errors')))
