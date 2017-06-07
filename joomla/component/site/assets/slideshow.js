@@ -19,23 +19,19 @@ function previousFloorplan() {
 
 function renderTitleImage(attachment) {
   var url = realEstate.attachmentURL(attachment);
-  jQuery('#titleImage' + elementId).attr('src', url);
-  jQuery('#titleImageCaption').html(image.anhangtitel);
-  jQuery('#titleImageGalleryImage' + elementId).attr('src', url);
-  jQuery('#titleImageGalleryCaption').html(image.anhangtitel);
+  jQuery('#titleImage').attr('src', url);
+  jQuery('#titleImageCaption').html(attachment.anhangtitel);
 }
 
 function renderFloorplan(attachment) {
   var url = realEstate.attachmentURL(attachment);
-  jQuery('#floorplan' + elementId).attr('src', url);
-  jQuery('#floorplanCaption').html(image.anhangtitel);
-  jQuery('#floorplanGalleryImage' + elementId).attr('src', url);
-  jQuery('#floorplanGalleryCaption').html(image.anhangtitel);
+  jQuery('#floorplan').attr('src', url);
+  jQuery('#floorplanCaption').html(attachment.anhangtitel);
 }
 
 function initGalleries() {
-  titleImageGallery = gallery.Gallery(realEstate.images());
-  floorplanGallery = gallery.Gallery(realEstate.floorplans());
+  titleImageGallery = new gallery.Gallery(realEstate.images());
+  floorplanGallery = new gallery.Gallery(realEstate.floorplans());
   renderTitleImage(titleImageGallery.element());
   renderFloorplan(floorplanGallery.element());
 }

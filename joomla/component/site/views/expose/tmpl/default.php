@@ -50,7 +50,7 @@ $document->addScript(immobrowseAsset('expose.js'));
         <tr>
           <td width="50%">
             <div class="w3-display-container titleImages ib-image-frame">
-              <img id="titleImage" src="img/dummy.jpg" alt="Titelbild" class="ib-framed-image">
+              <img id="titleImage" src="components/com_immobrowse/assets/img/dummy.jpg" alt="Titelbild" class="ib-framed-image">
               <div id="titleImageCaption" class="w3-display-bottommiddle w3-container w3-padding-16 w3-black"></div>
               <button class="w3-button w3-display-left" onclick="previousTitleImage()">&#10094;</button>
               <button class="w3-button w3-display-right" onclick="nextTitleImage()">&#10095;</button>
@@ -58,7 +58,7 @@ $document->addScript(immobrowseAsset('expose.js'));
           </td>
           <td width="50%">
             <div class="w3-display-container titleImages ib-image-frame">
-              <img id="floorplan" src="img/dummy.jpg" alt="Grundriss" class="ib-framed-image">
+              <img id="floorplan" src="components/com_immobrowse/assets/img/dummy.jpg" alt="Grundriss" class="ib-framed-image">
               <div id="floorplanCaption" class="w3-display-bottommiddle w3-container w3-padding-16 w3-black"></div>
               <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
               <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
@@ -379,20 +379,4 @@ $document->addScript(immobrowseAsset('expose.js'));
       <div class="loader"></div>
     </div>
   </div>
-</div>
-
-<div id="titleImageGallery" class="modal">
-  <span class="close" onclick="document.getElementById('titleImageGallery').style.display='none'">&times;</span>
-  <img id="titleImageGalleryImage" src="img/dummy.jpg" alt="Grundriss" class="modal-content">
-  <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
-  <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
-  <div id="titleImageGalleryCaption"></div>
-</div>
-
-<div id="floorplanGallery" class="modal">
-  <span class="close" onclick="document.getElementById('floorplanGallery').style.display='none'">&times;</span>
-  <img id="floorplanGalleryImage" src="img/dummy.jpg" alt="Grundriss" class="modal-content">
-  <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
-  <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
-  <div id="floorplanGalleryCaption"></div>
 </div>

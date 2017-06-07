@@ -133,7 +133,6 @@ function sendEmail(response) {
 
 function postRender() {
   resetContactForm();
-  initGalleries();
   jQuery('#loader').hide();
   jQuery('#main').attr('style', 'padding-top: 80px');
   jQuery('.btn_contact').click(function(e) {
@@ -210,7 +209,7 @@ jQuery(document).ready(function () {
 
   immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
     realEstate = realEstate_;
-    setupSlideshows();
+    initGalleries();
     realEstate.render(elements);
     document.title = 'Exposé Nr. ' + realEstate.objectId();
     postRender();
