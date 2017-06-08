@@ -156,6 +156,7 @@ function postRender() {
 jQuery(document).ready(function () {
   elements = {
     objectId: jQuery('#objectId'),
+    address: jQuery('#objectAddress'),
     objectTitle: jQuery('#objectTitle'),
     coldRent: jQuery('#coldRent'),
     serviceCharge: jQuery('#serviceCharge'),
