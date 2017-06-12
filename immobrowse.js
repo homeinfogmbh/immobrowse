@@ -1129,7 +1129,13 @@ immobrowse.RealEstate = function (cid, realEstate) {
   this.availableFrom = function () {
     if (this.verwaltung_objekt != null) {
       if (this.verwaltung_objekt.abdatum != null) {
-        return homeinfo.date.date(Date.parse(this.abdatum));
+        console.log('Abdatum string: ' + this.abdatum);
+        var date = Date.parse(this.abdatum);
+        console.log('Abdatum date: ' + date);
+        console.log('Abdatum day: ' + date.getDay());
+        var dateStr = homeinfo.date.date(date);
+        console.log('Abdatum formatted: ' + dateStr);
+        return dateStr;
       } else if (this.verwaltung_objekt.verfuegbar_ab != null) {
         return this.verwaltung_objekt.verfuegbar_ab;
       }
