@@ -1129,7 +1129,7 @@ immobrowse.RealEstate = function (cid, realEstate) {
   this.availableFrom = function () {
     if (this.verwaltung_objekt != null) {
       if (this.verwaltung_objekt.abdatum != null) {
-        console.log('Abdatum string: ' + this.abdatum);
+        console.log('Abdatum string: ' + this.verwaltung_objekt.abdatum);
         var date = Date.parse(this.abdatum);
         console.log('Abdatum date: ' + date);
         console.log('Abdatum day: ' + date.getDay());
