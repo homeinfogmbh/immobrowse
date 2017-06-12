@@ -289,7 +289,7 @@ immobrowse.mkContactMail = function (
   Mailer class
 */
 immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
-  this.baseUrl = 'https://tls.homeinfo.de/hisecon';
+  this.baseUrl = 'https://hisecon.homeinfo.de';
   this.config = config;
 
   if (html == null) {
