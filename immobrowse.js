@@ -1127,11 +1127,13 @@ immobrowse.RealEstate = function (cid, realEstate) {
   }
 
   this.availableFrom = function () {
-    if (this.verwaltung_objekt != null) {
+    if (this.abdatum != null) {
+      return homeinfo.date.date(Date.parse(this.abdatum));
+    } else if (this.verwaltung_objekt != null) {
       return this.verwaltung_objekt.verfuegbar_ab;
+    } else {
+      return null;
     }
-
-    return null;
   }
 
   this.councilFlat = function () {
