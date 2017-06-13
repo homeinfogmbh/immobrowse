@@ -5,17 +5,17 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 
 $document->addStyleSheet('https://www.w3schools.com/w3css/4/w3.css');
-$document->addStyleSheet('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.css');
+$document->addStyleSheet('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
 $document->addStyleSheet(immobrowseAsset('slideshow.css'));
 $document->addStyleSheet(immobrowseAsset('expose.css'));
 
-$document->addScript('https://tls.homeinfo.de/libs/jquery/jquery-latest.min.js');
+$document->addScript('https://libraries.homeinfo.de/jquery/jquery-latest.min.js');
 $document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
-$document->addScript('https://tls.homeinfo.de/libs/sweetalert/dist/sweetalert.min.js');
+$document->addScript('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.min.js');
 $document->addScript('https://www.google.com/recaptcha/api.js');
-$document->addScript('https://tls.homeinfo.de/jslibs/homeinfo.min.js');
-$document->addScript('https://tls.homeinfo.de/jslibs/immobrowse.min.js');
+$document->addScript('https://javascript.homeinfo.de/homeinfo.min.js');
+$document->addScript('https://javascript.homeinfo.de/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
 $document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
 $document->addScriptDeclaration('var hiseconCfg = "' . $this->hiseconcfg . '";');
