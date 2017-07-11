@@ -18,15 +18,25 @@ function previousFloorplan() {
 }
 
 function renderTitleImage(attachment) {
-  var url = realEstate.attachmentURL(attachment);
-  jQuery('#titleImage').attr('src', url);
-  jQuery('#titleImageCaption').html(attachment.anhangtitel);
+  if (attachment != null) {
+    var url = realEstate.attachmentURL(attachment);
+    jQuery('#titleImage').attr('src', url);
+
+    if (attachment.anhangtitel != null) {
+      jQuery('#titleImageCaption').html(attachment.anhangtitel);
+    }
+  }
 }
 
 function renderFloorplan(attachment) {
-  var url = realEstate.attachmentURL(attachment);
-  jQuery('#floorplan').attr('src', url);
-  jQuery('#floorplanCaption').html(attachment.anhangtitel);
+  if (attachment != null) {
+    var url = realEstate.attachmentURL(attachment);
+    jQuery('#floorplan').attr('src', url);
+
+    if (attachment.anhangtitel != null) {
+      jQuery('#floorplanCaption').html(attachment.anhangtitel);
+    }
+  }
 }
 
 function initGalleries() {
