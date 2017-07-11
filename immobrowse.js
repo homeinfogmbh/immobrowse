@@ -516,6 +516,7 @@ immobrowse.RealEstate = function (cid, realEstate) {
             return anhang;
           }
         }
+
         return null;
       }
     }
@@ -1518,11 +1519,14 @@ immobrowse.RealEstate = function (cid, realEstate) {
 
     if (elements.titleImage != null) {
       var titleImage = this.titleImage();
-      if (elements.titleImage.image != null) {
-        elements.titleImage.image.attr('src', this.attachmentURL(titleImage));
-        elements.titleImage.caption.html(titleImage.anhangtitel);
-      } else {
-        elements.titleImage.attr('src', this.attachmentURL(titleImage));
+
+      if (titleImage != null) {
+        if (elements.titleImage.image != null) {
+          elements.titleImage.image.attr('src', this.attachmentURL(titleImage));
+          elements.titleImage.caption.html(titleImage.anhangtitel);
+        } else {
+          elements.titleImage.attr('src', this.attachmentURL(titleImage));
+        }
       }
     }
   }
