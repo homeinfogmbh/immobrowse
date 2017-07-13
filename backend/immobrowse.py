@@ -90,7 +90,7 @@ def barrierfree(portals):
 
     for immobilie in Immobilie:
         print('XXX:', portals, '-',
-              [immobilie.approve(portal for portal in portals)], end='\t')
+              [immobilie.approve(portal) for portal in portals], end='\t')
         if approve(immobilie, portals):
             print('NO')
             try:
