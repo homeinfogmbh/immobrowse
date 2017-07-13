@@ -6,8 +6,8 @@ setup(
     name='immobrowse',
     version='1.0.0',
     requires=['openimmodb'],
-    py_modules=['immobrowse'],
+    py_modules=['immobrowse', 'barrierfree'],
     data_files=[
-        ('/usr/share', ['immobrowse.wsgi']),
-        ('/etc/uwsgi/apps-available', ['immobrowse.ini'])],
+        ('/usr/share', ['immobrowse.wsgi', 'barrierfree.wsgi']),
+        ('/etc/uwsgi/apps-available', ['immobrowse.ini', 'barrierfree.ini'])],
     description='Real estate search engine')
