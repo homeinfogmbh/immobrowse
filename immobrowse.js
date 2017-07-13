@@ -183,7 +183,7 @@ immobrowse.yesNo = function (boolean) {
 */
 immobrowse.getRealEstate = function (cid, objectId, callback) {
   jQuery.ajax({
-    url: 'https://backend.homeinfo.de/immobrowse/real_estate/' + objectId + '?customer=' + cid,
+    url: 'https://backend.homeinfo.de/immobrowse/expose/' + objectId + '?customer=' + cid,
     success: function (json) {
       callback(new immobrowse.RealEstate(cid, json));
     },
