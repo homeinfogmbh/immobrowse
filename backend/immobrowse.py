@@ -93,10 +93,16 @@ def barrierfree(portals):
             try:
                 barrier_freeness = immobilie.barrier_freeness
             except DoesNotExist:
+                print('XXX: Real estate hash no barrier freeness.')
                 continue
             else:
                 if barrier_freeness.complete or barrier_freeness.limited:
+                    print('XXX: Yay!!!')
                     yield immobilie
+                else:
+                    print('XXX: Real estate is not barrier free.')
+        else:
+            print('XXX: Real estate is not approved.')
 
 
 def attachment(real_estate, ident):
@@ -147,7 +153,6 @@ class ImmobrowseHandler(ResourceHandler):
         else:
             for portal in portals.split(','):
                 yield portal.strip()
-                self.logger.info('PORTAL: {}'.format(portal.strip()))
 
 
 class ListHandler(ImmobrowseHandler):
