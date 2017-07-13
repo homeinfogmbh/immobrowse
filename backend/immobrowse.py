@@ -147,6 +147,7 @@ class ImmobrowseHandler(ResourceHandler):
         else:
             for portal in portals.split(','):
                 yield portal.strip()
+                self.logger.info('PORTAL: {}'.format(portal.strip()))
 
 
 class ListHandler(ImmobrowseHandler):
