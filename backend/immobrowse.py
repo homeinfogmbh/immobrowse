@@ -202,5 +202,6 @@ class AttachmentHandler(ImmobrowseHandler):
 
 HANDLERS = {
     'list': ListHandler,
+    'barrierfree': BarrierfreeHandler,
     'real_estate': RealEstateHandler,
     'attachment': AttachmentHandler}
