@@ -2,8 +2,7 @@
 
 from configparser import ConfigParser
 
-from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField, \
-    BooleanField
+from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
 
 from peeweeplus import MySQLDatabase
 from wsgilib import Error, JSON, Binary, ResourceHandler
@@ -35,17 +34,24 @@ def customer(ident):
             raise Error('No such customer: {}'.format(cid)) from None
 
 
-def settings(customer):
-    """Returns the settings for the respective customer"""
+def override(customer):
+    """Determines portal override check for the respective customer"""
 
     try:
-        return Settings.get(Settings.customer == customer)
+        Override.get(Override.customer == customer)
     except DoesNotExist:
-        raise Error('Customer not unlocked for ImmoBrowse',
-                    status=403) from None
+        return False
+    else:
+        return True
 
 
-def real_estate(customer, ident):
+def approve(immobilie, portals):
+    """Chekcs whether the real estate is in any of the portals"""
+
+    return any(immobilie.approve(portal) for portal in portals)
+
+
+def real_estate(customer, ident, portals):
     """Returns the reapective real estate for the customer"""
 
     if ident is None:
@@ -59,25 +65,38 @@ def real_estate(customer, ident):
             raise Error('No such real estate: {}'.format(ident),
                         status=404) from None
         else:
-            if immobilie.active:
-                if settings(customer).override or immobilie.approve(PORTAL):
+            if override(customer) or approve(immobilie, portals):
+                if immobilie.active:
                     return immobilie
                 else:
-                    raise Error('Real estate not allowed on this portal',
+                    raise Error('Real estate is not active',
                                 status=403) from None
             else:
-                raise Error('Real estate is not active', status=403) from None
+                raise Error('Real estate not cleared for portal.',
+                            status=403) from None
 
 
-def real_estates(customer):
+def real_estates(customer, portals):
     """Yields real estates of the respective customer"""
-
-    override = settings(customer).override
 
     for immobilie in Immobilie.of(customer):
         if immobilie.active:
-            if override or immobilie.approve(PORTAL):
+            if override(customer) or approve(immobilie, portals):
                 yield immobilie
+
+
+def barrierfree(portals):
+    """Yields barrier free real estates"""
+
+    for immobilie in Immobilie:
+        if approve(immobilie, portals):
+            try:
+                barrier_freeness = immobilie.barrier_freeness
+            except DoesNotExist:
+                continue
+            else:
+                if barrier_freeness.complete or barrier_freeness.limited:
+                    yield immobilie
 
 
 def attachment(real_estate, ident):
@@ -109,33 +128,52 @@ class ImmoBrowseModel(Model):
     id = PrimaryKeyField()
 
 
-class Settings(ImmoBrowseModel):
-    """Customer settings for ImmoBrowse"""
-
-    class Meta:
-        db_table = 'settings'
+class Override(ImmoBrowseModel):
+    """Customer overrides for ImmoBrowse"""
 
     customer = ForeignKeyField(Customer, db_column='customer')
-    override = BooleanField(null=True, default=None)
 
 
-class ListHandler(ResourceHandler):
+class PortalHandler(ResourceHandler):
+    """Common, abstract portals handler"""
+
+    @property
+    def portals(self):
+        """Yields the requested portals"""
+        try:
+            portals = self.query['portals']
+        except KeyError:
+            yield PORTAL
+        else:
+            for portal in portals.split(','):
+                yield portal.strip()
+
+
+class ListHandler(PortalHandler):
     """Handles real estate list queries for customers"""
 
     def get(self):
         """Retrieves real estates"""
         return JSON([r.to_dict(limit=True) for r in real_estates(
-            customer(self.resource))])
+            customer(self.resource), self.portals)])
 
 
-class RealEstateHandler(ResourceHandler):
+class BarrierfreeHandler(PortalHandler):
+    """Handles real estate list queries for customers"""
+
+    def get(self):
+        """Retrieves real estates"""
+        return JSON([r.to_dict(limit=True) for r in barrierfree(self.portals)])
+
+
+class RealEstateHandler(PortalHandler):
     """Handles requests on single real estates"""
 
     def get(self):
         """Returns real estate details data"""
         immobilie = real_estate(
             customer(self.query.get('customer')),
-            self.resource)
+            self.resource, self.portals)
         return JSON(immobilie.to_dict(limit=True))
 
 
