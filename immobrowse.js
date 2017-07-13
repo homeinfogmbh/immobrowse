@@ -183,7 +183,7 @@ immobrowse.yesNo = function (boolean) {
 */
 immobrowse.getRealEstate = function (cid, objectId, callback) {
   jQuery.ajax({
-    url: 'https://tls.homeinfo.de/immobrowse/real_estate/' + objectId + '?customer=' + cid,
+    url: 'https://backend.homeinfo.de/immobrowse/real_estate/' + objectId + '?customer=' + cid,
     success: function (json) {
       callback(new immobrowse.RealEstate(cid, json));
     },
@@ -203,7 +203,7 @@ immobrowse.getRealEstate = function (cid, objectId, callback) {
 */
 immobrowse.getRealEstates = function (cid, callback) {
   jQuery.ajax({
-    url: 'https://tls.homeinfo.de/immobrowse/list/' + cid,
+    url: 'https://backend.homeinfo.de/immobrowse/list/' + cid,
     success: function (json) {
       var realEstates = [];
 
@@ -833,7 +833,7 @@ immobrowse.RealEstate = function (cid, realEstate) {
     if (anhang == null) {
       return null;
     } else {
-      return 'https://tls.homeinfo.de/immobrowse/attachment/' + anhang.id
+      return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id
         + '?customer=' + this.cid + '&objektnr_extern=' + this.objectId();
     }
   }
