@@ -138,7 +138,7 @@ class ImmobrowseHandler(ResourceHandler):
     """Common, abstract portals handler"""
 
     @property
-    def portals(self):
+    def _portals(self):
         """Yields the requested portals"""
         try:
             portals = self.query['portals']
@@ -147,6 +147,11 @@ class ImmobrowseHandler(ResourceHandler):
         else:
             for portal in portals.split(','):
                 yield portal.strip()
+
+    @property
+    def portals(self):
+        """Returns a set of the requested portals"""
+        return set(self._portals)
 
 
 class ListHandler(ImmobrowseHandler):
