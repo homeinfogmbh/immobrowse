@@ -7,7 +7,7 @@ backend:
 	@ make -C backend
 
 library:
-	@ install -vm 644 immobrowse.js /srv/http/de/homeinfo/javascript/immobrowse.js
+	@ install -vm 644 immobrowse.js barrierfree.js /srv/http/de/homeinfo/javascript/
 
 frontend:
 	@ make -C frontend
