@@ -8,7 +8,7 @@ install:
 	@ ./setup.py install --record $(FILE_LIST)
 
 post-intall:
-	@ fixuwsgi immobrowse
+	@ fixuwsgi immobrowse barrierfree
 
 uninstall:
 	@ while read FILE; do echo "Removing: $$FILE"; rm "$$FILE"; done < $(FILE_LIST)
