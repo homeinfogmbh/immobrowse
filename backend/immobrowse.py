@@ -89,7 +89,6 @@ def barrierfree(portals):
     """Yields barrier free real estates"""
 
     for immobilie in Immobilie:
-        print('XXX: portals')
         if approve(immobilie, portals):
             try:
                 barrier_freeness = immobilie.barrier_freeness
