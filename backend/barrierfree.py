@@ -9,8 +9,8 @@ from immobrowse import customer, attachment
 __all__ = ['HANDLERS']
 
 PORTALS = {
-    'barrierefrei-hannover': ('barrierefrei-wohnen-hannover', 'hba'),
-    'barrierefrei-bremen': (
+    'hannover': ('barrierefrei-wohnen-hannover', 'hba'),
+    'bremen': (
         'barrierefrei-wohnen-bremen',
         'barrierefrei-wohnen-bremerhaven',
         'breba')}
