@@ -12,7 +12,7 @@ from openimmodb import Immobilie, Anhang
 
 __all__ = ['HANDLERS']
 
-PORTAL = 'immobrowse'
+PORTALS = ['immobrowse', 'homepage', 'website']
 
 config = ConfigParser()
 config.read('/etc/immobrowse.conf')
@@ -51,7 +51,16 @@ def approve(immobilie, portals):
     return any(immobilie.approve(portal) for portal in portals)
 
 
-def real_estate(customer, ident, portals):
+def list_(customer):
+    """Yields real estates of the respective customer"""
+
+    for immobilie in Immobilie.of(customer):
+        if immobilie.active:
+            if override(customer) or approve(immobilie, PORTALS):
+                yield immobilie
+
+
+def expose(customer, ident):
     """Returns the reapective real estate for the customer"""
 
     if ident is None:
@@ -65,7 +74,7 @@ def real_estate(customer, ident, portals):
             raise Error('No such real estate: {}'.format(ident),
                         status=404) from None
         else:
-            if override(customer) or approve(immobilie, portals):
+            if override(customer) or approve(immobilie, PORTALS):
                 if immobilie.active:
                     return immobilie
                 else:
@@ -74,29 +83,6 @@ def real_estate(customer, ident, portals):
             else:
                 raise Error('Real estate not cleared for portal.',
                             status=403) from None
-
-
-def real_estates(customer, portals):
-    """Yields real estates of the respective customer"""
-
-    for immobilie in Immobilie.of(customer):
-        if immobilie.active:
-            if override(customer) or approve(immobilie, portals):
-                yield immobilie
-
-
-def barrierfree(portals):
-    """Yields barrier free real estates"""
-
-    for immobilie in Immobilie:
-        if approve(immobilie, portals):
-            try:
-                barrier_freeness = immobilie.barrier_freeness
-            except DoesNotExist:
-                continue
-            else:
-                if barrier_freeness.complete or barrier_freeness.limited:
-                    yield immobilie
 
 
 def attachment(real_estate, ident):
@@ -134,79 +120,48 @@ class Override(ImmoBrowseModel):
     customer = ForeignKeyField(Customer, db_column='customer')
 
 
-class ImmobrowseHandler(ResourceHandler):
-    """Common, abstract portals handler"""
-
-    @property
-    def _portals(self):
-        """Yields the requested portals"""
-        try:
-            portals = self.query['portals']
-        except KeyError:
-            yield PORTAL
-        else:
-            for portal in portals.split(','):
-                yield portal.strip()
-
-    @property
-    def portals(self):
-        """Returns a set of the requested portals"""
-        return set(self._portals)
-
-
-class ListHandler(ImmobrowseHandler):
+class ListHandler(ResourceHandler):
     """Handles real estate list queries for customers"""
 
     def get(self):
         """Retrieves real estates"""
-        return JSON([r.to_dict(limit=True) for r in real_estates(
-            customer(self.resource), self.portals)])
+        return JSON([r.to_dict(limit=True) for r in list_(
+            customer(self.resource))])
 
 
-class BarrierfreeHandler(ImmobrowseHandler):
-    """Handles real estate list queries for customers"""
-
-    def get(self):
-        """Retrieves real estates"""
-        return JSON([r.to_dict(limit=True) for r in barrierfree(self.portals)])
-
-
-class RealEstateHandler(ImmobrowseHandler):
+class ExposeHandler(ResourceHandler):
     """Handles requests on single real estates"""
 
     def get(self):
         """Returns real estate details data"""
-        immobilie = real_estate(
-            customer(self.query.get('customer')),
-            self.resource, self.portals)
+        immobilie = expose(customer(self.query.get('customer')), self.resource)
         return JSON(immobilie.to_dict(limit=True))
 
 
-class AttachmentHandler(ImmobrowseHandler):
+class AttachmentHandler(ResourceHandler):
     """Handles requests on attachments"""
 
     def get(self):
         """Returns the respective attachment"""
-        real_estate_ = real_estate(
+        real_estate = expose(
             customer(self.query.get('customer')),
-            self.query.get('objektnr_extern'), self.portals)
+            self.query.get('objektnr_extern'))
 
         try:
             ident = int(self.resource)
         except TypeError:
-            for anhang in attachment(real_estate_, None):
+            for anhang in attachment(real_estate, None):
                 # TODO: implement
                 pass
         except ValueError:
             raise Error('Invalid attachment id: {}.'.format(
                 self.resource)) from None
         else:
-            anhang = attachment(real_estate_, ident)
+            anhang = attachment(real_estate, ident)
             return Binary(anhang.data)
 
 
 HANDLERS = {
     'list': ListHandler,
-    'barrierfree': BarrierfreeHandler,
-    'real_estate': RealEstateHandler,
+    'expose': ExposeHandler,
     'attachment': AttachmentHandler}
