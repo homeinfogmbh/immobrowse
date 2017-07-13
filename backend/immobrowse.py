@@ -134,7 +134,7 @@ class Override(ImmoBrowseModel):
     customer = ForeignKeyField(Customer, db_column='customer')
 
 
-class PortalHandler(ResourceHandler):
+class ImmobrowseHandler(ResourceHandler):
     """Common, abstract portals handler"""
 
     @property
@@ -149,7 +149,7 @@ class PortalHandler(ResourceHandler):
                 yield portal.strip()
 
 
-class ListHandler(PortalHandler):
+class ListHandler(ImmobrowseHandler):
     """Handles real estate list queries for customers"""
 
     def get(self):
@@ -158,7 +158,7 @@ class ListHandler(PortalHandler):
             customer(self.resource), self.portals)])
 
 
-class BarrierfreeHandler(PortalHandler):
+class BarrierfreeHandler(ImmobrowseHandler):
     """Handles real estate list queries for customers"""
 
     def get(self):
@@ -166,7 +166,7 @@ class BarrierfreeHandler(PortalHandler):
         return JSON([r.to_dict(limit=True) for r in barrierfree(self.portals)])
 
 
-class RealEstateHandler(PortalHandler):
+class RealEstateHandler(ImmobrowseHandler):
     """Handles requests on single real estates"""
 
     def get(self):
@@ -177,14 +177,14 @@ class RealEstateHandler(PortalHandler):
         return JSON(immobilie.to_dict(limit=True))
 
 
-class AttachmentHandler(ResourceHandler):
+class AttachmentHandler(ImmobrowseHandler):
     """Handles requests on attachments"""
 
     def get(self):
         """Returns the respective attachment"""
         real_estate_ = real_estate(
             customer(self.query.get('customer')),
-            self.query.get('objektnr_extern'))
+            self.query.get('objektnr_extern'), self.portals)
 
         try:
             ident = int(self.resource)
