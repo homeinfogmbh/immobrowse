@@ -89,23 +89,14 @@ def barrierfree(portals):
     """Yields barrier free real estates"""
 
     for immobilie in Immobilie:
-        print('XXX:', portals, '-',
-              [immobilie.approve(portal) for portal in portals], end='\t')
         if approve(immobilie, portals):
-            print('YES')
             try:
                 barrier_freeness = immobilie.barrier_freeness
             except DoesNotExist:
-                print('XXX: No barrier freeness')
                 continue
             else:
                 if barrier_freeness.complete or barrier_freeness.limited:
-                    print('XXX: BARRIER FREE')
                     yield immobilie
-                else:
-                    print('XXX: Not barrier free')
-        else:
-            print('NO')
 
 
 def attachment(real_estate, ident):
