@@ -85,15 +85,15 @@ def expose(customer, ident):
                             status=403) from None
 
 
-def attachment(real_estate, ident):
+def attachment(immobilie, ident):
     """Returns the respective attachment"""
 
     if ident is None:
-        return Anhang.select().where(Anhang.immobilie == real_estate)
+        return Anhang.select().where(Anhang.immobilie == immobilie)
     else:
         try:
             return Anhang.get(
-                (Anhang._immobilie == real_estate) &
+                (Anhang._immobilie == immobilie) &
                 (Anhang.id == ident))
         except DoesNotExist:
             raise Error('No such attachment: {}'.format(ident),
