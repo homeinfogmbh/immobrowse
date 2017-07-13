@@ -96,10 +96,14 @@ def barrierfree(portals):
             try:
                 barrier_freeness = immobilie.barrier_freeness
             except DoesNotExist:
+                print('XXX: No barrier freeness')
                 continue
             else:
                 if barrier_freeness.complete or barrier_freeness.limited:
+                    print('XXX: BARRIER FREE')
                     yield immobilie
+                else:
+                    print('XXX: Not barrier free')
         else:
             print('NO')
 
