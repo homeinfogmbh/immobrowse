@@ -13,7 +13,7 @@ $document->addStyleSheet(immobrowseAsset('expose.css'));
 $document->addScript('https://libraries.homeinfo.de/jquery/jquery-latest.min.js');
 $document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
 $document->addScript('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.min.js');
-$document->addScript('https://www.google.com/recaptcha/api.js');
+$document->addScript('https://www.google.com/recaptcha/api.js?hl=de');
 $document->addScript('https://javascript.homeinfo.de/homeinfo.min.js');
 $document->addScript('https://javascript.homeinfo.de/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
