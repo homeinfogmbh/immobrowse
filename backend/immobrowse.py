@@ -38,7 +38,7 @@ def approve(immobilie, portals):
     """Chekcs whether the real estate is in any of the portals"""
 
     try:
-        Override.get(Override.customer == immobilie.customer)
+        Override.get(Override.customer == immobilie._customer)
     except DoesNotExist:
         if any(immobilie.approve(portal) for portal in portals):
             return True
@@ -84,13 +84,13 @@ def attachment(ident):
     """Returns the respective attachment"""
 
     try:
-        attachment = Anhang.get(Anhang.id == ident)
+        anhang = Anhang.get(Anhang.id == ident)
     except DoesNotExist:
         raise Error('No such attachment: {}'.format(ident),
                     status=404) from None
     else:
-        if approve(attachment.immobilie, PORTALS):
-            return attachment
+        if approve(anhang._immobilie, PORTALS):
+            return anhang
         else:
             raise Error(
                 'Related real estate not cleared for portal.') from None
