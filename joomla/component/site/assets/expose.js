@@ -126,7 +126,7 @@ function sendEmail(response) {
   var html = immobrowse.mkContactMail(
     objectTitle, objectAddress, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, message)
-  mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, recipient, email);
+  mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId(), html, recipient, email);
   resetContactForm();
 }
 
@@ -209,7 +209,7 @@ jQuery(document).ready(function () {
     }
   };
 
-  immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
+  immobrowse.getRealEstate(objectId, function (realEstate_) {
     realEstate = realEstate_;
     initGalleries();
     realEstate.render(elements);

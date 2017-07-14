@@ -6,11 +6,10 @@ immobrowse.config = {
   types: ['WOHNUNG'],
   marketing: ['MIETE_PACHT'],
   shortFloorNames: true,
-  exposeURLCallback: function (customer, objectId) {
+  exposeURLCallback: function (objectId) {
     var options = {
       option: 'com_immobrowse',
       view: 'expose',
-      customer: customer,
       objectId: objectId,
       backlink: encodeURIComponent(window.location.href)
     };
