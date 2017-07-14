@@ -58,7 +58,7 @@ barrierfree.getRealEstates = function (portal, callback) {
       var realEstates = [];
 
       for (var i = 0; i < json.length; i++) {
-        realEstates.push(new immobrowse.RealEstate(cid, json[i]));
+        realEstates.push(new immobrowse.RealEstate(json[i]));
       }
 
       callback(realEstates)

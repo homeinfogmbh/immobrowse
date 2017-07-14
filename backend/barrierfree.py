@@ -3,8 +3,8 @@
 from peewee import DoesNotExist
 from wsgilib import Error, JSON, Binary, ResourceHandler
 
-from openimmodb import Immobilie
-from immobrowse import customer, attachment
+from openimmodb import Immobilie, Anhang
+from immobrowse import customer
 
 __all__ = ['HANDLERS']
 
@@ -42,16 +42,14 @@ def list_(portals):
                 yield immobilie
 
 
-def expose(customer, ident, portals):
+def expose(ident, portals):
     """Returns the reapective real estate for the customer"""
 
     if ident is None:
         raise Error('No real estate specified') from None
     else:
         try:
-            immobilie = Immobilie.get(
-                (Immobilie.customer == customer) &
-                (Immobilie.objektnr_extern == ident))
+            immobilie = Immobilie.get(Immobilie.id == ident)
         except DoesNotExist:
             raise Error('No such real estate: {}'.format(ident),
                         status=404) from None
@@ -69,6 +67,22 @@ def expose(customer, ident, portals):
             else:
                 raise Error('Real estate is not barrier free.',
                             status=403) from None
+
+
+def attachment(ident, portals):
+    """Returns the respective attachment"""
+
+    try:
+        attachment = Anhang.get(Anhang.id == ident)
+    except DoesNotExist:
+        raise Error('No such attachment: {}'.format(ident),
+                    status=404) from None
+    else:
+        if approve(attachment.immobilie, portals):
+            return attachment
+        else:
+            raise Error(
+                'Related real estate not cleared for portal.') from None
 
 
 class BarrierFreeHandler(ResourceHandler):
@@ -109,7 +123,7 @@ class ExposeHandler(BarrierFreeHandler):
 
     def get(self):
         """Retrieves real estates"""
-        immobilie = expose(self.customer, self.resource, self.portals)
+        immobilie = expose(int(self.resource), self.portals)
         return JSON(immobilie.to_dict(limit=True))
 
 
@@ -118,20 +132,13 @@ class AttachmentHandler(BarrierFreeHandler):
 
     def get(self):
         """Returns the respective attachment"""
-        immobilie = expose(self.portals)
-
         try:
             ident = int(self.resource)
-        except TypeError:
-            for anhang in attachment(immobilie, None):
-                # TODO: implement
-                pass
-        except ValueError:
+        except (TypeError, ValueError):
             raise Error('Invalid attachment id: {}.'.format(
                 self.resource)) from None
         else:
-            anhang = attachment(immobilie, ident)
-            return Binary(anhang.data)
+            return Binary(attachment(ident).data)
 
 
 HANDLERS = {

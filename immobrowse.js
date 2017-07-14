@@ -181,15 +181,15 @@ immobrowse.yesNo = function (boolean) {
 /*
   Queries real estate data from the API and runs callback function.
 */
-immobrowse.getRealEstate = function (cid, objectId, callback) {
+immobrowse.getRealEstate = function (id, callback) {
   jQuery.ajax({
-    url: 'https://backend.homeinfo.de/immobrowse/expose/' + objectId + '?customer=' + cid,
+    url: 'https://backend.homeinfo.de/immobrowse/expose/' + id,
     success: function (json) {
-      callback(new immobrowse.RealEstate(cid, json));
+      callback(new immobrowse.RealEstate(json));
     },
     error: function() {
       swal({
-        title: 'Immobilie "' + objectId + '@' + cid + '" konnte nicht geladen werden.',
+        title: 'Immobilie konnte nicht geladen werden.',
         text: 'Bitte versuchen Sie es später noch ein Mal.',
         type: 'error'
       });
@@ -208,7 +208,7 @@ immobrowse.getRealEstates = function (cid, callback) {
       var realEstates = [];
 
       for (var i = 0; i < json.length; i++) {
-        realEstates.push(new immobrowse.RealEstate(cid, json[i]));
+        realEstates.push(new immobrowse.RealEstate(json[i]));
       }
 
       callback(realEstates)
@@ -376,7 +376,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 /*
   Real estate wrapper class
 */
-immobrowse.RealEstate = function (cid, realEstate) {
+immobrowse.RealEstate = function (realEstate) {
   this.oval = '<div class="oval-outer"><div class="oval-inner">{}</div></div>';
   this.kwh = '<span class="fraction"><span class="numerator">kWh</span><span class="denominator">m<sup>2</sup>&middot;a</span></span>';
   this.na = 'k. A.';
@@ -386,8 +386,6 @@ immobrowse.RealEstate = function (cid, realEstate) {
         this[prop] = realEstate[prop];
     }
   }
-
-  this.cid = cid;
 
   this.address = function () {
     var address = [];
@@ -833,8 +831,7 @@ immobrowse.RealEstate = function (cid, realEstate) {
     if (anhang == null) {
       return null;
     } else {
-      return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id
-        + '?customer=' + this.cid + '&objektnr_extern=' + this.objectId();
+      return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id + '?real_estate=' + this.id;
     }
   }
 
@@ -842,7 +839,7 @@ immobrowse.RealEstate = function (cid, realEstate) {
     if (baseUrl == null) {
       return null;
     } else {
-      return baseUrl + '?customer=' + this.cid + '&objektnr_extern=' + this.objectId();
+      return baseUrl + '?real_estate=' + this.id;
     }
   }
 
@@ -1357,10 +1354,10 @@ immobrowse.RealEstate = function (cid, realEstate) {
     var detailsURL;
 
     if (immobrowse.config.exposeLinkSetter != null) {
-      immobrowse.config.exposeLinkSetter(linkElement, this.objectId(), this.cid);
+      immobrowse.config.exposeLinkSetter(linkElement, this.id);
     } else {
       if (immobrowse.config.exposeURLCallback != null) {
-        detailsURL = immobrowse.config.exposeURLCallback(this.cid, this.objectId());
+        detailsURL = immobrowse.config.exposeURLCallback(this.id);
       } else if (immobrowse.config.detailsURL != null) {
         detailsURL = this.detailsURL(immobrowse.config.detailsURL);
       } else {

@@ -34,21 +34,18 @@ def customer(ident):
             raise Error('No such customer: {}'.format(cid)) from None
 
 
-def override(customer):
-    """Determines portal override check for the respective customer"""
-
-    try:
-        Override.get(Override.customer == customer)
-    except DoesNotExist:
-        return False
-    else:
-        return True
-
-
 def approve(immobilie, portals):
     """Chekcs whether the real estate is in any of the portals"""
 
-    return any(immobilie.approve(portal) for portal in portals)
+    try:
+        Override.get(Override.customer == immobilie.customer)
+    except DoesNotExist:
+        if any(immobilie.approve(portal) for portal in portals):
+            return True
+        else:
+            return False
+    else:
+        return True
 
 
 def list_(customer):
@@ -56,48 +53,47 @@ def list_(customer):
 
     for immobilie in Immobilie.of(customer):
         if immobilie.active:
-            if override(customer) or approve(immobilie, PORTALS):
+            if approve(immobilie, PORTALS):
                 yield immobilie
 
 
-def expose(customer, ident):
+def expose(ident):
     """Returns the reapective real estate for the customer"""
 
     if ident is None:
-        raise Error('No real estate specified') from None
+        raise Error('No real estate specified.') from None
     else:
         try:
-            immobilie = Immobilie.get(
-                (Immobilie.customer == customer) &
-                (Immobilie.objektnr_extern == ident))
+            immobilie = Immobilie.get(Immobilie.id == ident)
         except DoesNotExist:
-            raise Error('No such real estate: {}'.format(ident),
+            raise Error('No such real estate: {}.'.format(ident),
                         status=404) from None
         else:
-            if override(customer) or approve(immobilie, PORTALS):
+            if approve(immobilie, PORTALS):
                 if immobilie.active:
                     return immobilie
                 else:
-                    raise Error('Real estate is not active',
+                    raise Error('Real estate is not active.',
                                 status=403) from None
             else:
                 raise Error('Real estate not cleared for portal.',
                             status=403) from None
 
 
-def attachment(immobilie, ident):
+def attachment(ident):
     """Returns the respective attachment"""
 
-    if ident is None:
-        return Anhang.select().where(Anhang.immobilie == immobilie)
+    try:
+        attachment = Anhang.get(Anhang.id == ident)
+    except DoesNotExist:
+        raise Error('No such attachment: {}'.format(ident),
+                    status=404) from None
     else:
-        try:
-            return Anhang.get(
-                (Anhang._immobilie == immobilie) &
-                (Anhang.id == ident))
-        except DoesNotExist:
-            raise Error('No such attachment: {}'.format(ident),
-                        status=404) from None
+        if approve(attachment.immobilie, PORTALS):
+            return attachment
+        else:
+            raise Error(
+                'Related real estate not cleared for portal.') from None
 
 
 class ImmoBrowseModel(Model):
@@ -134,8 +130,7 @@ class ExposeHandler(ResourceHandler):
 
     def get(self):
         """Returns real estate details data"""
-        immobilie = expose(customer(self.query.get('customer')), self.resource)
-        return JSON(immobilie.to_dict(limit=True))
+        return JSON(expose(int(self.resource)).to_dict(limit=True))
 
 
 class AttachmentHandler(ResourceHandler):
@@ -143,22 +138,13 @@ class AttachmentHandler(ResourceHandler):
 
     def get(self):
         """Returns the respective attachment"""
-        real_estate = expose(
-            customer(self.query.get('customer')),
-            self.query.get('objektnr_extern'))
-
         try:
             ident = int(self.resource)
-        except TypeError:
-            for anhang in attachment(real_estate, None):
-                # TODO: implement
-                pass
-        except ValueError:
-            raise Error('Invalid attachment id: {}.'.format(
+        except (TypeError, ValueError):
+            raise Error('Invalid attachment ID: {}.'.format(
                 self.resource)) from None
         else:
-            anhang = attachment(real_estate, ident)
-            return Binary(anhang.data)
+            return Binary(attachment(ident).data)
 
 
 HANDLERS = {
