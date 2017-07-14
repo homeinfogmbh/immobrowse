@@ -36,7 +36,7 @@ var floorplanGallery;
 
 
 function back() {
-  immobrowse.open('list.html?' + customer);
+  immobrowse.open('list.html?customer=' + customer);
 }
 
 
