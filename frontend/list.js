@@ -23,7 +23,7 @@
     * sweetalert.js
     * immobrowse.js
 */
-var args = QueryString();
+var args = homeinfo.QueryString();
 var customer = args.customer;
 var sorting = {
   property: null,

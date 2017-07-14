@@ -23,7 +23,7 @@
     * sweetalert.js
     * immobrowse.js
 */
-var args = QueryString();
+var args = homeinfo.QueryString();
 // XXX: Change config for appropriate productive setting
 var mailer = new immobrowse.Mailer('homeinfo-testing');
 var customer = args.customer;
