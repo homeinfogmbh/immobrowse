@@ -17,7 +17,7 @@ $document->addScript('https://www.google.com/recaptcha/api.js');
 $document->addScript('https://javascript.homeinfo.de/homeinfo.min.js');
 $document->addScript('https://javascript.homeinfo.de/immobrowse.min.js');
 $document->addScriptDeclaration('var customer = ' . $this->customer . ';');
-$document->addScriptDeclaration('var objektnrExtern = "' . $this->objectId . '";');
+$document->addScriptDeclaration('var objectId = "' . $this->objectId . '";');
 $document->addScriptDeclaration('var hiseconCfg = "' . $this->hiseconcfg . '";');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('gallery.js'));

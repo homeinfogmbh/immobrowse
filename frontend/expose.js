@@ -28,7 +28,7 @@ var args = queryArgs();
 var mailer = new immobrowse.Mailer('homeinfo-testing');
 var customer = args['customer'];
 var listUrl = 'list.html?' + customer;
-var objektnrExtern = args['objektnr_extern'];
+var objectId = args['real_estate'];
 var elements;
 var realEstate;
 var imageGallery;
@@ -147,7 +147,7 @@ function sendEmail() {
   var html = immobrowse.mkContactMail(
     objectTitle, objectAddress, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, message)
-  mailer.send(response, 'Anfrage zu Objekt Nr. ' + objektnrExtern, html, recipient, email);
+  mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId(), html, recipient, email);
   grecaptcha.reset();
 }
 
@@ -300,7 +300,7 @@ $(document).ready(function () {
     }
   };
 
-  immobrowse.getRealEstate(customer, objektnrExtern, function (realEstate_) {
+  immobrowse.getRealEstate(objectId, function (realEstate_) {
     realEstate = realEstate_;
     setupGalleries();
     realEstate.render(elements);
