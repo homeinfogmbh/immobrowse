@@ -23,35 +23,16 @@
     * sweetalert.js
     * immobrowse.js
 */
-var args = queryArgs();
+var args = QueryString();
 // XXX: Change config for appropriate productive setting
 var mailer = new immobrowse.Mailer('homeinfo-testing');
-var customer = args['customer'];
+var customer = args.customer;
 var listUrl = 'list.html?' + customer;
 var objectId = args['real_estate'];
 var elements;
 var realEstate;
 var imageGallery;
 var floorplanGallery;
-
-
-function queryArgs() {
-  var queryString = decodeURIComponent(window.location.search.substring(1));
-  var assignments = queryString.split('&');
-  var args = {};
-
-  for (var i = 0; i < assignments.length; i++) {
-    var parts = assignments[i].split('=');
-
-    if (parts[1] == null) {
-      args[parts[0]] = true;
-    } else {
-      args[parts[0]] = parts[1];
-    }
-  }
-
-  return args;
-}
 
 
 function back() {

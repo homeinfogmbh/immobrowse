@@ -4,5 +4,8 @@
 immobrowse.config = {
   types: ['WOHNUNG'],
   marketing: ['MIETE_PACHT'],
-  shortFloorNames: true
+  shortFloorNames: true,
+  exposeURLCallback: function (objectId) {
+    return 'expose.html?real_estate=' + objectId + '&customer=' + customer;
+  }
 };

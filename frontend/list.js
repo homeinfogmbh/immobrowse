@@ -23,7 +23,8 @@
     * sweetalert.js
     * immobrowse.js
 */
-var customer = location.search.slice(1);
+var args = QueryString();
+var customer = args.customer;
 var sorting = {
   property: null,
   order: null
