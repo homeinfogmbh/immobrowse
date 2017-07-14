@@ -31,15 +31,15 @@ var barrierfree = barrierfree || {};
 /*
   Queries real estate data from the API and runs callback function.
 */
-barrierfree.getRealEstate = function (cid, objectId, portal, callback) {
+barrierfree.getRealEstate = function (objectId, portal, callback) {
   jQuery.ajax({
-    url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?customer=' + cid + '&portal=' + portal,
+    url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal,
     success: function (json) {
-      callback(new immobrowse.RealEstate(cid, json));
+      callback(new immobrowse.RealEstate(json));
     },
     error: function() {
       swal({
-        title: 'Immobilie "' + objectId + '@' + cid + '" konnte nicht geladen werden.',
+        title: 'Immobilie konnte nicht geladen werden.',
         text: 'Bitte versuchen Sie es später noch ein Mal.',
         type: 'error'
       });
