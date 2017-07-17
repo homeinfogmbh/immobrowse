@@ -1751,7 +1751,7 @@ immobrowse.List = function (cid, realEstates) {
     var districts = this.districts();
     var districtElements = [];
 
-    for (district in districts) {
+    for (var district in districts) {
       if (districts.hasOwnProperty(district)) {
         var inputElement = document.createElement('input');
         inputElement.setAttribute('type', 'checkbox');
