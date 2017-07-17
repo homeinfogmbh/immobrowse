@@ -1535,7 +1535,7 @@ immobrowse.RealEstate = function (realEstate) {
       immobrowse.dom.preview.MainRow(
         immobrowse.dom.preview.ImageCol(
           immobrowse.dom.preview.ImageFrame(
-            immobrowse.dom.preview.TitleImage(this.attachmentURL(titleImageAttachment))
+            immobrowse.dom.preview.TitleImage(this.attachmentURL(this.titleImage()))
           )
         ),
         immobrowse.dom.preview.DataCol(
