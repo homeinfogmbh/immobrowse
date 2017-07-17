@@ -143,8 +143,13 @@ $(document).ready(function () {
 
     for (district in districts) {
       if (districts.hasOwnProperty(district)) {
-        districtsElement.innerHTML += '<input type="checkbox" class="ib-select-district" name="'
-          + district + '" onclick="filter();"> ' + district + ' (' + districts[district] + ')' + '</input><br>';
+        var inputElement = document.createElement('input');
+        inputElement.setAttribute('type', 'checkbox');
+        inputElement.setAttribute('class', 'ib-select-district');
+        inputElement.setAttribute('name', district);
+        inputElement.setAttribute('onclick', 'filter();');
+        inputElement.innerHTML = district + ' (' + districts[district] + ')';
+        districtsElement.appendChild(inputElement);
       }
     }
 
