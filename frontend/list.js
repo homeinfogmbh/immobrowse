@@ -149,7 +149,7 @@ $(document).ready(function () {
         inputElement.setAttribute('name', district);
         inputElement.setAttribute('onclick', 'filter();');
         districtsElement.appendChild(inputElement);
-        var textElement = document.createTextNode(district + ' (' + districts[district] + ')');
+        var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
         districtsElement.appendChild(textElement);
         var lineBreakElement = document.createElement('br');
         districtsElement.appendChild(lineBreakElement);
