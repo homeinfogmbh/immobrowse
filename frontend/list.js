@@ -30,23 +30,7 @@ var sorting = {
   order: null
 };
 var listElement;
-var template;
 var list;
-
-function elements(index) {
-  var suffix = '_' + index;
-
-  return {
-    linkElement: $('#entry' + suffix),
-    objectTitle: $('#objectTitle' + suffix),
-    coldRent: $('#coldRent' + suffix),
-    serviceCharge: $('#serviceCharge' + suffix),
-    livingArea: $('#livingArea' + suffix),
-    rooms: $('#rooms' + suffix),
-    amenitiesTags: $('#amenitiesTags' + suffix),
-    titleImage: $('#titleImage' + suffix)
-  };
-}
 
 function toggleOrder() {
   var previousOrder = sorting.order;
@@ -81,7 +65,7 @@ function toggleSorting(property) {
   }
 
   list.sort(sorting.property, sorting.order);
-  list.render(listElement, template, elements);
+  list.render(listElement);
 }
 
 function selectedDistricts() {
@@ -129,7 +113,7 @@ function filter() {
     list.sort(sorting.property, sorting.order);
   }
 
-  list.render(listElement, template, elements);
+  list.render(listElement);
 }
 
 $(document).ready(function () {
@@ -151,7 +135,6 @@ $(document).ready(function () {
   var districtsElement = document.getElementById('ib-districts');
   districtsElement.innerHTML = '';
   listElement = $('#list');
-  template = $('#templateContainer');
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
@@ -165,7 +148,7 @@ $(document).ready(function () {
       }
     }
 
-    list.render(listElement, template, elements);
+    list.render(listElement);
     $('#loader').hide();
   });
 });
