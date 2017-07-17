@@ -1405,7 +1405,6 @@ immobrowse.RealEstate = function (realEstate) {
   this.renderContact = function (elements) {
     if (elements != null) {
       var contact = this.contact();
-
       this.setValue(elements.salutation, contact.salutation);
       this.setValue(elements.firstName, contact.firstName);
       this.setValue(elements.lastName, contact.lastName);
@@ -1428,7 +1427,6 @@ immobrowse.RealEstate = function (realEstate) {
     All elements are optional.
 
     @param: elements = {
-      linkElement: <linkElement>,
       objectIf: <objectIdElement>,
       objectTitle: <objectTitleElement>,
       coldRent: <coldRentElement>,
