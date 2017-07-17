@@ -154,6 +154,8 @@ $(document).ready(function () {
         labelElement.setAttribute('for', 'district_' + districtId);
         labelElement.innerHTML = district + ' (' + districts[district] + ')';
         districtsElement.appendChild(labelElement);
+        var lineBreakElement = document.createElement('br');
+        districtsElement.appendChild(lineBreakElement);
         districtId++;
       }
     }
