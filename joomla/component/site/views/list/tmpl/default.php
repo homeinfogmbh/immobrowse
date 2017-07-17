@@ -4,7 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 
 $document = JFactory::getDocument();
 
-$document->addStyleSheet('https://libraries.homeinfo.de/bootstrap/latest/css/bootstrap.min.css');
+$document->addStyleSheet(immobrowseAsset('bootstrap-fix.css');
 $document->addStyleSheet('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.css');
 $document->addStyleSheet(immobrowseAsset('immobrowse.css'));
 $document->addStyleSheet(immobrowseAsset('list.css'));
