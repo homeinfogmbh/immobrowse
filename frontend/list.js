@@ -138,18 +138,23 @@ $(document).ready(function () {
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
-
     var districts = list.districts();
+    var districtId = 0;
 
     for (district in districts) {
       if (districts.hasOwnProperty(district)) {
         var inputElement = document.createElement('input');
+        inputElement.setAttribute('id', 'district_' + districtId);
         inputElement.setAttribute('type', 'checkbox');
         inputElement.setAttribute('class', 'ib-select-district');
-        inputElement.setAttribute('name', district);
         inputElement.setAttribute('onclick', 'filter();');
-        inputElement.innerHTML = district + ' (' + districts[district] + ')';
+        inputElement.setAttribute('name', district);
         districtsElement.appendChild(inputElement);
+        var labelElement = document.createElement('label')
+        labelElement.setAttribute('for', 'district_' + districtId);
+        labelElement.innerHTML = district + ' (' + districts[district] + ')';
+        districtsElement.appendChild(labelElement);
+        districtId++;
       }
     }
 
