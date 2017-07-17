@@ -834,11 +834,21 @@ immobrowse.RealEstate = function (realEstate) {
     }
   }
 
-  this.detailsURL = function (baseUrl) {
+  this.defaultDetailsURL = function (baseUrl) {
     if (baseUrl == null) {
       return null;
     } else {
       return baseUrl + '?real_estate=' + this.id;
+    }
+  }
+
+  this.detailsURL = function () {
+    if (immobrowse.config.exposeURLCallback != null) {
+      return immobrowse.config.exposeURLCallback(this.id);
+    } else if (immobrowse.config.detailsURL != null) {
+      return this.defaultDetailsURL(immobrowse.config.detailsURL);
+    } else {
+      return this.defaultDetailsURL('expose.html');
     }
   }
 
@@ -1349,24 +1359,6 @@ immobrowse.RealEstate = function (realEstate) {
     return contact;
   }
 
-  this.renderLink = function (linkElement) {
-    var detailsURL;
-
-    if (immobrowse.config.exposeLinkSetter != null) {
-      immobrowse.config.exposeLinkSetter(linkElement, this.id);
-    } else {
-      if (immobrowse.config.exposeURLCallback != null) {
-        detailsURL = immobrowse.config.exposeURLCallback(this.id);
-      } else if (immobrowse.config.detailsURL != null) {
-        detailsURL = this.detailsURL(immobrowse.config.detailsURL);
-      } else {
-        detailsURL = this.detailsURL('expose.html');
-      }
-
-      linkElement.attr('onclick', 'immobrowse.open("' + detailsURL + '");');
-    }
-  }
-
   /*
     Sets a value onto the respective element configuration
   */
@@ -1481,10 +1473,6 @@ immobrowse.RealEstate = function (realEstate) {
     };
   */
   this.render = function (elements) {
-    if (elements.linkElement != null) {
-      this.renderLink(elements.linkElement);
-    }
-
     this.setValue(elements.objectId, this.objectId());
     this.setValue(elements.objectTitle, this.objectTitle());
     this.setValue(elements.address, this.address());
@@ -1580,7 +1568,8 @@ immobrowse.RealEstate = function (realEstate) {
           ),
           immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags())
         )
-      )
+      ),
+      this.detailsURL()
     );
   }
 }
@@ -1939,14 +1928,6 @@ immobrowse.dom.preview.MainRow = function (imageCol, dataCol) {
 }
 
 
-immobrowse.dom.preview.Entry = function (mainRow) {
-  var element = document.createElement('div');
-  element.setAttribute('class', 'container ib-preview-item');
-  element.appendChild(mainRow);
-  return element;
-}
-
-
 immobrowse.dom.preview.AmenitiesTags = function (amenities) {
   var element = document.createElement('div');
   element.setAttribute('class', 'ib-preview-tags');
@@ -1955,5 +1936,14 @@ immobrowse.dom.preview.AmenitiesTags = function (amenities) {
     element.appendChild(amenities[i]);
   }
 
+  return element;
+}
+
+
+immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
+  var element = document.createElement('div');
+  element.setAttribute('class', 'container ib-preview-item');
+  element.setAttribute('onclick', 'immobrowse.open("' + detailsURL + '");');
+  element.appendChild(mainRow);
   return element;
 }
