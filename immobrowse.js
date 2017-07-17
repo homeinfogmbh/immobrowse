@@ -1543,38 +1543,40 @@ immobrowse.RealEstate = function (realEstate) {
             immobrowse.dom.preview.ObjectTitle(this.objectTitle() || this.na)
           ),
           immobrowse.dom.preview.DataRow(
-            immobrowse.dom.preview.DataFieldCol(
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldCaption('Kaltmiete')
+            [
+              immobrowse.dom.preview.DataFieldCol(
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldCaption('Kaltmiete')
+                ),
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldValue(this.rent() || this.na)
+                )
               ),
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldValue(this.rent() || this.na)
-              )
-            ),
-            immobrowse.dom.preview.DataFieldCol(
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldCaption('Nebenkosten')
+              immobrowse.dom.preview.DataFieldCol(
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldCaption('Nebenkosten')
+                ),
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldValue(this.serviceCharge() || this.na)
+                )
               ),
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldValue(this.serviceCharge() || this.na)
-              )
-            ),
-            immobrowse.dom.preview.DataFieldCol(
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldCaption('Zimmer')
+              immobrowse.dom.preview.DataFieldCol(
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldCaption('Zimmer')
+                ),
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldValue(this.rooms() || this.na)
+                )
               ),
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldValue(this.rooms() || this.na)
+              immobrowse.dom.preview.DataFieldCol(
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldCaption('Fläche')
+                ),
+                immobrowse.dom.preview.DataFieldRow(
+                  immobrowse.dom.preview.DataFieldValue(this.area() || this.na)
+                )
               )
-            ),
-            immobrowse.dom.preview.DataFieldCol(
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldCaption('Fläche')
-              ),
-              immobrowse.dom.preview.DataFieldRow(
-                immobrowse.dom.preview.DataFieldValue(this.area() || this.na)
-              )
-            )
+            ]
           ),
           immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags())
         )
