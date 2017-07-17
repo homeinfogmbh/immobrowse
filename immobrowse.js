@@ -1745,6 +1745,31 @@ immobrowse.List = function (cid, realEstates) {
   }
 
   /*
+    Returns a list of district elements to be rendered
+  */
+  this.districtElements = function () {
+    var districts = this.districts();
+    var districtElements = [];
+
+    for (district in districts) {
+      if (districts.hasOwnProperty(district)) {
+        var inputElement = document.createElement('input');
+        inputElement.setAttribute('type', 'checkbox');
+        inputElement.setAttribute('class', 'ib-select-district');
+        inputElement.setAttribute('name', district);
+        inputElement.setAttribute('onclick', 'filter();');
+        districtElements.push(inputElement);
+        var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
+        districtElements.push(textElement);
+        var lineBreakElement = document.createElement('br');
+        districtElements.push(lineBreakElement);
+      }
+    }
+
+    return districtElements;
+  }
+
+  /*
     Renders the respective real estates into the given HTML element.
   */
   this.render = function (listElement) {
