@@ -1537,7 +1537,7 @@ immobrowse.RealEstate = function (realEstate) {
                   immobrowse.dom.preview.DataFieldCaption('Kaltmiete')
                 ),
                 immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(this.rent() || this.na)
+                  immobrowse.dom.preview.DataFieldValue(immobrowse.euro(this.rent()) || this.na)
                 )
               ),
               immobrowse.dom.preview.DataFieldCol(
@@ -1545,7 +1545,7 @@ immobrowse.RealEstate = function (realEstate) {
                   immobrowse.dom.preview.DataFieldCaption('Nebenkosten')
                 ),
                 immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(this.serviceCharge() || this.na)
+                  immobrowse.dom.preview.DataFieldValue(immobrowse.euro(this.serviceCharge()) || this.na)
                 )
               ),
               immobrowse.dom.preview.DataFieldCol(
@@ -1561,7 +1561,7 @@ immobrowse.RealEstate = function (realEstate) {
                   immobrowse.dom.preview.DataFieldCaption('Fläche')
                 ),
                 immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(this.area() || this.na)
+                  immobrowse.dom.preview.DataFieldValue(immobrowse.squareMeters(this.area()) || this.na)
                 )
               )
             ]
