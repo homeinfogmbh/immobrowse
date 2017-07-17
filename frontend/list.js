@@ -155,7 +155,7 @@ $(document).ready(function () {
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
-    initDistricts($('#ib-districts'), list.districts());
+    renderDistricts($('#ib-districts'), list.districts());
     list.render(listElement);
     $('#loader').hide();
   });
