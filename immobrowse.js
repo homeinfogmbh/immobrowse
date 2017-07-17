@@ -1904,7 +1904,7 @@ immobrowse.dom.preview.TitleRow = function (objectTitle) {
 
 immobrowse.dom.preview.DataCol = function (titleRow, dataRow, amenitiesTags) {
   var element = document.createElement('div');
-  element.setAttribute('class', 'col-md-8');
+  element.setAttribute('class', 'col-sm-8');
   element.appendChild(titleRow);
   element.appendChild(dataRow);
   element.appendChild(amenitiesTags);
@@ -1936,7 +1936,7 @@ immobrowse.dom.preview.ImageFrame = function (image) {
 
 immobrowse.dom.preview.ImageCol = function (imageFrame) {
   var element = document.createElement('div');
-  element.setAttribute('class', 'col-md-4');
+  element.setAttribute('class', 'col-sm-4');
   element.appendChild(imageFrame);
   return element;
 }
