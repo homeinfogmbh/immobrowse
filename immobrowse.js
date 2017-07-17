@@ -1762,7 +1762,7 @@ immobrowse.List = function (cid, realEstates) {
     listElement.html('');  // Clear element
 
     for (var i = 0; i < this.filteredRealEstates.length; i++) {
-      listElement.appendChild(this.filteredRealEstates[i].preview());
+      listElement.append(this.filteredRealEstates[i].preview());
     }
   }
 }
