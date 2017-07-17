@@ -28,24 +28,7 @@ var sorting = {
   order: null
 };
 var listElement;
-var template;
 var list;
-
-function elements(index) {
-  var suffix = '_' + index;
-
-  return {
-    linkElement: jQuery('#entry' + suffix),
-    objectTitle: jQuery('#objectTitle' + suffix),
-    address: jQuery('#address' + suffix),
-    coldRent: jQuery('#coldRent' + suffix),
-    serviceCharge: jQuery('#serviceCharge' + suffix),
-    livingArea: jQuery('#livingArea' + suffix),
-    rooms: jQuery('#rooms' + suffix),
-    amenitiesTags: jQuery('#amenitiesTags' + suffix),
-    titleImage: jQuery('#titleImage' + suffix)
-  };
-}
 
 function toggleOrder() {
   var previousOrder = sorting.order;
@@ -80,7 +63,7 @@ function toggleSorting(property) {
   }
 
   list.sort(sorting.property, sorting.order);
-  list.render(listElement, template, elements);
+  list.render(listElement);
 }
 
 function filters() {
@@ -101,16 +84,15 @@ function filter() {
     list.sort(sorting.property, sorting.order);
   }
 
-  list.render(listElement, template, elements);
+  list.render(listElement);
 }
 
 jQuery(document).ready(function () {
   listElement = jQuery('#list');
-  template = jQuery('#templateContainer');
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
-    list.render(listElement, template, elements);
+    list.render(listElement);
     jQuery('#loader').hide();
   });
 });
