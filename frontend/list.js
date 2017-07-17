@@ -78,9 +78,9 @@ function renderDistricts(districtsElement, districts) {
       inputElement.setAttribute('class', 'ib-select-district');
       inputElement.setAttribute('name', district);
       inputElement.setAttribute('onclick', 'filter();');
-      districtsElement.appendChild(inputElement);
+      districtsElement.append(inputElement);
       var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
-      districtsElement.appendChild(textElement);
+      districtsElement.append(textElement);
       var lineBreakElement = document.createElement('br');
       districtsElement.append(lineBreakElement);
     }
