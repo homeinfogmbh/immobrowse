@@ -68,22 +68,11 @@ function toggleSorting(property) {
   list.render(listElement);
 }
 
-function renderDistricts(districtsElement, districts) {
+function renderDistricts(districtsElement, districtElements) {
   districtsElement.html('');
 
-  for (district in districts) {
-    if (districts.hasOwnProperty(district)) {
-      var inputElement = document.createElement('input');
-      inputElement.setAttribute('type', 'checkbox');
-      inputElement.setAttribute('class', 'ib-select-district');
-      inputElement.setAttribute('name', district);
-      inputElement.setAttribute('onclick', 'filter();');
-      districtsElement.append(inputElement);
-      var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
-      districtsElement.append(textElement);
-      var lineBreakElement = document.createElement('br');
-      districtsElement.append(lineBreakElement);
-    }
+  for (var i = 0; i < districtElements.length; i++) {
+    districtsElement.append(districtElements[i]);
   }
 }
 
@@ -155,7 +144,7 @@ $(document).ready(function () {
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
-    renderDistricts($('#ib-districts'), list.districts());
+    renderDistricts($('#ib-districts'), list.districtElements());
     list.render(listElement);
     $('#loader').hide();
   });
