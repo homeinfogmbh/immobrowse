@@ -35,7 +35,7 @@ barrierfree.getRealEstate = function (objectId, portal, callback) {
   jQuery.ajax({
     url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal,
     success: function (json) {
-      callback(new immobrowse.RealEstate(json));
+      callback(new barrierfree.RealEstate(json));
     },
     error: function() {
       swal({
@@ -58,7 +58,7 @@ barrierfree.getRealEstates = function (portal, callback) {
       var realEstates = [];
 
       for (var i = 0; i < json.length; i++) {
-        realEstates.push(new immobrowse.RealEstate(json[i]));
+        realEstates.push(new barrierfree.RealEstate(json[i]));
       }
 
       callback(realEstates)
@@ -71,4 +71,47 @@ barrierfree.getRealEstates = function (portal, callback) {
       });
     }
   });
+}
+
+
+
+barrierfree.RealEstate = function (realEstate) {
+  immobrowse.RealEstate.call(this, realEstate);
+
+  /*
+    Determines whether the real estate is completely barrier free
+  */
+  this.completelyBarrierFree = function () {
+    var barrier_freeness = this.barrier_freeness || {};
+    var stairs = barrier_freeness.stairs == '0' || barrier_freeness.ramp_din;
+    var doors = barrier_freeness.wide_door && barrier_freeness.low_thresholds && barrier_freeness.wide_doors && barrier_freeness.door_opener;
+    var lift = barrier_freeness.lift_size == 'DIN';
+    var bath = barrier_freeness.bath_wide && (barrier_freeness.shower_tray == 'low' || barrier_freeness.shower_tray == 'walk-in');
+    var wheelchair_parking = barrier_freeness.wheelchair_parking == 'indoors' || barrier_freeness.wheelchair_parking == 'outdoors';
+    var entry = barrier_freeness.doorbell_panel;
+    return stairs && doors && lift && bath && wheelchair_parking && entry;
+  }
+
+  /*
+    Determines whether the real estate is limited barrier free
+  */
+  this.limitedBarrierFree = function () {
+    var barrier_freeness = this.barrier_freeness || {};
+    return barrier_freeness.stairs == '0' || barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8';
+  }
+
+  /*
+    Amenities extension
+  */
+  this.amenities = function () {
+    var amenities = immobrowse.RealEstate.amenities.call(this);
+
+    if (this.completelyBarrierFree()) {
+      amenities.push('vollständig barrierefrei');
+    } else if (this.limitedBarrierFree()) {
+      amenities.push('eingeschränkt barrierefrei');
+    }
+
+    return amenities;
+  }
 }
