@@ -1556,7 +1556,7 @@ immobrowse.RealEstate = function (realEstate) {
               ),
               immobrowse.dom.preview.DataFieldCol(
                 immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldCaption('Fläche')
+                  immobrowse.dom.preview.DataFieldCaption('Fläche ca.')
                 ),
                 immobrowse.dom.preview.DataFieldRow(
                   immobrowse.dom.preview.DataFieldValue(immobrowse.squareMeters(this.area()) || this.na)
