@@ -68,6 +68,25 @@ function toggleSorting(property) {
   list.render(listElement);
 }
 
+function renderDistricts(districtsElement, districts) {
+  districtsElement.html('');
+
+  for (district in districts) {
+    if (districts.hasOwnProperty(district)) {
+      var inputElement = document.createElement('input');
+      inputElement.setAttribute('type', 'checkbox');
+      inputElement.setAttribute('class', 'ib-select-district');
+      inputElement.setAttribute('name', district);
+      inputElement.setAttribute('onclick', 'filter();');
+      districtsElement.appendChild(inputElement);
+      var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
+      districtsElement.appendChild(textElement);
+      var lineBreakElement = document.createElement('br');
+      districtsElement.append(lineBreakElement);
+    }
+  }
+}
+
 function selectedDistricts() {
   var districts = [];
   var checkboxes = document.getElementsByClassName('ib-select-district');
@@ -132,30 +151,11 @@ $(document).ready(function () {
     filter();
   });
 
-  var districtsElement = document.getElementById('ib-districts');
-  districtsElement.innerHTML = '';
   listElement = $('#list');
   immobrowse.getRealEstates(customer, function (realEstates) {
     list = new immobrowse.List(customer, realEstates);
     list.filter(filters());
-
-    var districts = list.districts();
-
-    for (district in districts) {
-      if (districts.hasOwnProperty(district)) {
-        var inputElement = document.createElement('input');
-        inputElement.setAttribute('type', 'checkbox');
-        inputElement.setAttribute('class', 'ib-select-district');
-        inputElement.setAttribute('name', district);
-        inputElement.setAttribute('onclick', 'filter();');
-        districtsElement.appendChild(inputElement);
-        var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
-        districtsElement.appendChild(textElement);
-        var lineBreakElement = document.createElement('br');
-        districtsElement.appendChild(lineBreakElement);
-      }
-    }
-
+    initDistricts($('#ib-districts'), list.districts());
     list.render(listElement);
     $('#loader').hide();
   });
