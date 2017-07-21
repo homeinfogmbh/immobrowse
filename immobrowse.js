@@ -374,6 +374,144 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 
 
 /*
+  Matches real estates for filtering
+*/
+immobrowse.Filter = function (rules) {
+  this.rules = rules || [];
+
+  /*
+    Match filters on a real estate's JSON data.
+  */
+  this.match = function (realEstate) {
+    var rent = realEstate.rent();
+
+    if (this.rules.priceMin > rent) {
+      return false;
+    }
+
+    if (this.rules.priceMax < rent) {
+      return false;
+    }
+
+    if (this.rules.areaMin != null) {
+      if (realEstate.flaechen == null) {
+        return false;
+      } else if (filters.areaMin > realEstate.flaechen.wohnflaeche) {
+        return false;
+      }
+    }
+
+    if (this.rules.roomsMin != null) {
+      if (realEstate.flaechen == null) {
+        return false;
+      } else if (filters.roomsMin > realEstate.flaechen.anzahl_zimmer) {
+        return false;
+      }
+    }
+
+    if (this.rules.ebk) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (realEstate.ausstattung.kueche == null) {
+        return false;
+      } else if (! realEstate.ausstattung.kueche.EBK) {
+        return false;
+      }
+    }
+
+    if (this.rules.bathtub) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (realEstate.ausstattung.bad == null) {
+        return false;
+      } else if (! realEstate.ausstattung.bad.WANNE) {
+        return false;
+      }
+    }
+
+    if (this.rules.window) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (realEstate.ausstattung.bad == null) {
+        return false;
+      } else if (! realEstate.ausstattung.bad.FENSTER) {
+        return false;
+      }
+    }
+
+    if (this.rules.guestwc) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (! realEstate.ausstattung.gaestewc) {
+        return false;
+      }
+    }
+
+    if (this.rules.carSpace) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (realEstate.ausstattung.stellplatzart == null) {
+        return false;
+      } else if (! realEstate.ausstattung.stellplatzart.TIEFGARAGE) {
+        return false;
+      }
+    }
+
+    if (this.rules.elevator) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (realEstate.ausstattung.fahrstuhl == null) {
+        return false;
+      } else if (! realEstate.ausstattung.fahrstuhl.PERSONEN) {
+        return false;
+      }
+    }
+
+    if (this.rules.garden) {
+      if (realEstate.ausstattung == null) {
+        return false;
+      } else if (! realEstate.ausstattung.gartennutzung) {
+        return false;
+      }
+    }
+
+    if (this.rules.balcony) {
+      if (realEstate.flaechen == null) {
+        return false;
+      } else if (realEstate.flaechen.anzahl_balkone == null || realEstate.flaechen.anzahl_balkone == 0) {
+        return false;
+      }
+    }
+
+    if (this.rules.districts != null) {
+      if (this.rules.districts.length > 0) {
+        if (this.rules.districts.indexOf(realEstate.district()) < 0) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  /*
+    Filters a list of real estates
+  */
+  this.filter = function (realEstates) {
+    var filteredRealEstates = [];
+
+    for (var i = 0; i < realEstates.length; i++) {
+      if (this.match(realEstates[i])) {
+        filteredRealEstates.push(realEstates[i]);
+      }
+    }
+
+    return filteredRealEstates;
+  }
+}
+
+
+/*
   Real estate wrapper class
 */
 immobrowse.RealEstate = function (json) {
@@ -1582,137 +1720,11 @@ immobrowse.List = function (cid, realEstates) {
   this.filteredRealEstates = realEstates;
 
   /*
-    Match filters on a real estate's JSON data.
-  */
-  this.match = function (realEstate, filters) {
-    var rent = realEstate.rent();
-
-    if (filters.priceMin > rent) {
-      return false;
-    }
-
-    if (filters.priceMax < rent) {
-      return false;
-    }
-
-    if (filters.areaMin != null) {
-      if (realEstate.flaechen == null) {
-        return false;
-      } else if (filters.areaMin > realEstate.flaechen.wohnflaeche) {
-        return false;
-      }
-    }
-
-    if (filters.roomsMin != null) {
-      if (realEstate.flaechen == null) {
-        return false;
-      } else if (filters.roomsMin > realEstate.flaechen.anzahl_zimmer) {
-        return false;
-      }
-    }
-
-    if (filters.ebk) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (realEstate.ausstattung.kueche == null) {
-        return false;
-      } else if (! realEstate.ausstattung.kueche.EBK) {
-        return false;
-      }
-    }
-
-    if (filters.bathtub) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (realEstate.ausstattung.bad == null) {
-        return false;
-      } else if (! realEstate.ausstattung.bad.WANNE) {
-        return false;
-      }
-    }
-
-    if (filters.window) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (realEstate.ausstattung.bad == null) {
-        return false;
-      } else if (! realEstate.ausstattung.bad.FENSTER) {
-        return false;
-      }
-    }
-
-    if (filters.guestwc) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (! realEstate.ausstattung.gaestewc) {
-        return false;
-      }
-    }
-
-    if (filters.carSpace) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (realEstate.ausstattung.stellplatzart == null) {
-        return false;
-      } else if (! realEstate.ausstattung.stellplatzart.TIEFGARAGE) {
-        return false;
-      }
-    }
-
-    if (filters.elevator) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (realEstate.ausstattung.fahrstuhl == null) {
-        return false;
-      } else if (! realEstate.ausstattung.fahrstuhl.PERSONEN) {
-        return false;
-      }
-    }
-
-    if (filters.garden) {
-      if (realEstate.ausstattung == null) {
-        return false;
-      } else if (! realEstate.ausstattung.gartennutzung) {
-        return false;
-      }
-    }
-
-    if (filters.balcony) {
-      if (realEstate.flaechen == null) {
-        return false;
-      } else if (realEstate.flaechen.anzahl_balkone == null || realEstate.flaechen.anzahl_balkone == 0) {
-        return false;
-      }
-    }
-
-    if (filters.districts != null) {
-      if (filters.districts.length > 0) {
-        if (filters.districts.indexOf(realEstate.district()) < 0) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  /*
     Filters real estates.
   */
-  this.filter = function (filters) {
-    this.filteredRealEstates = [];
-
-    for (var i = 0; i < this.realEstates.length; i++) {
-      if (this.match(this.realEstates[i], filters)) {
-        this.filteredRealEstates.push(this.realEstates[i]);
-      } else {
-        immobrowse.logger.debug('Discarding: ' + this.realEstates[i].objectId());
-      }
-    }
-
-    if (! this.filteredRealEstates) {
-      immobrowse.logger.warning('No real estates available after filtering.');
-    }
+  this.filter = function (filterRules) {
+    var filter = immobrowse.Filter(filterRules);
+    this.filteredRealEstates = filter.filter(this.realEstates);
   }
 
   /*
