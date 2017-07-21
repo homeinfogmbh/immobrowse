@@ -78,8 +78,8 @@ barrierfree.getRealEstates = function (portal, callback) {
   Extended real estate with additional barrier
   freeness related properties and methods.
 */
-barrierfree.RealEstate = function (realEstate) {
-  immobrowse.RealEstate.call(this, realEstate);
+barrierfree.RealEstate = function (json) {
+  immobrowse.RealEstate.call(this, json);
 
   /*
     Determines whether the real estate is completely barrier free

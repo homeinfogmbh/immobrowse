@@ -376,13 +376,13 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 /*
   Real estate wrapper class
 */
-immobrowse.RealEstate = function (realEstate) {
+immobrowse.RealEstate = function (json) {
   this.kwh = immobrowse.dom.Kwhsma().outerHTML;
   this.na = 'k. A.';
 
-  for (var prop in realEstate) {
-    if (realEstate.hasOwnProperty(prop)) {
-        this[prop] = realEstate[prop];
+  for (var prop in json) {
+    if (json.hasOwnProperty(prop)) {
+        this[prop] = json[prop];
     }
   }
 
