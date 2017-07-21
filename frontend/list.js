@@ -73,6 +73,10 @@ function renderDistricts(districtsElement, districtElements) {
   for (var i = 0; i < districtElements.length; i++) {
     districtsElement.append(districtElements[i]);
   }
+
+  $('.ib-select-district').click(function() {
+    list();
+  });
 }
 
 function selectedDistricts() {
