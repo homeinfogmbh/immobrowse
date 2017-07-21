@@ -116,7 +116,7 @@ function filters() {
 }
 
 function list() {
-  var filter = immobrowse.Filter(filters());
+  var filter = new immobrowse.Filter(filters());
   var filteredRealEstates = filter.filter(realEstates);
   list = new immobrowse.List(filteredRealEstates);
 
