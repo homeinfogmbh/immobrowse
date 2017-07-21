@@ -29,7 +29,6 @@ var sorting = {
 };
 var realEstates;
 var listElement;
-var list;
 
 function toggleOrder() {
   var previousOrder = sorting.order;
@@ -63,8 +62,7 @@ function toggleSorting(property) {
       break;
   }
 
-  list.sort(sorting.property, sorting.order);
-  list.render(listElement);
+  list();
 }
 
 function filters() {
@@ -81,7 +79,7 @@ function filters() {
 function list() {
   var filter = new immobrowse.Filter(filters());
   var filteredRealEstates = filter.filter(realEstates);
-  list = new immobrowse.List(filteredRealEstates);
+  var list = new immobrowse.List(filteredRealEstates);
 
   if (sorting.property != null) {
     list.sort(sorting.property, sorting.order);
