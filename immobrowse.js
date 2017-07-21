@@ -203,9 +203,13 @@ immobrowse.districts = function (realEstates) {
 /*
   Returns a list of district elements for rendering
 */
-immobrowse.districtElements = function (realEstates) {
+immobrowse.districtElements = function (realEstates, method) {
   var districts = immobrowse.districts(realEstates);
   var districtElements = [];
+
+  if (method == null) {
+    method = 'list();';
+  }
 
   for (var district in districts) {
     if (districts.hasOwnProperty(district)) {
@@ -213,7 +217,7 @@ immobrowse.districtElements = function (realEstates) {
       inputElement.setAttribute('type', 'checkbox');
       inputElement.setAttribute('class', 'ib-select-district');
       inputElement.setAttribute('name', district);
-      inputElement.setAttribute('onclick', 'filter();');
+      inputElement.setAttribute('onclick', method);
       districtElements.push(inputElement);
       var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
       districtElements.push(textElement);
