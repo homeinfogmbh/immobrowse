@@ -29,6 +29,7 @@ var sorting = {
   property: null,
   order: null
 };
+var realEstates;
 var listElement;
 var list;
 
@@ -114,8 +115,10 @@ function filters() {
   return filters;
 }
 
-function filter() {
-  list.filter(filters());
+function list() {
+  var filter = immobrowse.Filter(filters());
+  var filteredRealEstates = filter.filter(realEstates);
+  list = new immobrowse.List(filteredRealEstates);
 
   if (sorting.property != null) {
     list.sort(sorting.property, sorting.order);
@@ -133,19 +136,18 @@ $(document).ready(function () {
   });
 
   $('.ib-btn-filter-option').on('input',function(e) {
-    filter();
+    list();
   });
 
   $('.ib-filter-amenities-option').click(function() {
-    filter();
+    list();
   });
 
   listElement = $('#list');
-  immobrowse.getRealEstates(customer, function (realEstates) {
-    list = new immobrowse.List(customer, realEstates);
-    list.filter(filters());
-    renderDistricts($('#ib-districts'), list.districtElements());
-    list.render(listElement);
+  immobrowse.getRealEstates(customer, function (realEstates_) {
+    realEstates = realEstates_;
+    renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
+    list();
     $('#loader').hide();
   });
 });

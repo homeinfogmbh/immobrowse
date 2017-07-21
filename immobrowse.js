@@ -179,6 +179,54 @@ immobrowse.yesNo = function (boolean) {
 
 
 /*
+  Returns the respective districts.
+*/
+immobrowse.districts = function (realEstates) {
+  var districts = [];
+
+  for (var i = 0; i < realEstates.length; i++) {
+    var district = realEstates[i].district();
+
+    if (district != null) {
+      if (districts[district] != undefined) {
+        districts[district] += 1;
+      } else {
+        districts[district] = 1;
+      }
+    }
+  }
+
+  return districts;
+}
+
+
+/*
+  Returns a list of district elements for rendering
+*/
+immobrowse.districtElements = function (realEstates) {
+  var districts = immobrowse.districts(realEstates);
+  var districtElements = [];
+
+  for (var district in districts) {
+    if (districts.hasOwnProperty(district)) {
+      var inputElement = document.createElement('input');
+      inputElement.setAttribute('type', 'checkbox');
+      inputElement.setAttribute('class', 'ib-select-district');
+      inputElement.setAttribute('name', district);
+      inputElement.setAttribute('onclick', 'filter();');
+      districtElements.push(inputElement);
+      var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
+      districtElements.push(textElement);
+      var lineBreakElement = document.createElement('br');
+      districtElements.push(lineBreakElement);
+    }
+  }
+
+  return districtElements;
+}
+
+
+/*
   Queries real estate data from the API and runs callback function.
 */
 immobrowse.getRealEstate = function (id, callback) {
@@ -1714,71 +1762,15 @@ immobrowse.RealEstate = function (json) {
 /*
   Real estate list class
 */
-immobrowse.List = function (cid, realEstates) {
-  this.cid = cid;
+immobrowse.List = function (realEstates) {
   this.realEstates = realEstates;
-  this.filteredRealEstates = realEstates;
-
-  /*
-    Filters real estates.
-  */
-  this.filter = function (filterRules) {
-    var filter = immobrowse.Filter(filterRules);
-    this.filteredRealEstates = filter.filter(this.realEstates);
-  }
 
   /*
     Sorts real estates.
   */
   this.sort = function (property, order) {
     immobrowse.logger.debug('Sorting by ' + property + ' ' + order + '.');
-    this.filteredRealEstates.sort(immobrowse.getSorter(property, order));
-  }
-
-  /*
-    Returns the respective districts.
-  */
-  this.districts = function () {
-    var districts = [];
-
-    for (var i = 0; i < this.realEstates.length; i++) {
-      var district = this.realEstates[i].district();
-
-      if (district != null) {
-        if (districts[district] != undefined) {
-          districts[district] += 1;
-        } else {
-          districts[district] = 1;
-        }
-      }
-    }
-
-    return districts;
-  }
-
-  /*
-    Returns a list of district elements to be rendered
-  */
-  this.districtElements = function () {
-    var districts = this.districts();
-    var districtElements = [];
-
-    for (var district in districts) {
-      if (districts.hasOwnProperty(district)) {
-        var inputElement = document.createElement('input');
-        inputElement.setAttribute('type', 'checkbox');
-        inputElement.setAttribute('class', 'ib-select-district');
-        inputElement.setAttribute('name', district);
-        inputElement.setAttribute('onclick', 'filter();');
-        districtElements.push(inputElement);
-        var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
-        districtElements.push(textElement);
-        var lineBreakElement = document.createElement('br');
-        districtElements.push(lineBreakElement);
-      }
-    }
-
-    return districtElements;
+    this.realEstates.sort(immobrowse.getSorter(property, order));
   }
 
   /*
@@ -1787,8 +1779,8 @@ immobrowse.List = function (cid, realEstates) {
   this.render = function (listElement) {
     listElement.html('');  // Clear element
 
-    for (var i = 0; i < this.filteredRealEstates.length; i++) {
-      listElement.append(this.filteredRealEstates[i].preview());
+    for (var i = 0; i < this.realEstates.length; i++) {
+      listElement.append(this.realEstates[i].preview());
     }
   }
 }
