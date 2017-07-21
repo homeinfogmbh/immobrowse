@@ -27,6 +27,7 @@ var sorting = {
   property: null,
   order: null
 };
+var realEstates;
 var listElement;
 var list;
 
@@ -77,8 +78,10 @@ function filters() {
   return filters;
 }
 
-function filter() {
-  list.filter(filters());
+function list() {
+  var filter = new immobrowse.Filter(filters());
+  var filteredRealEstates = filter.filter(realEstates);
+  list = new immobrowse.List(filteredRealEstates);
 
   if (sorting.property != null) {
     list.sort(sorting.property, sorting.order);
@@ -89,10 +92,9 @@ function filter() {
 
 jQuery(document).ready(function () {
   listElement = jQuery('#list');
-  immobrowse.getRealEstates(customer, function (realEstates) {
-    list = new immobrowse.List(customer, realEstates);
-    list.filter(filters());
-    list.render(listElement);
+  immobrowse.getRealEstates(customer, function (realEstates_) {
+    realEstates = realEstates_;
+    list();
     jQuery('#loader').hide();
   });
 });
