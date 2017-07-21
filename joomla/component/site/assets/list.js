@@ -78,8 +78,7 @@ function filters() {
 
 function list() {
   var filter = new immobrowse.Filter(filters());
-  var filteredRealEstates = filter.filter(realEstates);
-  var list = new immobrowse.List(filteredRealEstates);
+  var list = new immobrowse.List(filter.filter(realEstates));
 
   if (sorting.property != null) {
     list.sort(sorting.property, sorting.order);
