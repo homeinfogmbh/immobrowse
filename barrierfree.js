@@ -118,3 +118,27 @@ barrierfree.RealEstate = function (json) {
     return amenities;
   }
 }
+
+
+/*
+  Extended filter for barrier freeness filering
+*/
+barrierfree.Filter = function (options) {
+  immobrowse.Filter.call(options);
+
+  this.match = function (realEstate) {
+    if (this.options.completelyBarrierFree) {
+      if (! realEstate.completelyBarrierFree) {
+        return false;
+      }
+    }
+
+    if (this.options.limitedBarrierFree) {
+      if (! realEstate.limitedBarrierFree) {
+        return false;
+      }
+    }
+
+    return immobrowse.Filter.match.call(this, realEstate);
+  }
+}
