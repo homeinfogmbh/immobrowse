@@ -38,7 +38,7 @@ barrierfree.getRealEstate = function (objectId, portal, callback) {
   jQuery.ajax({
     url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal,
     success: function (json) {
-      callback(new barrierfree.RealEstate(json));
+      callback(new barrierfree.RealEstate(json, portal));
     },
     error: function() {
       swal({
@@ -61,7 +61,7 @@ barrierfree.getRealEstates = function (portal, callback) {
       var realEstates = [];
 
       for (var i = 0; i < json.length; i++) {
-        realEstates.push(new barrierfree.RealEstate(json[i]));
+        realEstates.push(new barrierfree.RealEstate(json[i], portal));
       }
 
       callback(realEstates)
@@ -81,8 +81,9 @@ barrierfree.getRealEstates = function (portal, callback) {
   Extended real estate with additional barrier
   freeness related properties and methods.
 */
-barrierfree.RealEstate = function (json) {
+barrierfree.RealEstate = function (json, portal) {
   immobrowse.RealEstate.call(this, json);
+  this.portal = portal;
 
   /*
     Determines whether the real estate is completely barrier free
@@ -123,11 +124,11 @@ barrierfree.RealEstate = function (json) {
     return amenities;
   }
 
-  this.attachmentURL = function (anhang, portal) {
+  this.attachmentURL = function (anhang) {
     if (anhang == null) {
       return null;
     } else {
-      return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + portal;
+      return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
     }
   }
 }
