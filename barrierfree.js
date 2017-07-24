@@ -127,7 +127,7 @@ barrierfree.RealEstate = function (json) {
   Extended filter for barrier freeness filering
 */
 barrierfree.Filter = function (options) {
-  immobrowse.Filter.call(options);
+  immobrowse.Filter.call(this, options);
 
   this.match = function (realEstate) {
     if (this.options.completelyBarrierFree) {
@@ -143,9 +143,5 @@ barrierfree.Filter = function (options) {
     }
 
     return immobrowse.Filter.match.call(this, realEstate);
-  }
-
-  this.filter = function (realEstates) {
-    return immobrowse.Filter.filter.call(this, realEstates);
   }
 }
