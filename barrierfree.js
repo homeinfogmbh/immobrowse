@@ -179,15 +179,15 @@ barrierfree.RealEstate = function (json, portal) {
       barrierFreeAmenities.push('Rampe mit über 6 % Gefälle');
     }
 
-    if (barrierFree.wide_door) {
+    if (barrierFreeness.wide_door) {
       barrierFreeAmenities.push('Mindestbreite der Wohnungseingangstür 90 cm');
     }
 
-    if (barrierFree.low_thresholds) {
+    if (barrierFreeness.low_thresholds) {
       barrierFreeAmenities.push('keine Türschwellen > 2cm (außer Balkon)');
     }
 
-    if (barrierFree.wide_doors) {
+    if (barrierFreeness.wide_doors) {
       barrierFreeAmenities.push('Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)');
     }
 
@@ -251,9 +251,9 @@ barrierfree.RealEstate = function (json, portal) {
       barrierFreeAmenities.push('Gegensprechanlage');
     }
 
-    if (barrierFree.wheelchair_parking == 'indoors') {
+    if (barrierFreeness.wheelchair_parking == 'indoors') {
       barrierFreeAmenities.push('Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung');
-    } else if (barrierFree.wheelchair_parking == 'outdoorsv') {
+    } else if (barrierFreeness.wheelchair_parking == 'outdoorsv') {
       barrierFreeAmenities.push('Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung');
     }
 
