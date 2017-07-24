@@ -122,6 +122,14 @@ barrierfree.RealEstate = function (json) {
 
     return amenities;
   }
+
+  this.attachmentURL = function (anhang, portal) {
+    if (anhang == null) {
+      return null;
+    } else {
+      return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + portal;
+    }
+  }
 }
 
 
