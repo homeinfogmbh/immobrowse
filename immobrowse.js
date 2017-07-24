@@ -181,17 +181,41 @@ immobrowse.yesNo = function (boolean) {
 /*
   Returns the respective districts.
 */
-immobrowse.districts = function (realEstates) {
+immobrowse.cities = function (realEstates) {
+  var cities = [];
+
+  for (var i = 0; i < realEstates.length; i++) {
+    var city = realEstates[i].geo.ort;
+
+    if (city != null) {
+      if (cities[city] != undefined) {
+        cities[city] += 1;
+      } else {
+        cities[city] = 1;
+      }
+    }
+  }
+
+  return cities;
+}
+
+
+/*
+  Returns the respective districts.
+*/
+immobrowse.districts = function (realEstates, city) {
   var districts = [];
 
   for (var i = 0; i < realEstates.length; i++) {
-    var district = realEstates[i].district();
+    if (city == null || realEstates[i].geo.ort == city) {
+      var district = realEstates[i].district();
 
-    if (district != null) {
-      if (districts[district] != undefined) {
-        districts[district] += 1;
-      } else {
-        districts[district] = 1;
+      if (district != null) {
+        if (districts[district] != undefined) {
+          districts[district] += 1;
+        } else {
+          districts[district] = 1;
+        }
       }
     }
   }
@@ -1761,42 +1785,6 @@ immobrowse.RealEstate = function (json) {
 */
 immobrowse.List = function (realEstates) {
   this.realEstates = realEstates;
-
-  /*
-    Returns a list of available cities
-  */
-  this.cities = function () {
-    var cities = [];
-
-    for (var i = 0; i < this.realEstates.length; i++) {
-      var city = this.realEstates[i].geo.ort;
-
-      if (city != null && cities.indexOf(city) < 0) {
-        cities.push(city);
-      }
-    }
-
-    return cities;
-  }
-
-  /*
-    Returns a list of districts
-  */
-  this.districts = function (city) {
-    var districts = [];
-
-    for (var i = 0; i < this.realEstates.length; i++) {
-      if (city == null || this.realEstates[i].geo.ort == city) {
-        var district = this.realEstates[i].geo.regionaler_zusatz;
-
-        if (district != null && districts.indexOf(district) < 0) {
-          districts.push(district);
-        }
-      }
-    }
-
-    return districts;
-  }
 
   /*
     Sorts real estates.
