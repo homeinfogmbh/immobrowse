@@ -28,6 +28,9 @@
 
 var barrierfree = barrierfree || {};
 
+barrierfree.logger = new homeinfo.logging.Logger('barrierfree');
+
+
 /*
   Queries real estate data from the API and runs callback function.
 */
