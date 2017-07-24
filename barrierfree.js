@@ -108,7 +108,7 @@ barrierfree.RealEstate = function (json, portal) {
 
     function bathOk() {
       var bath = barrierFreeness.bath || {};
-      return bath.bath_wide && (bath.shower_tray == 'low' || bath.shower_tray == 'walk-in');
+      return bath.wide && (bath.shower_tray == 'low' || bath.shower_tray == 'walk-in');
     }
 
     function wheelchairParkingOk() {
@@ -119,13 +119,6 @@ barrierfree.RealEstate = function (json, portal) {
       var entry = barrierFreeness.entry || {};
       return entry.doorbell_panel;
     }
-
-    console.log('Entry: ' + entryOk());
-    console.log('Doors: ' + doorsOk());
-    console.log('Lift: ' + liftOk());
-    console.log('Bath: ' + bathOk());
-    console.log('Wheelchair parking: ' + wheelchairParkingOk());
-    console.log('Doobell panel: ' + doobellPanelOk());
 
     return entryOk() && doorsOk() && liftOk() && bathOk() && wheelchairParkingOk() && doobellPanelOk();
   }
