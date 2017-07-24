@@ -120,12 +120,12 @@ barrierfree.RealEstate = function (json, portal) {
       return entry.doorbell_panel;
     }
 
-    console.log('Entry: ' + entryOk());
-    console.log('Doors: ' + doorsOk());
-    console.log('Lift: ' + liftOk());
-    console.log('Bath: ' + bathOk());
-    console.log('Wheelchair parking: ' + wheelchairParkingOk());
-    console.log('Doobell panel: ' + doobellPanelOk());
+    console.log('Entry: ' + entryOk() || false);
+    console.log('Doors: ' + doorsOk() || false);
+    console.log('Lift: ' + liftOk() || false);
+    console.log('Bath: ' + bathOk() || false);
+    console.log('Wheelchair parking: ' + wheelchairParkingOk() || false);
+    console.log('Doobell panel: ' + doobellPanelOk() || false);
 
     return entryOk(barrierFreeness) && doorsOk(barrierFreeness) && liftOk(barrierFreeness) && bathOk(barrierFreeness)
       && wheelchairParkingOk(barrierFreeness) && doobellPanelOk(barrierFreeness);
