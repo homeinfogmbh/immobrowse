@@ -1763,6 +1763,42 @@ immobrowse.List = function (realEstates) {
   this.realEstates = realEstates;
 
   /*
+    Returns a list of available cities
+  */
+  this.cities = function () {
+    var cities = [];
+
+    for (var i = 0; i < this.realEstates.length; i++) {
+      var city = this.realEstates[i].geo.ort;
+
+      if (city != null && cities.indexOf(city) < 0) {
+        cities.push(city);
+      }
+    }
+
+    return cities;
+  }
+
+  /*
+    Returns a list of districts
+  */
+  this.districts = function (city) {
+    var districts = [];
+
+    for (var i = 0; i < this.realEstates.length; i++) {
+      if (city == null || this.realEstates[i].geo.ort == city) {
+        var district = this.realEstates[i].geo.regionaler_zusatz;
+
+        if (district != null && districts.indexOf(district) < 0) {
+          districts.push(district);
+        }
+      }
+    }
+
+    return districts;
+  }
+
+  /*
     Sorts real estates.
   */
   this.sort = function (property, order) {
