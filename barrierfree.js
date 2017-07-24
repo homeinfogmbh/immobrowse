@@ -259,6 +259,13 @@ barrierfree.RealEstate = function (json, portal) {
 
     return barrierFreeAmenities;
   }
+
+  this._super_render = this.render;
+
+  this.render = function (elements) {
+    this._super_render(elements);
+    this.setValue(elements.barrierFreeAmenitiesList, this.listAmenities(this.barrierFreeAmenities()));
+  }
 }
 
 

@@ -1123,9 +1123,7 @@ immobrowse.RealEstate = function (json) {
     return elements;
   }
 
-  this.amenitiesList = function () {
-    var amenities = this.amenities();
-
+  this.listAmenities = function (amenities) {
     if (amenities.length > 0) {
       var html = '<ul class="ib-amenities-list">';
 
@@ -1682,7 +1680,7 @@ immobrowse.RealEstate = function (json) {
     this.setValue(elements.miscellanea, this.miscellanea());
     this.renderContact(elements.contact);
     this.setValue(elements.amenitiesTags, this.amenitiesTags());
-    this.setValue(elements.amenitiesList, this.amenitiesList());
+    this.setValue(elements.amenitiesList, this.listAmenities(this.amenities()));
 
     if (elements.titleImage != null) {
       var titleImage = this.titleImage();
