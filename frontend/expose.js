@@ -24,11 +24,9 @@
     * immobrowse.js
 */
 var args = new homeinfo.QueryString();
-// XXX: Change config for appropriate productive setting
 var mailer = new immobrowse.Mailer('homeinfo-testing');
-var customer = args.customer;
-var listUrl = 'list.html?' + customer;
-var objectId = args['real_estate'];
+var portal = args.portal || 'bremen';
+var objectId = args.real_estate;
 var elements;
 var realEstate;
 var imageGallery;
@@ -36,7 +34,7 @@ var floorplanGallery;
 
 
 function back() {
-  immobrowse.open('list.html?customer=' + customer);
+  immobrowse.open('list.html?portal=' + portal);
 }
 
 
@@ -281,7 +279,7 @@ $(document).ready(function () {
     }
   };
 
-  immobrowse.getRealEstate(objectId, function (realEstate_) {
+  barrierfree.getRealEstate(objectId, portal, function (realEstate_) {
     realEstate = realEstate_;
     setupGalleries();
     realEstate.render(elements);
