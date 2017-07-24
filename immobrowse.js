@@ -179,7 +179,7 @@ immobrowse.yesNo = function (boolean) {
 
 
 /*
-  Returns the respective districts.
+  Returns the respective cities.
 */
 immobrowse.cities = function (realEstates) {
   var cities = [];
@@ -203,19 +203,17 @@ immobrowse.cities = function (realEstates) {
 /*
   Returns the respective districts.
 */
-immobrowse.districts = function (realEstates, city) {
+immobrowse.districts = function (realEstates) {
   var districts = [];
 
   for (var i = 0; i < realEstates.length; i++) {
-    if (city == null || realEstates[i].geo.ort == city) {
-      var district = realEstates[i].district();
+    var district = realEstates[i].district();
 
-      if (district != null) {
-        if (districts[district] != undefined) {
-          districts[district] += 1;
-        } else {
-          districts[district] = 1;
-        }
+    if (district != null) {
+      if (districts[district] != undefined) {
+        districts[district] += 1;
+      } else {
+        districts[district] = 1;
       }
     }
   }
