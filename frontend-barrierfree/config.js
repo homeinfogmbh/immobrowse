@@ -6,6 +6,6 @@ immobrowse.config = {
   marketing: ['MIETE_PACHT'],
   shortFloorNames: true,
   exposeURLCallback: function (objectId) {
-    return 'expose.html?real_estate=' + objectId + '&customer=' + customer;
+    return 'expose.html?real_estate=' + objectId + '&portal=' + portal;
   }
 };
