@@ -144,4 +144,8 @@ barrierfree.Filter = function (options) {
 
     return immobrowse.Filter.match.call(this, realEstate);
   }
+
+  this.filter = function (realEstates) {
+    return immobrowse.Filter.filter.call(this, realEstates);
+  }
 }
