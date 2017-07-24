@@ -271,6 +271,7 @@ $(document).ready(function () {
       caption: $('#titleImageCaption')
     },
     amenitiesList: $('#amenitiesList'),
+    barrierFreeAmenitiesList: $('#barrierFreeAmenitiesList'),
     contact: {
       name: $('#contactName'),
       company: $('#contactCompany'),
