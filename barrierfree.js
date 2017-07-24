@@ -142,6 +142,6 @@ barrierfree.Filter = function (rules) {
       }
     }
 
-    return this.prototype.match.call(this, realEstate);
+    return immobrowse.Filter.prototype.match.call(this, realEstate);
   }
 }
