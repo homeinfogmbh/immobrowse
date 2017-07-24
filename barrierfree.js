@@ -129,6 +129,8 @@ barrierfree.RealEstate = function (json) {
 barrierfree.Filter = function (rules) {
   immobrowse.Filter.call(this, rules);
 
+  this._superMatch = this.match;
+
   this.match = function (realEstate) {
     if (this.rules.completelyBarrierFree) {
       if (! realEstate.completelyBarrierFree) {
@@ -142,6 +144,6 @@ barrierfree.Filter = function (rules) {
       }
     }
 
-    return immobrowse.Filter.prototype.match.call(this, realEstate);
+    return this._superMatch(realEstate);
   }
 }
