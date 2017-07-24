@@ -239,7 +239,7 @@ barrierfree.RealEstate = function (json, portal) {
       barrierFreeAmenities.push('Balkon schwellenlos erreichbar (Absatz bis 2 cm)');
     }
 
-    if (bacony.large) {
+    if (balcony.large) {
       barrierFreeAmenities.push('Balkongröße über 2,5 m²');
     }
 
