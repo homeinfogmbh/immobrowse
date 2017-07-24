@@ -138,7 +138,7 @@ class AttachmentHandler(BarrierFreeHandler):
             raise Error('Invalid attachment id: {}.'.format(
                 self.resource)) from None
         else:
-            return Binary(attachment(ident).data)
+            return Binary(attachment(ident, self.portals).data)
 
 
 HANDLERS = {
