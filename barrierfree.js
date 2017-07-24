@@ -126,17 +126,17 @@ barrierfree.RealEstate = function (json) {
 /*
   Extended filter for barrier freeness filering
 */
-barrierfree.Filter = function (options) {
-  immobrowse.Filter.call(this, options);
+barrierfree.Filter = function (rules) {
+  immobrowse.Filter.call(this, rules);
 
   this.match = function (realEstate) {
-    if (this.options.completelyBarrierFree) {
+    if (this.rules.completelyBarrierFree) {
       if (! realEstate.completelyBarrierFree) {
         return false;
       }
     }
 
-    if (this.options.limitedBarrierFree) {
+    if (this.rules.limitedBarrierFree) {
       if (! realEstate.limitedBarrierFree) {
         return false;
       }
