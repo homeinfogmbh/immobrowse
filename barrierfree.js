@@ -86,7 +86,7 @@ barrierfree.RealEstate = function (json) {
   */
   this.completelyBarrierFree = function () {
     var barrier_freeness = this.barrier_freeness || {};
-    var stairs = barrier_freeness.stairs == '0' || barrier_freeness.ramp_din;
+    var stairs = barrier_freeness.stairs == '0' || (barrier_freeness.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
     var doors = barrier_freeness.wide_door && barrier_freeness.low_thresholds && barrier_freeness.wide_doors && barrier_freeness.door_opener;
     var lift = barrier_freeness.lift_size == 'DIN';
     var bath = barrier_freeness.bath_wide && (barrier_freeness.shower_tray == 'low' || barrier_freeness.shower_tray == 'walk-in');
