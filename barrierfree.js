@@ -106,11 +106,13 @@ barrierfree.RealEstate = function (json) {
     return barrier_freeness.stairs == '0' || (barrier_freeness.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
   }
 
+  this._super_amenities = this.amenities;
+
   /*
     Amenities extension
   */
   this.amenities = function () {
-    var amenities = immobrowse.RealEstate.amenities.call(this);
+    var amenities = this._super_amenities();
 
     if (this.completelyBarrierFree()) {
       amenities.push('vollständig barrierefrei');
@@ -129,7 +131,7 @@ barrierfree.RealEstate = function (json) {
 barrierfree.Filter = function (rules) {
   immobrowse.Filter.call(this, rules);
 
-  this._superMatch = this.match;
+  this._super_match = this.match;
 
   this.match = function (realEstate) {
     if (this.rules.completelyBarrierFree) {
@@ -144,6 +146,6 @@ barrierfree.Filter = function (rules) {
       }
     }
 
-    return this._superMatch(realEstate);
+    return this._super_match(realEstate);
   }
 }
