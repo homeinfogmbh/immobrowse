@@ -127,9 +127,9 @@ barrierfree.RealEstate = function (json, portal) {
     Determines whether the real estate is limited barrier free
   */
   this.limitedBarrierFree = function () {
-    var barrier_freeness = this.barrier_freeness || {};
-    var entry = barrier_freeness.entry || {};
-    return barrier_freeness.stairs == '0' || (entry.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
+    var barrierFreeness = this.barrier_freeness || {};
+    var entry = barrierFreeness.entry || {};
+    return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
   }
 
   this._super_amenities = this.amenities;
@@ -155,6 +155,109 @@ barrierfree.RealEstate = function (json, portal) {
     } else {
       return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
     }
+  }
+
+  this.barrierFreeAmenities = function () {
+    var barrierFreeAmenities = [];
+    var barrierFreeness = this.barrier_freeness || {};
+    var entry = barrier_freeness.entry || {};
+    var lift = barrierFreeness.lift || {};
+    var bath = barrierFreeness.bath || {};
+    var balcony = barrierFreeness.balcony || {};
+
+    if (barrierFreeness.stairs == '0') {
+      barrierFreeAmenities.push('Keine Stufen bis zum Wohnungseingang');
+    } else if (barrierFreeness.stairs == '0-1') {
+      barrierFreeAmenities.push('Maximal eine Stufe bis zum Wohnungseingang');
+    } else if (barrierFreeness.stairs == '2-8') {
+      barrierFreeAmenities.push('2-8 Stufen bis zum Wohnungseingang');
+    }
+
+    if (entry.ramp_din) {
+      barrierFreeAmenities.push('Rampe mit bis zu 6 % Gefälle (nach DIN-Norm)');
+    } else if (entry.ramp_din === false) {
+      barrierFreeAmenities.push('Rampe mit über 6 % Gefälle');
+    }
+
+    if (barrierFree.wide_door) {
+      barrierFreeAmenities.push('Mindestbreite der Wohnungseingangstür 90 cm');
+    }
+
+    if (barrierFree.low_thresholds) {
+      barrierFreeAmenities.push('keine Türschwellen > 2cm (außer Balkon)');
+    }
+
+    if (barrierFree.wide_doors) {
+      barrierFreeAmenities.push('Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)');
+    }
+
+    if (entry.door_opener) {
+      barrierFreeAmenities.push('Automatischer Türöffner an der Haustür');
+    }
+
+    if (lift) {
+      barrierFreeAmenities.push('Aufzug');
+
+      if (lift.wide_door) {
+        barrierFreeAmenities.push('Mindestbreite der Aufzugstür 80 cm');
+      }
+
+      if (lift.value == '90x140') {
+        barrierFreeAmenities.push('Kabinengröße bis 90 x 140 cm Innenmaß');
+      } else if (lift.value == 'DIN') {
+        barrierFreeAmenities.push('Kabinengröße ab 90 x 140 cm Innenmaß (nach DIN-Norm)');
+      }
+    }
+
+    if (bath.bathtub) {
+      barrierFreeAmenities.push('Badewanne');
+    }
+
+    if (bath.shower_tray == 'high') {
+      barrierFreeAmenities.push('Hoher Duschwanne ab 7 cm');
+    } else if (bath.shower_tray == 'low') {
+      barrierFreeAmenities.push('Flache Duschwanne bis 7 cm (nach DIN-Norm)');
+    } else if (bath.shower_tray == 'walk-in') {
+      barrierFreeAmenities.push('Bodengleiche Dusche (nach DIN-Norm)');
+    }
+
+    if (bath.wide) {
+      barrierFreeAmenities.push('Durchgangsbreite Vorderseite Sanitärobjekt zur Wand mind. 120 cm');
+    }
+
+    if (bath.large) {
+      barrierFreeAmenities.push('Größe des Badezimmers ab 3 m²');
+    }
+
+    if (balcony.wide_door) {
+      barrierFreeAmenities.push('Mindestbreite Balkontür 80cm');
+    }
+
+    if (balcony.threshold) {
+      barrierFreeAmenities.push('Balkon mit Schwelle (Höhe 2 cm und mehr)');
+    } else if (balcony.threshold === false) {
+      barrierFreeAmenities.push('Balkon schwellenlos erreichbar (Absatz bis 2 cm)');
+    }
+
+    if (bacony.large) {
+      barrierFreeAmenities.push('Balkongröße über 2,5 m²');
+    }
+
+    if (entry.doorbell_panel) {
+      barrierFreeAmenities.push('Klingeltableau behindertengerecht (große Tasten, große Ziffern, Höhe +/- 85 cm)');
+    }
+
+    if (entry.intercom) {
+      barrierFreeAmenities.push('Gegensprechanlage');
+    }
+
+    if (barrierFree.wheelchair_parking == 'indoors') {
+      barrierFreeAmenities.push('Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung');
+    } else if (barrierFree.wheelchair_parking == 'outdoorsv') {
+      barrierFreeAmenities.push('Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung');
+    }
+
+    return barrierFreeAmenities;
   }
 }
 
