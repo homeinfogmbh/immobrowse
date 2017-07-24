@@ -280,7 +280,7 @@ $(document).ready(function () {
     }
   };
 
-  immobrowse.getRealEstate(objectId, function (realEstate_) {
+  immobrowse.getRealEstate(objectId, portal, function (realEstate_) {
     realEstate = realEstate_;
     setupGalleries();
     realEstate.render(elements);
