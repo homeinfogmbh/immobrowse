@@ -89,14 +89,39 @@ barrierfree.RealEstate = function (json, portal) {
     Determines whether the real estate is completely barrier free
   */
   this.completelyBarrierFree = function () {
-    var barrier_freeness = this.barrier_freeness || {};
-    var stairs = barrier_freeness.stairs == '0' || (barrier_freeness.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
-    var doors = barrier_freeness.wide_door && barrier_freeness.low_thresholds && barrier_freeness.wide_doors && barrier_freeness.door_opener;
-    var lift = barrier_freeness.lift_size == 'DIN';
-    var bath = barrier_freeness.bath_wide && (barrier_freeness.shower_tray == 'low' || barrier_freeness.shower_tray == 'walk-in');
-    var wheelchair_parking = barrier_freeness.wheelchair_parking == 'indoors' || barrier_freeness.wheelchair_parking == 'outdoors';
-    var entry = barrier_freeness.doorbell_panel;
-    return stairs && doors && lift && bath && wheelchair_parking && entry;
+    var barrierFreeness = this.barrier_freeness || {};
+
+    function entryOk(barrierFreeness) {
+      var entry = barrierFreeness.entry || {};
+      return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
+    }
+
+    function doorsOk(barrierFreeness) {
+      var entry = barrierFreeness.entry || {};
+      return barrierFreeness.wide_door && barrierFreeness.low_thresholds && barrierFreeness.wide_doors && entry.door_opener;
+    }
+
+    function liftOk(barrierFreeness) {
+      var lift = barrierFreeness.lift || {};
+      return lift.value == 'DIN';
+    }
+
+    function bathOk(barrierFreeness) {
+      var bath = barrierFreeness.bath || {};
+      return bath.bath_wide && (bath.shower_tray == 'low' || bath.shower_tray == 'walk-in');
+    }
+
+    function wheelchairParkingOk(barrierFreeness) {
+      return barrierFreeness.wheelchair_parking == 'indoors' || barrierFreeness.wheelchair_parking == 'outdoors';
+    }
+
+    function doobellPanelOk(barrierFreeness) {
+      var entry = barrierFreeness.entry || {};
+      return entry.doorbell_panel;
+    }
+
+    return entryOk(barrierFreeness) && doorsOk(barrierFreeness) && liftOk(barrierFreeness) && bathOk(barrierFreeness)
+      && wheelchairParkingOk(barrierFreeness) && doobellPanelOk(barrierFreeness);
   }
 
   /*
@@ -104,7 +129,8 @@ barrierfree.RealEstate = function (json, portal) {
   */
   this.limitedBarrierFree = function () {
     var barrier_freeness = this.barrier_freeness || {};
-    return barrier_freeness.stairs == '0' || (barrier_freeness.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
+    var entry = barrier_freeness.entry || {};
+    return barrier_freeness.stairs == '0' || (entry.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
   }
 
   this._super_amenities = this.amenities;
