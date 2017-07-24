@@ -100,7 +100,7 @@ barrierfree.RealEstate = function (json) {
   */
   this.limitedBarrierFree = function () {
     var barrier_freeness = this.barrier_freeness || {};
-    return barrier_freeness.stairs == '0' || barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8';
+    return barrier_freeness.stairs == '0' || (barrier_freeness.ramp_din && (barrier_freeness.stairs == '0-1' || barrier_freeness.stairs == '2-8'));
   }
 
   /*
