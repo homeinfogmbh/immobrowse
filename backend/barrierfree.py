@@ -78,7 +78,7 @@ def attachment(ident, portals):
         raise Error('No such attachment: {}'.format(ident),
                     status=404) from None
     else:
-        if approve(attachment.immobilie, portals):
+        if approve(attachment._immobilie, portals):
             return attachment
         else:
             raise Error(
