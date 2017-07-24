@@ -91,44 +91,43 @@ barrierfree.RealEstate = function (json, portal) {
   this.completelyBarrierFree = function () {
     var barrierFreeness = this.barrier_freeness || {};
 
-    function entryOk(barrierFreeness) {
+    function entryOk() {
       var entry = barrierFreeness.entry || {};
       return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
     }
 
-    function doorsOk(barrierFreeness) {
+    function doorsOk() {
       var entry = barrierFreeness.entry || {};
       return barrierFreeness.wide_door && barrierFreeness.low_thresholds && barrierFreeness.wide_doors && entry.door_opener;
     }
 
-    function liftOk(barrierFreeness) {
+    function liftOk() {
       var lift = barrierFreeness.lift || {};
       return lift.value == 'DIN';
     }
 
-    function bathOk(barrierFreeness) {
+    function bathOk() {
       var bath = barrierFreeness.bath || {};
       return bath.bath_wide && (bath.shower_tray == 'low' || bath.shower_tray == 'walk-in');
     }
 
-    function wheelchairParkingOk(barrierFreeness) {
+    function wheelchairParkingOk() {
       return barrierFreeness.wheelchair_parking == 'indoors' || barrierFreeness.wheelchair_parking == 'outdoors';
     }
 
-    function doobellPanelOk(barrierFreeness) {
+    function doobellPanelOk() {
       var entry = barrierFreeness.entry || {};
       return entry.doorbell_panel;
     }
 
-    console.log('Entry: ' + entryOk() || false);
-    console.log('Doors: ' + doorsOk() || false);
-    console.log('Lift: ' + liftOk() || false);
-    console.log('Bath: ' + bathOk() || false);
-    console.log('Wheelchair parking: ' + wheelchairParkingOk() || false);
-    console.log('Doobell panel: ' + doobellPanelOk() || false);
+    console.log('Entry: ' + entryOk());
+    console.log('Doors: ' + doorsOk());
+    console.log('Lift: ' + liftOk());
+    console.log('Bath: ' + bathOk());
+    console.log('Wheelchair parking: ' + wheelchairParkingOk());
+    console.log('Doobell panel: ' + doobellPanelOk());
 
-    return entryOk(barrierFreeness) && doorsOk(barrierFreeness) && liftOk(barrierFreeness) && bathOk(barrierFreeness)
-      && wheelchairParkingOk(barrierFreeness) && doobellPanelOk(barrierFreeness);
+    return entryOk() && doorsOk() && liftOk() && bathOk() && wheelchairParkingOk() && doobellPanelOk();
   }
 
   /*
