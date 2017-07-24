@@ -280,7 +280,7 @@ $(document).ready(function () {
     }
   };
 
-  barrierfree.getRealEstate(objectId, portal, function (realEstate_) {
+  immobrowse.getRealEstate(objectId, function (realEstate_) {
     realEstate = realEstate_;
     setupGalleries();
     realEstate.render(elements);
