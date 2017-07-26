@@ -1578,9 +1578,9 @@ immobrowse.RealEstate = function (json) {
         }
       } else {
         if (element.value == undefined) {
-          element.html(value);
+          element.html(homeinfo.sanitize(value));
         } else {
-          element.value.html(value);
+          element.value.html(homeinfo.sanitize(value));
           element.container.show();
         }
       }
@@ -1731,7 +1731,7 @@ immobrowse.RealEstate = function (json) {
         ),
         immobrowse.dom.preview.DataCol(
           immobrowse.dom.preview.TitleRow(
-            immobrowse.dom.preview.ObjectTitle(this.objectTitle() || this.na)
+            immobrowse.dom.preview.ObjectTitle(homeinfo.sanitize(this.objectTitle()) || this.na)
           ),
           immobrowse.dom.preview.DataRow(
             [
