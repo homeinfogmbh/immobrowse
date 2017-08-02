@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<!--
+  @licstart  The following is the entire license notice for the JavaScript code in this page.
+  The JavaScript code in this page is free software: you can
+  redistribute it and/or modify it under the terms of the GNU
+  General Public License (GNU GPL) as published by the Free Software
+  Foundation, either version 3 of the License, or (at your option)
+  any later version.  The code is distributed WITHOUT ANY WARRANTY;
+  without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+  As additional permission under GNU GPL version 3 section 7, you
+  may distribute non-source (e.g., minimized or compacted) forms of
+  that code without the copy of the GNU GPL normally required by
+  section 4, provided you include this license notice and a URL
+  through which recipients can access the Corresponding Source.
+  @licend  The above is the entire license notice
+-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immobrowse Exposé</title>
+  <link rel="stylesheet" href="https://libraries.homeinfo.de/bootstrap/latest/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://libraries.homeinfo.de/sweetalert/dist/sweetalert.css">
+  <link rel="stylesheet" href="immobrowse.css">
+  <link rel="stylesheet" href="expose.css">
+  <link rel="stylesheet" href="gallery.css">
+  <script src="https://libraries.homeinfo.de/jquery/jquery-latest.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script src="https://libraries.homeinfo.de/bootstrap/latest/js/bootstrap.min.js"></script>
+  <script src="https://libraries.homeinfo.de/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://javascript.homeinfo.de/homeinfo.min.js"></script>
+  <script src="https://javascript.homeinfo.de/immobrowse.min.js"></script>
+  <script src="config.js"></script>
+  <script src="expose.js"></script>
+  <script src="gallery.js"></script>
+</head>
+<div class="container">
+  <div id="header" class="row row-centered ib-header">
+    <div class="col-md-2 col-centered ib-centered">
+      <button type="button" class="btn btn-default disabled">
+        « Zur&uuml;ck
+      </button>
+    </div>
+    <div id="objectTitle" class="col-md-5 col-centered ib-title">
+      Objekttitel
+    </div>
+    <div id="objectId" class="col-md-2 col-centered ib-id">
+      Objekt ID
+    </div>
+    <div class="col-md-1 col-centered">
+      <div class="ib-detail-print ib-centered">
+        <button type="button" class="btn btn-info" onclick="print();">
+          Drucken
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2 col-centered">
+      <div class="ib-detail-contactform ib-centered">
+        <button type="button" class="btn btn-success disabled">
+          Kontaktformular
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row row-centered">
+    <div id="expose" class="col-md-12 ib-expose">
+      <div class="row row-centered">
+        <div class="col-sm-6">
+          <div class="thumbnail">
+            <div id="titleImageFrame" class="ib-image-frame">
+              <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
+            </div>
+            <div id="titleImageCaption" class="caption">
+              Titelbild
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="thumbnail">
+            <div id="floorplanFrame" class="ib-image-frame">
+              <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
+            </div>
+            <div id="floorplanCaption" class="caption">
+              Grundriss
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-centered ib-expose-data-row">
+        <div class="col-md-6 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Preise
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Kaltmiete
+            </div>
+            <div id="coldRent" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Nebenkosten
+            </div>
+            <div id="serviceCharge" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Kaution / Genoss.-Ant.
+            </div>
+            <div id="securityDeposit" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Heizkosten in NK enthalten?
+            </div>
+            <div id="heatingCostsInServiceCharge" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Heizkosten
+            </div>
+            <div id="heatingCosts" class="col-xs-6"></div>
+          </div>
+        </div>
+        <div class="col-md-6 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Zustand und Ausstattung
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Verfügbar ab
+            </div>
+            <div id="availableFrom" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Wohnfläche
+            </div>
+            <div id="livingArea" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Zimmer
+            </div>
+            <div id="rooms" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Etage
+            </div>
+            <div id="floor" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Baujahr
+            </div>
+            <div id="constructionYear" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Zustand
+            </div>
+            <div id="state" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Letzte Modernisierung
+            </div>
+            <div id="lastModernization" class="col-xs-6"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-centered ib-expose-data-row">
+        <div class="col-md-6 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Energieausweis
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Ausweisart
+            </div>
+            <div id="energyCertificateType" class="col-xs-6"></div>
+          </div>
+          <div id="energyConsumptionContainer" class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Endenergieverbrauch
+            </div>
+            <div id="energyConsumption" class="col-xs-6"></div>
+          </div>
+          <div id="energyDemandContainer" class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Endenergiebedarf
+            </div>
+            <div id="energyDemand" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Primärenergieträger
+            </div>
+            <div id="primaryEnergyCarrier" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Wertklasse
+            </div>
+            <div id="valueClass" class="col-xs-6"></div>
+          </div>
+        </div>
+        <div class="col-md-6 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Ausstattung
+          </div>
+          <div id="amenitiesList" class="row row-centered"></div>
+        </div>
+      </div>
+      <div class="row row-centered ib-expose-data-row">
+        <div class="col-md-12 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Objektbeschreibung
+          </div>
+          <div id="description" class="row row-centered ib-justified"></div>
+        </div>
+      </div>
+      <div class="row row-centered ib-expose-data-row">
+        <div class="col-md-12 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Lagebeschreibung
+          </div>
+          <div id="exposure" class="row row-centered ib-justified"></div>
+        </div>
+      </div>
+      <div class="row row-centered ib-expose-data-row">
+        <div class="col-md-12 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Sonstiges
+          </div>
+          <div id="miscellanea" class="row row-centered ib-justified"></div>
+        </div>
+      </div>
+      <div class="row row-centered ib-expose-data-row">
+        <div class="col-md-6 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Kontakt
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Name
+            </div>
+            <div id="contactName" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Firma
+            </div>
+            <div id="contactCompany" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Adresse
+            </div>
+            <div id="contactAddress" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Telefon
+            </div>
+            <div id="contactPhone" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Website
+            </div>
+            <div id="contactWebsite" class="col-xs-6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="loader">
+      <div class="loader"></div>
+    </div>
+  </div>
+</div>
+
+<div id="gallery" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" id="close_modal">
+            <span class="glyphicon glyphicon-remove btn-lg .ib-gallery-close-button"></span>
+          </span>
+        </button>
+        <div class="ib-gallery-title">
+          <h3 class="modal-title" id="galleryTitle"></h3>
+        </div>
+      </div>
+      <div class="modal-body ib-gallery-image-container">
+         <img id="galleryImage" src="" class="img-thumbnail">
+      </div>
+      <div class="modal-footer">
+        <table width="100%">
+          <tr>
+              <td>
+                <span id="galleryPrevious" class="glyphicon glyphicon-chevron-left btn-lg pull-left ib-gallery-scroll-button" aria-hidden="true"></span>
+              </td>
+              <td align="middle">
+                <span id="galleryIndex"></span>
+                  /
+                <span id="galleryImages"></span>
+              </td>
+              <td>
+                <span id="galleryNext" class="glyphicon glyphicon-chevron-right btn-lg pull-right ib-gallery-scroll-button" aria-hidden="true"></span>
+              </td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
