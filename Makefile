@@ -12,6 +12,9 @@ frontend:
 frontend-barrierfree:
 	@ make -C frontend-barrierfree
 
+frontend-immobit:
+	@ make -C frontend-immobit
+
 joomla:
 	@ rm -f joomla/immobrowse.zip; cd joomla/component; zip -r ../immobrowse.zip *
 
