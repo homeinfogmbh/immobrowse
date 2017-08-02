@@ -88,6 +88,11 @@ $document->addScript(immobrowseAsset('expose.js'));
                   Nebenkosten: <span id="serviceCharge"></span>
                 </td>
               </tr>
+              <tr id="operationalCostsContainer">
+                <td class="ib-price-caption">
+                  Betriebskosten: <span id="operationalCosts"></span>
+                </td>
+              </tr>
               <tr>
                 <td class="ib-price-caption">
                   Kaution / Genoss.-Ant.: <span id="securityDeposit"></span>

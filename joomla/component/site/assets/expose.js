@@ -160,6 +160,10 @@ jQuery(document).ready(function () {
     objectTitle: jQuery('#objectTitle'),
     coldRent: jQuery('#coldRent'),
     serviceCharge: jQuery('#serviceCharge'),
+    operationalCosts: {
+      container: jQuery('#operationalCostsContainer'),
+      value: jQuery('#operationalCosts')
+    },
     heatingCosts: jQuery('#heatingCosts'),
     heatingCostsInServiceCharge: jQuery('#heatingCostsInServiceCharge'),
     securityDeposit: jQuery('#securityDeposit'),
