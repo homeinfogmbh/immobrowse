@@ -41,7 +41,7 @@ function getRealEstate(callback) {
       callback(new immobrowse.RealEstate(json));
     },
     error: function () {
-      swal('Fehler!', 'Immobilie konnte nicht geladen werden.', 'Error');
+      swal('Fehler!', 'Immobilie konnte nicht geladen werden.', 'error');
     }
   });
 }
