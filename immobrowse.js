@@ -1467,7 +1467,8 @@ immobrowse.RealEstate = function (json) {
       energyCertificate.type = 'Verbrauchsausweis';
 
       if (energiepass.energieverbrauchkennwert != null && energiepass.energieverbrauchkennwert != '') {
-        var consumption = immobrowse.germanDecimal(Number(energiepass.energieverbrauchkennwert)) + this.kwh;
+        var consumption = immobrowse.germanDecimal(Number(homeinfo.str.comma2dot(
+          energiepass.energieverbrauchkennwert))) + this.kwh;
         energyCertificate.value = consumption;
         energyCertificate.consumption = consumption;
       }
@@ -1475,7 +1476,8 @@ immobrowse.RealEstate = function (json) {
       energyCertificate.type = 'Bedarfsausweis';
 
       if (energiepass.endenergiebedarf != null && energiepass.endenergiebedarf != '') {
-        var demand = immobrowse.germanDecimal(Number(energiepass.endenergiebedarf)) + this.kwh;
+        var demand = immobrowse.germanDecimal(Number(homeinfo.str.comma2dot(
+          energiepass.endenergiebedarf))) + this.kwh;
         energyCertificate.value = demand;
         energyCertificate.demand = demand;
       }
