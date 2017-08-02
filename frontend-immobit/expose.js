@@ -37,7 +37,9 @@ var floorplanGallery;
 function getRealEstate(callback) {
   $.ajax({
     url: 'https://backend.immobit.de/realestates/' + objectId + '?session=' + sessionId,
-    success: callback,
+    success: function(json) {
+      callback(new immobrowse.RealEstate(json));
+    },
     error: function () {
       swal('Fehler!', 'Immobilie konnte nicht geladen werden.', 'Error');
     }
