@@ -48,8 +48,6 @@ function getRealEstate(callback) {
 
 
 function postRender() {
-  initContactForm();
-
   $('#loader').hide();
   $('#main').attr('style', 'padding-top: 80px');
 
@@ -62,7 +60,6 @@ function postRender() {
   });
 
   $('.btn_contact').click(function(e) {
-    //$('#contact').scrollIntoView(true);
     if ($('#contact').attr('style') == "display: none;") {
       $('#contact').slideDown();
     } else {
