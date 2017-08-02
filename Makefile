@@ -1,4 +1,4 @@
-.PHONY: backend frontend frontend-barrierfree joomla library
+.PHONY: backend frontend frontend-barrierfree frontend-immobit joomla library
 
 default:
 	@ echo "No default target to make"
