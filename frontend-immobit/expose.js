@@ -27,9 +27,9 @@ var args = new homeinfo.QueryString();
 // XXX: Change config for appropriate productive setting
 var mailer = new immobrowse.Mailer('homeinfo-testing');
 var objectId = args.object_id;
+var realEstate = args.real_estate;
 var sessionId = args.session;
 var elements;
-var realEstate;
 var imageGallery;
 var floorplanGallery;
 
@@ -71,7 +71,7 @@ function postRender() {
 }
 
 
-function setupGalleries() {
+function setupGalleries(realEstate) {
   var galleryMapping = {
       'image': $('#galleryImage'),
       'title': $('#galleryTitle'),
@@ -118,6 +118,14 @@ function setupGalleries() {
 
     $('#floorplanFrame').addClass('ib-browsable');
   }
+}
+
+
+function render(realEstate) {
+  setupGalleries(realEstate);
+  realEstate.render(elements);
+  document.title = 'Exposé Nr. ' + realEstate.objectId();
+  postRender();
 }
 
 
@@ -180,11 +188,9 @@ $(document).ready(function () {
     }
   };
 
-  getRealEstate(function (realEstate_) {
-    realEstate = realEstate_;
-    setupGalleries();
-    realEstate.render(elements);
-    document.title = 'Exposé Nr. ' + realEstate.objectId();
-    postRender();
-  });
+  if (realEstate == null) {
+    getRealEstate(render);
+  } else {
+    render(JSON.parse(realEstate));
+  }
 });
