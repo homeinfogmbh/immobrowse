@@ -83,7 +83,7 @@ function setupGalleries(realEstate) {
   var images = realEstate.images();
 
   function attachmentUrlCallback(attachment) {
-    return realEstate.attachmentURL(attachment);
+    return 'https://backend.immobit.de/attachments/' + attachment.id + '?session=' + sessionId;
   }
 
   imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
