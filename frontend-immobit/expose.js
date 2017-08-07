@@ -34,11 +34,23 @@ var imageGallery;
 var floorplanGallery;
 
 
+/*
+  Override immobrowse.attachmentURL
+*/
+RealEstate = function (json) {
+  immobrowse.RealEstate.call(this, json);
+
+  this.attachmentURL = function (anhang) {
+    return 'https://backend.immobit.de/attachments/' + anhang.id + '?session=' + sessionId;
+  }
+}
+
+
 function getRealEstate(callback) {
   $.ajax({
     url: 'https://backend.immobit.de/realestates/' + objectId + '?session=' + sessionId,
     success: function(json) {
-      callback(new immobrowse.RealEstate(json));
+      callback(new RealEstate(json));
     },
     error: function () {
       swal('Fehler!', 'Immobilie konnte nicht geladen werden.', 'error');
@@ -82,14 +94,10 @@ function setupGalleries(realEstate) {
   };
   var images = realEstate.images();
 
-  function attachmentUrlCallback(attachment) {
-    return 'https://backend.immobit.de/attachments/' + attachment.id + '?session=' + sessionId;
-  }
-
-  imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
+  imageGallery = new gallery.Gallery(images, galleryMapping, immobrowse.attachmentURL);
 
   if (images.length > 0) {
-    $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
+    $('#titleImage').attr('src', immobrowse.attachmentURL(images[0]));
   }
 
   if (images.length > 1) {
@@ -103,10 +111,10 @@ function setupGalleries(realEstate) {
   }
 
   var floorplans = realEstate.floorplans();
-  floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
+  floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, immobrowse.attachmentURL);
 
   if (floorplans.length > 0) {
-    $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
+    $('#floorplan').attr('src', immobrowse.attachmentURL(floorplans[0]));
   }
 
   if (floorplans.length > 1) {
@@ -191,6 +199,6 @@ $(document).ready(function () {
   if (realEstate == null) {
     getRealEstate(render);
   } else {
-    render(new immobrowse.RealEstate(JSON.parse(realEstate)));
+    render(new RealEstate(JSON.parse(realEstate)));
   }
 });
