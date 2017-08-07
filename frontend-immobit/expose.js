@@ -191,6 +191,6 @@ $(document).ready(function () {
   if (realEstate == null) {
     getRealEstate(render);
   } else {
-    render(JSON.parse(realEstate));
+    render(new immobrowse.RealEstate(JSON.parse(realEstate)));
   }
 });
