@@ -93,7 +93,6 @@ function setupGalleries(realEstate) {
       'previous': $('#galleryPrevious')
   };
   var images = realEstate.images();
-
   imageGallery = new gallery.Gallery(images, galleryMapping, realEstate.attachmentURL);
 
   if (images.length > 0) {
