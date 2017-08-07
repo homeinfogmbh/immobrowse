@@ -35,7 +35,7 @@ var floorplanGallery;
 
 
 /*
-  Override immobrowse.attachmentURL
+  Override realEstate.attachmentURL
 */
 RealEstate = function (json) {
   immobrowse.RealEstate.call(this, json);
@@ -94,10 +94,10 @@ function setupGalleries(realEstate) {
   };
   var images = realEstate.images();
 
-  imageGallery = new gallery.Gallery(images, galleryMapping, immobrowse.attachmentURL);
+  imageGallery = new gallery.Gallery(images, galleryMapping, realEstate.attachmentURL);
 
   if (images.length > 0) {
-    $('#titleImage').attr('src', immobrowse.attachmentURL(images[0]));
+    $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
   }
 
   if (images.length > 1) {
@@ -111,10 +111,10 @@ function setupGalleries(realEstate) {
   }
 
   var floorplans = realEstate.floorplans();
-  floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, immobrowse.attachmentURL);
+  floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, realEstate.attachmentURL);
 
   if (floorplans.length > 0) {
-    $('#floorplan').attr('src', immobrowse.attachmentURL(floorplans[0]));
+    $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
   }
 
   if (floorplans.length > 1) {
