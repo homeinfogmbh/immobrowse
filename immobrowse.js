@@ -1037,7 +1037,7 @@ immobrowse.RealEstate = function (json) {
     if (anhang == null) {
       return null;
     } else {
-      return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id + '?real_estate=' + this.id;
+      return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id;
     }
   }
 
