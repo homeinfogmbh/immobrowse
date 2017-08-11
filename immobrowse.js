@@ -2061,7 +2061,7 @@ immobrowse.dom.preview.AmenitiesTags = function (amenities) {
 
 immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
   var element = document.createElement('div');
-  element.setAttribute('class', 'container ib-preview-item');
+  element.setAttribute('class', 'ib-preview-item');
   element.setAttribute('onclick', 'immobrowse.open("' + detailsURL + '");');
   element.appendChild(mainRow);
   return element;
