@@ -198,7 +198,7 @@ function render(realEstate) {
     var address = realEstate.address();
 
     if (address) {
-      title += ', ' + address;
+      title += ': ' + address;
     }
   }
 
