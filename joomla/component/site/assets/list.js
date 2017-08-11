@@ -82,7 +82,7 @@ function list(realEstates) {
     list.sort(sorting.property, sorting.order);
   }
 
-  list.render(jQuery('#list'));
+  list.render(jQuery('#ib-list'));
 }
 
 jQuery(document).ready(function () {
@@ -90,10 +90,10 @@ jQuery(document).ready(function () {
     if (realEstates.length > 0) {
       list(realEstates);
     } else {
-      jQuery('#header').hide();
-      jQuery('#list').html('Momentan sind keine Angebote vorhanden.');
+      jQuery('#ib-header').hide();
+      jQuery('#ib-list').html('Momentan sind keine Angebote vorhanden.');
     }
 
-    jQuery('#loader').hide();
+    jQuery('#ib-loader').hide();
   });
 });

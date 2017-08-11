@@ -134,7 +134,7 @@ function sendEmail(response) {
 function postRender() {
   mailer = new immobrowse.Mailer(hiseconCfg);
   resetContactForm();
-  jQuery('#loader').hide();
+  jQuery('#ib-loader').hide();
   jQuery('#main').attr('style', 'padding-top: 80px');
   jQuery('.btn_contact').click(function(e) {
     //jQuery('#contact').scrollIntoView(true);

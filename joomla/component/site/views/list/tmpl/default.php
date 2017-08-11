@@ -19,15 +19,15 @@ $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('list.js'));
 ?>
 <div>
-  <div id="header">
+  <div id="ib-header">
     <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="ib-btn-sort">Zimmer</button>
     <button id="ib-sort-area" onclick="toggleSorting('area');" class="ib-btn-sort">Fl&auml;che</button>
     <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="ib-btn-sort">Miete</button>
   </div>
   <div>
-    <div id="list"></div>
-    <div id="loader">
-      <div class="loader"></div>
+    <div id="ib-list"></div>
+    <div id="ib-loader">
+      <div class="ib-loader"></div>
     </div>
   </div>
 </div>

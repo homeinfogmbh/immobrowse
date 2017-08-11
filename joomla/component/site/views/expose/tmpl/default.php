@@ -398,8 +398,8 @@ $document->addScript(immobrowseAsset('expose.js'));
         </tr>
       </table>
     </div>
-    <div id="loader">
-      <div class="loader"></div>
+    <div id="ib-loader">
+      <div class="ib-loader"></div>
     </div>
   </div>
 </div>
