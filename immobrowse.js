@@ -615,8 +615,8 @@ immobrowse.RealEstate = function (json) {
 
   this.zipCode = function () {
     if (this.geo != null) {
-        if (this.geo.hausnummer != null) {
-          return this.geo.hausnummer;
+        if (this.geo.plz != null) {
+          return this.geo.plz;
         }
     }
 
