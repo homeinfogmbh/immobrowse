@@ -48,7 +48,7 @@ def approve(immobilie, portals):
             return True
 
 
-def list_(customer):
+def real_estates_of(customer):
     """Yields real estates of the respective customer"""
 
     for immobilie in Immobilie.of(customer):
@@ -121,7 +121,7 @@ class ListHandler(ResourceHandler):
 
     def get(self):
         """Retrieves real estates"""
-        return JSON([r.to_dict(limit=True) for r in list_(
+        return JSON([r.to_dict(limit=True) for r in real_estates_of(
             customer(self.resource))])
 
 
