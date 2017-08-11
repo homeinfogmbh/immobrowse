@@ -9,6 +9,10 @@
   #contact {
     display: none;
   }
+
+  #angebotsnummerPrintContainer {
+    display: block;
+  }
 }
 
 .ib-header {
@@ -75,4 +79,8 @@
 
 .ib-amenities-list {
   list-style-image: url('img/ok.png');
+}
+
+#angebotsnummerPrintContainer {
+  display: none;
 }

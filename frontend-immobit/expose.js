@@ -29,7 +29,6 @@ var mailer = new immobrowse.Mailer('homeinfo-testing');
 var objectId = args.object_id;
 var realEstate = args.real_estate;
 var sessionId = args.session;
-var elements;
 var imageGallery;
 var floorplanGallery;
 
@@ -128,16 +127,8 @@ function setupGalleries(realEstate) {
 }
 
 
-function render(realEstate) {
-  setupGalleries(realEstate);
-  realEstate.render(elements);
-  document.title = 'Exposé Nr. ' + realEstate.objectId();
-  postRender();
-}
-
-
-$(document).ready(function () {
-  elements = {
+function elements() {
+  return {
     objectId: $('#objectId'),
     objectTitle: $('#objectTitle'),
     coldRent: $('#coldRent'),
@@ -194,7 +185,19 @@ $(document).ready(function () {
       website: $('#contactWebsite')
     }
   };
+}
 
+
+function render(realEstate) {
+  setupGalleries(realEstate);
+  realEstate.render(elements());
+  $('#angebotsnummerPrint').html(realEstate.objectId());
+  document.title = 'Exposé Nr. ' + realEstate.objectId();
+  postRender();
+}
+
+
+$(document).ready(function () {
   if (realEstate == null) {
     getRealEstate(render);
   } else {
