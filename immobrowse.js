@@ -677,7 +677,7 @@ immobrowse.RealEstate = function (json) {
       zipCodeAndCity.push(city);
     }
 
-    if (district) {
+    if (district && district != city) {
       zipCodeAndCity.push(district);
     }
 
