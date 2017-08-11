@@ -37,15 +37,15 @@ def customer(ident):
 def approve(immobilie, portals):
     """Chekcs whether the real estate is in any of the portals"""
 
-    try:
-        Override.get(Override.customer == immobilie._customer)
-    except DoesNotExist:
-        if any(immobilie.approve(portal) for portal in portals):
-            return True
-        else:
-            return False
-    else:
+    if any(immobilie.approve(portal) for portal in portals):
         return True
+    else:
+        try:
+            Override.get(Override.customer == immobilie._customer)
+        except DoesNotExist:
+            return False
+        else:
+            return True
 
 
 def list_(customer):
