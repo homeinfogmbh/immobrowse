@@ -688,7 +688,7 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
-  this.address = function (full) {
+  this.address = function () {
     var streetAndHouseNumber = this.streetAndHouseNumber();
     var zipCodeAndCity = this.zipCodeAndCity();
     var address = [];
