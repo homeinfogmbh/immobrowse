@@ -2,16 +2,12 @@
   Default stylesheets for the expose details
 */
 @media print {
-  .ib-header {
+  .no-print {
     display: none;
   }
 
-  #contact {
-    display: none;
-  }
-
-  #angebotsnummerPrintContainer {
-    display: block;
+  .print-only {
+    display: block !important;
   }
 }
 
@@ -81,6 +77,6 @@
   list-style-image: url('img/ok.png');
 }
 
-#angebotsnummerPrintContainer {
+.print-only {
   display: none;
 }
