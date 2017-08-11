@@ -1868,11 +1868,19 @@ immobrowse.List = function (realEstates) {
   /*
     Renders the respective real estates into the given HTML element.
   */
-  this.render = function (listElement) {
-    listElement.html('');  // Clear element
+  this.render = function (listElement, noRealEstatesMessage) {
+    if (this.realEstates.length > 0) {
+      listElement.html('');  // Clear element
 
-    for (var i = 0; i < this.realEstates.length; i++) {
-      listElement.append(this.realEstates[i].preview());
+      for (var i = 0; i < this.realEstates.length; i++) {
+        listElement.append(this.realEstates[i].preview());
+      }
+    } else {
+      if (noRealEstatesMessage == null) {
+        noRealEstatesMessage = 'Leider sind aktuell keine Angebote vorhanden.';
+      }
+
+      listElement.html(noRealEstatesMessage);
     }
   }
 }
