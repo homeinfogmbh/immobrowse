@@ -1,16 +1,6 @@
 /*
   Default stylesheets for the expose details
 */
-@media print {
-  .no-print {
-    display: none;
-  }
-
-  .print-only {
-    display: block !important;
-  }
-}
-
 .ib-header {
   padding-top: 1em;
   padding-left: 1em;

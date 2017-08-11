@@ -1,14 +1,14 @@
 /*
   ImmoBrowse default style sheet
 */
-.loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-  margin: auto;
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  .print-only {
+    display: block !important;
+  }
 }
 
 @keyframes spin {
@@ -22,6 +22,16 @@
 
 body {
   background-color: #dfdfdf;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
 }
 
 .oval-inner {
