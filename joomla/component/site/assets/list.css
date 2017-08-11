@@ -1,6 +1,10 @@
 /*
   Default stylesheets for the list view
 */
+.ib-message {
+  font-size: 25px;
+}
+
 .ib-header {
   padding-top: 1em;
   padding-left: 1em;

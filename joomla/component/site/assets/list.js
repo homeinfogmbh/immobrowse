@@ -91,7 +91,7 @@ jQuery(document).ready(function () {
       list(realEstates);
     } else {
       jQuery('#ib-header').hide();
-      jQuery('#ib-list').html('Momentan sind keine Angebote vorhanden.');
+      jQuery('#ib-message').show();
     }
 
     jQuery('#ib-loader').hide();

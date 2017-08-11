@@ -29,5 +29,6 @@ $document->addScript(immobrowseAsset('list.js'));
     <div id="ib-loader">
       <div class="ib-loader"></div>
     </div>
+    <span id="ib-message" class="ib-message" style="display:none">Momentan sind keine Angebote vorhanden.</span>
   </div>
 </div>
