@@ -12,7 +12,7 @@ from openimmodb import Immobilie, Anhang
 
 __all__ = ['HANDLERS']
 
-PORTALS = ['immobrowse', 'homepage', 'website']
+PORTALS = ('immobrowse', 'homepage', 'website')
 
 config = ConfigParser()
 config.read('/etc/immobrowse.conf')
