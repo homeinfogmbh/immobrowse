@@ -25,7 +25,7 @@ $document->addScript(immobrowseAsset('slideshow.js'));
 $document->addScript(immobrowseAsset('expose.js'));
 ?>
 <div>
-  <div id="header" class="ib-header">
+  <div id="header" class="ib-header no-print">
     <table width="100%">
       <tr>
         <td width="20%" style="text-align: left;">
