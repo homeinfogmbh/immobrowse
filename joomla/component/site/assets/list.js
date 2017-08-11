@@ -27,8 +27,6 @@ var sorting = {
   property: null,
   order: null
 };
-var realEstates;
-var listElement;
 
 function toggleOrder() {
   var previousOrder = sorting.order;
@@ -76,7 +74,7 @@ function filters() {
   return filters;
 }
 
-function list() {
+function list(realEstates) {
   var filter = new immobrowse.Filter(filters());
   var list = new immobrowse.List(filter.filter(realEstates));
 
@@ -84,14 +82,17 @@ function list() {
     list.sort(sorting.property, sorting.order);
   }
 
-  list.render(listElement);
+  list.render(jQuery('#list'));
 }
 
 jQuery(document).ready(function () {
-  listElement = jQuery('#list');
-  immobrowse.getRealEstates(customer, function (realEstates_) {
-    realEstates = realEstates_;
-    list();
+  immobrowse.getRealEstates(customer, function (realEstates) {
+    if (realEstate.length > 0) {
+      list(realEstates);
+    } else {
+      jQuery('#list').html('Momentan sind keine Angebote vorhanden.');
+    }
+
     jQuery('#loader').hide();
   });
 });
