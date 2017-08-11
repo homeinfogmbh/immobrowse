@@ -593,32 +593,119 @@ immobrowse.RealEstate = function (json) {
     }
   }
 
-  this.address = function () {
+  this.street = function () {
+    if (this.geo != null) {
+        if (this.geo.strasse != null) {
+          return this.geo.strasse;
+        }
+    }
+
+    return null;
+  }
+
+  this.houseNumber = function () {
+    if (this.geo != null) {
+        if (this.geo.hausnummer != null) {
+          return this.geo.hausnummer;
+        }
+    }
+
+    return null;
+  }
+
+  this.zipCode = function () {
+    if (this.geo != null) {
+        if (this.geo.hausnummer != null) {
+          return this.geo.hausnummer;
+        }
+    }
+
+    return null;
+  }
+
+  this.city = function () {
+    if (this.geo != null) {
+        if (this.geo.ort != null) {
+          return this.geo.ort;
+        }
+    }
+
+    return null;
+  }
+
+  this.district = function () {
+    if (this.geo != null) {
+        if (this.geo.regionaler_zusatz != null) {
+          return this.geo.regionaler_zusatz;
+        }
+    }
+
+    return null;
+  }
+
+  this.streetAndHouseNumber = function () {
+    var street = this.street();
+    var houseNumber = this.houseNumber();
+    var streetAndHouseNumber = [];
+
+    if (street) {
+      streetAndHouseNumber.push(street);
+    }
+
+    if (houseNumber) {
+      streetAndHouseNumber.push(houseNumber);
+    }
+
+    if (streetAndHouseNumber.length > 0) {
+      return streetAndHouseNumber.join(' ');
+    }
+
+    return null;
+  }
+
+  this.zipCodeAndCity = function () {
+    var zipCode = this.zipCode();
+    var city = this.city();
+    var district = this.district();
+    var zipCodeAndCity = [];
+
+    if (zipCode) {
+      zipCodeAndCity.push(zipCode);
+    }
+
+    if (city) {
+      zipCodeAndCity.push(city);
+    }
+
+    if (district) {
+      zipCodeAndCity.push(district);
+    }
+
+    if (zipCodeAndCity.length > 0) {
+      return zipCodeAndCity.join(' ');
+    }
+
+    return null;
+  }
+
+  this.address = function (full) {
+    var streetAndHouseNumber = this.streetAndHouseNumber();
+    var zipCodeAndCity = this.zipCodeAndCity();
     var address = [];
 
-    if (this.geo != null) {
-      if (this.geo.ort != null) {
-        address.push(this.geo.ort);
-      }
+    if (streetAndHouseNumber) {
+      address.push(streetAndHouseNumber);
+    }
 
-      if (this.geo.regionaler_zusatz != null) {
-        address.push(this.geo.regionaler_zusatz);
-      }
-
-      if (this.geo.strasse != null) {
-        if (this.geo.hausnummer != null) {
-          address.push(this.geo.strasse + ' ' + this.geo.hausnummer);
-        } else {
-          address.push(this.geo.strasse);
-        }
-      }
+    if (zipCodeAndCity) {
+      address.push(zipCodeAndCity);
     }
 
     if (address.length > 0) {
       return address.join(', ');
-    } else {
-      return 'N/A';
     }
+
+    return null;
   }
 
   this.addressPreview = function () {
@@ -722,18 +809,6 @@ immobrowse.RealEstate = function (json) {
         }
 
         return null;
-      }
-    }
-  }
-
-  this.street = function () {
-    if (this.geo == null) {
-      return null;
-    } else {
-      if (this.geo.strasse == null) {
-        return null;
-      } else {
-        return this.geo.strasse;
       }
     }
   }
@@ -991,10 +1066,6 @@ immobrowse.RealEstate = function (json) {
     }
 
     return primaerenergietraeger;
-  }
-
-  this.district = function () {
-    return this.geo.regionaler_zusatz;
   }
 
   this.matchTypes = function (types) {
