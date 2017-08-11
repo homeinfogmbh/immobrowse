@@ -191,7 +191,14 @@ function elements() {
 function render(realEstate) {
   setupGalleries(realEstate);
   realEstate.render(elements());
-  $('#angebotsnummerPrint').html(realEstate.objectId());
+  $('#angebotsnummerPrint').text(realEstate.objectId());
+  var title = realEstate.objectId()
+
+  if (realEstate.showAddress()) {
+    title += ' ' + realEstate.address();
+  }
+
+  $('title').text(title);
   document.title = 'Exposé Nr. ' + realEstate.objectId();
   postRender();
 }
