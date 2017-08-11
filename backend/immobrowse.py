@@ -41,7 +41,7 @@ def approve(immobilie, portals):
         return True
     else:
         try:
-            Override.get(Override.customer == immobilie._customer)
+            Override.get(Override.customer == immobilie.customer)
         except DoesNotExist:
             return False
         else:
@@ -89,7 +89,7 @@ def attachment(ident):
         raise Error('No such attachment: {}'.format(ident),
                     status=404) from None
     else:
-        if approve(anhang._immobilie, PORTALS):
+        if approve(anhang.immobilie, PORTALS):
             return anhang
         else:
             raise Error(
