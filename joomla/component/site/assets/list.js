@@ -87,7 +87,7 @@ function list(realEstates) {
 
 jQuery(document).ready(function () {
   immobrowse.getRealEstates(customer, function (realEstates) {
-    if (realEstate.length > 0) {
+    if (realEstates.length > 0) {
       list(realEstates);
     } else {
       jQuery('#list').html('Momentan sind keine Angebote vorhanden.');
