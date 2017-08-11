@@ -12,6 +12,14 @@
   100% { transform: rotate(360deg); }
 }
 
+#loader {
+  padding-top: 2em;
+}
+
+body {
+  background-color: #dfdfdf;
+}
+
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
@@ -20,14 +28,6 @@
   height: 120px;
   animation: spin 2s linear infinite;
   margin: auto;
-}
-
-#loader {
-  padding-top: 2em;
-}
-
-body {
-  background-color: #dfdfdf;
 }
 
 .oval-inner {
