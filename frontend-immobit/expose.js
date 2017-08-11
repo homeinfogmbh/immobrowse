@@ -195,7 +195,7 @@ function render(realEstate) {
   var title = 'Exposé Nr. ' + realEstate.objectId();
 
   if (realEstate.showAddress()) {
-    title += ' ' + realEstate.address();
+    title += ', ' + realEstate.address();
   }
 
   document.title = title;
