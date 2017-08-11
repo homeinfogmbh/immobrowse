@@ -90,6 +90,7 @@ jQuery(document).ready(function () {
     if (realEstates.length > 0) {
       list(realEstates);
     } else {
+      jQuery('#header').hide();
       jQuery('#list').html('Momentan sind keine Angebote vorhanden.');
     }
 
