@@ -51,7 +51,7 @@ def approve(immobilie, portals):
 def real_estates_of(customer):
     """Yields real estates of the respective customer"""
 
-    for immobilie in Immobilie.of(customer):
+    for immobilie in Immobilie.by_customer(customer):
         if immobilie.active:
             if approve(immobilie, PORTALS):
                 yield immobilie
