@@ -4,7 +4,7 @@ from peewee import DoesNotExist
 from wsgilib import Error, JSON, Binary, ResourceHandler
 
 from openimmodb import Immobilie, Anhang
-from immobrowse import customer
+from immobrowse import get_customer
 
 __all__ = ['HANDLERS']
 
@@ -42,7 +42,7 @@ def list_(portals):
                 yield immobilie
 
 
-def expose(ident, portals):
+def get_expose(ident, portals):
     """Returns the reapective real estate for the customer"""
 
     if ident is None:
@@ -69,7 +69,7 @@ def expose(ident, portals):
                             status=403) from None
 
 
-def attachment(ident, portals):
+def get_attachment(ident, portals):
     """Returns the respective attachment"""
 
     try:
@@ -107,7 +107,14 @@ class BarrierFreeHandler(ResourceHandler):
     @property
     def customer(self):
         """Returns the appropriate customer"""
-        return customer(self.query.get('customer'))
+        try:
+            cid = int(self.query.get('customer'))
+        except TypeError:
+            raise Error('No customer ID specified.') from None
+        except ValueError:
+            raise Error('Customer ID must be an integer.') from None
+        else:
+            return get_customer(cid)
 
 
 class ListHandler(BarrierFreeHandler):
@@ -123,7 +130,7 @@ class ExposeHandler(BarrierFreeHandler):
 
     def get(self):
         """Retrieves real estates"""
-        immobilie = expose(int(self.resource), self.portals)
+        immobilie = get_expose(int(self.resource), self.portals)
         return JSON(immobilie.to_dict(limit=True))
 
 
@@ -138,7 +145,7 @@ class AttachmentHandler(BarrierFreeHandler):
             raise Error('Invalid attachment id: {}.'.format(
                 self.resource)) from None
         else:
-            return Binary(attachment(ident, self.portals).data)
+            return Binary(get_attachment(ident, self.portals).data)
 
 
 HANDLERS = {

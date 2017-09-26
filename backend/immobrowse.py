@@ -14,24 +14,17 @@ __all__ = ['HANDLERS']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 
-config = ConfigParser()
-config.read('/etc/immobrowse.conf')
+CONFIG = ConfigParser()
+CONFIG.read('/etc/immobrowse.conf')
 
 
-def customer(ident):
+def get_customer(cid):
     """Returns a customer for the respective string"""
 
     try:
-        cid = int(ident)
-    except TypeError:
-        raise Error('No customer specified') from None
-    except ValueError:
-        raise Error('Invalid customer ID: {}'.format(ident)) from None
-    else:
-        try:
-            return Customer.get(Customer.id == cid)
-        except DoesNotExist:
-            raise Error('No such customer: {}'.format(cid)) from None
+        return Customer.get(Customer.id == cid)
+    except DoesNotExist:
+        raise Error('No such customer: {}'.format(cid)) from None
 
 
 def approve(immobilie, portals):
@@ -57,7 +50,7 @@ def real_estates_of(customer):
                 yield immobilie
 
 
-def expose(ident):
+def get_expose(ident):
     """Returns the reapective real estate for the customer"""
 
     if ident is None:
@@ -101,10 +94,10 @@ class ImmoBrowseModel(Model):
 
     class Meta:
         database = MySQLDatabase(
-            config['db']['database'],
-            host=config['db']['host'],
-            user=config['db']['user'],
-            passwd=config['db']['passwd'],
+            CONFIG['db']['database'],
+            host=CONFIG['db']['host'],
+            user=CONFIG['db']['user'],
+            passwd=CONFIG['db']['passwd'],
             closing=True)
 
     id = PrimaryKeyField()
@@ -121,8 +114,15 @@ class ListHandler(ResourceHandler):
 
     def get(self):
         """Retrieves real estates"""
-        return JSON([r.to_dict(limit=True) for r in real_estates_of(
-            customer(self.resource))])
+        try:
+            cid = int(self.resource)
+        except TypeError:
+            return Error('No customer specified.')
+        except ValueError:
+            return Error('Customer ID must be an integer.')
+        else:
+            return JSON([r.to_dict(limit=True) for r in real_estates_of(
+                get_customer(cid))])
 
 
 class ExposeHandler(ResourceHandler):
@@ -130,7 +130,14 @@ class ExposeHandler(ResourceHandler):
 
     def get(self):
         """Returns real estate details data"""
-        return JSON(expose(int(self.resource)).to_dict(limit=True))
+        try:
+            ident = int(self.resource)
+        except TypeError:
+            return Error('No real estate ID provided.')
+        except ValueError:
+            return Error('Real estate ID must be an integer.')
+        else:
+            return JSON(get_expose(ident).to_dict(limit=True))
 
 
 class AttachmentHandler(ResourceHandler):
