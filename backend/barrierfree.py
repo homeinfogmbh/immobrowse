@@ -37,9 +37,8 @@ def list_(portals):
     """Yields barrierfree real estates for the respective portal."""
 
     for immobilie in Immobilie:
-        if approve(immobilie, portals):
-            if barrierfree(immobilie):
-                yield immobilie
+        if approve(immobilie, portals) and barrierfree(immobilie):
+            yield immobilie
 
 
 def get_expose(ident, portals):
@@ -58,15 +57,15 @@ def get_expose(ident, portals):
                 if approve(immobilie, portals):
                     if immobilie.active:
                         return immobilie
-                    else:
-                        raise Error('Real estate is not active.',
-                                    status=403) from None
-                else:
-                    raise Error('Real estate not cleared for portal.',
+
+                    raise Error('Real estate is not active.',
                                 status=403) from None
-            else:
-                raise Error('Real estate is not barrier free.',
+
+                raise Error('Real estate not cleared for portal.',
                             status=403) from None
+
+            raise Error('Real estate is not barrier free.',
+                        status=403) from None
 
 
 def get_attachment(ident, portals):
@@ -80,9 +79,8 @@ def get_attachment(ident, portals):
     else:
         if approve(attachment.immobilie, portals):
             return attachment
-        else:
-            raise Error(
-                'Related real estate not cleared for portal.') from None
+
+        raise Error('Related real estate not cleared for portal.') from None
 
 
 class BarrierFreeHandler(ResourceHandler):

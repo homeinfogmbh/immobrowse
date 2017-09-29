@@ -42,9 +42,8 @@ def real_estates_of(customer):
     """Yields real estates of the respective customer."""
 
     for immobilie in Immobilie.by_customer(customer):
-        if immobilie.active:
-            if approve(immobilie, PORTALS):
-                yield immobilie
+        if immobilie.active and approve(immobilie, PORTALS):
+            yield immobilie
 
 
 def get_expose(ident):
@@ -62,12 +61,11 @@ def get_expose(ident):
             if approve(immobilie, PORTALS):
                 if immobilie.active:
                     return immobilie
-                else:
-                    raise Error('Real estate is not active.',
-                                status=403) from None
-            else:
-                raise Error('Real estate not cleared for portal.',
-                            status=403) from None
+
+                raise Error('Real estate is not active.', status=403) from None
+
+            raise Error('Real estate not cleared for portal.',
+                        status=403) from None
 
 
 def attachment(ident):
@@ -81,9 +79,8 @@ def attachment(ident):
     else:
         if approve(anhang.immobilie, PORTALS):
             return anhang
-        else:
-            raise Error(
-                'Related real estate not cleared for portal.') from None
+
+        raise Error('Related real estate not cleared for portal.') from None
 
 
 class ImmoBrowseModel(Model):
