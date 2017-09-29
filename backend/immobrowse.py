@@ -1,4 +1,4 @@
-"""ImmoBrowse real estate backend"""
+"""ImmoBrowse real estate backend."""
 
 from configparser import ConfigParser
 
@@ -19,7 +19,7 @@ CONFIG.read('/etc/immobrowse.conf')
 
 
 def get_customer(cid):
-    """Returns a customer for the respective string"""
+    """Returns a customer for the respective string."""
 
     try:
         return Customer.get(Customer.id == cid)
@@ -28,21 +28,18 @@ def get_customer(cid):
 
 
 def approve(immobilie, portals):
-    """Chekcs whether the real estate is in any of the portals"""
+    """Chekcs whether the real estate is in any of the portals."""
 
-    if any(immobilie.approve(portal) for portal in portals):
-        return True
+    try:
+        Override.get(Override.customer == immobilie.customer)
+    except DoesNotExist:
+        return any(immobilie.approve(portal) for portal in portals)
     else:
-        try:
-            Override.get(Override.customer == immobilie.customer)
-        except DoesNotExist:
-            return False
-        else:
-            return True
+        return True
 
 
 def real_estates_of(customer):
-    """Yields real estates of the respective customer"""
+    """Yields real estates of the respective customer."""
 
     for immobilie in Immobilie.by_customer(customer):
         if immobilie.active:
@@ -51,7 +48,7 @@ def real_estates_of(customer):
 
 
 def get_expose(ident):
-    """Returns the reapective real estate for the customer"""
+    """Returns the reapective real estate for the customer."""
 
     if ident is None:
         raise Error('No real estate specified.') from None
@@ -74,7 +71,7 @@ def get_expose(ident):
 
 
 def attachment(ident):
-    """Returns the respective attachment"""
+    """Returns the respective attachment."""
 
     try:
         anhang = Anhang.get(Anhang.id == ident)
@@ -90,7 +87,7 @@ def attachment(ident):
 
 
 class ImmoBrowseModel(Model):
-    """Basic ORM model for ImmoBrowse"""
+    """Basic ORM model for ImmoBrowse."""
 
     class Meta:
         database = MySQLDatabase(
@@ -104,13 +101,13 @@ class ImmoBrowseModel(Model):
 
 
 class Override(ImmoBrowseModel):
-    """Customer overrides for ImmoBrowse"""
+    """Customer overrides for ImmoBrowse."""
 
     customer = ForeignKeyField(Customer, db_column='customer')
 
 
 class ListHandler(ResourceHandler):
-    """Handles real estate list queries for customers"""
+    """Handles real estate list queries for customers."""
 
     def get(self):
         """Retrieves real estates"""
@@ -126,10 +123,10 @@ class ListHandler(ResourceHandler):
 
 
 class ExposeHandler(ResourceHandler):
-    """Handles requests on single real estates"""
+    """Handles requests on single real estates."""
 
     def get(self):
-        """Returns real estate details data"""
+        """Returns real estate details data."""
         try:
             ident = int(self.resource)
         except TypeError:
@@ -141,10 +138,10 @@ class ExposeHandler(ResourceHandler):
 
 
 class AttachmentHandler(ResourceHandler):
-    """Handles requests on attachments"""
+    """Handles requests on attachments."""
 
     def get(self):
-        """Returns the respective attachment"""
+        """Returns the respective attachment."""
         try:
             ident = int(self.resource)
         except (TypeError, ValueError):

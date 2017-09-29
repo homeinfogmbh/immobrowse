@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-"""ImmoBrowse barrier free WSGI application"""
+"""ImmoBrowse barrier free WSGI application."""
 
 from wsgilib import RestApp
 from barrierfree import HANDLERS

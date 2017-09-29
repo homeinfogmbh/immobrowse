@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-"""ImmoBrowse WSGI application"""
+"""ImmoBrowse WSGI application."""
 
 from wsgilib import RestApp
 from immobrowse import HANDLERS

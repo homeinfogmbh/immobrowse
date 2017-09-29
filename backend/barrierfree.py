@@ -1,4 +1,4 @@
-"""ImmoBrowse real estate backend"""
+"""ImmoBrowse real estate backend."""
 
 from peewee import DoesNotExist
 from wsgilib import Error, JSON, Binary, ResourceHandler
@@ -17,13 +17,13 @@ PORTALS = {
 
 
 def approve(immobilie, portals):
-    """Chekcs whether the real estate is in any of the portals"""
+    """Chekcs whether the real estate is in any of the portals."""
 
     return any(immobilie.approve(portal) for portal in portals)
 
 
 def barrierfree(immobilie):
-    """Checks whether the real estate is barrier free"""
+    """Checks whether the real estate is barrier free."""
 
     try:
         barrier_freeness = immobilie.barrier_freeness
@@ -34,7 +34,7 @@ def barrierfree(immobilie):
 
 
 def list_(portals):
-    """Yields barrierfree real estates for the respective portal"""
+    """Yields barrierfree real estates for the respective portal."""
 
     for immobilie in Immobilie:
         if approve(immobilie, portals):
@@ -43,15 +43,15 @@ def list_(portals):
 
 
 def get_expose(ident, portals):
-    """Returns the reapective real estate for the customer"""
+    """Returns the reapective real estate for the customer."""
 
     if ident is None:
-        raise Error('No real estate specified') from None
+        raise Error('No real estate specified.') from None
     else:
         try:
             immobilie = Immobilie.get(Immobilie.id == ident)
         except DoesNotExist:
-            raise Error('No such real estate: {}'.format(ident),
+            raise Error('No such real estate: {}.'.format(ident),
                         status=404) from None
         else:
             if barrierfree(immobilie):
@@ -59,7 +59,7 @@ def get_expose(ident, portals):
                     if immobilie.active:
                         return immobilie
                     else:
-                        raise Error('Real estate is not active',
+                        raise Error('Real estate is not active.',
                                     status=403) from None
                 else:
                     raise Error('Real estate not cleared for portal.',
@@ -70,12 +70,12 @@ def get_expose(ident, portals):
 
 
 def get_attachment(ident, portals):
-    """Returns the respective attachment"""
+    """Returns the respective attachment."""
 
     try:
         attachment = Anhang.get(Anhang.id == ident)
     except DoesNotExist:
-        raise Error('No such attachment: {}'.format(ident),
+        raise Error('No such attachment: {}.'.format(ident),
                     status=404) from None
     else:
         if approve(attachment.immobilie, portals):
@@ -86,11 +86,11 @@ def get_attachment(ident, portals):
 
 
 class BarrierFreeHandler(ResourceHandler):
-    """Common abstract handler base"""
+    """Common abstract handler base."""
 
     @property
     def portal(self):
-        """Returns the desired portal"""
+        """Returns the desired portal."""
         try:
             return self.query['portal']
         except KeyError:
@@ -98,7 +98,7 @@ class BarrierFreeHandler(ResourceHandler):
 
     @property
     def portals(self):
-        """Returns the portal names for the desired portal"""
+        """Returns the portal names for the desired portal."""
         try:
             return PORTALS[self.portal]
         except KeyError:
@@ -106,7 +106,7 @@ class BarrierFreeHandler(ResourceHandler):
 
     @property
     def customer(self):
-        """Returns the appropriate customer"""
+        """Returns the appropriate customer."""
         try:
             cid = int(self.query.get('customer'))
         except TypeError:
@@ -118,7 +118,7 @@ class BarrierFreeHandler(ResourceHandler):
 
 
 class ListHandler(BarrierFreeHandler):
-    """Handles real estate list queries for customers"""
+    """Handles real estate list queries for customers."""
 
     def get(self):
         """Retrieves real estates"""
@@ -126,19 +126,19 @@ class ListHandler(BarrierFreeHandler):
 
 
 class ExposeHandler(BarrierFreeHandler):
-    """Handles real estate list queries for customers"""
+    """Handles real estate list queries for customers."""
 
     def get(self):
-        """Retrieves real estates"""
+        """Retrieves real estates."""
         immobilie = get_expose(int(self.resource), self.portals)
         return JSON(immobilie.to_dict(limit=True))
 
 
 class AttachmentHandler(BarrierFreeHandler):
-    """Handles requests on attachments"""
+    """Handles requests on attachments."""
 
     def get(self):
-        """Returns the respective attachment"""
+        """Returns the respective attachment."""
         try:
             ident = int(self.resource)
         except (TypeError, ValueError):
