@@ -107,7 +107,7 @@ class ListHandler(ResourceHandler):
     """Handles real estate list queries for customers."""
 
     def get(self):
-        """Retrieves real estates"""
+        """Retrieves real estates."""
         try:
             cid = int(self.resource)
         except TypeError:
