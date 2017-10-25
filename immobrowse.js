@@ -1176,7 +1176,7 @@ immobrowse.RealEstate = function (json) {
 
   this.images = function () {
     var attachments = this.attachments();
-    var imageGroups = ['TITELBILD', 'BILD', 'AUSSENANSICHTEN', 'INNENANSICHTEN'];
+    var imageGroups = ['TITELBILD', 'BILD', 'AUSSENANSICHTEN', 'INNENANSICHTEN', 'ANBIETERLOGO'];
     var images = [];
 
     for (var i = 0; i < attachments.length; i++) {
