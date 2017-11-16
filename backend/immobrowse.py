@@ -5,15 +5,15 @@ from configparser import ConfigParser
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
 
 from peeweeplus import MySQLDatabase
-from wsgilib import Error, JSON, Binary, RestHandler, Route, Router
+from wsgilib import Error, JSON, Binary, RestHandler, Router
 from homeinfo.crm import Customer
 
 from openimmodb import Immobilie, Anhang
 
 __all__ = ['ROUTER']
 
+ROUTER = Router()
 PORTALS = ('immobrowse', 'homepage', 'website')
-
 CONFIG = ConfigParser()
 CONFIG.read('/etc/immobrowse.conf')
 
@@ -103,6 +103,7 @@ class Override(ImmoBrowseModel):
     customer = ForeignKeyField(Customer, db_column='customer')
 
 
+@ROUTER.route('/immobrowse/list/<cid:int>')
 class ListHandler(RestHandler):
     """Handles real estate list queries for customers."""
 
@@ -112,6 +113,7 @@ class ListHandler(RestHandler):
             get_customer(self.vars['cid']))])
 
 
+@ROUTER.route('/immobrowse/expose/<id:int>')
 class ExposeHandler(RestHandler):
     """Handles requests on single real estates."""
 
@@ -120,15 +122,10 @@ class ExposeHandler(RestHandler):
         return JSON(get_expose(self.vars['id']).to_dict(limit=True))
 
 
+@ROUTER.route('/immobrowse/attachment/<id:int>')
 class AttachmentHandler(RestHandler):
     """Handles requests on attachments."""
 
     def get(self):
         """Returns the respective attachment."""
         return Binary(attachment(self.vars['id']).data)
-
-
-ROUTER = Router(
-    (Route('/immobrowse/list/<cid:int>'), ListHandler),
-    (Route('/immobrowse/expose/<id:int>'), ExposeHandler),
-    (Route('/immobrowse/attachment/<id:int>'), AttachmentHandler))
