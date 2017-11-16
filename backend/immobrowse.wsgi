@@ -2,6 +2,6 @@
 """ImmoBrowse WSGI application."""
 
 from wsgilib import RestApp
-from immobrowse import HANDLERS
+from immobrowse import ROUTER
 
-application = RestApp({'immobrowse': HANDLERS}, cors=True, debug=True)
+application = RestApp(ROUTER, cors=True, debug=True)

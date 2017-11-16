@@ -2,6 +2,6 @@
 """ImmoBrowse barrier free WSGI application."""
 
 from wsgilib import RestApp
-from barrierfree import HANDLERS
+from barrierfree import ROUTER
 
-application = RestApp({'barrierfree': HANDLERS}, cors=True, debug=True)
+application = RestApp(ROUTER, cors=True, debug=True)
