@@ -109,7 +109,7 @@ class ListHandler(RestHandler):
     def get(self):
         """Retrieves real estates."""
         return JSON([r.to_dict(limit=True) for r in real_estates_of(
-            get_customer(self.vars['id']))])
+            get_customer(self.vars['cid']))])
 
 
 class ExposeHandler(RestHandler):
@@ -129,6 +129,6 @@ class AttachmentHandler(RestHandler):
 
 
 ROUTER = Router(
-    (Route('/immobrowse/list'), ListHandler),
+    (Route('/immobrowse/list/<cid:int>'), ListHandler),
     (Route('/immobrowse/expose/<id:int>'), ExposeHandler),
     (Route('/immobrowse/attachment/<id:int>'), AttachmentHandler))
