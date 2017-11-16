@@ -1,12 +1,12 @@
 """ImmoBrowse real estate backend."""
 
 from peewee import DoesNotExist
-from wsgilib import Error, JSON, Binary, ResourceHandler
+from wsgilib import Error, JSON, Binary, RestHandler, Route, Router
 
 from openimmodb import Immobilie, Anhang
 from immobrowse import get_customer
 
-__all__ = ['HANDLERS']
+__all__ = ['ROUTER']
 
 PORTALS = {
     'hannover': ('barrierefrei-wohnen-hannover', 'hba'),
@@ -83,7 +83,7 @@ def get_attachment(ident, portals):
         raise Error('Related real estate not cleared for portal.') from None
 
 
-class BarrierFreeHandler(ResourceHandler):
+class BarrierFreeHandler(RestHandler):
     """Common abstract handler base."""
 
     @property
@@ -128,7 +128,7 @@ class ExposeHandler(BarrierFreeHandler):
 
     def get(self):
         """Retrieves real estates."""
-        immobilie = get_expose(int(self.resource), self.portals)
+        immobilie = get_expose(self.vars['id'], self.portals)
         return JSON(immobilie.to_dict(limit=True))
 
 
@@ -137,16 +137,10 @@ class AttachmentHandler(BarrierFreeHandler):
 
     def get(self):
         """Returns the respective attachment."""
-        try:
-            ident = int(self.resource)
-        except (TypeError, ValueError):
-            raise Error('Invalid attachment id: {}.'.format(
-                self.resource)) from None
-        else:
-            return Binary(get_attachment(ident, self.portals).data)
+        return Binary(get_attachment(self.vars['id'], self.portals).data)
 
 
-HANDLERS = {
-    'list': ListHandler,
-    'expose': ExposeHandler,
-    'attachment': AttachmentHandler}
+ROUTER = Router(
+    (Route('/barrierfree/list'), ListHandler),
+    (Route('/barrierfree/expose/<id:int>'), ExposeHandler),
+    (Route('/barrierfree/attachment/<id:int>'), AttachmentHandler))

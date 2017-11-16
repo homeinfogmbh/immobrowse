@@ -5,12 +5,12 @@ from configparser import ConfigParser
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
 
 from peeweeplus import MySQLDatabase
-from wsgilib import Error, JSON, Binary, ResourceHandler
+from wsgilib import Error, JSON, Binary, RestHandler, Route, Router
 from homeinfo.crm import Customer
 
 from openimmodb import Immobilie, Anhang
 
-__all__ = ['HANDLERS']
+__all__ = ['ROUTER']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 
@@ -103,52 +103,32 @@ class Override(ImmoBrowseModel):
     customer = ForeignKeyField(Customer, db_column='customer')
 
 
-class ListHandler(ResourceHandler):
+class ListHandler(RestHandler):
     """Handles real estate list queries for customers."""
 
     def get(self):
         """Retrieves real estates."""
-        try:
-            cid = int(self.resource)
-        except TypeError:
-            return Error('No customer specified.')
-        except ValueError:
-            return Error('Customer ID must be an integer.')
-        else:
-            return JSON([r.to_dict(limit=True) for r in real_estates_of(
-                get_customer(cid))])
+        return JSON([r.to_dict(limit=True) for r in real_estates_of(
+            get_customer(self.vars['id']))])
 
 
-class ExposeHandler(ResourceHandler):
+class ExposeHandler(RestHandler):
     """Handles requests on single real estates."""
 
     def get(self):
         """Returns real estate details data."""
-        try:
-            ident = int(self.resource)
-        except TypeError:
-            return Error('No real estate ID provided.')
-        except ValueError:
-            return Error('Real estate ID must be an integer.')
-        else:
-            return JSON(get_expose(ident).to_dict(limit=True))
+        return JSON(get_expose(self.vars['id']).to_dict(limit=True))
 
 
-class AttachmentHandler(ResourceHandler):
+class AttachmentHandler(RestHandler):
     """Handles requests on attachments."""
 
     def get(self):
         """Returns the respective attachment."""
-        try:
-            ident = int(self.resource)
-        except (TypeError, ValueError):
-            raise Error('Invalid attachment ID: {}.'.format(
-                self.resource)) from None
-        else:
-            return Binary(attachment(ident).data)
+        return Binary(attachment(self.vars['id']).data)
 
 
-HANDLERS = {
-    'list': ListHandler,
-    'expose': ExposeHandler,
-    'attachment': AttachmentHandler}
+ROUTER = Router(
+    (Route('/immobrowse/list'), ListHandler),
+    (Route('/immobrowse/expose/<id:int>'), ExposeHandler),
+    (Route('/immobrowse/attachment/<id:int>'), AttachmentHandler))
