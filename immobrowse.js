@@ -465,7 +465,7 @@ immobrowse.Filter = function (rules) {
     if (this.rules.areaMin != null) {
       if (realEstate.flaechen == null) {
         return false;
-      } else if (filters.areaMin > realEstate.flaechen.wohnflaeche) {
+      } else if (this.rules.areaMin > realEstate.flaechen.wohnflaeche) {
         return false;
       }
     }
@@ -473,7 +473,7 @@ immobrowse.Filter = function (rules) {
     if (this.rules.roomsMin != null) {
       if (realEstate.flaechen == null) {
         return false;
-      } else if (filters.roomsMin > realEstate.flaechen.anzahl_zimmer) {
+      } else if (this.rules.roomsMin > realEstate.flaechen.anzahl_zimmer) {
         return false;
       }
     }
