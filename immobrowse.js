@@ -446,7 +446,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
   Matches real estates for filtering
 */
 immobrowse.Filter = function (rules) {
-  this.rules = rules || [];
+  this.rules = rules || {};
 
   /*
     Match filters on a real estate's JSON data.
