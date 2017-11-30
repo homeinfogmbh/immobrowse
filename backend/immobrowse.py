@@ -1,6 +1,7 @@
 """ImmoBrowse real estate backend."""
 
 from configparser import ConfigParser
+from json import dumps
 
 from flask import make_response, jsonify, Flask
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
