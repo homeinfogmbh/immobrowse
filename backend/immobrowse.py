@@ -47,8 +47,11 @@ def get_list(cid):
     except DoesNotExist:
         return ('No such customer: {}'.format(cid), 404)
 
-    print([r.to_dict(limit=True) for r in real_estates_of(customer)])
-    return jsonify([r.to_dict(limit=True) for r in real_estates_of(customer)])
+    realestates = [r.to_dict(limit=True) for r in real_estates_of(customer)]
+    print(realestates)
+    print(dumps(realestates, indent=2))
+    #return jsonify([r.to_dict(limit=True) for r in real_estates_of(customer)])
+    return jsonify(realestates)
 
 
 @APPLICATION.route('/expose/<int:ident>')
