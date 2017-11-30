@@ -1,8 +1,9 @@
 """ImmoBrowse real estate backend."""
 
 from configparser import ConfigParser
+from json import dumps
 
-from flask import make_response, jsonify, Flask
+from flask import make_response, jsonify, Response, Flask
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
 
 from homeinfo.crm import Customer
@@ -47,7 +48,8 @@ def get_list(cid):
     except DoesNotExist:
         return ('No such customer: {}'.format(cid), 404)
 
-    return jsonify([r.to_dict(limit=True) for r in real_estates_of(customer)])
+    real_estates = [r.to_dict(limit=True) for r in real_estates_of(customer)]
+    return Response(dumps(real_estates), mimetype='application/json')
 
 
 @APPLICATION.route('/expose/<int:ident>')
