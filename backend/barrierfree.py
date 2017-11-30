@@ -1,20 +1,20 @@
 """ImmoBrowse real estate backend."""
 
+from flask import request, make_response, jsonify, Flask
 from peewee import DoesNotExist
-from wsgilib import Error, JSON, Binary, RestHandler, Router
 
+from mimeutil import mimetype
 from openimmodb import Immobilie, Anhang
-from immobrowse import get_customer
 
-__all__ = ['ROUTER']
+__all__ = ['APPLICATION']
 
-ROUTER = Router()
 PORTALS = {
     'hannover': ('barrierefrei-wohnen-hannover', 'hba'),
     'bremen': (
         'barrierefrei-wohnen-bremen',
         'barrierefrei-wohnen-bremerhaven',
         'breba')}
+APPLICATION = Flask('barrierfree')
 
 
 def approve(immobilie, portals):
@@ -30,8 +30,8 @@ def barrierfree(immobilie):
         barrier_freeness = immobilie.barrier_freeness
     except DoesNotExist:
         return False
-    else:
-        return barrier_freeness.complete or barrier_freeness.limited
+
+    return barrier_freeness.complete or barrier_freeness.limited
 
 
 def list_(portals):
@@ -42,103 +42,69 @@ def list_(portals):
             yield immobilie
 
 
-def get_expose(ident, portals):
-    """Returns the reapective real estate for the customer."""
+@APPLICATION.route('/list')
+def get_list():
+    """Returns the list of barrier-free real estates."""
 
-    if ident is None:
-        raise Error('No real estate specified.') from None
-    else:
-        try:
-            immobilie = Immobilie.get(Immobilie.id == ident)
-        except DoesNotExist:
-            raise Error('No such real estate: {}.'.format(ident),
-                        status=404) from None
-        else:
-            if barrierfree(immobilie):
-                if approve(immobilie, portals):
-                    if immobilie.active:
-                        return immobilie
+    portal = request.args['portal']
 
-                    raise Error('Real estate is not active.',
-                                status=403) from None
+    try:
+        portals = PORTALS[portal]
+    except KeyError:
+        return ('Unknown portal.', 400)
 
-                raise Error('Real estate not cleared for portal.',
-                            status=403) from None
-
-            raise Error('Real estate is not barrier free.',
-                        status=403) from None
+    return jsonify([real_estate.to_dict(limit=True) for real_estate in list_(
+        portals)])
 
 
-def get_attachment(ident, portals):
+@APPLICATION.route('/expose/<int:ident>')
+def get_expose(ident):
+    """Returns the respective expose."""
+
+    portal = request.args['portal']
+
+    try:
+        portals = PORTALS[portal]
+    except KeyError:
+        return ('Unknown portal.', 400)
+
+    try:
+        immobilie = Immobilie.get(Immobilie.id == ident)
+    except DoesNotExist:
+        return ('No such real estate: {}.'.format(ident), 404)
+
+    if barrierfree(immobilie):
+        if approve(immobilie, portals):
+            if immobilie.active:
+                return jsonify(immobilie.to_dict(limit=True))
+
+            return ('Real estate is not active.', 404)
+
+        return ('Real estate not cleared for portal.', 403)
+
+    return ('Real estate is not barrier free.', 404)
+
+
+@APPLICATION.route('/attachment/<int:ident>')
+def get_attachment(ident):
     """Returns the respective attachment."""
+
+    portal = request.args['portal']
+
+    try:
+        portals = PORTALS[portal]
+    except KeyError:
+        return ('Unknown portal.', 400)
 
     try:
         attachment = Anhang.get(Anhang.id == ident)
     except DoesNotExist:
-        raise Error('No such attachment: {}.'.format(ident),
-                    status=404) from None
-    else:
-        if approve(attachment.immobilie, portals):
-            return attachment
+        return ('No such attachment: {}.'.format(ident), 404)
 
-        raise Error('Related real estate not cleared for portal.') from None
+    if approve(attachment.immobilie, portals):
+        data = attachment.data
+        response = make_response(data)
+        response.headers['Content-Type'] = mimetype(data)
+        return response
 
-
-class BarrierFreeHandler(RestHandler):
-    """Common abstract handler base."""
-
-    @property
-    def portal(self):
-        """Returns the desired portal."""
-        try:
-            return self.query['portal']
-        except KeyError:
-            raise Error('No portal specified.') from None
-
-    @property
-    def portals(self):
-        """Returns the portal names for the desired portal."""
-        try:
-            return PORTALS[self.portal]
-        except KeyError:
-            raise Error('Unknown portal.') from None
-
-    @property
-    def customer(self):
-        """Returns the appropriate customer."""
-        try:
-            cid = int(self.query.get('customer'))
-        except TypeError:
-            raise Error('No customer ID specified.') from None
-        except ValueError:
-            raise Error('Customer ID must be an integer.') from None
-        else:
-            return get_customer(cid)
-
-
-@ROUTER.route('/barrierfree/list')
-class ListHandler(BarrierFreeHandler):
-    """Handles real estate list queries for customers."""
-
-    def get(self):
-        """Retrieves real estates"""
-        return JSON([r.to_dict(limit=True) for r in list_(self.portals)])
-
-
-@ROUTER.route('/barrierfree/expose/<id:int>')
-class ExposeHandler(BarrierFreeHandler):
-    """Handles real estate list queries for customers."""
-
-    def get(self):
-        """Retrieves real estates."""
-        immobilie = get_expose(self.vars['id'], self.portals)
-        return JSON(immobilie.to_dict(limit=True))
-
-
-@ROUTER.route('/barrierfree/attachment/<id:int>')
-class AttachmentHandler(BarrierFreeHandler):
-    """Handles requests on attachments."""
-
-    def get(self):
-        """Returns the respective attachment."""
-        return Binary(get_attachment(self.vars['id'], self.portals).data)
+    return ('Related real estate not cleared for portal.', 403)

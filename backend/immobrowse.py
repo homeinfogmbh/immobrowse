@@ -2,40 +2,21 @@
 
 from configparser import ConfigParser
 
+from flask import make_response, jsonify, Flask
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
 
-from peeweeplus import MySQLDatabase
-from wsgilib import Error, JSON, Binary, RestHandler, Router
 from homeinfo.crm import Customer
+from mimeutil import mimetype
+from peeweeplus import MySQLDatabase
 
 from openimmodb import Immobilie, Anhang
 
-__all__ = ['ROUTER']
+__all__ = ['APPLICATION']
 
-ROUTER = Router()
 PORTALS = ('immobrowse', 'homepage', 'website')
 CONFIG = ConfigParser()
 CONFIG.read('/etc/immobrowse.conf')
-
-
-def get_customer(cid):
-    """Returns a customer for the respective string."""
-
-    try:
-        return Customer.get(Customer.id == cid)
-    except DoesNotExist:
-        raise Error('No such customer: {}'.format(cid)) from None
-
-
-def approve(immobilie, portals):
-    """Chekcs whether the real estate is in any of the portals."""
-
-    try:
-        Override.get(Override.customer == immobilie.customer)
-    except DoesNotExist:
-        return any(immobilie.approve(portal) for portal in portals)
-    else:
-        return True
+APPLICATION = Flask('immobrowse')
 
 
 def real_estates_of(customer):
@@ -46,41 +27,63 @@ def real_estates_of(customer):
             yield immobilie
 
 
+def approve(immobilie, portals):
+    """Chekcs whether the real estate is in any of the portals."""
+
+    try:
+        Override.get(Override.customer == immobilie.customer)
+    except DoesNotExist:
+        return any(immobilie.approve(portal) for portal in portals)
+
+    return True
+
+
+@APPLICATION.route('/list/<int:cid>')
+def get_list(cid):
+    """Returns the respective real estate list."""
+
+    try:
+        customer = Customer.get(Customer.id == cid)
+    except DoesNotExist:
+        return ('No such customer: {}'.format(cid), 404)
+
+    return jsonify([r.to_dict(limit=True) for r in real_estates_of(customer)])
+
+
+@APPLICATION.route('/expose/<int:ident>')
 def get_expose(ident):
-    """Returns the reapective real estate for the customer."""
+    """Returns the respective detail expose."""
 
-    if ident is None:
-        raise Error('No real estate specified.') from None
-    else:
-        try:
-            immobilie = Immobilie.get(Immobilie.id == ident)
-        except DoesNotExist:
-            raise Error('No such real estate: {}.'.format(ident),
-                        status=404) from None
-        else:
-            if approve(immobilie, PORTALS):
-                if immobilie.active:
-                    return immobilie
+    try:
+        immobilie = Immobilie.get(Immobilie.id == ident)
+    except DoesNotExist:
+        return ('No such real estate: {}.'.format(ident), 404)
 
-                raise Error('Real estate is not active.', status=403) from None
+    if approve(immobilie, PORTALS):
+        if immobilie.active:
+            return jsonify(immobilie.to_dict(limit=True))
 
-            raise Error('Real estate not cleared for portal.',
-                        status=403) from None
+        return ('Real estate is not active.', 404)
+
+    return ('Real estate not cleared for portal.', 403)
 
 
-def attachment(ident):
+@APPLICATION.route('/attachment/<int:ident>')
+def get_attachment(ident):
     """Returns the respective attachment."""
 
     try:
         anhang = Anhang.get(Anhang.id == ident)
     except DoesNotExist:
-        raise Error('No such attachment: {}'.format(ident),
-                    status=404) from None
-    else:
-        if approve(anhang.immobilie, PORTALS):
-            return anhang
+        return ('No such attachment: {}'.format(ident), 404)
 
-        raise Error('Related real estate not cleared for portal.') from None
+    if approve(anhang.immobilie, PORTALS):
+        data = anhang.data
+        response = make_response(data)
+        response.headers['Content-Type'] = mimetype(data)
+        return response
+
+    return ('Related real estate not cleared for portal.', 403)
 
 
 class ImmoBrowseModel(Model):
@@ -101,31 +104,3 @@ class Override(ImmoBrowseModel):
     """Customer overrides for ImmoBrowse."""
 
     customer = ForeignKeyField(Customer, db_column='customer')
-
-
-@ROUTER.route('/immobrowse/list/<cid:int>')
-class ListHandler(RestHandler):
-    """Handles real estate list queries for customers."""
-
-    def get(self):
-        """Retrieves real estates."""
-        return JSON([r.to_dict(limit=True) for r in real_estates_of(
-            get_customer(self.vars['cid']))])
-
-
-@ROUTER.route('/immobrowse/expose/<id:int>')
-class ExposeHandler(RestHandler):
-    """Handles requests on single real estates."""
-
-    def get(self):
-        """Returns real estate details data."""
-        return JSON(get_expose(self.vars['id']).to_dict(limit=True))
-
-
-@ROUTER.route('/immobrowse/attachment/<id:int>')
-class AttachmentHandler(RestHandler):
-    """Handles requests on attachments."""
-
-    def get(self):
-        """Returns the respective attachment."""
-        return Binary(attachment(self.vars['id']).data)
