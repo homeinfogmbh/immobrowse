@@ -1,6 +1,8 @@
 """ImmoBrowse real estate backend."""
 
-from flask import request, make_response, jsonify, Flask
+from json import dumps
+
+from flask import request, make_response, jsonify, Response, Flask
 from peewee import DoesNotExist
 
 from mimeutil import mimetype
@@ -53,8 +55,9 @@ def get_list():
     except KeyError:
         return ('Unknown portal.', 400)
 
-    return jsonify([real_estate.to_dict(limit=True) for real_estate in list_(
-        portals)])
+    real_estates = [
+        real_estate.to_dict(limit=True) for real_estate in list_(portals)]
+    return Response(dumps(real_estates), mimetype='application/json')
 
 
 @APPLICATION.route('/expose/<int:ident>')
