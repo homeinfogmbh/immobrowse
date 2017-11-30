@@ -4,10 +4,11 @@ from distutils.core import setup
 
 setup(
     name='immobrowse',
-    version='1.0.0',
+    version='2.0.0',
     requires=['openimmodb'],
     py_modules=['immobrowse', 'barrierfree'],
+    scripts=['immobrowsed', 'barrierfreed'],
     data_files=[
-        ('/usr/share', ['immobrowse.wsgi', 'barrierfree.wsgi']),
-        ('/etc/uwsgi/apps-available', ['immobrowse.ini', 'barrierfree.ini'])],
+        ('/usr/lib/systemd/system', [
+            'immobrowse.service', 'barrierfree.service'])],
     description='Real estate search engine')

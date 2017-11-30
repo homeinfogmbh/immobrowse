@@ -1,0 +1,12 @@
+[Unit]
+Description=ImmoBrowse
+After=network.target mysql.service
+Requires=mysql.service
+
+[Service]
+User=immobrowse
+Group=immobrowse
+ExecStart=/usr/local/bin/immobrowsed
+
+[Install]
+WantedBy=multi-user.target

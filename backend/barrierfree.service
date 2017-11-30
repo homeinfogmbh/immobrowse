@@ -1,0 +1,12 @@
+[Unit]
+Description=BarrierFree
+After=network.target mysql.service
+Requires=mysql.service
+
+[Service]
+User=immobrowse
+Group=immobrowse
+ExecStart=/usr/local/bin/barrierfreed
+
+[Install]
+WantedBy=multi-user.target
