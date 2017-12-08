@@ -2,13 +2,15 @@
 
 from json import dumps
 
-from flask import request, make_response, jsonify, Response, Flask
+from flask import request, make_response, jsonify, Response
 from peewee import DoesNotExist
 
 from mimeutil import mimetype
 from openimmodb import Immobilie, Anhang
+from wsgilib import Application
 
 __all__ = ['APPLICATION']
+
 
 PORTALS = {
     'hannover': ('barrierefrei-wohnen-hannover', 'hba'),
@@ -16,7 +18,7 @@ PORTALS = {
         'barrierefrei-wohnen-bremen',
         'barrierefrei-wohnen-bremerhaven',
         'breba')}
-APPLICATION = Flask('barrierfree')
+APPLICATION = Application('barrierfree', cors=True, debug=True)
 
 
 def approve(immobilie, portals):

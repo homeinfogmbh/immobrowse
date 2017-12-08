@@ -3,7 +3,7 @@
 from configparser import ConfigParser
 from json import dumps
 
-from flask import make_response, jsonify, Response, Flask
+from flask import make_response, jsonify, Response
 from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
 
 from homeinfo.crm import Customer
@@ -11,13 +11,14 @@ from mimeutil import mimetype
 from peeweeplus import MySQLDatabase
 
 from openimmodb import Immobilie, Anhang
+from wsgilib import Application
 
 __all__ = ['APPLICATION']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 CONFIG = ConfigParser()
 CONFIG.read('/etc/immobrowse.conf')
-APPLICATION = Flask('immobrowse')
+APPLICATION = Application('immobrowse', cors=True, debug=True)
 
 
 def real_estates_of(customer):
