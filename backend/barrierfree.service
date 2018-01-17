@@ -1,7 +1,5 @@
 [Unit]
 Description=BarrierFree
-After=network.target mysql.service
-Wants=mysql.service
 
 [Service]
 User=immobrowse
@@ -9,4 +7,4 @@ Group=immobrowse
 ExecStart=/usr/local/bin/barrierfreed
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=wsgi-services.target
