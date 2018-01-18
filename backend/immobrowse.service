@@ -1,5 +1,6 @@
 [Unit]
 Description=ImmoBrowse
+PartOf=wsgi-services.target
 
 [Service]
 User=immobrowse
