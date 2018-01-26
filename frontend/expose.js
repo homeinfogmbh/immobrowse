@@ -24,7 +24,7 @@
     * immobrowse.js
 */
 var args = new homeinfo.QueryString();
-// XXX: Change config for appropriate productive setting
+// XXX: Change config for appropriate productive setting.
 var mailer = new immobrowse.Mailer('homeinfo-testing');
 var customer = args.customer;
 var objectId = args.real_estate;
@@ -266,10 +266,6 @@ $(document).ready(function () {
     city: $('#city'),
     zipCodeAndCity: $('#zipCodeAndCity'),
     website: $('#website'),
-    titleImage: {
-      image: $('#titleImage'),
-      caption: $('#titleImageCaption')
-    },
     amenitiesList: $('#amenitiesList'),
     contact: {
       name: $('#contactName'),
@@ -277,6 +273,14 @@ $(document).ready(function () {
       address: $('#contactAddress'),
       phone: $('#contactPhone'),
       website: $('#contactWebsite')
+    },
+    titleImage: {
+      image: $('#titleImage'),
+      caption: $('#titleImageCaption')
+    },
+    floorplan: {
+      image: $('#floorplan'),
+      caption: $('#floorplanCaption')
     }
   };
 
