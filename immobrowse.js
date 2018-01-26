@@ -1700,6 +1700,19 @@ immobrowse.RealEstate = function (json) {
     }
   }
 
+  this.renderImage = function (element, image) {
+    if (element != null) {
+      if (image != null) {
+        if (element.image != null) {
+          element.image.attr('src', this.attachmentURL(image));
+          element.caption.html(image.anhangtitel);
+        } else {
+          element.attr('src', this.attachmentURL(image));
+        }
+      }
+    }
+  }
+
   /*
     Renders the real estate data into the specified elements.
     All elements are optional.
@@ -1777,32 +1790,8 @@ immobrowse.RealEstate = function (json) {
     this.renderContact(elements.contact);
     this.setValue(elements.amenitiesTags, this.amenitiesTags());
     this.setValue(elements.amenitiesList, this.listAmenities(this.amenities()));
-
-    if (elements.titleImage != null) {
-      var titleImage = this.titleImage();
-
-      if (titleImage != null) {
-        if (elements.titleImage.image != null) {
-          elements.titleImage.image.attr('src', this.attachmentURL(titleImage));
-          elements.titleImage.caption.html(titleImage.anhangtitel);
-        } else {
-          elements.titleImage.attr('src', this.attachmentURL(titleImage));
-        }
-      }
-    }
-
-    if (elements.floorplan != null) {
-      var floorplan = this.floorplan();
-
-      if (floorplan != null) {
-        if (elements.floorplan.image != null) {
-          elements.floorplan.image.attr('src', this.attachmentURL(floorplan));
-          elements.floorplan.caption.html(floorplan.anhangtitel);
-        } else {
-          elements.floorplan.attr('src', this.attachmentURL(floorplan));
-        }
-      }
-    }
+    this.renderImage(elements.titleImage, this.titleImage());
+    this.renderImage(elements.floorplan, this.floorplan());
   }
 
   /*
