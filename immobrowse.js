@@ -1745,7 +1745,8 @@ immobrowse.RealEstate = function (json) {
         website: <websiteElement>
       },
       amenitiesTags: <amenitiesTagsElement>,
-      titleImage: <titleImageElement>
+      titleImage: <titleImageElement>,
+      floorplan: <floorplanElement>
     };
   */
   this.render = function (elements) {
@@ -1786,6 +1787,19 @@ immobrowse.RealEstate = function (json) {
           elements.titleImage.caption.html(titleImage.anhangtitel);
         } else {
           elements.titleImage.attr('src', this.attachmentURL(titleImage));
+        }
+      }
+    }
+
+    if (elements.floorplan != null) {
+      var floorplan = this.floorplan();
+
+      if (floorplan != null) {
+        if (elements.floorplan.image != null) {
+          elements.floorplan.image.attr('src', this.attachmentURL(floorplan));
+          elements.floorplan.caption.html(floorplan.anhangtitel);
+        } else {
+          elements.floorplan.attr('src', this.attachmentURL(floorplan));
         }
       }
     }
