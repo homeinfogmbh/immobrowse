@@ -4,7 +4,7 @@ from configparser import ConfigParser
 from json import dumps
 
 from flask import make_response, jsonify, Response
-from peewee import DoesNotExist, Model, PrimaryKeyField, ForeignKeyField
+from peewee import Model, PrimaryKeyField, ForeignKeyField
 
 from homeinfo.crm import Customer
 from mimeutil import mimetype
@@ -34,7 +34,7 @@ def approve(immobilie, portals):
 
     try:
         Override.get(Override.customer == immobilie.customer)
-    except DoesNotExist:
+    except Override.DoesNotExist:
         return any(immobilie.approve(portal) for portal in portals)
 
     return True
@@ -46,7 +46,7 @@ def get_list(cid):
 
     try:
         customer = Customer.get(Customer.id == cid)
-    except DoesNotExist:
+    except Customer.DoesNotExist:
         return ('No such customer: {}'.format(cid), 404)
 
     real_estates = [r.to_dict(limit=True) for r in real_estates_of(customer)]
@@ -59,7 +59,7 @@ def get_expose(ident):
 
     try:
         immobilie = Immobilie.get(Immobilie.id == ident)
-    except DoesNotExist:
+    except Immobilie.DoesNotExist:
         return ('No such real estate: {}.'.format(ident), 404)
 
     if approve(immobilie, PORTALS):
@@ -77,7 +77,7 @@ def get_attachment(ident):
 
     try:
         anhang = Anhang.get(Anhang.id == ident)
-    except DoesNotExist:
+    except Anhang.DoesNotExist:
         return ('No such attachment: {}'.format(ident), 404)
 
     if approve(anhang.immobilie, PORTALS):

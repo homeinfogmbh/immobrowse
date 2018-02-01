@@ -3,10 +3,9 @@
 from json import dumps
 
 from flask import request, make_response, jsonify, Response
-from peewee import DoesNotExist
 
 from mimeutil import mimetype
-from openimmodb import Immobilie, Anhang
+from openimmodb import Immobilie, Anhang, BarrierFreeness
 from wsgilib import Application
 
 __all__ = ['APPLICATION']
@@ -32,7 +31,7 @@ def barrierfree(immobilie):
 
     try:
         barrier_freeness = immobilie.barrier_freeness
-    except DoesNotExist:
+    except BarrierFreeness.DoesNotExist:
         return False
 
     return barrier_freeness.complete or barrier_freeness.limited
@@ -75,7 +74,7 @@ def get_expose(ident):
 
     try:
         immobilie = Immobilie.get(Immobilie.id == ident)
-    except DoesNotExist:
+    except Immobilie.DoesNotExist:
         return ('No such real estate: {}.'.format(ident), 404)
 
     if barrierfree(immobilie):
@@ -103,7 +102,7 @@ def get_attachment(ident):
 
     try:
         attachment = Anhang.get(Anhang.id == ident)
-    except DoesNotExist:
+    except Anhang.DoesNotExist:
         return ('No such attachment: {}.'.format(ident), 404)
 
     if approve(attachment.immobilie, portals):
