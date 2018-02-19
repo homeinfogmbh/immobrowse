@@ -1590,6 +1590,10 @@ immobrowse.RealEstate = function (json) {
   }
 
   this.contact = function () {
+    if (this.kontaktperson == null) {
+      return null;
+    }
+
     var contact = {};
     var name = [];
     var address = [];
@@ -1707,20 +1711,42 @@ immobrowse.RealEstate = function (json) {
   this.renderContact = function (elements) {
     if (elements != null) {
       var contact = this.contact();
-      this.setValue(elements.salutation, contact.salutation);
-      this.setValue(elements.firstName, contact.firstName);
-      this.setValue(elements.lastName, contact.lastName);
-      this.setValue(elements.name, contact.name);
-      this.setValue(elements.company, contact.company);
-      this.setValue(elements.street, contact.street);
-      this.setValue(elements.houseNumber, contact.houseNumber);
-      this.setValue(elements.streetAndHouseNumber, contact.streetAndHouseNumber);
-      this.setValue(elements.zipCode, contact.zipCode);
-      this.setValue(elements.city, contact.city);
-      this.setValue(elements.zipCodeAndCity, contact.zipCodeAndCity);
-      this.setValue(elements.address, contact.address);
-      this.setValue(elements.phone, contact.phone);
-      this.setValue(elements.website, contact.website);
+
+      if (contact != null) {
+        this.setValue(elements.salutation, contact.salutation);
+        this.setValue(elements.firstName, contact.firstName);
+        this.setValue(elements.lastName, contact.lastName);
+        this.setValue(elements.name, contact.name);
+        this.setValue(elements.company, contact.company);
+        this.setValue(elements.street, contact.street);
+        this.setValue(elements.houseNumber, contact.houseNumber);
+        this.setValue(elements.streetAndHouseNumber, contact.streetAndHouseNumber);
+        this.setValue(elements.zipCode, contact.zipCode);
+        this.setValue(elements.city, contact.city);
+        this.setValue(elements.zipCodeAndCity, contact.zipCodeAndCity);
+        this.setValue(elements.address, contact.address);
+        this.setValue(elements.phone, contact.phone);
+        this.setValue(elements.website, contact.website);
+      } else {
+        this.setValue(elements.salutation, null);
+        this.setValue(elements.firstName, null);
+        this.setValue(elements.lastName, null);
+        this.setValue(elements.name, null);
+        this.setValue(elements.company, null);
+        this.setValue(elements.street, null);
+        this.setValue(elements.houseNumber, null);
+        this.setValue(elements.streetAndHouseNumber, null);
+        this.setValue(elements.zipCode, null);
+        this.setValue(elements.city, null);
+        this.setValue(elements.zipCodeAndCity, null);
+        this.setValue(elements.address, null);
+        this.setValue(elements.phone, null);
+        this.setValue(elements.website, null);
+
+        if (elements.container != null) {
+          elements.container.hide();
+        }
+      }
     }
   }
 
