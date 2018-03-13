@@ -1746,6 +1746,10 @@ immobrowse.RealEstate = function (json) {
         if (elements.container != null) {
           elements.container.hide();
         }
+
+        if (elements.button != null) {
+          elements.button.attr('disabled', true);
+        }
       }
     }
   }
