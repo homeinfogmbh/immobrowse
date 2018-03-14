@@ -1843,7 +1843,9 @@ immobrowse.RealEstate = function (json) {
     this.setValue(elements.miscellanea, this.miscellanea());
     this.renderContact(elements.contact);
     this.setValue(elements.amenitiesTags, this.amenitiesTags());
-    this.setValue(elements.amenitiesList, this.listAmenities(this.amenities()));
+    var amenities = this.amenities();
+    var amenitiesList = this.listAmenities(amenities) ? amenities.length > 0 : null;
+    this.setValue(elements.amenitiesList, amenitiesList);
     this.renderImage(elements.titleImage, this.titleImage());
     this.renderImage(elements.floorplan, this.floorplan());
   }
