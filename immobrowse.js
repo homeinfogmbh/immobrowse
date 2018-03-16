@@ -2020,7 +2020,7 @@ immobrowse.dom.preview.DataFieldRow = function (child) {
 
 immobrowse.dom.preview.DataFieldCol = function (captionRow, valueRow) {
   var element = document.createElement('div');
-  element.setAttribute('class', 'col-xs-3');
+  element.setAttribute('class', 'col-md-3');
   element.appendChild(captionRow);
   element.appendChild(valueRow);
   return element;
