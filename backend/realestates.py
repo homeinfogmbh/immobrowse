@@ -23,8 +23,8 @@ ANHANG_URL = BASE_URL + '/anhang/{}'
 APPLICATION = Flask('realestatesd')
 
 
-class InvalidAccessToken(Exception):
-    """Indicates an invalid access token."""
+class UnauthorizedError(Exception):
+    """Indicates that the respective request is unauthorized."""
 
     pass
 
@@ -36,24 +36,19 @@ def authorized(function):
     def wrapper(*args, **kwargs):
         """Wraps the respective function."""
         try:
-            AccessToken.validate(request.args['token'])
+            token = AccessToken.get(AccessToken.token == request.args['token'])
         except KeyError:
-            raise InvalidAccessToken()
+            raise UnauthorizedError()
 
-        return function(*args, **kwargs)
+        return function(token.customer, *args, **kwargs)
 
     return wrapper
 
 
-@APPLICATION.route('/anbieter/<int:cid>', methods=['GET'])
+@APPLICATION.route('/anbieter', methods=['GET'])
 @authorized
-def _anbieter(cid):
+def _anbieter(customer):
     """Returns the respective realtor as XML."""
-
-    try:
-        customer = Customer.get(Customer.cid == cid)
-    except Customer.DoesNotExist:
-        return ('No such customer.', 404)
 
     anbieter = factories.anbieter(customer.cid, customer.name)
 
@@ -67,18 +62,19 @@ def _anbieter(cid):
 
 @APPLICATION.route('/anhang/<int:ident>', methods=['GET'])
 @authorized
-def _anhang(ident):
+def _anhang(customer, ident):
     """Returns the respective attachment."""
 
     try:
-        anhang = Anhang.get(Anhang.id == ident)
+        anhang = Anhang.select().join(Immobilie).where(
+            (Anhang.id == ident) & (Immobilie.customer == customer)).get()
     except Anhang.DoesNotExist:
         return ('No such attachment.', 404)
 
     return send_file(BytesIO(anhang.data), mimetype=anhang.format)
 
 
-@APPLICATION.errorhandler(InvalidAccessToken)
+@APPLICATION.errorhandler(UnauthorizedError)
 def _handle_invalid_access_token(_):
     """Handles the respective error."""
 
@@ -105,6 +101,6 @@ class AccessToken(Model):
         try:
             cls.get((cls.token == token) & customer_expr)
         except cls.DoesNotExist:
-            raise InvalidAccessToken()
+            raise UnauthorizedError()
 
         return True
