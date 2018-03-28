@@ -16,12 +16,15 @@ from peeweeplus import MySQLDatabase
 from openimmodb import Immobilie, Anhang
 from wsgilib import Application
 
-__all__ = ['APPLICATION']
+__all__ = ['APPLICATION', 'DATABASE']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 CONFIG = ConfigParser()
 CONFIG.read('/etc/immobrowse.conf')
 APPLICATION = Application('immobrowse', cors=True, debug=True)
+DATABASE = MySQLDatabase(
+    CONFIG['db']['database'], host=CONFIG['db']['host'],
+    user=CONFIG['db']['user'], passwd=CONFIG['db']['passwd'], closing=True)
 
 
 def real_estates_of(customer):
@@ -96,12 +99,7 @@ class ImmoBrowseModel(Model):
     """Basic ORM model for ImmoBrowse."""
 
     class Meta:
-        database = MySQLDatabase(
-            CONFIG['db']['database'],
-            host=CONFIG['db']['host'],
-            user=CONFIG['db']['user'],
-            passwd=CONFIG['db']['passwd'],
-            closing=True)
+        database = DATABASE
 
     id = PrimaryKeyField()
 
