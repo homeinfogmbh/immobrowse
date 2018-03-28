@@ -18,7 +18,7 @@ from openimmodb import Immobilie, Anhang
 __all__ = ['APPLICATION']
 
 
-BASE_URL = 'http://localhost/realestates'
+BASE_URL = 'http://backend.homeinfo.de/realestates'
 ANHANG_URL = BASE_URL + '/anhang/{}'
 APPLICATION = Flask('realestatesd')
 
