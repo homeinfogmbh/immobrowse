@@ -8,13 +8,12 @@ from io import BytesIO
 from uuid import uuid4
 
 from flask import request, send_file, Flask, Response
-from peewee import CharField, ForeignKeyField
+from peewee import Model, ForeignKeyField, CharField
 
 from homeinfo.crm import Customer
 from immobrowse import DATABASE
 from openimmo import factories
 from openimmodb import Immobilie, Anhang
-from peeweeplus import Model
 
 __all__ = ['APPLICATION']
 
