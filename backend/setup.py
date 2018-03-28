@@ -4,10 +4,8 @@ from distutils.core import setup
 
 setup(
     name='immobrowse',
-    version='2.0.0',
     requires=['openimmodb'],
-    py_modules=['immobrowse', 'barrierfree'],
-    scripts=['immobrowsed', 'barrierfreed'],
+    py_modules=['immobrowse', 'barrierfree', 'realestates'],
     data_files=[
         ('/usr/lib/systemd/system', [
             'immobrowse.service', 'barrierfree.service'])],
