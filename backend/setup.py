@@ -6,7 +6,4 @@ setup(
     name='immobrowse',
     requires=['openimmodb'],
     py_modules=['immobrowse', 'barrierfree', 'realestates'],
-    data_files=[
-        ('/usr/lib/systemd/system', [
-            'immobrowse.service', 'barrierfree.service'])],
-    description='Real estate search engine')
+    description='Real estate search engine.')
