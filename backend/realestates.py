@@ -94,7 +94,7 @@ class AccessToken(Model):
 
     customer = ForeignKeyField(
         Customer, column_name='customer', on_delete='CASCADE',
-        on_change='CASCADE')
+        on_update='CASCADE')
     token = CharField(36, default=lambda: str(uuid4()))
 
     @classmethod
