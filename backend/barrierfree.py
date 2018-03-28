@@ -1,4 +1,7 @@
-"""ImmoBrowse real estate backend."""
+"""ImmoBrowse real estate backend.
+
+This web service is part of ImmoBrowse.
+"""
 
 from json import dumps
 

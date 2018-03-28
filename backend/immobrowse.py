@@ -1,4 +1,7 @@
-"""ImmoBrowse real estate backend."""
+"""ImmoBrowse real estate backend.
+
+This web service is part of ImmoBrowse.
+"""
 
 from configparser import ConfigParser
 from json import dumps
@@ -47,7 +50,7 @@ def get_list(cid):
     try:
         customer = Customer.get(Customer.id == cid)
     except Customer.DoesNotExist:
-        return ('No such customer: {}'.format(cid), 404)
+        return ('No such customer: {}.'.format(cid), 404)
 
     real_estates = [r.to_dict(limit=True) for r in real_estates_of(customer)]
     return Response(dumps(real_estates), mimetype='application/json')
