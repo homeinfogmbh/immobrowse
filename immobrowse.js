@@ -1564,6 +1564,9 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
+  /*
+    Returns the real estate's state.
+  */
   this.state = function () {
     if (this.zustand_angaben != null) {
       switch (this.zustand_angaben.zustand) {
@@ -1603,6 +1606,9 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
+  /*
+    Returns the last modernization.
+  */
   this.lastModernization = function () {
     if (this.zustand_angaben != null) {
       return this.zustand_angaben.letztemodernisierung;
@@ -1611,6 +1617,9 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
+  /*
+    Returns the heating types.
+  */
   this.heatingTypes = function () {
     var heatingTypes = [];
 
@@ -1641,6 +1650,9 @@ immobrowse.RealEstate = function (json) {
     return heatingTypes;
   }
 
+  /*
+    Returns the heating type.
+  */
   this.heatingType = function () {
     var heatingTypes = this.heatingTypes();
 
@@ -1651,6 +1663,9 @@ immobrowse.RealEstate = function (json) {
     }
   }
 
+  /*
+    Aggregates energy performance certificate data.
+  */
   this.energyCertificate = function () {
     try {
       var energiepass = this.zustand_angaben.energiepass[0];
@@ -1684,6 +1699,13 @@ immobrowse.RealEstate = function (json) {
 
     if (energiepass.baujahr != null && energiepass.baujahr != '') {
       energyCertificate.constructionYear = energiepass.baujahr;
+    } else {
+      // Fall back to real estate's construction year.
+      var constructionYear = this.constructionYear();
+
+      if (constructionYear) {
+        energyCertificate.constructionYear = constructionYear;
+      }
     }
 
     if (energiepass.primaerenergietraeger != null) {
@@ -1880,51 +1902,6 @@ immobrowse.RealEstate = function (json) {
   /*
     Renders the real estate data into the specified elements.
     All elements are optional.
-
-    @param: elements = {
-      objectIf: <objectIdElement>,
-      objectTitle: <objectTitleElement>,
-      coldRent: <coldRentElement>,
-      operationalCosts: <operationalCostsElement>,
-      serviceCharge: <serviceChargeElement>,
-      heatingCosts: <heatingCostsElement>,
-      heatingCostsInServiceCharge: <heatingCostsInServiceChargeElement>,
-      securityDeposit: <securityDepositElement>,
-      subjectToCommission: <subjectToCommissionElement>,
-      livingArea: <livingAreaElement>,
-      rooms: <roomsElement>,
-      floor: <floorElement>,
-      availableFrom: <availableFromElement>,
-      councilFlat: <councilFlatElement>,
-      constructionYear: <constructionYearElement>,
-      state: <stateElement>,
-      lastModernization: <lastModernizationElement>,
-      energyCertificate: {
-        type: <typeElement>,
-        consumption: <consumptionElement>,
-        primaryEnergyCarrier: <primaryEnergyCarrierElement>,
-        valueClass: <valueClassElement>
-      },
-      description: <descriptionElement>,
-      exposure: <exposureElement>,
-      miscellanea: <miscellaneaElement>,
-      contact: {
-        salutation: <salutationElement>,
-        firstName: <firstNameElement>,
-        lastName: <lastNameElement>,
-        company: <companyElement>,
-        street: <streetElement>,
-        houseNumber: <houseNumberElement>,
-        streetAndHouseNumber: <streetAndHouseNumberElement>,
-        zipCode: <zipCodeElement>,
-        city: <cityElement>,
-        zipCodeAndCity: <zipCodeAndCityElement>,
-        website: <websiteElement>
-      },
-      amenitiesTags: <amenitiesTagsElement>,
-      titleImage: <titleImageElement>,
-      floorplan: <floorplanElement>
-    };
   */
   this.render = function (elements) {
     // Miscellaneous.
