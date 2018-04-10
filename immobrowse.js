@@ -1682,6 +1682,10 @@ immobrowse.RealEstate = function (json) {
       }
     }
 
+    if (energiepass.baujahr != null && energiepass.baujahr != '') {
+      energyCertificate.constructionYear = energiepass.baujahr;
+    }
+
     if (energiepass.primaerenergietraeger != null) {
       energyCertificate.primaryEnergyCarrier = this.translatePrimaerenergietraeger(energiepass.primaerenergietraeger);
     }
@@ -1797,12 +1801,14 @@ immobrowse.RealEstate = function (json) {
       var energyCertificate = this.energyCertificate();
 
       if (energyCertificate != null) {
+        this.setValue(elements.constructionYear, energyCertificate.constructionYear);
         this.setValue(elements.type, energyCertificate.type);
         this.setValue(elements.demand, energyCertificate.demand);
         this.setValue(elements.consumption, energyCertificate.consumption);
         this.setValue(elements.primaryEnergyCarrier, energyCertificate.primaryEnergyCarrier);
         this.setValue(elements.valueClass, energyCertificate.valueClass);
       } else {
+        this.setValue(elements.constructionYear, null);
         this.setValue(elements.type, null);
         this.setValue(elements.demand, null);
         this.setValue(elements.consumption, null);
