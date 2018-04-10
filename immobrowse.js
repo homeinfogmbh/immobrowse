@@ -994,6 +994,18 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
+  this.totalRent = function () {
+    var rent = this.rent();
+
+    if (rent == null) {
+      return null;
+    }
+
+    var operationalCosts = this.operationalCosts() || 0;
+    var heatingCosts = this.heatingCosts() || 0;
+    return rent + operationalCosts + heatingCosts;
+  }
+
   this.cableSatTv = function () {
     if (this.ausstattung == null) {
       return null;
