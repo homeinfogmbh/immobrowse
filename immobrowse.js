@@ -837,9 +837,85 @@ immobrowse.RealEstate = function (json) {
     }
   }
 
-  this.rooms = function() {
+  this.rooms = function () {
     if (this.flaechen != null) {
       return immobrowse.germanDecimal(this.flaechen.anzahl_zimmer);
+    }
+
+    return null;
+  }
+
+  this.bathrooms = function () {
+    if (this.flaechen != null) {
+      return immobrowse.germanDecimal(this.flaechen.anzahl_badezimmer);
+    }
+
+    return null;
+  }
+
+  this.bedrooms = function () {
+    if (this.flaechen != null) {
+      return immobrowse.germanDecimal(this.flaechen.anzahl_schlafzimmer);
+    }
+
+    return null;
+  }
+
+  this.type = function () {
+    if (this.objektkategorie != null) {
+      if (this.objektkategorie.objektart != null) {
+        var types = [];
+
+        if (this.objektkategorie.objektart.zimmer != null) {
+          types = this.objektkategorie.objektart.zimmer;
+        } else if (this.objektkategorie.objektart.wohnung != null) {
+          types = this.objektkategorie.objektart.wohnung;
+        } else if (this.objektkategorie.objektart.haus != null) {
+          types = this.objektkategorie.objektart.haus;
+        } else if (this.objektkategorie.objektart.grundstueck != null) {
+          types = this.objektkategorie.objektart.grundstueck;
+        } else if (this.objektkategorie.objektart.buero_praxen != null) {
+          types = this.objektkategorie.objektart.buero_praxen;
+        } else if (this.objektkategorie.objektart.einzelhandel != null) {
+          types = this.objektkategorie.objektart.einzelhandel;
+        } else if (this.objektkategorie.objektart.gastgewerbe != null) {
+          types = this.objektkategorie.objektart.gastgewerbe;
+        } else if (this.objektkategorie.objektart.hallen_lager_prod != null) {
+          types = this.objektkategorie.objektart.hallen_lager_prod;
+        } else if (this.objektkategorie.objektart.land_und_forstwirtschaft != null) {
+          types = this.objektkategorie.objektart.land_und_forstwirtschaft;
+        } else if (this.objektkategorie.objektart.parken != null) {
+          types = this.objektkategorie.objektart.parken;
+        } else if (this.objektkategorie.objektart.sonstige != null) {
+          types = this.objektkategorie.objektart.sonstige;
+        } else if (this.objektkategorie.objektart.freizeitimmobilie_gewerblich != null) {
+          types = this.objektkategorie.objektart.freizeitimmobilie_gewerblich;
+        } else if (this.objektkategorie.objektart.zinshaus_renditeobjekt != null) {
+          types = this.objektkategorie.objektart.zinshaus_renditeobjekt;
+        }
+
+        for (var i = 0; i < types.length; i++) {
+          if (types[i] != null) {
+            return types[i];
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  this.gardenUsage = function () {
+    if (this.ausstattung != null) {
+      return this.ausstattung.gartennutzung;
+    }
+
+    return null;
+  }
+
+  this.petsAllowed = function () {
+    if (this.verwaltung_objekt != null) {
+      return this.verwaltung_objekt.haustiere;
     }
 
     return null;
@@ -1817,9 +1893,12 @@ immobrowse.RealEstate = function (json) {
     };
   */
   this.render = function (elements) {
+    // Miscellaneous.
     this.setValue(elements.objectId, this.objectId());
     this.setValue(elements.objectTitle, this.objectTitle());
     this.setValue(elements.address, this.address());
+    this.setValue(elements.type, this.type());
+    // Prices.
     this.setValue(elements.coldRent, immobrowse.euro(this.rent()));
     this.setValue(elements.serviceCharge, immobrowse.euro(this.serviceCharge()));
     this.setValue(elements.operationalCosts, immobrowse.euro(this.operationalCosts()));
@@ -1828,9 +1907,15 @@ immobrowse.RealEstate = function (json) {
     this.setValue(elements.securityDeposit, immobrowse.euro(this.securityDeposit()));
     this.setValue(elements.provision, immobrowse.euro(this.provision()));
     this.setValue(elements.subjectToCommission, immobrowse.yesNo(this.subjectToCommission()));
+    // Areas.
     this.setValue(elements.livingArea, immobrowse.squareMeters(this.livingArea()));
     this.setValue(elements.rooms, this.rooms());
+    this.setValue(elements.bathrooms, this.bathrooms());
+    this.setValue(elements.bedrooms, this.bedrooms());
+    this.setValue(elements.gardenUsage, this.gardenUsage());
     this.setValue(elements.floor, this.floor());
+    // Amenities and state.
+    this.setValue(elements.petsAllowed, this.petsAllowed());
     this.setValue(elements.availableFrom, this.availableFrom());
     this.setValue(elements.councilFlat, immobrowse.yesNo(this.councilFlat()));
     this.setValue(elements.constructionYear, this.constructionYear());
@@ -1838,6 +1923,7 @@ immobrowse.RealEstate = function (json) {
     this.setValue(elements.lastModernization, this.lastModernization());
     this.setValue(elements.heatingType, this.heatingType());
     this.renderEnergyCertificate(elements.energyCertificate);
+    // Description texts.
     this.setValue(elements.description, this.description());
     this.setValue(elements.exposure, this.exposure());
     this.setValue(elements.miscellanea, this.miscellanea());
