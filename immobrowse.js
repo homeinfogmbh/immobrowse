@@ -1928,6 +1928,8 @@ immobrowse.RealEstate = function (json) {
     this.setValue(elements.type, this.type());
     // Prices.
     this.setValue(elements.coldRent, immobrowse.euro(this.rent()));
+    this.setValue(elements.warmRent, immobrowse.euro(this.warmRent()));
+    this.setValue(elements.totalRent, immobrowse.euro(this.totalRent()));
     this.setValue(elements.serviceCharge, immobrowse.euro(this.serviceCharge()));
     this.setValue(elements.operationalCosts, immobrowse.euro(this.operationalCosts()));
     this.setValue(elements.heatingCosts, immobrowse.euro(this.heatingCosts()));
