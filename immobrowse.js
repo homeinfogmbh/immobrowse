@@ -1912,10 +1912,10 @@ immobrowse.RealEstate = function (json) {
     this.setValue(elements.rooms, this.rooms());
     this.setValue(elements.bathrooms, this.bathrooms());
     this.setValue(elements.bedrooms, this.bedrooms());
-    this.setValue(elements.gardenUsage, this.gardenUsage());
     this.setValue(elements.floor, this.floor());
     // Amenities and state.
-    this.setValue(elements.petsAllowed, this.petsAllowed());
+    this.setValue(elements.petsAllowed, immobrowse.yesNo(this.petsAllowed()));
+    this.setValue(elements.gardenUsage, immobrowse.yesNo(this.gardenUsage()));
     this.setValue(elements.availableFrom, this.availableFrom());
     this.setValue(elements.councilFlat, immobrowse.yesNo(this.councilFlat()));
     this.setValue(elements.constructionYear, this.constructionYear());
