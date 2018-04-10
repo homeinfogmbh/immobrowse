@@ -839,7 +839,9 @@ immobrowse.RealEstate = function (json) {
 
   this.rooms = function () {
     if (this.flaechen != null) {
-      return immobrowse.germanDecimal(this.flaechen.anzahl_zimmer);
+      if (this.flaechen.anzahl_zimmer != null) {
+        return immobrowse.germanDecimal(this.flaechen.anzahl_zimmer);
+      }
     }
 
     return null;
@@ -847,7 +849,9 @@ immobrowse.RealEstate = function (json) {
 
   this.bathrooms = function () {
     if (this.flaechen != null) {
-      return immobrowse.germanDecimal(this.flaechen.anzahl_badezimmer);
+      if (this.flaechen.anzahl_badezimmer != null) {
+        return immobrowse.germanDecimal(this.flaechen.anzahl_badezimmer);
+      }
     }
 
     return null;
@@ -855,7 +859,9 @@ immobrowse.RealEstate = function (json) {
 
   this.bedrooms = function () {
     if (this.flaechen != null) {
-      return immobrowse.germanDecimal(this.flaechen.anzahl_schlafzimmer);
+      if (this.flaechen.anzahl_schlafzimmer != null) {
+        return immobrowse.germanDecimal(this.flaechen.anzahl_schlafzimmer);
+      }
     }
 
     return null;
@@ -907,7 +913,9 @@ immobrowse.RealEstate = function (json) {
 
   this.gardenUsage = function () {
     if (this.ausstattung != null) {
-      return this.ausstattung.gartennutzung;
+      if (this.ausstattung.gartennutzung != null) {
+        return this.ausstattung.gartennutzung;
+      }
     }
 
     return null;
@@ -915,7 +923,9 @@ immobrowse.RealEstate = function (json) {
 
   this.petsAllowed = function () {
     if (this.verwaltung_objekt != null) {
-      return this.verwaltung_objekt.haustiere;
+      if (this.verwaltung_objekt.haustiere != null) {
+        return this.verwaltung_objekt.haustiere;
+      }
     }
 
     return null;
@@ -942,27 +952,33 @@ immobrowse.RealEstate = function (json) {
   }
 
   this.netColdRent = function () {
-    if (this.preise == null) {
-      return null;
-    } else {
-      if (this.preise.nettokaltmiete == null) {
-        return null;
-      } else {
+    if (this.preise != null) {
+      if (this.preise.nettokaltmiete != null) {
         return this.preise.nettokaltmiete;
       }
     }
+
+    return null;
   }
 
   this.coldRent = function () {
-    if (this.preise == null) {
-      return null;
-    } else {
-      if (this.preise.kaltmiete == null) {
-        return null;
-      } else {
+    if (this.preise != null) {
+      if (this.preise.kaltmiete != null) {
         return this.preise.kaltmiete;
       }
     }
+
+    return null;
+  }
+
+  this.warmRent = function () {
+    if (this.preise != null) {
+      if (this.preise.warmmiete != null) {
+        return this.preise.warmmiete;
+      }
+    }
+
+    return null;
   }
 
   this.rent = function () {
