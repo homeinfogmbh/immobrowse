@@ -1288,6 +1288,16 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
+  this.amenities = function () {
+    if (this.freitexte != null) {
+      if (! homeinfo.str.isEmpty(this.freitexte.ausstatt_beschr)) {
+        return this.freitexte.ausstatt_beschr;
+      }
+    }
+
+    return null;
+  }
+
   this.attachments = function () {
     var attachments = [];
 
@@ -1939,6 +1949,7 @@ immobrowse.RealEstate = function (json) {
     // Description texts.
     this.setValue(elements.description, this.description());
     this.setValue(elements.exposure, this.exposure());
+    this.setValue(elements.amenities, this.amenities());
     this.setValue(elements.miscellanea, this.miscellanea());
     this.renderContact(elements.contact);
     this.setValue(elements.amenitiesTags, this.amenitiesTags());
