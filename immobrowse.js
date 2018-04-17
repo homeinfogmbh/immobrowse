@@ -1288,7 +1288,7 @@ immobrowse.RealEstate = function (json) {
     return null;
   }
 
-  this.amenities = function () {
+  this.amenitiesDescription = function () {
     if (this.freitexte != null) {
       if (! homeinfo.str.isEmpty(this.freitexte.ausstatt_beschr)) {
         return this.freitexte.ausstatt_beschr;
@@ -1949,7 +1949,7 @@ immobrowse.RealEstate = function (json) {
     // Description texts.
     this.setValue(elements.description, this.description());
     this.setValue(elements.exposure, this.exposure());
-    this.setValue(elements.amenities, this.amenities());
+    this.setValue(elements.amenities, this.amenitiesDescription());
     this.setValue(elements.miscellanea, this.miscellanea());
     this.renderContact(elements.contact);
     this.setValue(elements.amenitiesTags, this.amenitiesTags());
