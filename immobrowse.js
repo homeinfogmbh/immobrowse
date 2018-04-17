@@ -36,14 +36,6 @@ immobrowse.config = {};
 
 /*** Miscellaneous functions ***/
 
-
-/*
-  Checks whether the provided object is a non-empty array.
-*/
-immobrowse.nonEmptyArray = function (array) {
-  return array != null && Array.isArray(array) && array.length > 0;
-}
-
 /*
   Compares two nullable values so that
   null values always come out last.
@@ -880,84 +872,32 @@ immobrowse.RealEstate = function (json) {
 
     if (this.objektkategorie != null) {
       if (this.objektkategorie.objektart != null) {
-        if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.zimmer)) {
-          for (var i = 0; i < this.objektkategorie.objektart.zimmer.length; i++) {
-            if (this.objektkategorie.objektart.zimmer[i].zimmertyp != null) {
-              types.push(this.objektkategorie.objektart.zimmer[i].zimmertyp);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.wohnung)) {
-          for (var i = 0; i < this.objektkategorie.objektart.zimmer.length; i++) {
-            if (this.objektkategorie.objektart.wohnung[i].wohnungtyp != null) {
-              types.push(this.objektkategorie.objektart.wohnung[i].wohnungtyp);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.haus)) {
-          for (var i = 0; i < this.objektkategorie.objektart.haus.length; i++) {
-            if (this.objektkategorie.objektart.haus[i].haustyp != null) {
-              types.push(this.objektkategorie.objektart.haus[i].haustyp);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.grundstueck)) {
-          for (var i = 0; i < this.objektkategorie.objektart.grundstueck.length; i++) {
-            if (this.objektkategorie.objektart.grundstueck[i].grundst_typ != null) {
-              types.push(this.objektkategorie.objektart.grundstueck[i].grundst_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.buero_praxen)) {
-          for (var i = 0; i < this.objektkategorie.objektart.buero_praxen.length; i++) {
-            if (this.objektkategorie.objektart.buero_praxen[i].buero_typ != null) {
-              types.push(this.objektkategorie.objektart.buero_praxen[i].buero_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.einzelhandel)) {
-          for (var i = 0; i < this.objektkategorie.objektart.einzelhandel.length; i++) {
-            if (this.objektkategorie.objektart.einzelhandel[i].handel_typ != null) {
-              types.push(this.objektkategorie.objektart.einzelhandel[i].handel_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.gastgewerbe)) {
-          for (var i = 0; i < this.objektkategorie.objektart.gastgewerbe.length; i++) {
-            if (this.objektkategorie.objektart.gastgewerbe[i].gastgew_typ != null) {
-              types.push(this.objektkategorie.objektart.gastgewerbe[i].gastgew_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.hallen_lager_prod)) {
-          for (var i = 0; i < this.objektkategorie.objektart.hallen_lager_prod.length; i++) {
-            if (this.objektkategorie.objektart.hallen_lager_prod[i].hallen_typ != null) {
-              types.push(this.objektkategorie.objektart.hallen_lager_prod[i].hallen_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.land_und_forstwirtschaft)) {
-          for (var i = 0; i < this.objektkategorie.objektart.land_und_forstwirtschaft.length; i++) {
-            if (this.objektkategorie.objektart.land_und_forstwirtschaft[i].land_typ != null) {
-              types.push(this.objektkategorie.objektart.land_und_forstwirtschaft[i].land_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.parken)) {
-          for (var i = 0; i < this.objektkategorie.objektart.parken.length; i++) {
-            if (this.objektkategorie.objektart.parken[i].parken_typ != null) {
-              types.push(this.objektkategorie.objektart.parken[i].parken_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.sonstige)) {
-          for (var i = 0; i < this.objektkategorie.objektart.sonstige.length; i++) {
-            if (this.objektkategorie.objektart.sonstige[i].sonstige_typ != null) {
-              types.push(this.objektkategorie.objektart.sonstige[i].sonstige_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.freizeitimmobilie_gewerblich)) {
-          for (var i = 0; i < this.objektkategorie.objektart.freizeitimmobilie_gewerblich.length; i++) {
-            if (this.objektkategorie.objektart.freizeitimmobilie_gewerblich[i].freizeit_typ != null) {
-              types.push(this.objektkategorie.objektart.freizeitimmobilie_gewerblich[i].freizeit_typ);
-            }
-          }
-        } else if (immobrowse.nonEmptyArray(this.objektkategorie.objektart.zinshaus_renditeobjekt)) {
-          for (var i = 0; i < this.objektkategorie.objektart.zinshaus_renditeobjekt.length; i++) {
-            if (this.objektkategorie.objektart.zinshaus_renditeobjekt[i].zins_typ != null) {
-              types.push(this.objektkategorie.objektart.zinshaus_renditeobjekt[i].zins_typ);
-            }
-          }
+        if (this.objektkategorie.objektart.zimmer != null) {
+          types = this.objektkategorie.objektart.zimmer;
+        } else if (this.objektkategorie.objektart.wohnung != null) {
+          types = this.objektkategorie.objektart.wohnung;
+        } else if (this.objektkategorie.objektart.haus != null) {
+          types = this.objektkategorie.objektart.haus;
+        } else if (this.objektkategorie.objektart.grundstueck != null) {
+          types = this.objektkategorie.objektart.grundstueck;
+        } else if (this.objektkategorie.objektart.buero_praxen != null) {
+          types = this.objektkategorie.objektart.buero_praxen;
+        } else if (this.objektkategorie.objektart.einzelhandel != null) {
+          types = this.objektkategorie.objektart.einzelhandel;
+        } else if (this.objektkategorie.objektart.gastgewerbe != null) {
+          types = this.objektkategorie.objektart.gastgewerbe;
+        } else if (this.objektkategorie.objektart.hallen_lager_prod != null) {
+          types = this.objektkategorie.objektart.hallen_lager_prod;
+        } else if (this.objektkategorie.objektart.land_und_forstwirtschaft != null) {
+          types = this.objektkategorie.objektart.land_und_forstwirtschaft;
+        } else if (this.objektkategorie.objektart.parken != null) {
+          types = this.objektkategorie.objektart.parken;
+        } else if (this.objektkategorie.objektart.sonstige != null) {
+          types = this.objektkategorie.objektart.sonstige;
+        } else if (this.objektkategorie.objektart.freizeitimmobilie_gewerblich != null) {
+          types = this.objektkategorie.objektart.freizeitimmobilie_gewerblich;
+        } else if (this.objektkategorie.objektart.zinshaus_renditeobjekt != null) {
+          types = this.objektkategorie.objektart.zinshaus_renditeobjekt;
         }
       }
     }
@@ -968,9 +908,9 @@ immobrowse.RealEstate = function (json) {
   this.type = function () {
     var types = this.types();
 
-    for (var i = 0; i < types.length; i ++) {
+    for (var i = 0; i < types.length; i++) {
       if (types[i] != null) {
-        return types [i];
+        return types[i];
       }
     }
 
