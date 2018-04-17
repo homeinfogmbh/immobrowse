@@ -910,7 +910,7 @@ immobrowse.RealEstate = function (json) {
 
     for (var i = 0; i < types.length; i++) {
       if (types[i] != null) {
-        return types[i];
+        return homeinfo.str.capitalizeFirstLetter(types[i].toLowerCase());
       }
     }
 
