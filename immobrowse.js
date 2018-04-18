@@ -1036,7 +1036,7 @@ immobrowse.RealEstate = function (json) {
     if (this.ausstattung == null) {
       return null;
     } else {
-      return this.ausstattung.unterkellert == 'JA';
+      return this.ausstattung.unterkellert;
     }
   }
 
@@ -1411,40 +1411,8 @@ immobrowse.RealEstate = function (json) {
     var amenities = [];
 
     if (this.ausstattung != null) {
-      if (this.ausstattung.barrierefrei) {
-        amenities.push('Barrierefrei');
-      }
-
-      if (this.ausstattung.kabel_sat_tv) {
-        amenities.push('Kabel / Sat. / TV');
-      }
-
-      if (this.ausstattung.unterkellert) {
-        amenities.push('Keller');
-      }
-
       if (this.ausstattung.rollstuhlgerecht) {
         amenities.push('Rollstuhlgerecht');
-      }
-
-      if (this.ausstattung.bad != null) {
-        if (this.ausstattung.bad.FENSTER) {
-          amenities.push('Fenster im Bad');
-        }
-
-        if (this.ausstattung.bad.WANNE) {
-          amenities.push('Badewanne');
-        }
-
-        if (this.ausstattung.bad.DUSCHE) {
-          amenities.push('Dusche');
-        }
-      }
-
-      if (this.ausstattung.kueche != null) {
-        if (this.ausstattung.kueche.EBK) {
-          amenities.push('Einbauk&uuml;che');
-        }
       }
 
       if (this.ausstattung.stellplatzart != null) {
@@ -1459,27 +1427,63 @@ immobrowse.RealEstate = function (json) {
         }
       }
 
-      if (this.ausstattung.wasch_trockenraum) {
-        amenities.push('Wasch- / Trockenraum');
-      }
-
       if (this.ausstattung.gaestewc) {
         amenities.push('Gäste WC');
       }
     }
 
     if (this.flaechen != null) {
-      if (this.flaechen.anzahl_balkone > 0) {
-        amenities.push('Balkon');
-      }
-
-      if (this.flaechen.anzahl_terrassen > 0) {
-        amenities.push('Terrasse');
-      }
-
       if (this.flaechen.einliegerwohnung) {
         amenities.push('Einliegerwohnung');
       }
+    }
+
+    if (this.lavatoryDryingRoom()) {
+      amenities.push('Wasch- / Trockenraum');
+    }
+
+    if (this.builtInKitchen()) {
+      amenities.push('Einbauk&uuml;che');
+    }
+
+    if (this.shower()) {
+      amenities.push('Dusche');
+    }
+
+    if (this.bathroomWindow()) {
+      amenities.push('Fenster im Bad');
+    }
+
+    if (this.bathTub()) {
+      amenities.push('Badewanne');
+    }
+
+    if (this.cableSatTv()) {
+      amenities.push('Kabel / Sat. / TV');
+    }
+
+    if (this.barrierFree()) {
+      amenities.push('Barrierefrei');
+    }
+
+    if (this.basementRoom()) {
+      amenities.push('Keller');
+    }
+
+    if (this.balconies() > 0) {
+      amenities.push('Balkon');
+    }
+
+    if (this.terraces() > 0) {
+      amenities.push('Terrasse');
+    }
+
+    if (this.petsAllowed()) {
+      amenities.push('Tierhaltung');
+    }
+
+    if (this.gardenUsage()) {
+      amenities.push('Gartennutzung');
     }
 
     return amenities;
