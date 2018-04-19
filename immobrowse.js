@@ -1971,7 +1971,7 @@ immobrowse.RealEstate = function (json) {
   /*
     Converts the real estate into a DOM element for list view.
   */
-  this.preview = function () {
+  this.preview = function (elements) {
     return immobrowse.dom.preview.Entry(
       immobrowse.dom.preview.MainRow(
         immobrowse.dom.preview.ImageCol(
@@ -1980,50 +1980,123 @@ immobrowse.RealEstate = function (json) {
           )
         ),
         immobrowse.dom.preview.DataCol(
-          immobrowse.dom.preview.TitleRow(
-            immobrowse.dom.preview.ObjectTitle(this.objectTitle() || this.na)
-          ),
-          immobrowse.dom.preview.DataRow(
-            [
-              immobrowse.dom.preview.DataFieldCol(
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldCaption('Kaltmiete')
-                ),
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(immobrowse.euro(this.rent()) || this.na)
-                )
-              ),
-              immobrowse.dom.preview.DataFieldCol(
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldCaption('Nebenkosten')
-                ),
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(immobrowse.euro(this.serviceCharge()) || this.na)
-                )
-              ),
-              immobrowse.dom.preview.DataFieldCol(
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldCaption('Zimmer')
-                ),
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(this.rooms() || this.na)
-                )
-              ),
-              immobrowse.dom.preview.DataFieldCol(
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldCaption('Fläche ca.')
-                ),
-                immobrowse.dom.preview.DataFieldRow(
-                  immobrowse.dom.preview.DataFieldValue(immobrowse.squareMeters(this.area()) || this.na)
-                )
-              )
-            ]
-          ),
+          immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle() || this.na)),
+          immobrowse.dom.preview.DataRow(this._dataFields(elements)),
           immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags())
         )
       ),
       this.detailsURL()
     );
+  }
+
+  /*
+    Default data fields for legacy preview.
+  */
+  this._defaultDataFields = function () {
+    return [
+      immobrowse.dom.preview.DataFieldCol(
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldCaption('Kaltmiete')
+        ),
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldValue(immobrowse.euro(this.rent()) || this.na)
+        )
+      ),
+      immobrowse.dom.preview.DataFieldCol(
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldCaption('Nebenkosten')
+        ),
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldValue(immobrowse.euro(this.serviceCharge()) || this.na)
+        )
+      ),
+      immobrowse.dom.preview.DataFieldCol(
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldCaption('Zimmer')
+        ),
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldValue(this.rooms() || this.na)
+        )
+      ),
+      immobrowse.dom.preview.DataFieldCol(
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldCaption('Fläche ca.')
+        ),
+        immobrowse.dom.preview.DataFieldRow(
+          immobrowse.dom.preview.DataFieldValue(immobrowse.squareMeters(this.area()) || this.na)
+        )
+      )
+    ];
+  }
+
+  this._dataFields = function (elements) {
+    if (elements == null) {
+      return self._defaultDataFields();
+    }
+
+    var dataFields = [];
+
+    if (elements.hasOwnProperty('coldRent')) {
+      var rent = this.rent();
+
+      if (rent != null) {
+        dataFields.push(
+          immobrowse.dom.preview.DataFieldCol(
+            immobrowse.dom.preview.DataFieldRow(
+              immobrowse.dom.preview.DataFieldCaption(elements['coldRent'] || 'Kaltmiete')
+            ),
+            immobrowse.dom.preview.DataFieldRow(
+              immobrowse.dom.preview.DataFieldValue(immobrowse.euro(rent))
+            )
+          )
+        );
+      }
+    }
+
+    if (elements.hasOwnProperty('serviceCharge')) {
+      var serviceCharge = this.serviceCharge();
+
+      if (serviceCharge != null) {
+        dataFields.push(
+          immobrowse.dom.preview.DataFieldCol(
+            immobrowse.dom.preview.DataFieldRow(
+              immobrowse.dom.preview.DataFieldCaption(elements['serviceCharge'] || 'Nebenkosten')
+            ),
+            immobrowse.dom.preview.DataFieldRow(
+              immobrowse.dom.preview.DataFieldValue(immobrowse.euro(serviceCharge))
+            )
+          )
+        );
+      }
+    }
+
+    if (elements.hasOwnProperty('rooms')) {
+      var rooms = this.rooms();
+
+      if (rooms != null) {
+        dataFields.push(
+          immobrowse.dom.preview.DataFieldCol(
+            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(elements['rooms'] || 'Zimmer')),
+            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue())
+          )
+        );
+      }
+    }
+
+    if (elements.hasOwnProperty('area')) {
+      var area = this.area();
+
+      if (area != null) {
+        dataFields.push(
+          immobrowse.dom.preview.DataFieldCol(
+            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(elements['area'] || 'Fläche ca.')),
+            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue(immobrowse.squareMeters(area)))
+          )
+        );
+      }
+    }
+
+    return dataFields;
   }
 }
 
@@ -2046,7 +2119,7 @@ immobrowse.List = function (realEstates) {
     Renders the respective real estates into the given HTML element.
   */
   this.render = function (listElement) {
-    listElement.html('');  // Clear element
+    listElement.html('');  // Clear element.
 
     for (var i = 0; i < this.realEstates.length; i++) {
       listElement.append(this.realEstates[i].preview());
