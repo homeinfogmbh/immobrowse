@@ -26,7 +26,7 @@
 'use strict';
 
 var immobrowse = immobrowse || {};
-immobrowse.expose = {};
+immobrowse.expose = immobrowse.expose || {};
 immobrowse.expose.queryString = new homeinfo.QueryString();
 immobrowse.expose.mailer = null;
 immobrowse.expose.elements = null;

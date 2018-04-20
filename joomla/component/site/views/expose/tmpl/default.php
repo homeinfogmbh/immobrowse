@@ -16,6 +16,8 @@ $document->addScript('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.m
 $document->addScript('https://www.google.com/recaptcha/api.js?hl=de');
 $document->addScript('https://javascript.homeinfo.de/homeinfo.min.js');
 $document->addScript('https://javascript.homeinfo.de/immobrowse.min.js');
+$document->addScriptDeclaration('immobrowse = immobrowse || {};');
+$document->addScriptDeclaration('immobrowse.expose = immobrowse.expose || {};');
 $document->addScriptDeclaration('immobrowse.expose.customer = ' . $this->customer . ';');
 $document->addScriptDeclaration('immobrowse.expose.objectId = "' . $this->objectId . '";');
 $document->addScriptDeclaration('immobrowse.expose.hiseconCfg = "' . $this->hiseconcfg . '";');

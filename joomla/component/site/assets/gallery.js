@@ -26,7 +26,7 @@
 'use strict';
 
 var immobrowse = immobrowse || {};
-immobrowse.gallery = {};
+immobrowse.gallery = immobrowse.gallery || {};
 
 
 immobrowse.gallery.Gallery = function (elements, startIndex) {

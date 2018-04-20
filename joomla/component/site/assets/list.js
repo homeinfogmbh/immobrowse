@@ -26,7 +26,7 @@
 'use strict';
 
 var immobrowse = immobrowse || {};
-immobrowse.list = {};
+immobrowse.list = immobrowse.list || {};
 
 
 immobrowse.list.sorting = {
