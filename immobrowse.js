@@ -1958,7 +1958,7 @@ immobrowse.RealEstate = function (json) {
 
 
 /*
-  Queries real estate data from the API and runs callback function.
+  Queries real estate data from the API and returns a thenable.
 */
 immobrowse.RealEstate.get = function (id) {
     function success (json) {
@@ -1973,13 +1973,12 @@ immobrowse.RealEstate.get = function (id) {
         });
     }
 
-    var promise = jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/expose/' + id});
-    return promise.then(success, error);
+    return jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/expose/' + id}).then(success, error);
 };
 
 
 /*
-  Queries API for real estate list and runs callback function.
+  Queries API for real estate list and returns a thenable.
 */
 immobrowse.RealEstate.list = function (cid) {
     function success (json) {
@@ -2000,8 +1999,7 @@ immobrowse.RealEstate.list = function (cid) {
         });
     }
 
-    var promise = jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/list/' + cid});
-    return promise.then(success, error);
+    return jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/list/' + cid}).then(success, error);
 };
 
 
