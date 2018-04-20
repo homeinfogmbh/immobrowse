@@ -24,7 +24,7 @@
       * jquery.js
       * sweetalert.js
 */
-"use strict";
+'use strict';
 
 var barrierfree = barrierfree || {};
 
