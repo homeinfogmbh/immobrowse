@@ -396,10 +396,10 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
             type: 'POST',
             data: body,
             cache: false,
-            success: function (html) {
+            success: function () {
                 swal(successMsg);
             },
-            error: function (html) {
+            error: function () {
                 swal(errorMsg);
             }
         };
