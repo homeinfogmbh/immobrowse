@@ -1914,26 +1914,8 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-      Converts the real estate into a DOM element for list view.
+      Returns a list of data fields.
     */
-    this.preview = function (elements) {
-        return immobrowse.dom.preview.Entry(
-            immobrowse.dom.preview.MainRow(
-                immobrowse.dom.preview.ImageCol(
-                    immobrowse.dom.preview.ImageFrame(
-                        immobrowse.dom.preview.TitleImage(this.attachmentURL(this.titleImage()))
-                    )
-                ),
-                immobrowse.dom.preview.DataCol(
-                    immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle() || this.na)),
-                    immobrowse.dom.preview.DataRow(this._dataFields(elements)),
-                    immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags())
-                )
-            ),
-            this.detailsURL()
-        );
-    };
-
     this._dataFields = function (elements) {
         elements = elements || this._defaultElements;
         var dataFields = [];
@@ -1965,6 +1947,27 @@ immobrowse.RealEstate = function (json) {
         }
 
         return dataFields;
+    };
+
+    /*
+      Converts the real estate into a DOM element for list view.
+    */
+    this.preview = function (elements) {
+        return immobrowse.dom.preview.Entry(
+            immobrowse.dom.preview.MainRow(
+                immobrowse.dom.preview.ImageCol(
+                    immobrowse.dom.preview.ImageFrame(
+                        immobrowse.dom.preview.TitleImage(this.attachmentURL(this.titleImage()))
+                    )
+                ),
+                immobrowse.dom.preview.DataCol(
+                    immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle() || this.na)),
+                    immobrowse.dom.preview.DataRow(this._dataFields(elements)),
+                    immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags())
+                )
+            ),
+            this.detailsURL()
+        );
     };
 };
 
