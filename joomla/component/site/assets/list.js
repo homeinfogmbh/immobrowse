@@ -109,7 +109,7 @@ immobrowse.list.listRealEstates = function (realEstates) {
 
 
 immobrowse.list.init = function () {
-    immobrowse.getRealEstates(immobrowse.list.customer).then(immobrowse.list.listRealEstates);
+    immobrowse.RealEstate.list(immobrowse.list.customer).then(immobrowse.list.listRealEstates);
 };
 
 

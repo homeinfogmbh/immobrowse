@@ -226,7 +226,7 @@ immobrowse.expose.init = function () {
         }
     };
 
-    immobrowse.getRealEstate(immobrowse.expose.objectId).then(immobrowse.expose.render);
+    immobrowse.RealEstate.get(immobrowse.expose.objectId).then(immobrowse.expose.render);
 };
 
 
