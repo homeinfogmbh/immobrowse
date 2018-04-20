@@ -2129,7 +2129,7 @@ immobrowse.dom.Fraction = function (numerator, denominator) {
   element.setAttribute('class', 'fraction')
   element.appendChild(numerator);
   element.appendChild(denominator);
-  return element
+  return element;
 }
 
 
