@@ -2034,11 +2034,11 @@ immobrowse.List = function (realEstates) {
     /*
       Renders the respective real estates into the given HTML element.
     */
-    this.render = function (listElement) {
+    this.render = function (listElement, elements) {
         listElement.html('');  // Clear element.
 
         for (var i = 0; i < this.realEstates.length; i++) {
-            listElement.append(this.realEstates[i].preview());
+            listElement.append(this.realEstates[i].preview(elements));
         }
     };
 };
