@@ -1,22 +1,22 @@
 /*
-    immobrowse.js - ImmoBrowse JavaScript library
+  immobrowse.js - ImmoBrowse JavaScript library
 
-    (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
 
-    This library is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  This library is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
-    GNU General Public License for more details.
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this library.    If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with this library.    If not, see <http://www.gnu.org/licenses/>.
 
-    Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
+  Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
 
     Requires:
         * homeinfo.js
@@ -37,8 +37,8 @@ immobrowse.config = {};
 /*** Miscellaneous functions ***/
 
 /*
-    Compares two nullable values so that
-    null values always come out last.
+  Compares two nullable values so that
+  null values always come out last.
 */
 immobrowse.compare = function (alice, bob, descending) {
     if (alice == null) {
@@ -72,7 +72,7 @@ immobrowse.compare = function (alice, bob, descending) {
 
 
 /*
-    Returns an appropriate sorting function.
+  Returns an appropriate sorting function.
 */
 immobrowse.getSorter = function (property, order) {
     var descending = false;
@@ -92,7 +92,7 @@ immobrowse.getSorter = function (property, order) {
 
 
 /*
-    Returns comparison for rooms.
+  Returns comparison for rooms.
 */
 immobrowse.sortByRooms = function (descending) {
     return function (immobilie1, immobilie2) {
@@ -102,7 +102,7 @@ immobrowse.sortByRooms = function (descending) {
 
 
 /*
-    Returns comparison for area.
+  Returns comparison for area.
 */
 immobrowse.sortByArea = function (descending) {
     return function (immobilie1, immobilie2) {
@@ -112,7 +112,7 @@ immobrowse.sortByArea = function (descending) {
 
 
 /*
-    Returns comparison for rent.
+  Returns comparison for rent.
 */
 immobrowse.sortByRent = function (descending) {
     return function (immobilie1, immobilie2) {
@@ -122,7 +122,7 @@ immobrowse.sortByRent = function (descending) {
 
 
 /*
-    Returns comparison for streets.
+  Returns comparison for streets.
 */
 immobrowse.sortByStreet = function (descending) {
     return function (immobilie1, immobilie2) {
@@ -132,7 +132,7 @@ immobrowse.sortByStreet = function (descending) {
 
 
 /*
-    Returns a decimal number with German (comma) interpuctuation.
+  Returns a decimal number with German (comma) interpuctuation.
 */
 immobrowse.germanDecimal = function (number, decimals) {
     if (number != null) {
@@ -148,7 +148,7 @@ immobrowse.germanDecimal = function (number, decimals) {
 
 
 /*
-    Formats the respective number as EUR currency.
+  Formats the respective number as EUR currency.
 */
 immobrowse.euro = function (price) {
     if (price != null) {
@@ -160,7 +160,7 @@ immobrowse.euro = function (price) {
 
 
 /*
-    Formats the respective number as square meters.
+  Formats the respective number as square meters.
 */
 immobrowse.squareMeters = function (area) {
     if (area != null) {
@@ -172,7 +172,7 @@ immobrowse.squareMeters = function (area) {
 
 
 /*
-    Converts a boolean value to "Ja", respectively "Nein".
+  Converts a boolean value to "Ja", respectively "Nein".
 */
 immobrowse.yesNo = function (boolean) {
     if (boolean == null) {
@@ -186,7 +186,7 @@ immobrowse.yesNo = function (boolean) {
 
 
 /*
-    Returns a list of cities from the provided real estates.
+  Returns a list of cities from the provided real estates.
 */
 immobrowse.cities = function (realEstates) {
     var cities = [];
@@ -208,7 +208,7 @@ immobrowse.cities = function (realEstates) {
 
 
 /*
-    Returns a list of districts from the provided real estates.
+  Returns a list of districts from the provided real estates.
 */
 immobrowse.districts = function (realEstates) {
     var districts = [];
@@ -230,7 +230,7 @@ immobrowse.districts = function (realEstates) {
 
 
 /*
-    Returns a list of district elements for rendering.
+  Returns a list of district elements for rendering.
 */
 immobrowse.districtElements = function (realEstates) {
     var districts = immobrowse.districts(realEstates);
@@ -255,7 +255,7 @@ immobrowse.districtElements = function (realEstates) {
 
 
 /*
-    Opens the respective URL.
+  Opens the respective URL.
 */
 immobrowse.open = function (url) {
     window.open(url, '_self');
@@ -263,7 +263,7 @@ immobrowse.open = function (url) {
 
 
 /*
-    Generates a contact email.
+  Generates a contact email.
 */
 immobrowse.mkContactMail = function (
     objectTitle, objectAddress, salutation, forename, surname, phone, street, houseNumber, zipCode, city, message) {
@@ -318,7 +318,7 @@ immobrowse.mkContactMail = function (
 
 
 /*
-    Mailer class.
+  Mailer class.
 */
 immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
     this.baseUrl = 'https://hisecon.homeinfo.de';
@@ -350,7 +350,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
     }
 
     /*
-        Returns the respective URL for the Ajax call.
+      Returns the respective URL for the Ajax call.
     */
     this._getUrl = function (response, subject, recipient, reply_to) {
         var url = this.baseUrl + '?config=' + this.config;
@@ -385,7 +385,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
     };
 
     /*
-        Returns the respective Ajax call object.
+      Returns the respective Ajax call object.
     */
     this._getAjax = function (url, body) {
         var successMsg = this.successMsg;
@@ -406,7 +406,7 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
     };
 
     /*
-        Sends the respective emails.
+      Sends the respective emails.
     */
     this.send = function (response, subject, body, recipient, reply_to) {
         return jQuery.ajax(this._getAjax(this._getUrl(response, subject, recipient, reply_to), body));
@@ -415,13 +415,13 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 
 
 /*
-    Matches real estates for filtering.
+  Matches real estates for filtering.
 */
 immobrowse.Filter = function (rules) {
     this.rules = rules || {};
 
     /*
-        Match filters on a real estate's JSON data.
+      Match filters on a real estate's JSON data.
     */
     this.match = function (realEstate) {
         var rent = realEstate.rent();
@@ -536,7 +536,7 @@ immobrowse.Filter = function (rules) {
     };
 
     /*
-        Filters a list of real estates.
+      Filters a list of real estates.
     */
     this.filter = function (realEstates) {
         var filteredRealEstates = [];
@@ -553,7 +553,7 @@ immobrowse.Filter = function (rules) {
 
 
 /*
-    Real estate wrapper class.
+  Real estate wrapper class.
 */
 immobrowse.RealEstate = function (json) {
     this.kwh = immobrowse.dom.Kwhsma().outerHTML;
@@ -738,8 +738,8 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Extracts a potential title image from a
-        real estate or null if none was found.
+      Extracts a potential title image from a
+      real estate or null if none was found.
     */
     this.titleImage = function () {
         if (this.anhaenge == null) {
@@ -1535,7 +1535,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Returns the real estate's state.
+      Returns the real estate's state.
     */
     this.state = function () {
         if (this.zustand_angaben != null) {
@@ -1577,7 +1577,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Returns the last modernization.
+      Returns the last modernization.
     */
     this.lastModernization = function () {
         if (this.zustand_angaben != null) {
@@ -1588,7 +1588,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Returns the heating types.
+      Returns the heating types.
     */
     this.heatingTypes = function () {
         var heatingTypes = [];
@@ -1621,7 +1621,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Returns the heating type.
+      Returns the heating type.
     */
     this.heatingType = function () {
         var heatingTypes = this.heatingTypes();
@@ -1634,7 +1634,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Aggregates energy performance certificate data.
+      Aggregates energy performance certificate data.
     */
     this.energyCertificate = function () {
         try {
@@ -1766,7 +1766,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Sets a value onto the respective element configuration.
+      Sets a value onto the respective element configuration.
     */
     this.setValue = function (element, value) {
         if (element != null) {
@@ -1870,8 +1870,8 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Renders the real estate data into the specified elements.
-        All elements are optional.
+      Renders the real estate data into the specified elements.
+      All elements are optional.
     */
     this.render = function (elements) {
         // Miscellaneous.
@@ -1919,7 +1919,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Converts the real estate into a DOM element for list view.
+      Converts the real estate into a DOM element for list view.
     */
     this.preview = function (elements) {
         return immobrowse.dom.preview.Entry(
@@ -1940,7 +1940,7 @@ immobrowse.RealEstate = function (json) {
     };
 
     /*
-        Default data fields for legacy preview.
+      Default data fields for legacy preview.
     */
     this._defaultDataFields = function () {
         return [
@@ -2008,7 +2008,7 @@ immobrowse.RealEstate = function (json) {
 
 
 /*
-    Queries real estate data from the API and runs callback function.
+  Queries real estate data from the API and runs callback function.
 */
 immobrowse.RealEstate.get = function (id) {
     function success (json) {
@@ -2029,7 +2029,7 @@ immobrowse.RealEstate.get = function (id) {
 
 
 /*
-    Queries API for real estate list and runs callback function.
+  Queries API for real estate list and runs callback function.
 */
 immobrowse.RealEstate.list = function (cid) {
     function success (json) {
@@ -2056,13 +2056,13 @@ immobrowse.RealEstate.list = function (cid) {
 
 
 /*
-    Real estate list class.
+  Real estate list class.
 */
 immobrowse.List = function (realEstates) {
     this.realEstates = realEstates;
 
     /*
-        Sorts real estates.
+      Sorts real estates.
     */
     this.sort = function (property, order) {
         immobrowse.logger.debug('Sorting by ' + property + ' ' + order + '.');
@@ -2070,10 +2070,10 @@ immobrowse.List = function (realEstates) {
     };
 
     /*
-        Renders the respective real estates into the given HTML element.
+      Renders the respective real estates into the given HTML element.
     */
     this.render = function (listElement) {
-        listElement.html('');    // Clear element.
+        listElement.html('');  // Clear element.
 
         for (var i = 0; i < this.realEstates.length; i++) {
             listElement.append(this.realEstates[i].preview());
@@ -2143,7 +2143,7 @@ immobrowse.dom.preview = immobrowse.dom.preview || {};
 
 
 /*
-    Appends a data row to the list iff value is not null or hiding is disabled.
+  Appends a data row to the list iff value is not null or hiding is disabled.
 */
 immobrowse.dom.preview.addDataFieldCol = function (element, value, list) {
     var caption = element.caption;
