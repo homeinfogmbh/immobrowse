@@ -10,11 +10,11 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this library.    If not, see <http://www.gnu.org/licenses/>.
+  along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
 
@@ -549,12 +549,12 @@ immobrowse.Filter = function (rules) {
 immobrowse.RealEstate = function (json) {
     this.kwh = immobrowse.dom.Kwhsma().outerHTML;
     this.na = 'k. A.';
-    this._defaultElements = {
-        'coldRent': {'caption': 'Kaltmiete'},
-        'serviceCharge': {'secaptionrviceCharge': 'Nebenkosten'},
-        'rooms': {'caption': 'Zimmer'},
-        'area': {'caption': 'Fläche ca.'},
-    };
+    this._defaultElements = [
+        {'name': 'coldRent', 'caption': 'Kaltmiete'},
+        {'name': 'serviceCharge', 'secaptionrviceCharge': 'Nebenkosten'},
+        {'name': 'rooms', 'caption': 'Zimmer'},
+        {'name': 'area', 'caption': 'Fläche ca.'},
+    ];
 
     for (var prop in json) {
         if (json.hasOwnProperty(prop)) {
@@ -947,7 +947,7 @@ immobrowse.RealEstate = function (json) {
         return null;
     };
 
-    this.totalRent = function () {
+    this.totaledUpRent = function () {
         var rent = this.rent();
 
         if (rent == null) {
@@ -957,6 +957,16 @@ immobrowse.RealEstate = function (json) {
         var operationalCosts = this.operationalCosts() || 0;
         var heatingCosts = this.heatingCosts() || 0;
         return rent + operationalCosts + heatingCosts;
+    };
+
+    this.totalRent = function () {
+        if (this.preise != null) {
+            if (this.preise.gesamtmietenetto != null) {
+                return this.preise.gesamtmietenetto;
+            }
+        }
+
+        return null;
     };
 
     this.cableSatTv = function () {
@@ -1867,6 +1877,7 @@ immobrowse.RealEstate = function (json) {
         // Prices.
         this.setValue(elements.coldRent, immobrowse.euro(this.rent()));
         this.setValue(elements.warmRent, immobrowse.euro(this.warmRent()));
+        this.setValue(elements.totaledUpRent, immobrowse.euro(this.totaledUpRent()));
         this.setValue(elements.totalRent, immobrowse.euro(this.totalRent()));
         this.setValue(elements.serviceCharge, immobrowse.euro(this.serviceCharge()));
         this.setValue(elements.operationalCosts, immobrowse.euro(this.operationalCosts()));
@@ -1926,21 +1937,31 @@ immobrowse.RealEstate = function (json) {
     this._dataFields = function (elements) {
         elements = elements || this._defaultElements;
         var dataFields = [];
+        var element;
 
-        if (elements.hasOwnProperty('coldRent')) {
-            immobrowse.dom.preview.addDataFieldCol(elements['coldRent'], immobrowse.euro(this.coldRent()), dataFields);
-        }
+        for (var i = 0; i < elements.length; i++) {
+            element = elements[i];
 
-        if (elements.hasOwnProperty('serviceCharge')) {
-            immobrowse.dom.preview.addDataFieldCol(elements['serviceCharge'], immobrowse.euro(this.serviceCharge()), dataFields);
-        }
-
-        if (elements.hasOwnProperty('rooms')) {
-            immobrowse.dom.preview.addDataFieldCol(elements['rooms'], this.rooms(), dataFields);
-        }
-
-        if (elements.hasOwnProperty('area')) {
-            immobrowse.dom.preview.addDataFieldCol(elements['area'], this.area(), dataFields);
+            switch (element.name) {
+            case 'coldRent':
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.coldRent()), dataFields);
+                break;
+            case 'totalRent':
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.totalRent()), dataFields);
+                break;
+            case 'serviceCharge':
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.serviceCharge()), dataFields);
+                break;
+            case 'operationalCosts':
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.operationalCosts()), dataFields);
+                break;
+            case 'rooms':
+                immobrowse.dom.preview.addDataFieldCol(element, this.rooms(), dataFields);
+                break;
+            case 'area':
+                immobrowse.dom.preview.addDataFieldCol(element, this.area(), dataFields);
+                break;
+            }
         }
 
         return dataFields;
