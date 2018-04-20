@@ -1,19 +1,20 @@
 /*
-  Customer's individual ImmoBrowse configuration
+    Customer's individual ImmoBrowse configuration.
 */
+var immobrowse = immobrowse || {};
 
 immobrowse.config = {
-  types: ['WOHNUNG'],
-  marketing: ['MIETE_PACHT'],
-  shortFloorNames: true,
-  exposeURLCallback: function (objectId) {
-    var options = {
-      option: 'com_immobrowse',
-      view: 'expose',
-      objectId: objectId,
-      backlink: encodeURIComponent(window.location.href)
-    };
+    types: ['WOHNUNG'],
+    marketing: ['MIETE_PACHT'],
+    shortFloorNames: true,
+    exposeURLCallback: function (objectId) {
+        var options = {
+            option: 'com_immobrowse',
+            view: 'expose',
+            objectId: objectId,
+            backlink: encodeURIComponent(window.location.href)
+        };
 
-    return window.location.href.split('?')[0] + homeinfo.queryString(homeinfo.queryArgs(options));
-  }
+        return window.location.href.split('?')[0] + homeinfo.queryString(homeinfo.queryArgs(options));
+    }
 };

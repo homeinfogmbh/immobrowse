@@ -14,15 +14,15 @@ $document->addScript('https://fonts.googleapis.com/icon?family=Material+Icons');
 $document->addScript('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.min.js');
 $document->addScript('https://javascript.homeinfo.de/homeinfo.min.js');
 $document->addScript('https://javascript.homeinfo.de/immobrowse.min.js');
-$document->addScriptDeclaration('var customer = ' . $this->customer . ';');
+$document->addScriptDeclaration('immobrowse.list.customer = ' . $this->customer . ';');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('list.js'));
 ?>
 <div>
   <div id="ib-header">
-    <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="ib-btn-sort">Zimmer</button>
-    <button id="ib-sort-area" onclick="toggleSorting('area');" class="ib-btn-sort">Fl&auml;che</button>
-    <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="ib-btn-sort">Miete</button>
+    <button id="ib-sort-rooms" onclick="immobrowse.list.toggleSorting('rooms');" class="ib-btn-sort">Zimmer</button>
+    <button id="ib-sort-area" onclick="immobrowse.list.toggleSorting('area');" class="ib-btn-sort">Fl&auml;che</button>
+    <button id="ib-sort-rent" onclick="immobrowse.list.toggleSorting('rent');" class="ib-btn-sort">Miete</button>
   </div>
   <div>
     <div id="ib-list"></div>

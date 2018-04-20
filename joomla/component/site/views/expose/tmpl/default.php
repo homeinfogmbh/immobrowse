@@ -16,9 +16,9 @@ $document->addScript('https://libraries.homeinfo.de/sweetalert/dist/sweetalert.m
 $document->addScript('https://www.google.com/recaptcha/api.js?hl=de');
 $document->addScript('https://javascript.homeinfo.de/homeinfo.min.js');
 $document->addScript('https://javascript.homeinfo.de/immobrowse.min.js');
-$document->addScriptDeclaration('var customer = ' . $this->customer . ';');
-$document->addScriptDeclaration('var objectId = "' . $this->objectId . '";');
-$document->addScriptDeclaration('var hiseconCfg = "' . $this->hiseconcfg . '";');
+$document->addScriptDeclaration('immobrowse.expose.customer = ' . $this->customer . ';');
+$document->addScriptDeclaration('immobrowse.expose.objectId = "' . $this->objectId . '";');
+$document->addScriptDeclaration('immobrowse.expose.hiseconCfg = "' . $this->hiseconcfg . '";');
 $document->addScript(immobrowseAsset('config.js'));
 $document->addScript(immobrowseAsset('gallery.js'));
 $document->addScript(immobrowseAsset('slideshow.js'));
@@ -29,7 +29,7 @@ $document->addScript(immobrowseAsset('expose.js'));
     <table width="100%">
       <tr>
         <td width="20%" style="text-align: left;">
-          <button type="button" onclick="back();">
+          <button type="button" onclick="immobrowse.expose.back();">
             « Zur&uuml;ck
           </button>
         </td>
@@ -55,16 +55,16 @@ $document->addScript(immobrowseAsset('expose.js'));
             <div class="w3-display-container titleImages ib-image-frame">
               <img id="titleImage" src="components/com_immobrowse/assets/img/dummy.jpg" alt="Titelbild" class="ib-framed-image">
               <div id="titleImageCaption" class="w3-display-bottommiddle w3-container w3-padding-16 w3-black"></div>
-              <button class="w3-button w3-display-left" onclick="previousTitleImage()">&#10094;</button>
-              <button class="w3-button w3-display-right" onclick="nextTitleImage()">&#10095;</button>
+              <button class="w3-button w3-display-left" onclick="immobrowse.slideshow.previousTitleImage()">&#10094;</button>
+              <button class="w3-button w3-display-right" onclick="immobrowse.slideshow.nextTitleImage()">&#10095;</button>
             </div>
           </td>
           <td width="50%">
             <div class="w3-display-container titleImages ib-image-frame">
               <img id="floorplan" src="components/com_immobrowse/assets/img/dummy.jpg" alt="Grundriss" class="ib-framed-image">
               <div id="floorplanCaption" class="w3-display-bottommiddle w3-container w3-padding-16 w3-black"></div>
-              <button class="w3-button w3-display-left" onclick="previousFloorplan()">&#10094;</button>
-              <button class="w3-button w3-display-right" onclick="nextFloorplan()">&#10095;</button>
+              <button class="w3-button w3-display-left" onclick="immobrowse.slideshow.previousFloorplan()">&#10094;</button>
+              <button class="w3-button w3-display-right" onclick="immobrowse.slideshow.nextFloorplan()">&#10095;</button>
             </div>
           </td>
         </tr>
