@@ -1,44 +1,46 @@
 /*
-    expose.js - ImmoBrowse Expose front end JavaScript.
+  expose.js - ImmoBrowse Expose front end JavaScript.
 
-    (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
-    GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.    If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
+  Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
 
-    Requires:
-        * jquery.js
-        * sweetalert.js
-        * immobrowse.js
+  Requires:
+      * jquery.js
+      * sweetalert.js
+      * immobrowse.js
 */
 'use strict';
 
 var immobrowse = immobrowse || {};
-immobrowse.expose = immobrowse.expose || {};
-immobrowse.expose.queryString = new homeinfo.QueryString();
-immobrowse.expose.mailer = null;
-immobrowse.expose.elements = null;
-immobrowse.expose.realEstate = null;
+immobrowse.joomla = immobrowse.joomla || {};
+immobrowse.joomla.expose = immobrowse.joomla.expose || {};
+immobrowse.joomla.expose.queryString = new homeinfo.QueryString();
+immobrowse.joomla.expose.mailer = null;
+immobrowse.joomla.expose.elements = null;
+immobrowse.joomla.expose.objectId = null;
+immobrowse.joomla.expose.realEstate = null;
 
 
-immobrowse.expose.back = function () {
-    immobrowse.open(decodeURIComponent(immobrowse.expose.queryString.backlink));
-};
+immobrowse.joomla.expose.back = function () {
+    immobrowse.open(decodeURIComponent(queryString.backlink));
+}
 
 
-immobrowse.expose.resetContactForm = function () {
+immobrowse.joomla.expose.resetContactForm = function () {
     jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
     jQuery('#gender_female').click();
     jQuery('#forename').val('');
@@ -54,13 +56,13 @@ immobrowse.expose.resetContactForm = function () {
 };
 
 
-immobrowse.expose.commitForm = function (response) {
-    immobrowse.expose.sendEmail(response);
+immobrowse.joomla.expose.commitForm = function (response) {
+    immobrowse.joomla.expose.sendEmail(response);
     grecaptcha.reset();
 };
 
 
-immobrowse.expose.sendEmail = function (response) {
+immobrowse.joomla.expose.sendEmail = function (response) {
     if (response.length == 0) {
         swal({
             title: 'Achtung!',
@@ -118,26 +120,30 @@ immobrowse.expose.sendEmail = function (response) {
         salutation = "Frau";
     }
 
-    var objectTitle = immobrowse.expose.realEstate.objectTitle();
-    var objectAddress = [immobrowse.expose.realEstate.addressPreview(), immobrowse.expose.realEstate.cityPreview()].join(' ');
+    var objectTitle = immobrowse.joomla.expose.realEstate.objectTitle();
+    var objectAddress = [
+        immobrowse.joomla.expose.realEstate.addressPreview(),
+        immobrowse.joomla.expose.realEstate.cityPreview()
+    ].join(' ');
     var phone = jQuery('#phone').val().trim();
     var street = jQuery('#street').val().trim();
     var houseNumber = jQuery('#house_number').val().trim();
     var zipCode = jQuery('#zip_code').val().trim();
     var city = jQuery('#city').val().trim();
     var message = jQuery('#message').val().trim();
-    var recipient = immobrowse.expose.realEstate.contact().email;
+    var recipient = immobrowse.joomla.expose.realEstate.contact().email;
     var html = immobrowse.mkContactMail(
         objectTitle, objectAddress, salutation, forename, surname,
-        phone, street, houseNumber, zipCode, city, message);
-    immobrowse.expose.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.expose.realEstate.objectId(), html, recipient, email);
-    immobrowse.expose.resetContactForm();
+        phone, street, houseNumber, zipCode, city, message)
+    immobrowse.joomla.expose.mailer.send(
+        response, 'Anfrage zu Objekt Nr. ' + immobrowse.joomla.expose.realEstate.objectId(), html, recipient, email);
+    immobrowse.joomla.expose.resetContactForm();
 };
 
 
-immobrowse.expose.postRender = function () {
-    immobrowse.expose.mailer = new immobrowse.Mailer(immobrowse.expose.hiseconCfg);
-    immobrowse.expose.resetContactForm();
+immobrowse.joomla.expose.postRender = function () {
+    immobrowse.joomla.expose.mailer = new immobrowse.Mailer(immobrowse.joomla.expose.hiseconCfg);
+    immobrowse.joomla.expose.resetContactForm();
     jQuery('#ib-loader').hide();
     jQuery('#main').attr('style', 'padding-top: 80px');
     jQuery('.btn_contact').click(function(e) {
@@ -154,42 +160,53 @@ immobrowse.expose.postRender = function () {
 
         return false; // Not scrolling to top alternative: e.preventDefault();
     });
-}
-
-
-immobrowse.expose.render = function (realEstate) {
-    immobrowse.expose.realEstate = realEstate;
-    immobrowse.slideshow.initGalleries();
-    immobrowse.expose.realEstate.render(immobrowse.expose.elements);
-    document.title = 'Exposé Nr. ' + immobrowse.expose.realEstate.objectId();
-    immobrowse.expose.postRender();
 };
 
 
-immobrowse.expose.init = function () {
-    immobrowse.expose.elements = {
+immobrowse.joomla.expose.render = function (realEstate) {
+    immobrowse.joomla.expose.realEstate = realEstate;
+    immobrowse.joomla.slideshow.initGalleries();
+    immobrowse.joomla.expose.realEstate.render(immobrowse.joomla.expose.elements);
+    document.title = 'Exposé Nr. ' + immobrowse.joomla.expose.realEstate.objectId();
+    immobrowse.joomla.expose.postRender();
+};
+
+
+immobrowse.joomla.expose.init =function () {
+    immobrowse.joomla.expose.elements = {
         objectId: jQuery('#objectId'),
         address: jQuery('#objectAddress'),
         objectTitle: jQuery('#objectTitle'),
         coldRent: jQuery('#coldRent'),
-        serviceCharge: jQuery('#serviceCharge'),
+        totalRent: jQuery('#totalRent'),
         operationalCosts: {
             container: jQuery('#operationalCostsContainer'),
             value: jQuery('#operationalCosts')
         },
-        heatingCosts: jQuery('#heatingCosts'),
+        heatingCosts: {
+            value: jQuery('#heatingCosts'),
+            container: jQuery('#heatingCostsContainer')
+        },
         heatingCostsInServiceCharge: jQuery('#heatingCostsInServiceCharge'),
         securityDeposit: jQuery('#securityDeposit'),
         subjectToCommission: jQuery('#subjectToCommission'),
         livingArea: jQuery('#livingArea'),
         rooms: jQuery('#rooms'),
+        bathrooms: jQuery('#bathrooms'),
+        bedrooms: jQuery('#bedrooms'),
+        type: jQuery('#type'),
+        heatingType: jQuery('#heatingType'),
         floor: jQuery('#floor'),
         availableFrom: jQuery('#availableFrom'),
-        councilFlat: jQuery('#councilFlat'),
+        councilFlat: {
+            value: jQuery('#councilFlat'),
+            container: jQuery('#councilFlatContainer')
+        },
         constructionYear: jQuery('#constructionYear'),
         state: jQuery('#state'),
         lastModernization: jQuery('#lastModernization'),
         energyCertificate: {
+            constructionYear: jQuery('#constructionYearEnergyCertificate'),
             type: jQuery('#energyCertificateType'),
             consumption: {
                 value: jQuery('#energyConsumption'),
@@ -199,11 +216,18 @@ immobrowse.expose.init = function () {
                 value: jQuery('#energyDemand'),
                 container: jQuery('#energyDemandContainer')
             },
-            primaryEnergyCarrier: jQuery('#primaryEnergyCarrier'),
-            valueClass: jQuery('#valueClass')
+            primaryEnergyCarrier: {
+                value: jQuery('#primaryEnergyCarrier'),
+                container: jQuery('#primaryEnergyCarrierContainer')
+            },
+            valueClass: {
+                value: jQuery('#valueClass'),
+                container: jQuery('#valueClassContainer')
+            }
         },
         description: jQuery('#description'),
         exposure: jQuery('#exposure'),
+        amenities: jQuery('#amenities'),
         miscellanea: jQuery('#miscellanea'),
         salutation: jQuery('#salutation'),
         firstName: jQuery('#firstName'),
@@ -215,19 +239,17 @@ immobrowse.expose.init = function () {
         zipCode: jQuery('#zipCode'),
         city: jQuery('#city'),
         zipCodeAndCity: jQuery('#zipCodeAndCity'),
-        website: jQuery('#website'),
         amenitiesList: jQuery('#amenitiesList'),
         contact: {
             name: jQuery('#contactName'),
             company: jQuery('#contactCompany'),
             address: jQuery('#contactAddress'),
-            phone: jQuery('#contactPhone'),
-            website: jQuery('#contactWebsite')
+            phone: jQuery('#contactPhone')
         }
     };
 
-    immobrowse.RealEstate.get(immobrowse.expose.objectId).then(immobrowse.expose.render);
+    immobrowse.RealEstate.get(immobrowse.joomla.expose.objectId).then(immobrowse.joomla.expose.render);
 };
 
 
-jQuery(document).ready(immobrowse.expose.init);
+jQuery(document).ready(immobrowse.joomla.expose.init);

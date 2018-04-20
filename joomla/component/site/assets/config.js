@@ -1,6 +1,8 @@
 /*
-    Customer's individual ImmoBrowse configuration.
+  Customer's individual ImmoBrowse configuration.
 */
+'use strict';
+
 var immobrowse = immobrowse || {};
 
 immobrowse.config = {
