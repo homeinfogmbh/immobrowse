@@ -1981,7 +1981,7 @@ immobrowse.RealEstate = function (json) {
 
     this._dataFields = function (elements) {
         if (elements == null) {
-            return self._defaultDataFields();
+            return this._defaultDataFields();
         }
 
         var dataFields = [];
