@@ -1945,11 +1945,11 @@ immobrowse.RealEstate = function (json) {
         }
 
         if (elements.hasOwnProperty('rooms')) {
-            immobrowse.dom.preview.addDataFieldCol(elements['rooms'], immobrowse.germanDecimal(this.rooms()), dataFields);
+            immobrowse.dom.preview.addDataFieldCol(elements['rooms'], this.rooms(), dataFields);
         }
 
         if (elements.hasOwnProperty('area')) {
-            immobrowse.dom.preview.addDataFieldCol(elements['area'], immobrowse.squareMeters(this.area()), dataFields);
+            immobrowse.dom.preview.addDataFieldCol(elements['area'], this.area(), dataFields);
         }
 
         return dataFields;
