@@ -2037,63 +2037,19 @@ immobrowse.RealEstate = function (json) {
     var dataFields = [];
 
     if (elements.hasOwnProperty('coldRent')) {
-      var rent = this.rent();
-
-      if (rent != null) {
-        dataFields.push(
-          immobrowse.dom.preview.DataFieldCol(
-            immobrowse.dom.preview.DataFieldRow(
-              immobrowse.dom.preview.DataFieldCaption(elements['coldRent'] || 'Kaltmiete')
-            ),
-            immobrowse.dom.preview.DataFieldRow(
-              immobrowse.dom.preview.DataFieldValue(immobrowse.euro(rent))
-            )
-          )
-        );
-      }
+      immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.coldRent()), dataFields);
     }
 
     if (elements.hasOwnProperty('serviceCharge')) {
-      var serviceCharge = this.serviceCharge();
-
-      if (serviceCharge != null) {
-        dataFields.push(
-          immobrowse.dom.preview.DataFieldCol(
-            immobrowse.dom.preview.DataFieldRow(
-              immobrowse.dom.preview.DataFieldCaption(elements['serviceCharge'] || 'Nebenkosten')
-            ),
-            immobrowse.dom.preview.DataFieldRow(
-              immobrowse.dom.preview.DataFieldValue(immobrowse.euro(serviceCharge))
-            )
-          )
-        );
-      }
+      immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.serviceCharge()), dataFields);
     }
 
     if (elements.hasOwnProperty('rooms')) {
-      var rooms = this.rooms();
-
-      if (rooms != null) {
-        dataFields.push(
-          immobrowse.dom.preview.DataFieldCol(
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(elements['rooms'] || 'Zimmer')),
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue())
-          )
-        );
-      }
+      immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.rooms()), dataFields);
     }
 
     if (elements.hasOwnProperty('area')) {
-      var area = this.area();
-
-      if (area != null) {
-        dataFields.push(
-          immobrowse.dom.preview.DataFieldCol(
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(elements['area'] || 'Fläche ca.')),
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue(immobrowse.squareMeters(area)))
-          )
-        );
-      }
+      immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.area()), dataFields);
     }
 
     return dataFields;
@@ -2186,6 +2142,27 @@ immobrowse.dom.Kwhsma = function () {
 
 // DOMs for preview.
 immobrowse.dom.preview = immobrowse.dom.preview || {};
+
+
+/*
+  Appends a data row to the list iff value is not null or hiding is disabled.
+*/
+immobrowse.dom.preview.addDataFieldCol = function (element, value, list) {
+  var caption = element.caption;
+  var hide = element.hide || false;
+
+  if (value == null && hide) {
+    return;
+  }
+
+  list.push(
+    immobrowse.dom.preview.DataFieldCol(
+      immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(caption)),
+      immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue(value))
+    )
+  );
+}
+
 
 immobrowse.dom.preview.DataFieldCaption = function (caption) {
   var element = document.createElement('div');
