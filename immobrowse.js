@@ -27,14 +27,11 @@
 
 var immobrowse = immobrowse || {};
 
-// Logger
-immobrowse.logger = new homeinfo.logging.Logger('immobrowse', homeinfo.logging.WARNING);
+/*
+  Customer-dependent configuration.
+*/
+immobrowse.config = immobrowse.config || {};
 
-// Configuration
-immobrowse.config = {};
-
-
-/*** Miscellaneous functions ***/
 
 /*
   Compares two nullable values so that
@@ -357,20 +354,14 @@ immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
 
         if (response) {
             url += '&response=' + response;
-        } else {
-            immobrowse.logger.warning('No reCAPTCHA response provided.');
         }
 
         if (subject) {
             url += '&subject=' + subject;
-        } else {
-            immobrowse.logger.warning('No subject provided.');
         }
 
         if (recipient) {
             url += '&recipient=' + recipient;
-        } else {
-            immobrowse.logger.warning('No recipient specified.');
         }
 
         if (reply_to) {
@@ -2013,7 +2004,6 @@ immobrowse.List = function (realEstates) {
       Sorts real estates.
     */
     this.sort = function (property, order) {
-        immobrowse.logger.debug('Sorting by ' + property + ' ' + order + '.');
         this.realEstates.sort(immobrowse.getSorter(property, order));
     };
 
@@ -2030,8 +2020,11 @@ immobrowse.List = function (realEstates) {
 };
 
 
-// ImmoBrowse's DOM factories.
+/*
+  ImmoBrowse's DOM factories.
+*/
 immobrowse.dom = immobrowse.dom || {};
+
 
 immobrowse.dom.OvalInner = function (content) {
     var element = document.createElement('div');
