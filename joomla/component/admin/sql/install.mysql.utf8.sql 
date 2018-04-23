@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS `#__immobrowse`;
-
-CREATE TABLE `#__immobrowse` (
-  `customer` INT(11) NOT NULL,
-  `hiseconcfg` VARCHAR(64),
-  `sitekey` VARCHAR(64),
-   PRIMARY KEY  (`customer`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
