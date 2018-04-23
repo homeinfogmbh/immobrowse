@@ -1920,7 +1920,6 @@ immobrowse.RealEstate = function (json) {
         this.renderImage(elements.floorplan, this.floorplan());
 
         if (this.listed()) {
-            console.log('Marked ' + this.objectId() + ' as listed with ' + immobrowse.config.listedHint + ' on ' + elements.listedHint + '.');
             immobrowse.setValue(elements.listedHint, immobrowse.config.listedHint);
         }
     };
