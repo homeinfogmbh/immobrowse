@@ -1,5 +1,5 @@
 /*
-  immobrowse.js - ImmoBrowse JavaScript library
+  immobrowse.js - ImmoBrowse JavaScript library.
 
   (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
 
@@ -1920,6 +1920,7 @@ immobrowse.RealEstate = function (json) {
         this.renderImage(elements.floorplan, this.floorplan());
 
         if (this.listed()) {
+            console.log('Marked ' + this.objectId() + ' as listed with ' + elements.listedHint + '.');
             immobrowse.setValue(elements.listedHint, immobrowse.config.listedHint);
         }
     };
