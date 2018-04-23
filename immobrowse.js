@@ -1809,10 +1809,6 @@ immobrowse.RealEstate = function (json) {
                 immobrowse.setValue(elements.primaryEnergyCarrier, null);
                 immobrowse.setValue(elements.valueClass, null);
             }
-
-            if (this.listed()) {
-                immobrowse.setValue(elements.listedHint, immobrowse.config.listedHint);
-            }
         }
     };
 
@@ -1922,6 +1918,10 @@ immobrowse.RealEstate = function (json) {
         immobrowse.setValue(elements.amenitiesList, this.amenitiesList());
         this.renderImage(elements.titleImage, this.titleImage());
         this.renderImage(elements.floorplan, this.floorplan());
+
+        if (this.listed()) {
+            immobrowse.setValue(elements.listedHint, immobrowse.config.listedHint);
+        }
     };
 
     /*
