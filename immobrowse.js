@@ -1945,16 +1945,16 @@ immobrowse.RealEstate = function (json) {
 
             switch (element.name) {
             case 'coldRent':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.coldRent()) || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.coldRent()), dataFields);
                 break;
             case 'totalRent':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.totalRent()) || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.totalRent()), dataFields);
                 break;
             case 'serviceCharge':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.serviceCharge()) || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.serviceCharge()), dataFields);
                 break;
             case 'operationalCosts':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.operationalCosts()) || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.operationalCosts()), dataFields);
                 break;
             case 'rooms':
                 immobrowse.dom.preview.addDataFieldCol(element, this.rooms() || immobrowse.config.na, dataFields);
@@ -2133,8 +2133,12 @@ immobrowse.dom.preview.addDataFieldCol = function (element, value, list) {
     var caption = element.caption;
     var hide = element.hide || false;
 
-    if (value == null && hide) {
-        return;
+    if (value == null) {
+        if (hide) {
+            return;
+        }
+
+        value = immobrowse.config.na;
     }
 
     list.push(
