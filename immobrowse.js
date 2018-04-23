@@ -27,14 +27,6 @@
 
 var immobrowse = immobrowse || {};
 
-/*
-  Customer-dependent configuration.
-*/
-immobrowse.config = immobrowse.config || {};
-immobrowse.config.listedHint = 'Gebäude liegt im Denkmalschutzbereich.';
-immobrowse.config.kwh = immobrowse.dom.Kwhsma().outerHTML;
-immobrowse.config.na = 'k. A.';
-
 
 /*
   Sets a value onto the respective element configuration.
@@ -2279,3 +2271,12 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
     element.appendChild(mainRow);
     return element;
 };
+
+
+/*
+  Customer-dependent configuration defaults.
+*/
+immobrowse.config = immobrowse.config || {};
+immobrowse.config.listedHint = immobrowse.config.listedHint || 'Gebäude liegt im Denkmalschutzbereich.';
+immobrowse.config.na = immobrowse.config.na || 'k. A.';
+immobrowse.config.kwh = immobrowse.config.kwh || immobrowse.dom.Kwhsma().outerHTML;
