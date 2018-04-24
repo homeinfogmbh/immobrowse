@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="row row-centered ib-header no-print">
-    <div id="objectAddress" class="col-md-12 col-centered">
+    <div id="objectAddress" class="col-md-12 col-centered ib-address">
       Objekt Adresse
     </div>
   </div>
