@@ -1965,7 +1965,7 @@ immobrowse.RealEstate = function (json) {
         var addressRow = null;
 
         if (this.showAddress() && immobrowse.config.addressInList) {
-            addressRow = immobrowse.dom.preview.AddressRow(immobrowse.dom.preview.ObjectAddress(this.addressPreview()));
+            addressRow = immobrowse.dom.preview.AddressRow(immobrowse.dom.preview.ObjectAddress(this.address()));
         }
 
         return immobrowse.dom.preview.Entry(
