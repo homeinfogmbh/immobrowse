@@ -1883,7 +1883,6 @@ immobrowse.RealEstate = function (json) {
         }
 
         immobrowse.setValue(elements.objectTitle, this.objectTitle());
-        immobrowse.setValue(elements.address, this.address());
         immobrowse.setValue(elements.type, this.type());
         // Prices.
         immobrowse.setValue(elements.coldRent, immobrowse.euro(this.rent()));
