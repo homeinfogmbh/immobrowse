@@ -255,6 +255,7 @@ immobrowse.wbsWuppertal.initExpose = function () {
     immobrowse.wbsWuppertal.elements = {
         objectId: jQuery('#objectId'),
         objectTitle: jQuery('#objectTitle'),
+        address: jQuery('#objectAddress'),
         coldRent: jQuery('#coldRent'),
         serviceCharge: jQuery('#serviceCharge'),
         heatingCosts: jQuery('#heatingCosts'),

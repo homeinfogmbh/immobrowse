@@ -8,6 +8,11 @@
       Objekt ID
     </div>
   </div>
+  <div class="row row-centered ib-header no-print">
+    <div id="objectAddress" class="col-md-12 col-centered ib-id">
+      Objekt Adresse
+    </div>
+  </div>
     <div id="header" class="row row-centered ib-header no-print">
     <div class="col-md-3 col-centered ib-centered">
       <button type="button" class="btn btn-default" onclick="immobrowse.wbsWuppertal.back();">

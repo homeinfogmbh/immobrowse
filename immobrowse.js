@@ -1877,6 +1877,12 @@ immobrowse.RealEstate = function (json) {
         // Miscellaneous.
         immobrowse.setValue(elements.objectId, this.objectId());
         immobrowse.setValue(elements.objectTitle, this.objectTitle());
+
+        if (this.showAddress()) {
+            immobrowse.setValue(elements.address, this.address());
+        }
+
+        immobrowse.setValue(elements.objectTitle, this.objectTitle());
         immobrowse.setValue(elements.address, this.address());
         immobrowse.setValue(elements.type, this.type());
         // Prices.
