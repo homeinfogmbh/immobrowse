@@ -695,12 +695,8 @@ immobrowse.RealEstate = function (json) {
     };
 
     this.addressPreview = function () {
-        if (this.geo == null) {
-            return 'N/A';
-        } else {
-            if (this.geo.strasse == null) {
-                return 'N/A';
-            } else {
+        if (this.geo != null) {
+            if (this.geo.strasse != null) {
                 if (this.geo.hausnummer == null) {
                     return this.geo.strasse;
                 } else {
@@ -708,6 +704,8 @@ immobrowse.RealEstate = function (json) {
                 }
             }
         }
+
+        return null;
     };
 
     this.cityPreview = function () {
@@ -743,7 +741,7 @@ immobrowse.RealEstate = function (json) {
         }
 
         if (this.showAddress()) {
-            html += this.addressPreview();
+            html += this.addressPreview() || 'N/A';
             html += ' | ';
         }
 
@@ -1964,6 +1962,12 @@ immobrowse.RealEstate = function (json) {
       Converts the real estate into a DOM element for list view.
     */
     this.preview = function (elements) {
+        var addressRow = null;
+
+        if (this.showAddress() && immobrowse.config.addressInList) {
+            addressRow = immobrowse.dom.preview.AddressRow(immobrowse.dom.preview.ObjectAddress(this.showAddress()));
+        }
+
         return immobrowse.dom.preview.Entry(
             immobrowse.dom.preview.MainRow(
                 immobrowse.dom.preview.ImageCol(
@@ -1973,6 +1977,7 @@ immobrowse.RealEstate = function (json) {
                 ),
                 immobrowse.dom.preview.DataCol(
                     immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle() || immobrowse.config.na)),
+                    addressRow,
                     immobrowse.dom.preview.DataRow(this._dataFields(elements)),
                     immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags())
                 )
@@ -2187,6 +2192,22 @@ immobrowse.dom.preview.DataRow = function (dataColumns) {
 };
 
 
+immobrowse.dom.preview.ObjectAddress = function (address) {
+    var element = document.createElement('div');
+    element.setAttribute('class', 'ib-preview-title');
+    element.innerHTML = address;
+    return element;
+};
+
+
+immobrowse.dom.preview.AddressRow = function (objectAddress) {
+    var element = document.createElement('div');
+    element.setAttribute('class', 'row row-centered');
+    element.appendChild(objectAddress);
+    return element;
+};
+
+
 immobrowse.dom.preview.ObjectTitle = function (title) {
     var element = document.createElement('div');
     element.setAttribute('class', 'ib-preview-title');
@@ -2203,10 +2224,15 @@ immobrowse.dom.preview.TitleRow = function (objectTitle) {
 };
 
 
-immobrowse.dom.preview.DataCol = function (titleRow, dataRow, amenitiesTags) {
+immobrowse.dom.preview.DataCol = function (titleRow, addressRow, dataRow, amenitiesTags) {
     var element = document.createElement('div');
     element.setAttribute('class', 'col-sm-8');
     element.appendChild(titleRow);
+
+    if (addressRow != null) {
+        element.appendChild(addressRow);
+    }
+
     element.appendChild(dataRow);
     element.appendChild(amenitiesTags);
     return element;
@@ -2280,3 +2306,4 @@ immobrowse.config = immobrowse.config || {};
 immobrowse.config.listedHint = immobrowse.config.listedHint || 'Gebäude liegt im Denkmalschutzbereich.';
 immobrowse.config.na = immobrowse.config.na || 'k. A.';
 immobrowse.config.kwh = immobrowse.config.kwh || immobrowse.dom.Kwhsma().outerHTML;
+immobrowse.config.addressInList = immobrowse.config.addressInList || false;
