@@ -1968,6 +1968,9 @@ immobrowse.RealEstate = function (json) {
             addressRow = immobrowse.dom.preview.AddressRow(immobrowse.dom.preview.ObjectAddress(this.showAddress()));
         }
 
+        console.log('Show address: ' + this.showAddress());
+        console.log('Show address in list: ' + immobrowse.config.addressInList);
+
         return immobrowse.dom.preview.Entry(
             immobrowse.dom.preview.MainRow(
                 immobrowse.dom.preview.ImageCol(
