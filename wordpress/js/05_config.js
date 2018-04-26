@@ -3,11 +3,10 @@
 */
 
 var immobrowse = immobrowse ||  {};
-immobrowse.config = {
-    types: ['WOHNUNG'],
-    marketing: ['MIETE_PACHT'],
-    shortFloorNames: true,
-    exposeURLCallback: function (objectId) {
-        return '?real_estate=' + objectId;
-    }
+immobrowse.config = immobrowse.config || {};
+immobrowse.config.types = ['WOHNUNG'];
+immobrowse.config.marketing = ['MIETE_PACHT'];
+immobrowse.config.shortFloorNames = true;
+immobrowse.config.exposeURLCallback = function (objectId) {
+    return '?real_estate=' + objectId;
 };
