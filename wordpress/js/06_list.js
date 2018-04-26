@@ -160,8 +160,6 @@ immobrowse.wbsWuppertal.filters = function () {
         districts: immobrowse.wbsWuppertal.selectedDistricts()
     };
 
-    immobrowse.logger.debug('Filters:');
-    immobrowse.logger.debug(JSON.stringify(filters));
     return filters;
 };
 
