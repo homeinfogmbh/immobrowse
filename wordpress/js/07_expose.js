@@ -26,30 +26,30 @@
 'use strict';
 
 var immobrowse = immobrowse || {};
-immobrowse.wbsWuppertal = immobrowse.wbsWuppertal || {};
-immobrowse.wbsWuppertal.mailer = null;
-immobrowse.wbsWuppertal.objectId = null;
-immobrowse.wbsWuppertal.elements = null;
-immobrowse.wbsWuppertal.realEstate = null;
-immobrowse.wbsWuppertal.imageGallery = null;
-immobrowse.wbsWuppertal.floorplanGallery = null;
+immobrowse.wordpress = immobrowse.wordpress || {};
+immobrowse.wordpress.mailer = null;
+immobrowse.wordpress.objectId = null;
+immobrowse.wordpress.elements = null;
+immobrowse.wordpress.realEstate = null;
+immobrowse.wordpress.imageGallery = null;
+immobrowse.wordpress.floorplanGallery = null;
 
 
-immobrowse.wbsWuppertal.printGrundriss = function (){
-    window.open('/immobrowse/printGrundriss.html?real_estate=' + immobrowse.wbsWuppertal.objectId);
+immobrowse.wordpress.printGrundriss = function (){
+    window.open('/immobrowse/printGrundriss.html?real_estate=' + immobrowse.wordpress.objectId);
 };
 
 
-immobrowse.wbsWuppertal.printExpose = function (){
-    window.open('/immobrowse/print.html?real_estate=' + immobrowse.wbsWuppertal.objectId);
+immobrowse.wordpress.printExpose = function (){
+    window.open('/immobrowse/print.html?real_estate=' + immobrowse.wordpress.objectId);
 };
 
-immobrowse.wbsWuppertal.back = function () {
+immobrowse.wordpress.back = function () {
     window.history.back();
 };
 
 
-immobrowse.wbsWuppertal.clearContactForm = function () {
+immobrowse.wordpress.clearContactForm = function () {
     jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
     jQuery('#gender_female').click();
     jQuery('#forename').val('');
@@ -65,7 +65,7 @@ immobrowse.wbsWuppertal.clearContactForm = function () {
 };
 
 
-immobrowse.wbsWuppertal.sendEmail = function() {
+immobrowse.wordpress.sendEmail = function() {
     var response = grecaptcha.getResponse();
 
     if (response.length == 0) {
@@ -125,33 +125,33 @@ immobrowse.wbsWuppertal.sendEmail = function() {
         salutation = 'Frau';
     }
 
-    var objectTitle = immobrowse.wbsWuppertal.realEstate.objectTitle();
-    var objectAddress = [immobrowse.wbsWuppertal.realEstate.addressPreview(), immobrowse.wbsWuppertal.realEstate.cityPreview()].join(' ');
+    var objectTitle = immobrowse.wordpress.realEstate.objectTitle();
+    var objectAddress = [immobrowse.wordpress.realEstate.addressPreview(), immobrowse.wordpress.realEstate.cityPreview()].join(' ');
     var phone = jQuery('#phone').val().trim();
     var street = jQuery('#street').val().trim();
     var houseNumber = jQuery('#house_number').val().trim();
     var zipCode = jQuery('#zip_code').val().trim();
     var city = jQuery('#city').val().trim();
     var message = jQuery('#message').val().trim();
-    var recipient = immobrowse.wbsWuppertal.realEstate.contact().email;
+    var recipient = immobrowse.wordpress.realEstate.contact().email;
     var html = immobrowse.mkContactMail(
         objectTitle, objectAddress, salutation, forename, surname,
         phone, street, houseNumber, zipCode, city, message);
-    immobrowse.wbsWuppertal.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wbsWuppertal.realEstate.objectId(), html, recipient, email);
+    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId(), html, recipient, email);
     grecaptcha.reset();
 };
 
 
-immobrowse.wbsWuppertal.initContactForm = function () {
-    immobrowse.wbsWuppertal.clearContactForm();
-    jQuery('#send_form').click(immobrowse.wbsWuppertal.sendEmail);
-    jQuery('#contactFormModal').on('shown.bs.modal', immobrowse.wbsWuppertal.clearContactForm);
-    jQuery('#clear_form').click(immobrowse.wbsWuppertal.clearContactForm);
+immobrowse.wordpress.initContactForm = function () {
+    immobrowse.wordpress.clearContactForm();
+    jQuery('#send_form').click(immobrowse.wordpress.sendEmail);
+    jQuery('#contactFormModal').on('shown.bs.modal', immobrowse.wordpress.clearContactForm);
+    jQuery('#clear_form').click(immobrowse.wordpress.clearContactForm);
 };
 
 
-immobrowse.wbsWuppertal.postRender = function () {
-    immobrowse.wbsWuppertal.initContactForm();
+immobrowse.wordpress.postRender = function () {
+    immobrowse.wordpress.initContactForm();
 
     jQuery('#loader').hide();
     jQuery('#main').attr('style', 'padding-top: 80px');
@@ -181,7 +181,7 @@ immobrowse.wbsWuppertal.postRender = function () {
 };
 
 
-immobrowse.wbsWuppertal.setupGalleries = function() {
+immobrowse.wordpress.setupGalleries = function() {
     var galleryMapping = {
         'image': jQuery('#galleryImage'),
         'title': jQuery('#galleryTitle'),
@@ -190,45 +190,45 @@ immobrowse.wbsWuppertal.setupGalleries = function() {
         'next': jQuery('#galleryNext'),
         'previous': jQuery('#galleryPrevious')
     };
-    var images = immobrowse.wbsWuppertal.realEstate.images();
+    var images = immobrowse.wordpress.realEstate.images();
 
     function attachmentUrlCallback(attachment) {
-        return immobrowse.wbsWuppertal.realEstate.attachmentURL(attachment);
+        return immobrowse.wordpress.realEstate.attachmentURL(attachment);
     }
 
-    immobrowse.wbsWuppertal.imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
+    immobrowse.wordpress.imageGallery = new immobrowse.wordpress.gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
 
     if (images.length > 0) {
-        jQuery('#titleImage').attr('src', immobrowse.wbsWuppertal.realEstate.attachmentURL(images[0]));
+        jQuery('#titleImage').attr('src', immobrowse.wordpress.realEstate.attachmentURL(images[0]));
     }
 
     if (images.length > 1) {
         for (var i=1;i<images.length;i++){
-            jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wbsWuppertal.realEstate.attachmentURL(images[i])+'"/>');
+            jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(images[i])+'"/>');
         }
 
         jQuery('#titleImageFrame, #furtherImages').click(function() {
-            immobrowse.wbsWuppertal.imageGallery.bind();
-            immobrowse.wbsWuppertal.imageGallery.render();
+            immobrowse.wordpress.imageGallery.bind();
+            immobrowse.wordpress.imageGallery.render();
             jQuery('#gallery').modal('toggle');
         });
 
         jQuery('#titleImageFrame, #furtherImages').addClass('ib-browsable');
     }
 
-    var floorplans = immobrowse.wbsWuppertal.realEstate.floorplans();
-    immobrowse.wbsWuppertal.floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
+    var floorplans = immobrowse.wordpress.realEstate.floorplans();
+    immobrowse.wordpress.floorplanGallery = new immobrowse.wordpress.gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
     if (floorplans.length > 0) {
-        jQuery('#floorplan').attr('src', immobrowse.wbsWuppertal.realEstate.attachmentURL(floorplans[0]));
+        jQuery('#floorplan').attr('src', immobrowse.wordpress.realEstate.attachmentURL(floorplans[0]));
     }
 
 
 
     if (floorplans.length > 0) {
         jQuery('#floorplanFrame').click(function() {
-            immobrowse.wbsWuppertal.floorplanGallery.bind();
-            immobrowse.wbsWuppertal.floorplanGallery.render();
+            immobrowse.wordpress.floorplanGallery.bind();
+            immobrowse.wordpress.floorplanGallery.render();
             jQuery('#gallery').modal('toggle');
         });
 
@@ -237,22 +237,22 @@ immobrowse.wbsWuppertal.setupGalleries = function() {
 };
 
 
-immobrowse.wbsWuppertal.render = function (realEstate) {
-    immobrowse.wbsWuppertal.realEstate = realEstate;
-    immobrowse.wbsWuppertal.setupGalleries();
-    immobrowse.wbsWuppertal.realEstate.render(immobrowse.wbsWuppertal.elements);
-    document.title = 'Exposé Nr. ' + immobrowse.wbsWuppertal.realEstate.objectId();
-    immobrowse.wbsWuppertal.postRender();
+immobrowse.wordpress.render = function (realEstate) {
+    immobrowse.wordpress.realEstate = realEstate;
+    immobrowse.wordpress.setupGalleries();
+    immobrowse.wordpress.realEstate.render(immobrowse.wordpress.elements);
+    document.title = 'Exposé Nr. ' + immobrowse.wordpress.realEstate.objectId();
+    immobrowse.wordpress.postRender();
 
 };
 
 
-immobrowse.wbsWuppertal.initExpose = function () {
+immobrowse.wordpress.initExpose = function () {
     var args = new homeinfo.QueryString();
     // XXX: Change config for appropriate productive setting
-    immobrowse.wbsWuppertal.mailer = new immobrowse.Mailer(homeinfo_recaptcha);
-    immobrowse.wbsWuppertal.objectId = args.real_estate;
-    immobrowse.wbsWuppertal.elements = {
+    immobrowse.wordpress.mailer = new immobrowse.Mailer(homeinfo_recaptcha);
+    immobrowse.wordpress.objectId = args.real_estate;
+    immobrowse.wordpress.elements = {
         objectId: jQuery('#objectId'),
         objectTitle: jQuery('#objectTitle'),
         address: jQuery('#objectAddress'),
@@ -328,8 +328,8 @@ immobrowse.wbsWuppertal.initExpose = function () {
         }
     };
 
-    immobrowse.RealEstate.get(immobrowse.wbsWuppertal.objectId).then(immobrowse.wbsWuppertal.render);
+    immobrowse.RealEstate.get(immobrowse.wordpress.objectId).then(immobrowse.wordpress.render);
 };
 
 
-jQuery(document).ready(immobrowse.wbsWuppertal.initExpose);
+jQuery(document).ready(immobrowse.wordpress.initExpose);

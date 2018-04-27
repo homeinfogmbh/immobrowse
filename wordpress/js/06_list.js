@@ -26,40 +26,47 @@
 'use strict';
 
 var immobrowse = immobrowse || {};
-immobrowse.wbsWuppertal = immobrowse.wbsWuppertal || {};
-immobrowse.wbsWuppertal.sorting = {
+immobrowse.wordpress = immobrowse.wordpress || {};
+immobrowse.wordpress.sorting = {
     property: null,
     order: null
 };
-immobrowse.wbsWuppertal.realEstates = null;
-immobrowse.wbsWuppertal.listElement = null;
+immobrowse.wordpress.realEstates = null;
+immobrowse.wordpress.listElement = null;
+immobrowse.wordpress.list.elements = [
+    {'name': 'coldRent', 'caption': 'Kaltmiete', 'hide': true},
+    {'name': 'totalRent', 'caption': 'Gesamtmiete', 'hide': true},
+    {'name': 'serviceCharge', 'caption': 'Nebenkosten', 'hide': true},
+    {'name': 'operationalCosts', 'caption': 'Betriebskosten VZ', 'hide': true},
+    {'name': 'rooms', 'caption': 'Zimmer', 'hide': true}
+];
 
 
-immobrowse.wbsWuppertal.toggleOrder = function () {
-    var previousOrder = immobrowse.wbsWuppertal.sorting.order;
+immobrowse.wordpress.toggleOrder = function () {
+    var previousOrder = immobrowse.wordpress.sorting.order;
 
-    if (immobrowse.wbsWuppertal.sorting.order == 'descending') {
-        immobrowse.wbsWuppertal.sorting.order = 'ascending';
+    if (immobrowse.wordpress.sorting.order == 'descending') {
+        immobrowse.wordpress.sorting.order = 'ascending';
     } else {
-        immobrowse.wbsWuppertal.sorting.order = 'descending';
+        immobrowse.wordpress.sorting.order = 'descending';
     }
 
     return previousOrder;
 };
 
 
-immobrowse.wbsWuppertal.toggleSorting = function (property) {
-    var previousIssuer = document.getElementById('ib-sort-' + immobrowse.wbsWuppertal.sorting.property);
+immobrowse.wordpress.toggleSorting = function (property) {
+    var previousIssuer = document.getElementById('ib-sort-' + immobrowse.wordpress.sorting.property);
     var issuer = document.getElementById('ib-sort-' + property);
-    immobrowse.wbsWuppertal.toggleOrder();
-    immobrowse.wbsWuppertal.sorting.property = property;
+    immobrowse.wordpress.toggleOrder();
+    immobrowse.wordpress.sorting.property = property;
 
     // Remove arrow symbol
     if (previousIssuer != null) {
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
     }
 
-    switch (immobrowse.wbsWuppertal.sorting.order) {
+    switch (immobrowse.wordpress.sorting.order) {
     case 'ascending':
         issuer.innerHTML += ' &darr;';
         break;
@@ -68,11 +75,11 @@ immobrowse.wbsWuppertal.toggleSorting = function (property) {
         break;
     }
 
-    immobrowse.wbsWuppertal.list();
+    immobrowse.wordpress.list();
 };
 
 
-immobrowse.wbsWuppertal.renderDistricts = function (districtsElement, districtElements) {
+immobrowse.wordpress.renderDistricts = function (districtsElement, districtElements) {
     districtsElement.html('');
 
     for (var i = 0; i < districtElements.length; i++) {
@@ -80,12 +87,12 @@ immobrowse.wbsWuppertal.renderDistricts = function (districtsElement, districtEl
     }
 
     jQuery('.ib-select-district').click(function() {
-        immobrowse.wbsWuppertal.list();
+        immobrowse.wordpress.list();
     });
 };
 
 
-immobrowse.wbsWuppertal.selectedDistricts = function () {
+immobrowse.wordpress.selectedDistricts = function () {
     var districts = [];
     var checkboxes = document.getElementsByClassName('ib-select-district');
 
@@ -109,7 +116,7 @@ immobrowse.wbsWuppertal.selectedDistricts = function () {
 };
 
 
-immobrowse.wbsWuppertal.filters = function () {
+immobrowse.wordpress.filters = function () {
     var priceMax = jQuery('#ib-price-max').val();
 
     if (! priceMax) {
@@ -157,37 +164,37 @@ immobrowse.wbsWuppertal.filters = function () {
         guestwc: jQuery('#ib-filter-guestwc').is(':checked'),
         elevator: jQuery('#ib-filter-elevator').is(':checked'),
         garden: jQuery('#ib-filter-garden').is(':checked'),
-        districts: immobrowse.wbsWuppertal.selectedDistricts()
+        districts: immobrowse.wordpress.selectedDistricts()
     };
 
     return filters;
 };
 
 
-immobrowse.wbsWuppertal.list = function () {
-    var filter = new immobrowse.Filter(immobrowse.wbsWuppertal.filters());
-    var list = new immobrowse.List(filter.filter(immobrowse.wbsWuppertal.realEstates));
+immobrowse.wordpress.list = function () {
+    var filter = new immobrowse.Filter(immobrowse.wordpress.filters());
+    var list = new immobrowse.List(filter.filter(immobrowse.wordpress.realEstates));
 
-    if (immobrowse.wbsWuppertal.sorting.property != null) {
-        list.sort(immobrowse.wbsWuppertal.sorting.property, immobrowse.wbsWuppertal.sorting.order);
+    if (immobrowse.wordpress.sorting.property != null) {
+        list.sort(immobrowse.wordpress.sorting.property, immobrowse.wordpress.sorting.order);
     }
 
     if (list.realEstates.length > 0) {
-        list.render(immobrowse.wbsWuppertal.listElement);
+        list.render(immobrowse.wordpress.listElement);
     } else {
-        immobrowse.wbsWuppertal.listElement.html('Keine Angebote vorhanden.');
+        immobrowse.wordpress.listElement.html('Keine Angebote vorhanden.');
     }
 };
 
 
-immobrowse.wbsWuppertal.render = function (realEstates) {
-    immobrowse.wbsWuppertal.realEstates = realEstates;
-    immobrowse.wbsWuppertal.renderDistricts(jQuery('#ib-districts'), immobrowse.districtElements(immobrowse.wbsWuppertal.realEstates));
-    immobrowse.wbsWuppertal.list();
+immobrowse.wordpress.render = function (realEstates) {
+    immobrowse.wordpress.realEstates = realEstates;
+    immobrowse.wordpress.renderDistricts(jQuery('#ib-districts'), immobrowse.districtElements(immobrowse.wordpress.realEstates));
+    immobrowse.wordpress.list();
     jQuery('#loader').hide();
 };
 
-immobrowse.wbsWuppertal.initList = function () {
+immobrowse.wordpress.initList = function () {
     // If customer is not set, bail out.
     if (typeof customer == 'undefined') {
         return;
@@ -201,16 +208,16 @@ immobrowse.wbsWuppertal.initList = function () {
     });
 
     jQuery('.ib-btn-filter-option').on('input', function() {
-        immobrowse.wbsWuppertal.list();
+        immobrowse.wordpress.list();
     });
 
     jQuery('.ib-filter-amenities-option').click(function() {
-        immobrowse.wbsWuppertal.list();
+        immobrowse.wordpress.list();
     });
 
-    immobrowse.wbsWuppertal.listElement = jQuery('#list');
-    immobrowse.RealEstate.list(customer).then(immobrowse.wbsWuppertal.render);
+    immobrowse.wordpress.listElement = jQuery('#list');
+    immobrowse.RealEstate.list(customer).then(immobrowse.wordpress.render);
 };
 
 
-jQuery(document).ready(immobrowse.wbsWuppertal.initList);
+jQuery(document).ready(immobrowse.wordpress.initList);

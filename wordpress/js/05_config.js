@@ -10,3 +10,4 @@ immobrowse.config.shortFloorNames = true;
 immobrowse.config.exposeURLCallback = function (objectId) {
     return '?real_estate=' + objectId;
 };
+immobrowse.config.addressInList = true;

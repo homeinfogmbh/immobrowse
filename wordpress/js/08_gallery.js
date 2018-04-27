@@ -24,34 +24,36 @@
 */
 'use strict';
 
-var gallery = gallery || {};
+var immobrowse = immobrowse || {};
+immobrowse.wordpress = immobrowse.wordpress || {};
+immobrowse.wordpress.gallery = immobrowse.wordpress.gallery || {};
 
 
-gallery.next = function (galleryObj) {
+immobrowse.wordpress.gallery.next = function (galleryObj) {
     galleryObj.next();
 };
 
 
-gallery.previous = function (galleryObj) {
+immobrowse.wordpress.gallery.previous = function (galleryObj) {
     galleryObj.previous();
 };
 
 
-gallery.nextCallback = function (galleryObj) {
+immobrowse.wordpress.gallery.nextCallback = function (galleryObj) {
     return function () {
         galleryObj.next();
     };
 };
 
 
-gallery.previousCallback = function (galleryObj) {
+immobrowse.wordpress.gallery.previousCallback = function (galleryObj) {
     return function () {
         galleryObj.previous();
     };
 };
 
 
-gallery.Gallery = function (images, mapping, urlCallback) {
+immobrowse.wordpress.gallery.Gallery = function (images, mapping, urlCallback) {
     this.images = images;
     this.mapping = mapping;
     this.urlCallback = urlCallback;
@@ -79,9 +81,9 @@ gallery.Gallery = function (images, mapping, urlCallback) {
 
     this.bind = function () {
         this.mapping.next.unbind('click');
-        this.mapping.next.click(gallery.nextCallback(this));
+        this.mapping.next.click(immobrowse.wordpress.gallery.nextCallback(this));
         this.mapping.previous.unbind('click');
-        this.mapping.previous.click(gallery.previousCallback(this));
+        this.mapping.previous.click(immobrowse.wordpress.gallery.previousCallback(this));
     };
 
     this.render = function () {
