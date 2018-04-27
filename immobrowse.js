@@ -568,7 +568,7 @@ immobrowse.Filter = function (rules) {
 immobrowse.RealEstate = function (json) {
     this._defaultElements = [
         {'name': 'coldRent', 'caption': 'Kaltmiete'},
-        {'name': 'serviceCharge', 'secaptionrviceCharge': 'Nebenkosten'},
+        {'name': 'serviceCharge', 'caption': 'Nebenkosten'},
         {'name': 'rooms', 'caption': 'Zimmer'},
         {'name': 'area', 'caption': 'Fläche ca.'},
     ];
