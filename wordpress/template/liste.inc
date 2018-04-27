@@ -34,9 +34,9 @@
     <div class="col-md-6 col-centered">
       <div class="item">
         <div class="content">
-          <button id="ib-sort-rooms" onclick="immobrowse.wbsWuppertal.toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
-          <button id="ib-sort-area" onclick="immobrowse.wbsWuppertal.toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
-          <button id="ib-sort-rent" onclick="immobrowse.wbsWuppertal.toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
+          <button id="ib-sort-rooms" onclick="immobrowse.wordpress.toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
+          <button id="ib-sort-area" onclick="immobrowse.wordpress.toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
+          <button id="ib-sort-rent" onclick="immobrowse.wordpress.toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
         </div>
       </div>
     </div>
@@ -55,14 +55,14 @@
         <div class="row row-centered">
           <div class="col-xs-6 col-centered">
             <label><strong>Austattung</strong></label><br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="immobrowse.wbsWuppertal.list();"> Einbauküche (EBK)<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="immobrowse.wbsWuppertal.list();"> Badewanne<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="immobrowse.wbsWuppertal.list();"> Fenster im Bad<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="immobrowse.wbsWuppertal.list();"> Balkon<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="immobrowse.wbsWuppertal.list();"> Stellplatz<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="immobrowse.wbsWuppertal.list();"> Gäste-WC<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="immobrowse.wbsWuppertal.list();"> Fahrstuhl<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="immobrowse.wbsWuppertal.list();"> Gartennutzung<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="immobrowse.wordpress.list();"> Einbauküche (EBK)<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="immobrowse.wordpress.list();"> Badewanne<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="immobrowse.wordpress.list();"> Fenster im Bad<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="immobrowse.wordpress.list();"> Balkon<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="immobrowse.wordpress.list();"> Stellplatz<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="immobrowse.wordpress.list();"> Gäste-WC<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="immobrowse.wordpress.list();"> Fahrstuhl<br>
+            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="immobrowse.wordpress.list();"> Gartennutzung<br>
           </div>
           <div class="col-xs-6 col-centered">
             <label><strong>Stadtteile</strong></label><br>

@@ -14,20 +14,20 @@
   </div>
   <div class="row row-centered ib-header no-print">
     <div class="col-md-3 col-centered ib-centered">
-      <button type="button" class="btn btn-default" onclick="immobrowse.wbsWuppertal.back();">
+      <button type="button" class="btn btn-default" onclick="immobrowse.wordpress.back();">
         « Zur&uuml;ck
       </button>
     </div>
     <div class="col-md-3 col-centered">
       <div class="ib-detail-print ib-centered">
-        <button type="button" class="btn btn-info" onclick="immobrowse.wbsWuppertal.printExpose();">
+        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printExpose();">
           Expose drucken
         </button>
       </div>
     </div>
     <div class="col-md-3 col-centered">
       <div class="ib-detail-print ib-centered">
-        <button type="button" class="btn btn-info" onclick="immobrowse.wbsWuppertal.printGrundriss();">
+        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printGrundriss();">
           Grundriss drucken
         </button>
       </div>
