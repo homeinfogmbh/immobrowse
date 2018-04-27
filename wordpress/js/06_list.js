@@ -33,13 +33,6 @@ immobrowse.wordpress.sorting = {
 };
 immobrowse.wordpress.realEstates = null;
 immobrowse.wordpress.listElement = null;
-immobrowse.wordpress.list.elements = [
-    {'name': 'coldRent', 'caption': 'Kaltmiete', 'hide': true},
-    {'name': 'totalRent', 'caption': 'Gesamtmiete', 'hide': true},
-    {'name': 'serviceCharge', 'caption': 'Nebenkosten', 'hide': true},
-    {'name': 'operationalCosts', 'caption': 'Betriebskosten VZ', 'hide': true},
-    {'name': 'rooms', 'caption': 'Zimmer', 'hide': true}
-];
 
 
 immobrowse.wordpress.toggleOrder = function () {
