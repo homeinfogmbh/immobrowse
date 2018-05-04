@@ -1940,8 +1940,8 @@ immobrowse.RealEstate = function (json) {
 
             switch (element.name) {
             case 'coldRent':
-                console.log('Cold rent: ' + this.coldRent());
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.coldRent()), dataFields);
+                console.log('Cold rent: ' + this.rent());
+                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.rent()), dataFields);
                 break;
             case 'totalRent':
                 console.log('Total rent: ' + this.coldRent());
