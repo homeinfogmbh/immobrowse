@@ -22,9 +22,7 @@ PORTALS = ('immobrowse', 'homepage', 'website')
 CONFIG = ConfigParser()
 CONFIG.read('/etc/immobrowse.conf')
 APPLICATION = Application('immobrowse', cors=True, debug=True)
-DATABASE = MySQLDatabase(
-    CONFIG['db']['database'], host=CONFIG['db']['host'],
-    user=CONFIG['db']['user'], passwd=CONFIG['db']['passwd'], closing=True)
+DATABASE = MySQLDatabase.from_config(CONFIG['db'])
 
 
 def real_estates_of(customer):
