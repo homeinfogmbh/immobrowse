@@ -105,4 +105,4 @@ class ImmoBrowseModel(Model):
 class Override(ImmoBrowseModel):
     """Customer overrides for ImmoBrowse."""
 
-    customer = ForeignKeyField(Customer, db_column='customer')
+    customer = ForeignKeyField(Customer, column_name='customer')
