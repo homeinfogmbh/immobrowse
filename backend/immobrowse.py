@@ -9,7 +9,7 @@ from json import dumps
 from flask import make_response, jsonify, Response
 from peewee import Model, PrimaryKeyField, ForeignKeyField
 
-from homeinfo.crm import Customer
+from mdb import Customer
 from mimeutil import mimetype
 from peeweeplus import MySQLDatabase
 

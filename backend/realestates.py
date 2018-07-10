@@ -10,8 +10,8 @@ from uuid import uuid4
 from flask import request, send_file, Flask, Response
 from peewee import Model, ForeignKeyField, CharField
 
-from homeinfo.crm import Customer
 from immobrowse import DATABASE
+from mdb import Customer
 from openimmo import factories
 from openimmodb import Immobilie, Anhang
 
