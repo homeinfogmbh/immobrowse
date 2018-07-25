@@ -50,7 +50,7 @@ def authorized(function):
 def _anbieter(customer):
     """Returns the respective realtor as XML."""
 
-    anbieter = factories.anbieter(customer.cid, customer.name)
+    anbieter = factories.anbieter(repr(customer), str(customer))
 
     for immobilie in Immobilie.select().where(Immobilie.customer == customer):
         attachments = [
