@@ -145,10 +145,12 @@ $(document).ready(function () {
   });
 
   listElement = $('#list');
-  immobrowse.getRealEstates(customer, function (realEstates_) {
-    realEstates = realEstates_;
-    renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
-    list();
-    $('#loader').hide();
-  });
+  immobrowse.RealEstate.list(customer).then(
+    function (realEstates_) {
+        realEstates = realEstates_;
+        renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
+        list();
+        $('#loader').hide();
+      }
+    );
 });

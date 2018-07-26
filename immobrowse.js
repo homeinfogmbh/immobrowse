@@ -1997,19 +1997,20 @@ immobrowse.RealEstate = function (json) {
   Queries real estate data from the API and returns a thenable.
 */
 immobrowse.RealEstate.get = function (id) {
-    function success (json) {
-        return new immobrowse.RealEstate(json);
-    }
-
-    function error () {
-        swal({
-            title: 'Immobilie konnte nicht geladen werden.',
-            text: 'Bitte versuchen Sie es später noch ein Mal.',
-            type: 'error'
-        });
-    }
-
-    return jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/expose/' + id}).then(success, error);
+    return jQuery.ajax({
+        url: 'https://backend.homeinfo.de/immobrowse/expose/' + id
+    }).then(
+        function (json) {
+            return new immobrowse.RealEstate(json);
+        },
+        function () {
+            swal({
+                title: 'Immobilie konnte nicht geladen werden.',
+                text: 'Bitte versuchen Sie es später noch ein Mal.',
+                type: 'error'
+            });
+        }
+    );
 };
 
 
@@ -2017,25 +2018,26 @@ immobrowse.RealEstate.get = function (id) {
   Queries API for real estate list and returns a thenable.
 */
 immobrowse.RealEstate.list = function (cid) {
-    function success (json) {
-        var realEstates = [];
+    return jQuery.ajax({
+        url: 'https://backend.homeinfo.de/immobrowse/list/' + cid
+    }).then(
+        function (json) {
+            var realEstates = [];
 
-        for (var i = 0; i < json.length; i++) {
-            realEstates.push(new immobrowse.RealEstate(json[i]));
+            for (var i = 0; i < json.length; i++) {
+                realEstates.push(new immobrowse.RealEstate(json[i]));
+            }
+
+            return realEstates;
+        },
+        function () {
+            swal({
+                title: 'Immobilien konnten nicht geladen werden.',
+                text: 'Bitte versuchen Sie es später noch ein Mal.',
+                type: 'error'
+            });
         }
-
-        return realEstates;
-    }
-
-    function error () {
-        swal({
-            title: 'Immobilien konnten nicht geladen werden.',
-            text: 'Bitte versuchen Sie es später noch ein Mal.',
-            type: 'error'
-        });
-    }
-
-    return jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/list/' + cid}).then(success, error);
+    );
 };
 
 

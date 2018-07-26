@@ -354,11 +354,13 @@ $(document).ready(function () {
     }
   };
 
-  immobrowse.getRealEstate(objectId, function (realEstate_) {
-    realEstate = realEstate_;
-    setupGalleries();
-    realEstate.render(elements);
-    document.title = 'Exposé Nr. ' + realEstate.objectId();
-    postRender();
-  });
+  immobrowse.RealEstate.get(objectId).then(
+    function (realEstate_) {
+        realEstate = realEstate_;
+        setupGalleries();
+        realEstate.render(elements);
+        document.title = 'Exposé Nr. ' + realEstate.objectId();
+        postRender();
+      }
+    );
 });
