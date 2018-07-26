@@ -151,6 +151,8 @@ $(document).ready(function () {
         console.log('Test 2.');
         realEstates = realEstates_;
         console.log('Test 3.');
+        console.log('realEstates_ = ' + realEstates_);
+        console.log('realEstates = ' + realEstates);
         renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
         console.log('Test 4.');
         list();
