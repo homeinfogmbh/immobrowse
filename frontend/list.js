@@ -143,12 +143,15 @@ $(document).ready(function () {
   });
 
   listElement = $('#list');
+  console.log('Test 1.');
   immobrowse.RealEstate.list(customer).then(
     function (realEstates_) {
+        console.log('Test 2.');
         realEstates = realEstates_;
         renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
         list();
         $('#loader').hide();
       }
     );
+  console.log('Test 3.');
 });
