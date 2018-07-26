@@ -2316,32 +2316,31 @@ immobrowse.dom.contactEmail = function (
         return document.createElement('br');
     }
 
-    var doctype = document.implementation.createDocumentType('html');
-    var doc = document.implementation.createDocument(null, 'html', doctype);
-    var html = doc.documentElement;
+    var newDoc = document.implementation.createHTMLDocument('Anfrage zu Objekt');
+    var body = doc.body;
 
     var doctype = document.createElement('!DOCTYPE HTML');
-    html.appendChild(doctype);
+    body.appendChild(doctype);
 
     var h1 = document.createElement('h1');
     h1.textContent = 'Anfrage zu Objekt';
-    html.appendChild(h1);
+    body.appendChild(h1);
 
     var h2 = document.createElement('h2');
     h2.textContent = realEstate.objectTitle();
-    html.appendChild(h2);
+    body.appendChild(h2);
 
     var h3 = document.createElement('h3');
     h3.textContent = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
-    html.appendChild(h3);
+    body.appendChild(h3);
 
     var salutation = document.createTextNode(salutation + ' ');
-    html.appendChild(salutation);
+    body.appendChild(salutation);
 
     var span = document.createElement('span');
     span.setAttribute('style', 'font-variant:small-caps;');
     span.textContent = [forename, surname].join(' ');
-    html.appendChild(span);
+    body.appendChild(span);
 
     var inquirerInfo = false;
     var streetAndHouseNumber = street;
@@ -2352,55 +2351,55 @@ immobrowse.dom.contactEmail = function (
         }
 
         var streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
-        html.appendChild(newline());
-        html.appendChild(streetAndHouseNumber);
+        body.appendChild(newline());
+        body.appendChild(streetAndHouseNumber);
         inquirerInfo = true;
     }
 
     if (city) {
         if (zipCode) {
             var zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
-            html.appendChild(newline());
-            html.appendChild(zipCodeAndCity);
+            body.appendChild(newline());
+            body.appendChild(zipCodeAndCity);
         } else {
             city = document.createTextNode(city);
-            html.appendChild(newline());
-            html.appendChild(city);
+            body.appendChild(newline());
+            body.appendChild(city);
         }
 
         inquirerInfo = true;
     } else if (zipCode) {
         zipCode = document.createTextNode(zipCode);
-        html.appendChild(newline());
-        html.appendChild(zipCode);
+        body.appendChild(newline());
+        body.appendChild(zipCode);
         inquirerInfo = true;
     }
 
     if (phone) {
         phone = document.createTextNode('Tel.: ' + phone);
-        html.appendChild(newline());
-        html.appendChild(phone);
+        body.appendChild(newline());
+        body.appendChild(phone);
         inquirerInfo = true;
     }
 
     if (inquirerInfo) {
-        html.appendChild(newline());
-        html.appendChild(newline());    // two new lines.
+        body.appendChild(newline());
+        body.appendChild(newline());    // two new lines.
     } else {
         var space = document.createTextNode(' ');
-        html.appendChild(space);
+        body.appendChild(space);
     }
 
     var messageHeader = document.createTextNode('hat folgende Anfrage an Sie:');
-    html.appendChild(messageHeader);
-    html.appendChild(newline());
-    html.appendChild(newline());  // two new lines.
+    body.appendChild(messageHeader);
+    body.appendChild(newline());
+    body.appendChild(newline());  // two new lines.
 
     var div = document.createElement('div');
     div.setAttribute('style', 'font-style:italic;');
     div.innerHTML = message.replace('\n', '\n<br>\n');
-    html.appendChild(div);
-    return html.innerHTML;
+    body.appendChild(div);
+    return body.innerHTML;
 };
 
 
