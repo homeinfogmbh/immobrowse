@@ -2305,6 +2305,98 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
 
 
 /*
+  Creates a contact email.
+*/
+immobrowse.dom.contactEmail = function (realEstate, salutation, forename, surname, phone) {
+    var html = document.createElement('html');
+
+    var h1 = document.createElement('h1');
+    h1.textContent = 'Anfrage zu Objekt';
+    html.appendChild(h1);
+
+    var h2 = document.createElement('h2');
+    h2.textContent = realEstate.objectTitle();
+    html.appendChild(h2);
+
+    var h3 = document.createElement('h3');
+    h3.textContent = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
+    html.appendChild(h3);
+
+    var salutation = document.createTextNode(salutation);
+    html.appendChild(salutation);
+
+    var span = document.createElement('span');
+    span.setAttribute('style', 'font-variant:small-caps;');
+    span.textContent = [forename, surname].join(' ');
+    html.appendChild(span);
+
+    var inquirerInfo = false;
+    var streetAndHouseNumber = realEstate.street();
+    var newline = document.createElement('br');
+
+    if (streetAndHouseNumber) {
+        var houseNumber = realEstate.houseNumber();
+
+        if (houseNumber) {
+            streetAndHouseNumber += ' ' + houseNumber;
+        }
+
+        var streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
+        html.appendChild(newline);
+        html.appendChild(streetAndHouseNumber);
+        inquirerInfo = true;
+    }
+
+    var zipCode = realEstate.zipCode();
+    var city = realEstate.city();
+
+    if (city) {
+        if (zipCode) {
+            var zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
+            html.appendChild(newline);
+            html.appendChild(zipCodeAndCity);
+        } else {
+            var city = document.createTextNode(city);
+            html.appendChild(newline);
+            html.appendChild(city);
+        }
+
+        inquirerInfo = true;
+    } else if (zipCode) {
+        zipCode = document.createTextNode(zipCode);
+        html.appendChild(newline);
+        html.appendChild(zipCode);
+        inquirerInfo = true;
+    }
+
+    if (phone) {
+        phone = createTextNode('Tel.: ' + phone);
+        html.appendChild(newline);
+        html.appendChild(phone);
+        inquirerInfo = true;
+    }
+
+    if (inquirerInfo) {
+        html.appendChild(newline);
+    } else {
+        var space = document.createTextNode(' ');
+        html.appendChild(space);
+    }
+
+    var messageHeader = document.createTextNode('hat folgende Anfrage an Sie:');
+    html.appendChild(messageHeader);
+    html.appendChild(newline);
+    html.appendChild(newline);  // two new lines.
+
+    var div = document.createElement('div');
+    div.setAttribute('style', 'font-style:italic;');
+    div.textContent = message.replace('\n', '\n<br>\n');
+    html.appendChild(div);
+    return html.innerHTML;
+};
+
+
+/*
   Customer-dependent configuration defaults.
 */
 immobrowse.config = immobrowse.config || {};
