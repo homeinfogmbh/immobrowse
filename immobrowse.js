@@ -2341,7 +2341,7 @@ immobrowse.dom.contactEmail = function (
     div.setAttribute('style', 'font-style:italic;');
     div.innerHTML = message.replace('\n', '\n<br>\n');
     body.appendChild(div);
-    return doc;
+    return doc.documentElement;
 };
 
 

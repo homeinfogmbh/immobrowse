@@ -55,71 +55,6 @@ function clearContactForm() {
 }
 
 
-function testEmail() {
-  var forename = $("#forename").val().trim();
-
-  if (forename == '') {
-    swal({
-      title: 'Achtung!',
-      text: 'Bitte Pflichtfeld "Vorname" ausfüllen.',
-      type: 'warning'
-    });
-    return;
-  }
-
-  var surname = $("#surname").val().trim();
-
-  if (surname == '') {
-    swal({
-      title: 'Achtung!',
-      text: 'Bitte Pflichtfeld "Nachname" ausfüllen.',
-      type: 'warning'
-    });
-    return;
-  }
-
-  var email = $('#email').val().trim();
-
-  if (email == '') {
-    swal({
-      title: 'Achtung!',
-      text: 'Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.',
-      type: 'warning'
-    });
-    return;
-  } else if (homeinfo.str.isEmail(email) == false) {
-    swal({
-      title: 'Achtung!',
-      text: 'Bitte geben Sie eine gültige E-Mail Adresse an.',
-      type: 'warning'
-    });
-    return;
-  }
-
-  var salutation;
-
-  if ($("input:radio[name='gender']:checked").val() == 1) {
-    salutation = "Herr";
-  } else {
-    salutation = "Frau";
-  }
-
-  var objectTitle = realEstate.objectTitle();
-  var objectAddress = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
-  var phone = $('#phone').val().trim();
-  var street = $('#street').val().trim();
-  var houseNumber = $('#house_number').val().trim();
-  var zipCode = $('#zip_code').val().trim();
-  var city = $('#city').val().trim();
-  var message = $('#message').val().trim();
-  var recipient = realEstate.contact().email;
-  var html = immobrowse.dom.contactEmail(
-    realEstate, message, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city).documentElement.outerHTML;
-  console.log('Email: ' + html);
-}
-
-
 function sendEmail() {
   var response = grecaptcha.getResponse();
 
@@ -189,9 +124,9 @@ function sendEmail() {
   var city = $('#city').val().trim();
   var message = $('#message').val().trim();
   var recipient = realEstate.contact().email;
-  var html = immobrowse.mkContactMail(
-    objectTitle, objectAddress, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city, message);
+  var html = immobrowse.dom.contactEmail(
+    realEstate, message, salutation, forename, surname,
+    phone, street, houseNumber, zipCode, city).outerHTML;
   mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId(), html, recipient, email);
   grecaptcha.reset();
 }
