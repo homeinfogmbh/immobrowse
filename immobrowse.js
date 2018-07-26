@@ -2307,7 +2307,7 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
 /*
   Creates a contact email.
 */
-immobrowse.dom.contactEmail = function (realEstate, salutation, forename, surname, phone) {
+immobrowse.dom.contactEmail = function (realEstate, message, salutation, forename, surname, phone) {
     var html = document.createElement('html');
 
     var h1 = document.createElement('h1');
