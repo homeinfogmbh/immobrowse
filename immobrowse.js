@@ -2380,6 +2380,7 @@ immobrowse.dom.contactEmail = function (
 
     if (inquirerInfo) {
         html.appendChild(newline());
+        html.appendChild(newline());    // two new lines.
     } else {
         var space = document.createTextNode(' ');
         html.appendChild(space);
@@ -2392,7 +2393,7 @@ immobrowse.dom.contactEmail = function (
 
     var div = document.createElement('div');
     div.setAttribute('style', 'font-style:italic;');
-    div.textContent = message.replace('\n', '\n<br>\n');
+    div.innerHTML = message.replace('\n', '\n<br>\n');
     html.appendChild(div);
     return html.innerHTML;
 };
