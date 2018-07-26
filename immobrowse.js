@@ -2318,6 +2318,9 @@ immobrowse.dom.contactEmail = function (
 
     var html = document.createElement('html');
 
+    var doctype = document.createTextNode('<!DOCTYPE HTML>');
+    html.appendChild(doctype);
+
     var h1 = document.createElement('h1');
     h1.textContent = 'Anfrage zu Objekt';
     html.appendChild(h1);
