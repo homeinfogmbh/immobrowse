@@ -113,14 +113,10 @@ function testEmail() {
   var city = $('#city').val().trim();
   var message = $('#message').val().trim();
   var recipient = realEstate.contact().email;
-  var html = immobrowse.mkContactMail(
-    objectTitle, objectAddress, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city, message);
-  console.log('Email #1: ' + html);
-  var html2 = immobrowse.dom.contactEmail(
+  var html = immobrowse.dom.contactEmail(
     realEstate, message, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city).innerHTML;
-  console.log('Email #2: ' + html2);
+  console.log('Email: ' + html);
 }
 
 
