@@ -125,6 +125,8 @@ function list() {
     list.sort(sorting.property, sorting.order);
   }
 
+  console.log('List: ' + list);
+  console.log('List.realEstates: ' + list.realEstates);
   list.render(listElement);
 }
 
