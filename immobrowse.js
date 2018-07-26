@@ -2316,7 +2316,9 @@ immobrowse.dom.contactEmail = function (
         return document.createElement('br');
     }
 
-    var html = document.createElement('html');
+    var doctype = document.implementation.createDocumentType('html');
+    var doc = document.implementation.createDocument(null, 'html', doctype);
+    var html = doc.documentElement;
 
     var doctype = document.createElement('!DOCTYPE HTML');
     html.appendChild(doctype);
