@@ -279,61 +279,6 @@ immobrowse.open = function (url) {
 
 
 /*
-  Generates a contact email.
-*/
-immobrowse.mkContactMail = function (
-    objectTitle, objectAddress, salutation, forename, surname, phone, street, houseNumber, zipCode, city, message) {
-    var html = '<!DOCTYPE HTML>\n';
-    html += '<h1>Anfrage zu Objekt</h1>';
-    html += '<h2>' + objectTitle + '</h2>';
-    html += '<h3>' + objectAddress + '</h4>';
-    html += [salutation, '<span style="font-variant:small-caps;">' + forename, surname + '</span>'].join(' ');
-
-    var inquirerInfo = '';
-
-    if (street) {
-        inquirerInfo += street;
-
-        if (houseNumber) {
-            inquirerInfo += ' ' + houseNumber;
-        }
-
-        inquirerInfo += '<br>\n';
-    }
-
-    if (zipCode) {
-        inquirerInfo += zipCode;
-    }
-
-    if (city) {
-        if (zipCode) {
-            inquirerInfo += ' ';
-        }
-
-        inquirerInfo += city;
-    }
-
-    if (zipCode || city) {
-        inquirerInfo += '<br>\n';
-    }
-
-    if (phone) {
-        inquirerInfo += 'Tel.: ' + phone + '\n<br>\n';
-    }
-
-    if (inquirerInfo == '') {
-        html += ' ';
-    } else {
-        html += '\n<br>\n' + inquirerInfo + '\n<br>\n';
-    }
-
-    html += 'hat folgende Anfrage an Sie:\n<br>\n<br>\n';
-    html += '<div style="font-style:italic;">' + message.replace('\n', '\n<br>\n') + '</div>';
-    return html;
-};
-
-
-/*
   Mailer class.
 */
 immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
