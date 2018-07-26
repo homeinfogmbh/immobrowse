@@ -115,7 +115,7 @@ function testEmail() {
   var recipient = realEstate.contact().email;
   var html = immobrowse.dom.contactEmail(
     realEstate, message, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city).innerHTML;
+    phone, street, houseNumber, zipCode, city).body.outerHTML;
   console.log('Email: ' + html);
 }
 
