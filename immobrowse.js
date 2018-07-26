@@ -2309,7 +2309,9 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
 /*
   Creates a contact email.
 */
-immobrowse.dom.contactEmail = function (realEstate, message, salutation, forename, surname, phone) {
+immobrowse.dom.contactEmail = function (
+        realEstate, message, salutation, forename, surname,
+        phone, street, houseNumber, zipCode, city) {
     function  newline () {
         return document.createElement('br');
     }
@@ -2337,11 +2339,9 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
     html.appendChild(span);
 
     var inquirerInfo = false;
-    var streetAndHouseNumber = realEstate.street();
+    var streetAndHouseNumber = street;
 
     if (streetAndHouseNumber) {
-        var houseNumber = realEstate.houseNumber();
-
         if (houseNumber) {
             streetAndHouseNumber += ' ' + houseNumber;
         }
@@ -2352,16 +2352,13 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
         inquirerInfo = true;
     }
 
-    var zipCode = realEstate.zipCode();
-    var city = realEstate.city();
-
     if (city) {
         if (zipCode) {
             var zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
             html.appendChild(newline());
             html.appendChild(zipCodeAndCity);
         } else {
-            var city = document.createTextNode(city);
+            city = document.createTextNode(city);
             html.appendChild(newline());
             html.appendChild(city);
         }

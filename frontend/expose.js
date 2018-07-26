@@ -117,7 +117,9 @@ function testEmail() {
     objectTitle, objectAddress, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, message);
   console.log('Email #1: ' + html);
-  var html2 = immobrowse.dom.contactEmail(realEstate, message, salutation, forename, surname, phone);
+  var html2 = immobrowse.dom.contactEmail(
+    realEstate, message, salutation, forename, surname,
+    phone, street, houseNumber, zipCode, city);
   console.log('Email #2: ' + html2);
 }
 
@@ -194,9 +196,6 @@ function sendEmail() {
   var html = immobrowse.mkContactMail(
     objectTitle, objectAddress, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, message);
-  console.log('Email #1: ' + html);
-  var html2 = immobrowse.dom.contactEmail(realEstate, message, salutation, forename, surname, phone);
-  console.log('Email #2: ' + html2);
   mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId(), html, recipient, email);
   grecaptcha.reset();
 }
