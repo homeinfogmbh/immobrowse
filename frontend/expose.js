@@ -119,7 +119,7 @@ function testEmail() {
   console.log('Email #1: ' + html);
   var html2 = immobrowse.dom.contactEmail(
     realEstate, message, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city);
+    phone, street, houseNumber, zipCode, city).innerHTML;
   console.log('Email #2: ' + html2);
 }
 
