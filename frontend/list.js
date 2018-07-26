@@ -123,8 +123,6 @@ function list() {
     list.sort(sorting.property, sorting.order);
   }
 
-  console.log('List: ' + list);
-  console.log('List.realEstates: ' + list.realEstates);
   list.render(listElement);
 }
 
@@ -145,21 +143,12 @@ $(document).ready(function () {
   });
 
   listElement = $('#list');
-  console.log('Test 1.');
   immobrowse.RealEstate.list(customer).then(
     function (realEstates_) {
-        console.log('Test 2.');
-        realEstates = realEstates_;
-        console.log('Test 3.');
-        console.log('realEstates_ = ' + realEstates_);
-        console.log('realEstates = ' + realEstates);
-        renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
-        console.log('Test 4.');
-        list();
-        console.log('Test 5.');
-        $('#loader').hide();
-        console.log('Test 6.');
-      }
-    );
-  console.log('Test 7.');
+      realEstates = realEstates_;
+      renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
+      list();
+      $('#loader').hide();
+    }
+  );
 });
