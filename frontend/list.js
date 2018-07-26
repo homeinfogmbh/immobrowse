@@ -148,10 +148,14 @@ $(document).ready(function () {
     function (realEstates_) {
         console.log('Test 2.');
         realEstates = realEstates_;
+        console.log('Test 3.');
         renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
+        console.log('Test 4.');
         list();
+        console.log('Test 5.');
         $('#loader').hide();
+        console.log('Test 6.');
       }
     );
-  console.log('Test 3.');
+  console.log('Test 7.');
 });
