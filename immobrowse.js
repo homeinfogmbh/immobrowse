@@ -2372,7 +2372,7 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
     }
 
     if (phone) {
-        phone = createTextNode('Tel.: ' + phone);
+        phone = document.createTextNode('Tel.: ' + phone);
         html.appendChild(newline);
         html.appendChild(phone);
         inquirerInfo = true;
