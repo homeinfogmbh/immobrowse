@@ -2330,7 +2330,7 @@ immobrowse.dom.contactEmail = function (
     h3.textContent = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
     html.appendChild(h3);
 
-    var salutation = document.createTextNode(salutation);
+    var salutation = document.createTextNode(salutation + ' ');
     html.appendChild(salutation);
 
     var span = document.createElement('span');
