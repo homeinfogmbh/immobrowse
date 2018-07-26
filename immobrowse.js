@@ -2310,6 +2310,10 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
   Creates a contact email.
 */
 immobrowse.dom.contactEmail = function (realEstate, message, salutation, forename, surname, phone) {
+    function  newline () {
+        return document.createElement('br');
+    }
+
     var html = document.createElement('html');
 
     var h1 = document.createElement('h1');
@@ -2334,7 +2338,6 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
 
     var inquirerInfo = false;
     var streetAndHouseNumber = realEstate.street();
-    var newline = document.createElement('br');
 
     if (streetAndHouseNumber) {
         var houseNumber = realEstate.houseNumber();
@@ -2344,7 +2347,7 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
         }
 
         var streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
-        html.appendChild(newline);
+        html.appendChild(newline());
         html.appendChild(streetAndHouseNumber);
         inquirerInfo = true;
     }
@@ -2355,31 +2358,31 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
     if (city) {
         if (zipCode) {
             var zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
-            html.appendChild(newline);
+            html.appendChild(newline());
             html.appendChild(zipCodeAndCity);
         } else {
             var city = document.createTextNode(city);
-            html.appendChild(newline);
+            html.appendChild(newline());
             html.appendChild(city);
         }
 
         inquirerInfo = true;
     } else if (zipCode) {
         zipCode = document.createTextNode(zipCode);
-        html.appendChild(newline);
+        html.appendChild(newline());
         html.appendChild(zipCode);
         inquirerInfo = true;
     }
 
     if (phone) {
         phone = document.createTextNode('Tel.: ' + phone);
-        html.appendChild(newline);
+        html.appendChild(newline());
         html.appendChild(phone);
         inquirerInfo = true;
     }
 
     if (inquirerInfo) {
-        html.appendChild(newline);
+        html.appendChild(newline());
     } else {
         var space = document.createTextNode(' ');
         html.appendChild(space);
@@ -2387,8 +2390,8 @@ immobrowse.dom.contactEmail = function (realEstate, message, salutation, forenam
 
     var messageHeader = document.createTextNode('hat folgende Anfrage an Sie:');
     html.appendChild(messageHeader);
-    html.appendChild(newline);
-    html.appendChild(newline);  // two new lines.
+    html.appendChild(newline());
+    html.appendChild(newline());  // two new lines.
 
     var div = document.createElement('div');
     div.setAttribute('style', 'font-style:italic;');
