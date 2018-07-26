@@ -112,8 +112,6 @@ function filters() {
     districts: selectedDistricts()
   }
 
-  immobrowse.logger.debug('Filters:');
-  immobrowse.logger.debug(JSON.stringify(filters));
   return filters;
 }
 
