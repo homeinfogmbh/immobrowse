@@ -279,61 +279,6 @@ immobrowse.open = function (url) {
 
 
 /*
-  Generates a contact email.
-*/
-immobrowse.mkContactMail = function (
-    objectTitle, objectAddress, salutation, forename, surname, phone, street, houseNumber, zipCode, city, message) {
-    var html = '<!DOCTYPE HTML>\n';
-    html += '<h1>Anfrage zu Objekt</h1>';
-    html += '<h2>' + objectTitle + '</h2>';
-    html += '<h3>' + objectAddress + '</h4>';
-    html += [salutation, '<span style="font-variant:small-caps;">' + forename, surname + '</span>'].join(' ');
-
-    var inquirerInfo = '';
-
-    if (street) {
-        inquirerInfo += street;
-
-        if (houseNumber) {
-            inquirerInfo += ' ' + houseNumber;
-        }
-
-        inquirerInfo += '<br>\n';
-    }
-
-    if (zipCode) {
-        inquirerInfo += zipCode;
-    }
-
-    if (city) {
-        if (zipCode) {
-            inquirerInfo += ' ';
-        }
-
-        inquirerInfo += city;
-    }
-
-    if (zipCode || city) {
-        inquirerInfo += '<br>\n';
-    }
-
-    if (phone) {
-        inquirerInfo += 'Tel.: ' + phone + '\n<br>\n';
-    }
-
-    if (inquirerInfo == '') {
-        html += ' ';
-    } else {
-        html += '\n<br>\n' + inquirerInfo + '\n<br>\n';
-    }
-
-    html += 'hat folgende Anfrage an Sie:\n<br>\n<br>\n';
-    html += '<div style="font-style:italic;">' + message.replace('\n', '\n<br>\n') + '</div>';
-    return html;
-};
-
-
-/*
   Mailer class.
 */
 immobrowse.Mailer = function (config, html, successMsg, errorMsg) {
@@ -1997,19 +1942,20 @@ immobrowse.RealEstate = function (json) {
   Queries real estate data from the API and returns a thenable.
 */
 immobrowse.RealEstate.get = function (id) {
-    function success (json) {
-        return new immobrowse.RealEstate(json);
-    }
-
-    function error () {
-        swal({
-            title: 'Immobilie konnte nicht geladen werden.',
-            text: 'Bitte versuchen Sie es später noch ein Mal.',
-            type: 'error'
-        });
-    }
-
-    return jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/expose/' + id}).then(success, error);
+    return jQuery.ajax({
+        url: 'https://backend.homeinfo.de/immobrowse/expose/' + id
+    }).then(
+        function (json) {
+            return new immobrowse.RealEstate(json);
+        },
+        function () {
+            swal({
+                title: 'Immobilie konnte nicht geladen werden.',
+                text: 'Bitte versuchen Sie es später noch ein Mal.',
+                type: 'error'
+            });
+        }
+    );
 };
 
 
@@ -2017,25 +1963,26 @@ immobrowse.RealEstate.get = function (id) {
   Queries API for real estate list and returns a thenable.
 */
 immobrowse.RealEstate.list = function (cid) {
-    function success (json) {
-        var realEstates = [];
+    return jQuery.ajax({
+        url: 'https://backend.homeinfo.de/immobrowse/list/' + cid
+    }).then(
+        function (json) {
+            var realEstates = [];
 
-        for (var i = 0; i < json.length; i++) {
-            realEstates.push(new immobrowse.RealEstate(json[i]));
+            for (var i = 0; i < json.length; i++) {
+                realEstates.push(new immobrowse.RealEstate(json[i]));
+            }
+
+            return realEstates;
+        },
+        function () {
+            swal({
+                title: 'Immobilien konnten nicht geladen werden.',
+                text: 'Bitte versuchen Sie es später noch ein Mal.',
+                type: 'error'
+            });
         }
-
-        return realEstates;
-    }
-
-    function error () {
-        swal({
-            title: 'Immobilien konnten nicht geladen werden.',
-            text: 'Bitte versuchen Sie es später noch ein Mal.',
-            type: 'error'
-        });
-    }
-
-    return jQuery.ajax({url: 'https://backend.homeinfo.de/immobrowse/list/' + cid}).then(success, error);
+    );
 };
 
 
@@ -2301,6 +2248,100 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
     element.setAttribute('onclick', 'immobrowse.open("' + detailsURL + '");');
     element.appendChild(mainRow);
     return element;
+};
+
+
+/*
+  Creates a contact email.
+*/
+immobrowse.dom.contactEmail = function (
+        realEstate, message, salutation, forename, surname,
+        phone, street, houseNumber, zipCode, city) {
+    function  newline () {
+        return document.createElement('br');
+    }
+
+    var doc = document.implementation.createHTMLDocument('Anfrage zu Objekt');
+    var body = doc.body;
+
+    var h1 = document.createElement('h1');
+    h1.textContent = 'Anfrage zu Objekt';
+    body.appendChild(h1);
+
+    var h2 = document.createElement('h2');
+    h2.textContent = realEstate.objectTitle();
+    body.appendChild(h2);
+
+    var h3 = document.createElement('h3');
+    h3.textContent = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
+    body.appendChild(h3);
+
+    var salutation = document.createTextNode(salutation + ' ');
+    body.appendChild(salutation);
+
+    var span = document.createElement('span');
+    span.setAttribute('style', 'font-variant:small-caps;');
+    span.textContent = [forename, surname].join(' ');
+    body.appendChild(span);
+
+    var inquirerInfo = false;
+    var streetAndHouseNumber = street;
+
+    if (streetAndHouseNumber) {
+        if (houseNumber) {
+            streetAndHouseNumber += ' ' + houseNumber;
+        }
+
+        var streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
+        body.appendChild(newline());
+        body.appendChild(streetAndHouseNumber);
+        inquirerInfo = true;
+    }
+
+    if (city) {
+        if (zipCode) {
+            var zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
+            body.appendChild(newline());
+            body.appendChild(zipCodeAndCity);
+        } else {
+            city = document.createTextNode(city);
+            body.appendChild(newline());
+            body.appendChild(city);
+        }
+
+        inquirerInfo = true;
+    } else if (zipCode) {
+        zipCode = document.createTextNode(zipCode);
+        body.appendChild(newline());
+        body.appendChild(zipCode);
+        inquirerInfo = true;
+    }
+
+    if (phone) {
+        phone = document.createTextNode('Tel.: ' + phone);
+        body.appendChild(newline());
+        body.appendChild(phone);
+        inquirerInfo = true;
+    }
+
+    if (inquirerInfo) {
+        body.appendChild(newline());
+        body.appendChild(newline());    // two new lines.
+    } else {
+        var space = document.createTextNode(' ');
+        body.appendChild(space);
+    }
+
+    var messageHeader = document.createTextNode('hat folgende Anfrage an Sie:');
+    body.appendChild(messageHeader);
+    body.appendChild(newline());
+    body.appendChild(newline());  // two new lines.
+
+    var div = document.createElement('div');
+    div.setAttribute('style', 'font-style:italic;');
+    div.innerHTML = message.replace('\n', '\n<br>\n');
+    body.appendChild(div);
+    return doc.documentElement;
 };
 
 

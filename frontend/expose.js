@@ -124,9 +124,9 @@ function sendEmail() {
   var city = $('#city').val().trim();
   var message = $('#message').val().trim();
   var recipient = realEstate.contact().email;
-  var html = immobrowse.mkContactMail(
-    objectTitle, objectAddress, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city, message)
+  var html = immobrowse.dom.contactEmail(
+    realEstate, message, salutation, forename, surname,
+    phone, street, houseNumber, zipCode, city).outerHTML;
   mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId(), html, recipient, email);
   grecaptcha.reset();
 }
@@ -284,11 +284,13 @@ $(document).ready(function () {
     }
   };
 
-  immobrowse.getRealEstate(objectId, function (realEstate_) {
-    realEstate = realEstate_;
-    setupGalleries();
-    realEstate.render(elements);
-    document.title = 'Exposé Nr. ' + realEstate.objectId();
-    postRender();
-  });
+  immobrowse.RealEstate.get(objectId).then(
+    function (realEstate_) {
+        realEstate = realEstate_;
+        setupGalleries();
+        realEstate.render(elements);
+        document.title = 'Exposé Nr. ' + realEstate.objectId();
+        postRender();
+      }
+    );
 });
