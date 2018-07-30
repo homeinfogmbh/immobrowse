@@ -8,12 +8,14 @@ from io import BytesIO
 from uuid import uuid4
 
 from flask import request, send_file, Flask, Response
-from peewee import Model, ForeignKeyField, CharField
+from peewee import ForeignKeyField, CharField
 
-from immobrowse import DATABASE
 from mdb import Customer
 from openimmo import factories
 from openimmodb import Immobilie, Anhang
+
+from immobrowse.orm import ImmoBrowseModel
+
 
 __all__ = ['APPLICATION']
 
@@ -81,11 +83,10 @@ def _handle_invalid_access_token(_):
     return ('Unauthorized.', 403)
 
 
-class AccessToken(Model):
+class AccessToken(ImmoBrowseModel):
     """Access tokens for customers."""
 
     class Meta:
-        database = DATABASE
         table_name = 'access_token'
 
     customer = ForeignKeyField(

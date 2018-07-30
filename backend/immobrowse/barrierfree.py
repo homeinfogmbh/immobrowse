@@ -11,6 +11,7 @@ from mimeutil import mimetype
 from openimmodb import Immobilie, Anhang, BarrierFreeness
 from wsgilib import Application
 
+
 __all__ = ['APPLICATION']
 
 

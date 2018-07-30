@@ -2,27 +2,23 @@
 
 This web service is part of ImmoBrowse.
 """
-
-from configparser import ConfigParser
 from json import dumps
 
 from flask import make_response, jsonify, Response
-from peewee import Model, PrimaryKeyField, ForeignKeyField
 
 from mdb import Customer
 from mimeutil import mimetype
-from peeweeplus import MySQLDatabase
-
 from openimmodb import Immobilie, Anhang
 from wsgilib import Application
 
-__all__ = ['APPLICATION', 'DATABASE']
+from immobrowse.orm import Override
+
+
+__all__ = ['APPLICATION']
+
 
 PORTALS = ('immobrowse', 'homepage', 'website')
-CONFIG = ConfigParser()
-CONFIG.read('/etc/immobrowse.conf')
 APPLICATION = Application('immobrowse', cors=True, debug=True)
-DATABASE = MySQLDatabase.from_config(CONFIG['db'])
 
 
 def real_estates_of(customer):
@@ -91,18 +87,3 @@ def get_attachment(ident):
         return response
 
     return ('Related real estate not cleared for portal.', 403)
-
-
-class ImmoBrowseModel(Model):
-    """Basic ORM model for ImmoBrowse."""
-
-    class Meta:
-        database = DATABASE
-
-    id = PrimaryKeyField()
-
-
-class Override(ImmoBrowseModel):
-    """Customer overrides for ImmoBrowse."""
-
-    customer = ForeignKeyField(Customer, column_name='customer')
