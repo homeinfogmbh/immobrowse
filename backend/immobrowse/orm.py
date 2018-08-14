@@ -1,6 +1,6 @@
 """Object relational mappings."""
 
-from peewee import Model, PrimaryKeyField, ForeignKeyField
+from peewee import Model, ForeignKeyField
 
 from mdb import Customer
 from peeweeplus import MySQLDatabase
@@ -19,8 +19,6 @@ class ImmoBrowseModel(Model):
 
     class Meta:
         database = DATABASE
-
-    id = PrimaryKeyField()
 
 
 class Override(ImmoBrowseModel):
