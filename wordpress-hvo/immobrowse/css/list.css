@@ -1,0 +1,72 @@
+/*
+  Default stylesheets for the list view
+*/
+.ib-header {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+}
+
+.ib-template-container {
+  display: none;
+}
+
+.ib-extsearch-button {
+  float: right;
+}
+
+.ib-extsearch {
+  background-color: white;
+}
+
+.ib-preview-item {
+  margin-top: 2em;
+  background-color: white;
+  cursor: pointer;
+}
+
+.ib-preview-item:hover {
+  background-color: #ffffcc;
+}
+
+.ib-preview-container {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+}
+
+.ib-preview-title {
+  font-size: large;
+  font-variant: small-caps;
+}
+
+.ib-preview-data {
+  padding-top: 2em;
+}
+
+.ib-preview-data-caption {
+  font-weight: bold;
+}
+
+.ib-preview-tags {
+  padding-top: 2em;
+}
+
+.homeinfo input {
+ padding: initial !important;}
+ 
+.homeinfo{
+    max-width: 800px !important;}
+
+    
+@media (max-width: 1190px) {
+      
+      
+      .homeinfo {
+	width:auto !important;
+	
+      }
+}
