@@ -3,7 +3,7 @@
 * Plugin Name: HOMEINFO ImmoBrowse
 * Plugin URI: https://www.homeinfo.de/
 * Description: Homeinfo ImmoBrowse
-* Version: 1.1.6
+* Version: 1.1.7
 **/
 
 // Make sure we don't expose any info if called directly

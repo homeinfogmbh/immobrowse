@@ -33,7 +33,7 @@ class HomeinfoImmobrowseOptions {
 
     //Einstellungsseite befuellen
     public function create_admin_page() {
-        echo '<div class="wrap"><h1>Homeinfo ImmoBrowse Einstellungen</h1>';
+        echo '<div class="wrap"><h1>HOMEINFO ImmoBrowse Einstellungen</h1>';
 
         if (isset($_GET['settings-updated'])) {
             // add settings saved message with the class of "updated"
