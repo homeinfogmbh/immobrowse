@@ -1,10 +1,9 @@
 """ImmoBrowse's configuration."""
 
-from configparser import ConfigParser
+from configlib import loadcfg
 
 
 __all__ = ['CONFIG']
 
 
-CONFIG = ConfigParser()
-CONFIG.read('/etc/immobrowse.conf')
+CONFIG = loadcfg('immobrowse.conf')
