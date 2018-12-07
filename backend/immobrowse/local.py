@@ -38,7 +38,8 @@ def authorized(function):
     def wrapper(*args, **kwargs):
         """Wraps the respective function."""
         try:
-            token = AccessToken.get(AccessToken.token == request.args['token'])
+            token = AccessToken.get(
+                AccessToken.token == request.args['token'])
         except KeyError:
             raise UnauthorizedError()
 
