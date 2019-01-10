@@ -98,10 +98,10 @@ immobrowse.getSorter = function (property, order) {
     }
 
     switch(property) {
-    case 'rooms': return this.sortByRooms(descending);
-    case 'area': return this.sortByArea(descending);
-    case 'rent': return this.sortByRent(descending);
-    case 'street': return this.sortByStreet(descending);
+    case 'rooms': return immobrowse.sortByRooms(descending);
+    case 'area': return immobrowse.sortByArea(descending);
+    case 'rent': return immobrowse.sortByRent(descending);
+    case 'street': return immobrowse.sortByStreet(descending);
     default: throw 'Invalid sorting property: ' + property;
     }
 };
@@ -207,8 +207,8 @@ immobrowse.yesNo = function (boolean) {
 immobrowse.cities = function (realEstates) {
     var cities = [];
 
-    for (var i = 0; i < realEstates.length; i++) {
-        var city = realEstates[i].geo.ort;
+    for (var realEstate of realEstates) {
+        var city = realEstate.geo.ort;
 
         if (city != null) {
             if (cities[city] != undefined) {
@@ -229,8 +229,8 @@ immobrowse.cities = function (realEstates) {
 immobrowse.districts = function (realEstates) {
     var districts = [];
 
-    for (var i = 0; i < realEstates.length; i++) {
-        var district = realEstates[i].district();
+    for (var realEstate of realEstates) {
+        var district = realEstate.district();
 
         if (district != null) {
             if (districts[district] != undefined) {
@@ -248,9 +248,8 @@ immobrowse.districts = function (realEstates) {
 /*
   Returns a list of district elements for rendering.
 */
-immobrowse.districtElements = function (realEstates) {
+immobrowse.districtElements = function* (realEstates) {
     var districts = immobrowse.districts(realEstates);
-    var districtElements = [];
 
     for (var district in districts) {
         if (districts.hasOwnProperty(district)) {
@@ -258,15 +257,11 @@ immobrowse.districtElements = function (realEstates) {
             inputElement.setAttribute('type', 'checkbox');
             inputElement.setAttribute('class', 'ib-select-district');
             inputElement.setAttribute('name', district);
-            districtElements.push(inputElement);
-            var textElement = document.createTextNode(' ' + district + ' (' + districts[district] + ')');
-            districtElements.push(textElement);
-            var lineBreakElement = document.createElement('br');
-            districtElements.push(lineBreakElement);
+            yield inputElement;
+            yield document.createTextNode(' ' + district + ' (' + districts[district] + ')');
+            yield document.createElement('br');
         }
     }
-
-    return districtElements;
 };
 
 
@@ -493,16 +488,12 @@ immobrowse.Filter = function (rules) {
     /*
       Filters a list of real estates.
     */
-    this.filter = function (realEstates) {
-        var filteredRealEstates = [];
-
-        for (var i = 0; i < realEstates.length; i++) {
-            if (this.match(realEstates[i])) {
-                filteredRealEstates.push(realEstates[i]);
+    this.filter = function* (realEstates) {
+        for (var realEstate of realEstates) {
+            if (this.match(realEstate)) {
+                yield realEstate;
             }
         }
-
-        return filteredRealEstates;
     };
 };
 
@@ -701,47 +692,39 @@ immobrowse.RealEstate = function (json) {
     this.titleImage = function () {
         if (this.anhaenge == null) {
             return null;
-        } else {
-            if (this.anhaenge.anhang == null) {
-                return null;
-            } else {
-                var i, anhang;
+        }
 
-                for (i = 0; i < this.anhaenge.anhang.length; i++) {
-                    anhang = this.anhaenge.anhang[i];
+        if (this.anhaenge.anhang == null) {
+            return null;
+        }
 
-                    if (anhang.gruppe == 'TITELBILD') {
-                        return anhang;
-                    }
-                }
+        var anhang;
 
-                for (i = 0; i < this.anhaenge.anhang.length; i++) {
-                    anhang = this.anhaenge.anhang[i];
-
-                    if (anhang.gruppe == 'AUSSENANSICHTEN') {
-                        return anhang;
-                    }
-                }
-
-                for (i = 0; i < this.anhaenge.anhang.length; i++) {
-                    anhang = this.anhaenge.anhang[i];
-
-                    if (anhang.gruppe == 'BILD') {
-                        return anhang;
-                    }
-                }
-
-                for (i = 0; i < this.anhaenge.anhang.length; i++) {
-                    anhang = this.anhaenge.anhang[i];
-
-                    if (anhang.gruppe == 'GRUNDRISS') {
-                        return anhang;
-                    }
-                }
-
-                return null;
+        for (anhang of this.anhaenge.anhang) {
+            if (anhang.gruppe == 'TITELBILD') {
+                return anhang;
             }
         }
+
+        for (anhang of this.anhaenge.anhang) {
+            if (anhang.gruppe == 'AUSSENANSICHTEN') {
+                return anhang;
+            }
+        }
+
+        for (anhang of this.anhaenge.anhang) {
+            if (anhang.gruppe == 'BILD') {
+                return anhang;
+            }
+        }
+
+        for (anhang of this.anhaenge.anhang) {
+            if (anhang.gruppe == 'GRUNDRISS') {
+                return anhang;
+            }
+        }
+
+        return null;
     };
 
     this.rooms = function () {
@@ -813,11 +796,9 @@ immobrowse.RealEstate = function (json) {
     };
 
     this.type = function () {
-        var types = this.types();
-
-        for (var i = 0; i < types.length; i++) {
-            if (types[i] != null) {
-                return homeinfo.str.capitalizeFirstLetter(types[i].toLowerCase());
+        for (var type of this.types()) {
+            if (type != null) {
+                return homeinfo.str.capitalizeFirstLetter(types.toLowerCase());
             }
         }
 
@@ -1021,43 +1002,37 @@ immobrowse.RealEstate = function (json) {
         return false;
     };
 
-    this.objectTypes = function () {
-        var types = [];
+    this.objectTypes = function* () {
         var objektart = this.objektkategorie.objektart;
 
         if (objektart.zimmer != null) {
-            types.push('ZIMMER');
+            yield 'ZIMMER';
         }
 
         if (objektart.wohnung != null) {
-            types.push('WOHNUNG');
-            types.concat(objektart.wohnung);
+            yield 'WOHNUNG';
+            yield* objektart.wohnung;
         }
-
-        return types;
     };
 
-    this.marketingTypes = function () {
-        var types = [];
+    this.marketingTypes = function* () {
         var vermarktungsart = this.objektkategorie.vermarktungsart;
 
         if (vermarktungsart.KAUF) {
-            types.push('KAUF');
+            yield 'KAUF';
         }
 
         if (vermarktungsart.MIETE_PACHT) {
-            types.push('MIETE_PACHT');
+            yield 'MIETE_PACHT';
         }
 
         if (vermarktungsart.ERBPACHT) {
-            types.push('ERBPACHT');
+            yield 'ERBPACHT';
         }
 
         if (vermarktungsart.LEASING) {
-            types.push('LEASING');
+            yield 'LEASING';
         }
-
-        return types;
     };
 
     this.showAddress = function () {
@@ -1108,33 +1083,33 @@ immobrowse.RealEstate = function (json) {
     this.matchTypes = function (types) {
         if (types == null) {
             return true;
-        } else {
-            var myTypes = this.objectTypes();
+        }
 
-            for (var i = 0; i < myTypes.length; i++) {
-                if (types.indexOf(myTypes[i]) >= 0) {
+        for (var type of types) {
+            for (var objectType of this.objectTypes()) {
+                if (type == objectType) {
                     return true;
                 }
             }
-
-            return false;
         }
+
+        return false;
     };
 
     this.matchMarketing = function (types) {
         if (types == null) {
             return true;
-        } else {
-            var myTypes = this.marketingTypes();
+        }
 
-            for (var i = 0; i < myTypes.length; i++) {
-                if (types.indexOf(myTypes[i]) >= 0) {
+        for (var type of types) {
+            for (var marketingType of this.marketingTypes()) {
+                if (type == marketingType) {
                     return true;
                 }
             }
-
-            return false;
         }
+
+        return false;
     };
 
     this.objectId = function () {
@@ -1160,7 +1135,9 @@ immobrowse.RealEstate = function (json) {
     this.detailsURL = function () {
         if (immobrowse.config.exposeURLCallback != null) {
             return immobrowse.config.exposeURLCallback(this.id);
-        } else if (immobrowse.config.detailsURL != null) {
+        }
+
+        if (immobrowse.config.detailsURL != null) {
             return this.defaultDetailsURL(immobrowse.config.detailsURL);
         }
 
@@ -1207,49 +1184,38 @@ immobrowse.RealEstate = function (json) {
         return null;
     };
 
-    this.attachments = function () {
-        var attachments = [];
-
+    this.attachments = function* () {
         if (this.anhaenge != null) {
             if (this.anhaenge.anhang != null) {
-                for (var i = 0; i < this.anhaenge.anhang.length; i++) {
-                    attachments.push(this.anhaenge.anhang[i]);
+                for (var anhang of this.anhaenge.anhang) {
+                    yield anhang;
                 }
             }
         }
-
-        return attachments;
     };
 
-    this.images = function () {
-        var attachments = this.attachments();
+    this.images = function* () {
         var imageGroups = ['TITELBILD', 'BILD', 'AUSSENANSICHTEN', 'INNENANSICHTEN', 'ANBIETERLOGO'];
-        var images = [];
 
-        for (var i = 0; i < attachments.length; i++) {
-            if (imageGroups.indexOf(attachments[i].gruppe) >= 0) {
-                images.push(attachments[i]);
+        for (var attachment of this.attachments()) {
+            if (imageGroups.includes(attachment.gruppe)) {
+                yield attachment;
             }
         }
-
-        return images;
     };
 
-    this.floorplans = function () {
-        var attachments = this.attachments();
-        var floorplans = [];
-
-        for (var i = 0; i < attachments.length; i++) {
-            if (attachments[i].gruppe == 'GRUNDRISS') {
-                floorplans.push(attachments[i]);
+    this.floorplans = function* () {
+        for (var attachment of this.attachments()) {
+            if (attachment.gruppe == 'GRUNDRISS') {
+                yield attachment;
             }
         }
-
-        return floorplans;
     };
 
     this.floorplan = function () {
-        return this.floorplans()[0];
+        for (var floorplan of this.floorplans()) {
+            return floorplan;
+        }
     };
 
     this.floor = function () {
@@ -1276,95 +1242,93 @@ immobrowse.RealEstate = function (json) {
 
                 if (this.geo.etage < 0) {
                     return -this.geo.etage + ordinal + ug;
-                } else if (this.geo.etage > 0) {
-                    return this.geo.etage + ordinal + og;
-                } else {
-                    return eg;
                 }
+
+                if (this.geo.etage > 0) {
+                    return this.geo.etage + ordinal + og;
+                }
+
+                return eg;
             }
         }
     };
 
-    this.amenities = function () {
-        var amenities = [];
-
+    this.amenities = function* () {
         if (this.ausstattung != null) {
             if (this.ausstattung.rollstuhlgerecht) {
-                amenities.push('Rollstuhlgerecht');
+                yield 'Rollstuhlgerecht';
             }
 
             if (this.ausstattung.stellplatzart != null) {
                 if (this.ausstattung.stellplatzart.FREIPLATZ) {
-                    amenities.push('Stellplatz');
+                    yield 'Stellplatz';
                 }
             }
 
             if (this.ausstattung.fahrstuhl != null) {
                 if (this.ausstattung.fahrstuhl.PERSONEN) {
-                    amenities.push('Personenaufzug');
+                    yield 'Personenaufzug';
                 }
             }
 
             if (this.ausstattung.gaestewc) {
-                amenities.push('Gäste WC');
+                yield 'Gäste WC';
             }
         }
 
         if (this.flaechen != null) {
             if (this.flaechen.einliegerwohnung) {
-                amenities.push('Einliegerwohnung');
+                yield 'Einliegerwohnung';
             }
         }
 
         if (this.lavatoryDryingRoom()) {
-            amenities.push('Wasch- / Trockenraum');
+            yield 'Wasch- / Trockenraum';
         }
 
         if (this.builtInKitchen()) {
-            amenities.push('Einbauk&uuml;che');
+            yield 'Einbauk&uuml;che';
         }
 
         if (this.shower()) {
-            amenities.push('Dusche');
+            yield 'Dusche';
         }
 
         if (this.bathroomWindow()) {
-            amenities.push('Fenster im Bad');
+            yield 'Fenster im Bad';
         }
 
         if (this.bathTub()) {
-            amenities.push('Badewanne');
+            yield 'Badewanne';
         }
 
         if (this.cableSatTv()) {
-            amenities.push('Kabel / Sat. / TV');
+            yield 'Kabel / Sat. / TV';
         }
 
         if (this.barrierFree()) {
-            amenities.push('Barrierefrei');
+            yield 'Barrierefrei';
         }
 
         if (this.basementRoom()) {
-            amenities.push('Keller');
+            yield 'Keller';
         }
 
         if (this.balconies() > 0) {
-            amenities.push('Balkon');
+            yield 'Balkon';
         }
 
         if (this.terraces() > 0) {
-            amenities.push('Terrasse');
+            yield 'Terrasse';
         }
 
         if (this.petsAllowed()) {
-            amenities.push('Tierhaltung');
+            yield 'Tierhaltung';
         }
 
         if (this.gardenUsage()) {
-            amenities.push('Gartennutzung');
+            yield 'Gartennutzung';
         }
-
-        return amenities;
     };
 
     this.serviceCharge = function () {
@@ -1440,7 +1404,9 @@ immobrowse.RealEstate = function (json) {
             if (this.verwaltung_objekt.abdatum != null) {
                 var date = new Date(this.verwaltung_objekt.abdatum);
                 return homeinfo.date.date(date);
-            } else if (this.verwaltung_objekt.verfuegbar_ab != null) {
+            }
+
+            if (this.verwaltung_objekt.verfuegbar_ab != null) {
                 return this.verwaltung_objekt.verfuegbar_ab;
             }
         }
@@ -1518,41 +1484,37 @@ immobrowse.RealEstate = function (json) {
     /*
       Returns the heating types.
     */
-    this.heatingTypes = function () {
-        var heatingTypes = [];
-
+    this.heatingTypes = function* () {
         if (this.ausstattung != null) {
             if (this.ausstattung.heizungsart != null) {
                 if (this.ausstattung.heizungsart.OFEN) {
-                    heatingTypes.push('Ofen');
+                    yield 'Ofen';
                 }
 
                 if (this.ausstattung.heizungsart.ETAGE) {
-                    heatingTypes.push('Etagenheizung');
+                    yield 'Etagenheizung';
                 }
 
                 if (this.ausstattung.heizungsart.ZENTRAL) {
-                    heatingTypes.push('Zentralheizung');
+                    yield 'Zentralheizung';
                 }
 
                 if (this.ausstattung.heizungsart.FERN) {
-                    heatingTypes.push('Fernwärme');
+                    yield 'Fernwärme';
                 }
 
                 if (this.ausstattung.heizungsart.FUSSBODEN) {
-                    heatingTypes.push('Fussbodenheizung');
+                    yield 'Fussbodenheizung';
                 }
             }
         }
-
-        return heatingTypes;
     };
 
     /*
       Returns the heating type.
     */
     this.heatingType = function () {
-        var heatingTypes = this.heatingTypes();
+        var heatingTypes = Array.from(this.heatingTypes());
 
         if (heatingTypes.length == 0) {
             return immobrowse.config.na;
@@ -1592,8 +1554,8 @@ immobrowse.RealEstate = function (json) {
             energyCertificate.type = 'Verbrauchsausweis';
 
             if (energiepass.energieverbrauchkennwert != null && energiepass.energieverbrauchkennwert != '') {
-                var consumption = immobrowse.germanDecimal(Number(homeinfo.str.comma2dot(
-                    energiepass.energieverbrauchkennwert))) + immobrowse.config.kwh;
+                var energieverbrauchkennwert = Number(homeinfo.str.comma2dot(energiepass.energieverbrauchkennwert));
+                var consumption = immobrowse.germanDecimal(energieverbrauchkennwert) + immobrowse.config.kwh;
                 energyCertificate.value = consumption;
                 energyCertificate.consumption = consumption;
             }
@@ -1601,8 +1563,8 @@ immobrowse.RealEstate = function (json) {
             energyCertificate.type = 'Bedarfsausweis';
 
             if (energiepass.endenergiebedarf != null && energiepass.endenergiebedarf != '') {
-                var demand = immobrowse.germanDecimal(Number(homeinfo.str.comma2dot(
-                    energiepass.endenergiebedarf))) + immobrowse.config.kwh;
+                var endenergiebedarf = Number(homeinfo.str.comma2dot(energiepass.endenergiebedarf));
+                var demand = immobrowse.germanDecimal(endenergiebedarf) + immobrowse.config.kwh;
                 energyCertificate.value = demand;
                 energyCertificate.demand = demand;
             }
@@ -1706,25 +1668,20 @@ immobrowse.RealEstate = function (json) {
         return contact;
     };
 
-    this.amenitiesTags = function () {
-        var amenities = this.amenities();
-        var elements = [];
-
-        for (var i = 0; i < amenities.length; i++) {
-            elements.push(immobrowse.dom.AmenitiesTag(amenities[i]));
+    this.amenitiesTags = function* () {
+        for (var amenity of this.amenities()) {
+            yield immobrowse.dom.AmenitiesTag(amenity);
         }
-
-        return elements;
     };
 
     this.amenitiesList = function () {
-        var amenities = this.amenities();
+        var amenities = Array.from(this.amenities());
 
         if (amenities.length > 0) {
             var html = '<ul class="ib-amenities-list">';
 
-            for (var i = 0; i < amenities.length; i++) {
-                html += '<li>' + amenities[i] + '</li>';
+            for (var amenity of amenities) {
+                html += '<li>' + amenity + '</li>';
             }
 
             return html + '</ul>';
@@ -1878,11 +1835,8 @@ immobrowse.RealEstate = function (json) {
     this._dataFields = function (elements) {
         elements = elements || this._defaultElements;
         var dataFields = [];
-        var element;
 
-        for (var i = 0; i < elements.length; i++) {
-            element = elements[i];
-
+        for (var element of elements) {
             switch (element.name) {
             case 'coldRent':
                 immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.rent()) || immobrowse.config.na, dataFields);
@@ -1969,8 +1923,8 @@ immobrowse.RealEstate.list = function (cid) {
         function (json) {
             var realEstates = [];
 
-            for (var i = 0; i < json.length; i++) {
-                realEstates.push(new immobrowse.RealEstate(json[i]));
+            for (var object of json) {
+                realEstates.push(new immobrowse.RealEstate(object));
             }
 
             return realEstates;
@@ -1990,7 +1944,7 @@ immobrowse.RealEstate.list = function (cid) {
   Real estate list class.
 */
 immobrowse.List = function (realEstates) {
-    this.realEstates = realEstates;
+    this.realEstates = Array.from(realEstates);
 
     /*
       Sorts real estates.
@@ -2005,8 +1959,8 @@ immobrowse.List = function (realEstates) {
     this.render = function (listElement, elements) {
         listElement.html('');  // Clear element.
 
-        for (var i = 0; i < this.realEstates.length; i++) {
-            listElement.append(this.realEstates[i].preview(elements));
+        for (var realEstate of this.realEstates) {
+            listElement.append(realEstate.preview(elements));
         }
     };
 };
@@ -2136,8 +2090,8 @@ immobrowse.dom.preview.DataRow = function (dataColumns) {
     var element = document.createElement('div');
     element.setAttribute('class', 'row row-centered ib-preview-data');
 
-    for (var i = 0; i < dataColumns.length; i++) {
-        element.appendChild(dataColumns[i]);
+    for (var child of dataColumns) {
+        element.appendChild(child);
     }
 
     return element;
@@ -2234,8 +2188,8 @@ immobrowse.dom.preview.AmenitiesTags = function (amenities) {
     var element = document.createElement('div');
     element.setAttribute('class', 'ib-preview-tags');
 
-    for (var i = 0; i < amenities.length; i++) {
-        element.appendChild(amenities[i]);
+    for (var child of amenities) {
+        element.appendChild(child);
     }
 
     return element;
@@ -2255,8 +2209,8 @@ immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
   Creates a contact email.
 */
 immobrowse.dom.contactEmail = function (
-        realEstate, message, salutation, forename, surname,
-        phone, street, houseNumber, zipCode, city) {
+    realEstate, message, salutation, forename, surname,
+    phone, street, houseNumber, zipCode, city) {
     function  newline () {
         return document.createElement('br');
     }
@@ -2276,7 +2230,7 @@ immobrowse.dom.contactEmail = function (
     h3.textContent = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
     body.appendChild(h3);
 
-    var salutation = document.createTextNode(salutation + ' ');
+    salutation = document.createTextNode(salutation + ' ');
     body.appendChild(salutation);
 
     var span = document.createElement('span');
@@ -2292,7 +2246,7 @@ immobrowse.dom.contactEmail = function (
             streetAndHouseNumber += ' ' + houseNumber;
         }
 
-        var streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
+        streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
         body.appendChild(newline());
         body.appendChild(streetAndHouseNumber);
         inquirerInfo = true;
