@@ -1917,7 +1917,7 @@ immobrowse.RealEstate = class {
                     immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags)
                 )
             ),
-            this.detailsURL()
+            this.detailsURL
         );
     }
 };
