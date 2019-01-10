@@ -1,7 +1,7 @@
 /*
   immobrowse.js - ImmoBrowse JavaScript library.
 
-  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017-2019 HOMEINFO - Digitale Informationssysteme GmbH
 
   This library is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

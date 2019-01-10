@@ -1,7 +1,7 @@
 /*
   gallery.js - ImmoBrowse image gallery
 
-  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017-2019 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -50,13 +50,15 @@ gallery.previousCallback = function (galleryObj) {
 };
 
 
-gallery.Gallery = function (images, mapping, urlCallback) {
-    this.images = Array.from(images);
-    this.mapping = mapping;
-    this.urlCallback = urlCallback;
-    this.index = 0;
+gallery.Gallery = class {
+    constructor (images, mapping, urlCallback) {
+        this.images = Array.from(images);
+        this.mapping = mapping;
+        this.urlCallback = urlCallback;
+        this.index = 0;
+    }
 
-    this.next = function () {
+    next () {
         this.index++;
 
         if (this.index >= this.images.length) {
@@ -64,9 +66,9 @@ gallery.Gallery = function (images, mapping, urlCallback) {
         }
 
         this.render();
-    };
+    }
 
-    this.previous = function () {
+    previous () {
         this.index--;
 
         if (this.index < 0) {
@@ -74,19 +76,19 @@ gallery.Gallery = function (images, mapping, urlCallback) {
         }
 
         this.render();
-    };
+    }
 
-    this.bind = function () {
+    bind () {
         this.mapping.next.unbind('click' );
         this.mapping.next.click(gallery.nextCallback(this));
         this.mapping.previous.unbind('click');
         this.mapping.previous.click(gallery.previousCallback(this));
-    };
+    }
 
-    this.render = function () {
+    render () {
         this.mapping.image.attr('src', this.urlCallback(this.images[this.index]));
         this.mapping.title.html(this.images[this.index].anhangtitel);
         this.mapping.index.html(this.index + 1);
         this.mapping.count.html(this.images.length);
-    };
+    }
 };

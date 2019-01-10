@@ -1,7 +1,7 @@
 /*
   list.js - ImmoBrowse list front end JavaScript
 
-  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017-2019 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ var sorting = {
 var realEstates;
 var listElement;
 
+
 function toggleOrder() {
     const previousOrder = sorting.order;
 
@@ -43,6 +44,7 @@ function toggleOrder() {
 
     return previousOrder;
 }
+
 
 function toggleSorting(property) {
     const previousIssuer = document.getElementById('ib-sort-' + sorting.property);
@@ -67,6 +69,7 @@ function toggleSorting(property) {
     list();
 }
 
+
 function renderDistricts(districtsElement, districtElements) {
     districtsElement.html('');
 
@@ -79,6 +82,7 @@ function renderDistricts(districtsElement, districtElements) {
     });
 }
 
+
 function* selectedDistricts() {
     const checkboxes = document.getElementsByClassName('ib-select-district');
 
@@ -88,6 +92,7 @@ function* selectedDistricts() {
         }
     }
 }
+
 
 function filters() {
     const priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
@@ -110,6 +115,7 @@ function filters() {
     };
 }
 
+
 function list() {
     const filter = new immobrowse.Filter(filters());
     const list = new immobrowse.List(filter.filter(realEstates));
@@ -120,6 +126,7 @@ function list() {
 
     list.render(listElement);
 }
+
 
 function init() {
     $('#ib-extsearch-button').click(function() {
@@ -147,5 +154,6 @@ function init() {
         }
     );
 }
+
 
 $(document).ready(init);
