@@ -33,7 +33,7 @@ var realEstates;
 var listElement;
 
 function toggleOrder() {
-    var previousOrder = sorting.order;
+    const previousOrder = sorting.order;
 
     if (sorting.order == 'descending') {
         sorting.order = 'ascending';
@@ -45,8 +45,8 @@ function toggleOrder() {
 }
 
 function toggleSorting(property) {
-    var previousIssuer = document.getElementById('ib-sort-' + sorting.property);
-    var issuer = document.getElementById('ib-sort-' + property);
+    const previousIssuer = document.getElementById('ib-sort-' + sorting.property);
+    const issuer = document.getElementById('ib-sort-' + property);
     toggleOrder();
     sorting.property = property;
 
@@ -70,7 +70,7 @@ function toggleSorting(property) {
 function renderDistricts(districtsElement, districtElements) {
     districtsElement.html('');
 
-    for (var districtElement of districtElements) {
+    for (let districtElement of districtElements) {
         districtsElement.append(districtElement);
     }
 
@@ -80,20 +80,17 @@ function renderDistricts(districtsElement, districtElements) {
 }
 
 function* selectedDistricts() {
-    var districts = [];
-    var checkboxes = document.getElementsByClassName('ib-select-district');
+    const checkboxes = document.getElementsByClassName('ib-select-district');
 
-    for (var checkbox of checkboxes) {
+    for (let checkbox of checkboxes) {
         if (checkbox.checked) {
             yield checkbox.getAttribute('name');
         }
     }
-
-    return districts;
 }
 
 function filters() {
-    var priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
+    const priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
     return {
         types: immobrowse.config.types,
         marketing: immobrowse.config.marketing,
@@ -114,8 +111,8 @@ function filters() {
 }
 
 function list() {
-    var filter = new immobrowse.Filter(filters());
-    var list = new immobrowse.List(filter.filter(realEstates));
+    const filter = new immobrowse.Filter(filters());
+    const list = new immobrowse.List(filter.filter(realEstates));
 
     if (sorting.property != null) {
         list.sort(sorting.property, sorting.order);
