@@ -38,7 +38,8 @@ barrierfree.getRealEstate = function (objectId, portal, callback) {
     jQuery.ajax({
         url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal,
         success: function (json) {
-            callback(new barrierfree.RealEstate(json, portal));
+            var realEstate = new barrierfree.RealEstate(json, portal);
+            callback(realEstate);
         },
         error: function() {
             swal({
@@ -59,12 +60,14 @@ barrierfree.getRealEstates = function (portal, callback) {
         url: 'https://backend.homeinfo.de/barrierfree/list?portal=' + portal,
         success: function (json) {
             var realEstates = [];
+            var realEstate;
 
-            for (var i = 0; i < json.length; i++) {
-                realEstates.push(new barrierfree.RealEstate(json[i], portal));
+            for (var object of json) {
+                realEstate = new barrierfree.RealEstate(object, portal);
+                realEstates.push(realEstate);
             }
 
-            callback(realEstates)
+            callback(realEstates);
         },
         error: function() {
             swal({
@@ -81,14 +84,16 @@ barrierfree.getRealEstates = function (portal, callback) {
   Extended real estate with additional barrier
   freeness related properties and methods.
 */
-barrierfree.RealEstate = function (json, portal) {
-    immobrowse.RealEstate.call(this, json);
-    this.portal = portal;
+barrierfree.RealEstate = class extends immobrowse.RealEstate {
+    constructor (json, portal) {
+        super(json);
+        this.portal = portal;
+    }
 
     /*
       Determines whether the real estate is completely barrier free
     */
-    this.completelyBarrierFree = function () {
+    get completelyBarrierFree () {
         var barrierFreeness = this.barrier_freeness || {};
 
         function entryOk() {
@@ -126,158 +131,153 @@ barrierfree.RealEstate = function (json, portal) {
     /*
       Determines whether the real estate is limited barrier free
     */
-    this.limitedBarrierFree = function () {
+    get limitedBarrierFree () {
         var barrierFreeness = this.barrier_freeness || {};
         var entry = barrierFreeness.entry || {};
         return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
     }
 
-    this._super_amenities = this.amenities;
-
     /*
       Amenities extension
     */
-    this.amenities = function () {
-        var amenities = this._super_amenities();
+    get amenities () {
+        return function* (instance, super_amenities) {
+            yield* super_amenities;
 
-        if (this.completelyBarrierFree()) {
-            amenities.push('vollständig barrierefrei');
-        } else if (this.limitedBarrierFree()) {
-            amenities.push('eingeschränkt barrierefrei');
-        }
-
-        return amenities;
+            if (instance.completelyBarrierFree()) {
+                yield 'vollständig barrierefrei';
+            } else if (instance.limitedBarrierFree()) {
+                yield 'eingeschränkt barrierefrei';
+            }
+        }(this, super.amenities);
     }
 
-    this.attachmentURL = function (anhang) {
+    attachmentURL (anhang) {
         if (anhang == null) {
             return null;
-        } else {
-            return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
         }
+
+        return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
     }
 
-    this.barrierFreeAmenities = function () {
-        var barrierFreeAmenities = [];
-        var barrierFreeness = this.barrier_freeness || {};
-        var entry = barrierFreeness.entry || {};
-        var lift = barrierFreeness.lift || {};
-        var bath = barrierFreeness.bath || {};
-        var balcony = barrierFreeness.balcony || {};
+    get barrierFreeAmenities () {
+        return function* (instance) {
+            var barrierFreeness = instance.barrier_freeness || {};
+            var entry = barrierFreeness.entry || {};
+            var lift = barrierFreeness.lift || {};
+            var bath = barrierFreeness.bath || {};
+            var balcony = barrierFreeness.balcony || {};
 
-        if (barrierFreeness.stairs == '0') {
-            barrierFreeAmenities.push('Keine Stufen bis zum Wohnungseingang');
-        } else if (barrierFreeness.stairs == '0-1') {
-            barrierFreeAmenities.push('Maximal eine Stufe bis zum Wohnungseingang');
-        } else if (barrierFreeness.stairs == '2-8') {
-            barrierFreeAmenities.push('2-8 Stufen bis zum Wohnungseingang');
-        }
-
-        if (entry.ramp_din) {
-            barrierFreeAmenities.push('Rampe mit bis zu 6 % Gefälle (nach DIN-Norm)');
-        } else if (entry.ramp_din === false) {
-            barrierFreeAmenities.push('Rampe mit über 6 % Gefälle');
-        }
-
-        if (barrierFreeness.wide_door) {
-            barrierFreeAmenities.push('Mindestbreite der Wohnungseingangstür 90 cm');
-        }
-
-        if (barrierFreeness.low_thresholds) {
-            barrierFreeAmenities.push('keine Türschwellen > 2cm (außer Balkon)');
-        }
-
-        if (barrierFreeness.wide_doors) {
-            barrierFreeAmenities.push('Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)');
-        }
-
-        if (entry.door_opener) {
-            barrierFreeAmenities.push('Automatischer Türöffner an der Haustür');
-        }
-
-        if (lift) {
-            barrierFreeAmenities.push('Aufzug');
-
-            if (lift.wide_door) {
-                barrierFreeAmenities.push('Mindestbreite der Aufzugstür 80 cm');
+            if (barrierFreeness.stairs == '0') {
+                yield 'Keine Stufen bis zum Wohnungseingang';
+            } else if (barrierFreeness.stairs == '0-1') {
+                yield 'Maximal eine Stufe bis zum Wohnungseingang';
+            } else if (barrierFreeness.stairs == '2-8') {
+                yield '2-8 Stufen bis zum Wohnungseingang';
             }
 
-            if (lift.value == '90x140') {
-                barrierFreeAmenities.push('Kabinengröße bis 90 x 140 cm Innenmaß');
-            } else if (lift.value == 'DIN') {
-                barrierFreeAmenities.push('Kabinengröße ab 90 x 140 cm Innenmaß (nach DIN-Norm)');
+            if (entry.ramp_din) {
+                yield 'Rampe mit bis zu 6 % Gefälle (nach DIN-Norm)';
+            } else if (entry.ramp_din === false) {
+                yield 'Rampe mit über 6 % Gefälle';
             }
-        }
 
-        if (bath.bathtub) {
-            barrierFreeAmenities.push('Badewanne');
-        }
+            if (barrierFreeness.wide_door) {
+                yield 'Mindestbreite der Wohnungseingangstür 90 cm';
+            }
 
-        if (bath.shower_tray == 'high') {
-            barrierFreeAmenities.push('Hoher Duschwanne ab 7 cm');
-        } else if (bath.shower_tray == 'low') {
-            barrierFreeAmenities.push('Flache Duschwanne bis 7 cm (nach DIN-Norm)');
-        } else if (bath.shower_tray == 'walk-in') {
-            barrierFreeAmenities.push('Bodengleiche Dusche (nach DIN-Norm)');
-        }
+            if (barrierFreeness.low_thresholds) {
+                yield 'keine Türschwellen > 2cm (außer Balkon)';
+            }
 
-        if (bath.wide) {
-            barrierFreeAmenities.push('Durchgangsbreite Vorderseite Sanitärobjekt zur Wand mind. 120 cm');
-        }
+            if (barrierFreeness.wide_doors) {
+                yield 'Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)';
+            }
 
-        if (bath.large) {
-            barrierFreeAmenities.push('Größe des Badezimmers ab 3 m²');
-        }
+            if (entry.door_opener) {
+                yield 'Automatischer Türöffner an der Haustür';
+            }
 
-        if (balcony.wide_door) {
-            barrierFreeAmenities.push('Mindestbreite Balkontür 80cm');
-        }
+            if (lift) {
+                yield 'Aufzug';
 
-        if (balcony.threshold) {
-            barrierFreeAmenities.push('Balkon mit Schwelle (Höhe 2 cm und mehr)');
-        } else if (balcony.threshold === false) {
-            barrierFreeAmenities.push('Balkon schwellenlos erreichbar (Absatz bis 2 cm)');
-        }
+                if (lift.wide_door) {
+                    yield 'Mindestbreite der Aufzugstür 80 cm';
+                }
 
-        if (balcony.large) {
-            barrierFreeAmenities.push('Balkongröße über 2,5 m²');
-        }
+                if (lift.value == '90x140') {
+                    yield 'Kabinengröße bis 90 x 140 cm Innenmaß';
+                } else if (lift.value == 'DIN') {
+                    yield 'Kabinengröße ab 90 x 140 cm Innenmaß (nach DIN-Norm)';
+                }
+            }
 
-        if (entry.doorbell_panel) {
-            barrierFreeAmenities.push('Klingeltableau behindertengerecht (große Tasten, große Ziffern, Höhe +/- 85 cm)');
-        }
+            if (bath.bathtub) {
+                yield 'Badewanne';
+            }
 
-        if (entry.intercom) {
-            barrierFreeAmenities.push('Gegensprechanlage');
-        }
+            if (bath.shower_tray == 'high') {
+                yield 'Hoher Duschwanne ab 7 cm';
+            } else if (bath.shower_tray == 'low') {
+                yield 'Flache Duschwanne bis 7 cm (nach DIN-Norm)';
+            } else if (bath.shower_tray == 'walk-in') {
+                yield 'Bodengleiche Dusche (nach DIN-Norm)';
+            }
 
-        if (barrierFreeness.wheelchair_parking == 'indoors') {
-            barrierFreeAmenities.push('Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung');
-        } else if (barrierFreeness.wheelchair_parking == 'outdoorsv') {
-            barrierFreeAmenities.push('Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung');
-        }
+            if (bath.wide) {
+                yield 'Durchgangsbreite Vorderseite Sanitärobjekt zur Wand mind. 120 cm';
+            }
 
-        return barrierFreeAmenities;
+            if (bath.large) {
+                yield 'Größe des Badezimmers ab 3 m²';
+            }
+
+            if (balcony.wide_door) {
+                yield 'Mindestbreite Balkontür 80cm';
+            }
+
+            if (balcony.threshold) {
+                yield 'Balkon mit Schwelle (Höhe 2 cm und mehr)';
+            } else if (balcony.threshold === false) {
+                yield 'Balkon schwellenlos erreichbar (Absatz bis 2 cm)';
+            }
+
+            if (balcony.large) {
+                yield 'Balkongröße über 2,5 m²';
+            }
+
+            if (entry.doorbell_panel) {
+                yield 'Klingeltableau behindertengerecht (große Tasten, große Ziffern, Höhe +/- 85 cm)';
+            }
+
+            if (entry.intercom) {
+                yield 'Gegensprechanlage';
+            }
+
+            if (barrierFreeness.wheelchair_parking == 'indoors') {
+                yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung';
+            } else if (barrierFreeness.wheelchair_parking == 'outdoorsv') {
+                yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung';
+            }
+        }(this);
     }
 
-    this._super_render = this.render;
-
-    this.render = function (elements) {
-        this._super_render(elements);
+    render (elements) {
+        super.render(elements);
         this.setValue(elements.barrierFreeAmenitiesList, this.listAmenities(this.barrierFreeAmenities()));
     }
-}
+};
 
 
 /*
   Extended filter for barrier freeness filering
 */
-barrierfree.Filter = function (rules) {
-    immobrowse.Filter.call(this, rules);
+barrierfree.Filter = class extends immobrowse.Filter {
+    constructor (rules) {
+        super(rules);
+    }
 
-    this._super_match = this.match;
-
-    this.match = function (realEstate) {
+    match (realEstate) {
         if (this.rules.completelyBarrierFree) {
             if (! realEstate.completelyBarrierFree) {
                 return false;
@@ -290,6 +290,6 @@ barrierfree.Filter = function (rules) {
             }
         }
 
-        return this._super_match(realEstate);
+        return super.match(realEstate);
     }
-}
+};

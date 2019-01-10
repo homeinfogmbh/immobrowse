@@ -117,19 +117,19 @@ function sendEmail() {
         salutation = "Frau";
     }
 
-    var objectTitle = realEstate.objectTitle();
-    var objectAddress = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
+    var objectTitle = realEstate.objectTitle;
+    var objectAddress = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
     var phone = $('#phone').val().trim();
     var street = $('#street').val().trim();
     var houseNumber = $('#house_number').val().trim();
     var zipCode = $('#zip_code').val().trim();
     var city = $('#city').val().trim();
     var message = $('#message').val().trim();
-    var recipient = realEstate.contact().email;
+    var recipient = realEstate.contact.email;
     var html = immobrowse.dom.contactEmail(
         realEstate, message, salutation, forename, surname,
         phone, street, houseNumber, zipCode, city).outerHTML;
-    mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId(), html, recipient, email);
+    mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId, html, recipient, email);
     grecaptcha.reset();
 }
 
@@ -182,7 +182,7 @@ function setupGalleries() {
         'next': $('#galleryNext'),
         'previous': $('#galleryPrevious')
     };
-    var images = Array.from(realEstate.images());
+    var images = Array.from(realEstate.images);
 
     function attachmentUrlCallback(attachment) {
         return realEstate.attachmentURL(attachment);
@@ -204,7 +204,7 @@ function setupGalleries() {
         $('#titleImageFrame').addClass('ib-browsable');
     }
 
-    var floorplans = Array.from(realEstate.floorplans());
+    var floorplans = Array.from(realEstate.floorplans);
     floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
     if (floorplans.length > 0) {
@@ -290,7 +290,7 @@ function init() {
             realEstate = realEstate_;
             setupGalleries();
             realEstate.render(elements);
-            document.title = 'Exposé Nr. ' + realEstate.objectId();
+            document.title = 'Exposé Nr. ' + realEstate.objectId;
             postRender();
         }
     );
