@@ -26,129 +26,129 @@
 var args = new homeinfo.QueryString();
 var customer = args.customer;
 var sorting = {
-  property: null,
-  order: null
+    property: null,
+    order: null
 };
 var realEstates;
 var listElement;
 
 function toggleOrder() {
-  var previousOrder = sorting.order;
+    var previousOrder = sorting.order;
 
-  if (sorting.order == 'descending') {
-    sorting.order = 'ascending';
-  } else {
-    sorting.order = 'descending';
-  }
+    if (sorting.order == 'descending') {
+        sorting.order = 'ascending';
+    } else {
+        sorting.order = 'descending';
+    }
 
-  return previousOrder;
+    return previousOrder;
 }
 
 function toggleSorting(property) {
-  var previousIssuer = document.getElementById('ib-sort-' + sorting.property);
-  var issuer = document.getElementById('ib-sort-' + property);
-  toggleOrder();
-  sorting.property = property;
+    var previousIssuer = document.getElementById('ib-sort-' + sorting.property);
+    var issuer = document.getElementById('ib-sort-' + property);
+    toggleOrder();
+    sorting.property = property;
 
-  // Remove arrow symbol
-  if (previousIssuer != null) {
-    previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
-  }
+    // Remove arrow symbol
+    if (previousIssuer != null) {
+        previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
+    }
 
-  switch (sorting.order) {
+    switch (sorting.order) {
     case 'ascending':
-      issuer.innerHTML += ' &darr;';
-      break;
+        issuer.innerHTML += ' &darr;';
+        break;
     case 'descending':
-      issuer.innerHTML += ' &uarr;';
-      break;
-  }
+        issuer.innerHTML += ' &uarr;';
+        break;
+    }
 
-  list();
+    list();
 }
 
 function renderDistricts(districtsElement, districtElements) {
-  districtsElement.html('');
+    districtsElement.html('');
 
-  for (var i = 0; i < districtElements.length; i++) {
-    districtsElement.append(districtElements[i]);
-  }
+    for (var districtElement of districtElements) {
+        districtsElement.append(districtElement);
+    }
 
-  $('.ib-select-district').click(function() {
-    list();
-  });
+    $('.ib-select-district').click(function() {
+        list();
+    });
 }
 
-function selectedDistricts() {
-  var districts = [];
-  var checkboxes = document.getElementsByClassName('ib-select-district');
+function* selectedDistricts() {
+    var districts = [];
+    var checkboxes = document.getElementsByClassName('ib-select-district');
 
-  for (i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-      districts.push(checkboxes[i].getAttribute('name'));
+    for (var checkbox of checkboxes) {
+        if (checkbox.checked) {
+            yield checkbox.getAttribute('name');
+        }
     }
-  }
 
-  return districts;
+    return districts;
 }
 
 function filters() {
-  var priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
-  var filters = {
-    types: immobrowse.config.types,
-    marketing: immobrowse.config.marketing,
-    priceMin: Number(homeinfo.str.comma2dot($('#ib-price-min').val())),
-    priceMax: priceMax == 0 ? Infinity: priceMax,
-    areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
-    roomsMin: Number(homeinfo.str.comma2dot($('#ib-rooms-min').val())),
-    ebk: $("#ib-filter-kitchen").is(':checked'),
-    bathtub: $("#ib-filter-bathtub").is(':checked'),
-    window: $("#ib-filter-window").is(':checked'),
-    balcony: $("#ib-filter-balcony").is(':checked'),
-    carSpace: $("#ib-filter-carspace").is(':checked'),
-    guestwc: $("#ib-filter-guestwc").is(':checked'),
-    elevator: $("#ib-filter-elevator").is(':checked'),
-    garden: $("#ib-filter-garden").is(':checked'),
-    districts: selectedDistricts()
-  }
-
-  return filters;
+    var priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
+    return {
+        types: immobrowse.config.types,
+        marketing: immobrowse.config.marketing,
+        priceMin: Number(homeinfo.str.comma2dot($('#ib-price-min').val())),
+        priceMax: priceMax == 0 ? Infinity: priceMax,
+        areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
+        roomsMin: Number(homeinfo.str.comma2dot($('#ib-rooms-min').val())),
+        ebk: $("#ib-filter-kitchen").is(':checked'),
+        bathtub: $("#ib-filter-bathtub").is(':checked'),
+        window: $("#ib-filter-window").is(':checked'),
+        balcony: $("#ib-filter-balcony").is(':checked'),
+        carSpace: $("#ib-filter-carspace").is(':checked'),
+        guestwc: $("#ib-filter-guestwc").is(':checked'),
+        elevator: $("#ib-filter-elevator").is(':checked'),
+        garden: $("#ib-filter-garden").is(':checked'),
+        districts: selectedDistricts()
+    };
 }
 
 function list() {
-  var filter = new immobrowse.Filter(filters());
-  var list = new immobrowse.List(filter.filter(realEstates));
+    var filter = new immobrowse.Filter(filters());
+    var list = new immobrowse.List(filter.filter(realEstates));
 
-  if (sorting.property != null) {
-    list.sort(sorting.property, sorting.order);
-  }
+    if (sorting.property != null) {
+        list.sort(sorting.property, sorting.order);
+    }
 
-  list.render(listElement);
+    list.render(listElement);
 }
 
-$(document).ready(function () {
-  $('#ib-extsearch-button').click(function() {
-    if ($('#extendedSearch').attr('style') == "display: none;")
-      $('#extendedSearch').slideDown();
-    else
-      $('#extendedSearch').slideUp();
-  });
+function init() {
+    $('#ib-extsearch-button').click(function() {
+        if ($('#extendedSearch').attr('style') == "display: none;")
+            $('#extendedSearch').slideDown();
+        else
+            $('#extendedSearch').slideUp();
+    });
 
-  $('.ib-btn-filter-option').on('input',function(e) {
-    list();
-  });
+    $('.ib-btn-filter-option').on('input',function(e) {
+        list();
+    });
 
-  $('.ib-filter-amenities-option').click(function() {
-    list();
-  });
+    $('.ib-filter-amenities-option').click(function() {
+        list();
+    });
 
-  listElement = $('#list');
-  immobrowse.RealEstate.list(customer).then(
-    function (realEstates_) {
-      realEstates = realEstates_;
-      renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
-      list();
-      $('#loader').hide();
-    }
-  );
-});
+    listElement = $('#list');
+    immobrowse.RealEstate.list(customer).then(
+        function (realEstates_) {
+            realEstates = realEstates_;
+            renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
+            list();
+            $('#loader').hide();
+        }
+    );
+}
+
+$(document).ready(init);

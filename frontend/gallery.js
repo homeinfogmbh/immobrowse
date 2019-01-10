@@ -27,66 +27,66 @@ var gallery = gallery || {};
 
 
 gallery.next = function (galleryObj) {
-  galleryObj.next();
-}
+    galleryObj.next();
+};
 
 
 gallery.previous = function (galleryObj) {
-  galleryObj.previous();
-}
+    galleryObj.previous();
+};
 
 
 gallery.nextCallback = function (galleryObj) {
-  return function () {
-    galleryObj.next();
-  }
-}
+    return function () {
+        galleryObj.next();
+    };
+};
 
 
 gallery.previousCallback = function (galleryObj) {
-  return function () {
-    galleryObj.previous();
-  }
-}
+    return function () {
+        galleryObj.previous();
+    };
+};
 
 
 gallery.Gallery = function (images, mapping, urlCallback) {
-  this.images = images;
-  this.mapping = mapping;
-  this.urlCallback = urlCallback;
-  this.index = 0;
+    this.images = Array.from(images);
+    this.mapping = mapping;
+    this.urlCallback = urlCallback;
+    this.index = 0;
 
-  this.next = function () {
-    this.index++;
+    this.next = function () {
+        this.index++;
 
-    if (this.index >= this.images.length) {
-      this.index = 0;
-    }
+        if (this.index >= this.images.length) {
+            this.index = 0;
+        }
 
-    this.render();
-  }
+        this.render();
+    };
 
-  this.previous = function () {
-    this.index--;
+    this.previous = function () {
+        this.index--;
 
-    if (this.index < 0) {
-      this.index = this.images.length - 1;
-    }
+        if (this.index < 0) {
+            this.index = this.images.length - 1;
+        }
 
-    this.render();
-  }
+        this.render();
+    };
 
-  this.bind = function () {
-    this.mapping.next.unbind( "click" );
-    this.mapping.next.click(gallery.nextCallback(this));
-    this.mapping.previous.unbind( "click" );
-    this.mapping.previous.click(gallery.previousCallback(this));
-  }
+    this.bind = function () {
+        this.mapping.next.unbind('click' );
+        this.mapping.next.click(gallery.nextCallback(this));
+        this.mapping.previous.unbind('click');
+        this.mapping.previous.click(gallery.previousCallback(this));
+    };
 
-  this.render = function () {
-    this.mapping.image.attr('src', this.urlCallback(this.images[this.index]));
-    this.mapping.title.html(this.images[this.index].anhangtitel);
-    this.mapping.index.html(this.index + 1);
-    this.mapping.count.html(this.images.length);
-  }
-}
+    this.render = function () {
+        this.mapping.image.attr('src', this.urlCallback(this.images[this.index]));
+        this.mapping.title.html(this.images[this.index].anhangtitel);
+        this.mapping.index.html(this.index + 1);
+        this.mapping.count.html(this.images.length);
+    };
+};
