@@ -60,30 +60,28 @@ immobrowse.compare = function (alice, bob, descending) {
     if (alice == null) {
         if (bob == null) {
             return 0;
-        } else {
-            return Infinity;
         }
-    } else {
-        if (bob == null) {
-            return -Infinity;
-        } else {
-            let val = 0;
 
-            if (alice < bob) {
-                val = -1;
-            } else {
-                if (bob < alice) {
-                    val = 1;
-                }
-            }
-
-            if (descending) {
-                val =    val * -1;
-            }
-
-            return val;
-        }
+        return Infinity;
     }
+
+    if (bob == null) {
+        return -Infinity;
+    }
+
+    let val = 0;
+
+    if (alice < bob) {
+        val = -1;
+    } else if (bob < alice) {
+        val = 1;
+    }
+
+    if (descending) {
+        val = -val;
+    }
+
+    return val;
 };
 
 
