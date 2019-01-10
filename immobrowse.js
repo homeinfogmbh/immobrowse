@@ -492,16 +492,12 @@ immobrowse.Filter = class {
     /*
       Filters a list of real estates.
     */
-    filter (realEstates) {
-        const result = [];
-
+    *filter (realEstates) {
         for (let realEstate of realEstates) {
             if (this.match(realEstate)) {
-                result.push(realEstate);
+                yield realEstate;
             }
         }
-
-        return result;
     }
 };
 
