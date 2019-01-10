@@ -1967,6 +1967,8 @@ immobrowse.RealEstate.list = function (cid) {
 */
 immobrowse.List = class {
     constructor (realEstates) {
+        console.log('Array.from = ' + Array.from);
+        console.log('Array.from = ' + JSON.stringify(Array.from));
         this.realEstates = Array.from(realEstates);
     }
 
