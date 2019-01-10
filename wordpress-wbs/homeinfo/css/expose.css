@@ -1,0 +1,73 @@
+/*
+  Default stylesheets for the expose details
+*/
+.ib-header {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+}
+
+.ib-expose {
+  margin-top: 2em;
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+}
+
+.ib-expose-data-row {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.ib-expose-data-col {
+  padding-top: 2em;
+}
+
+.ib-title {
+  font-size: large;
+  font-variant: small-caps;
+  text-align: center;
+}
+
+.ib-id {
+  font-size: large;
+  font-family: monospace;
+  text-align: center;
+}
+
+.ib-address {
+  text-align: center;
+}
+
+.ib-section-caption {
+  font-size: large;
+  font-variant: small-caps;
+}
+
+.ib-price-caption {
+  font-size: larger;
+}
+
+.ib-browsable {
+  cursor: pointer;
+}
+
+.ib-justified {
+  text-align: justify;
+}
+
+.ib-expose-image {
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  height: 300px;
+}
+
+.ib-amenities-list {
+  list-style-image: url('../img/ok.png');
+  padding-left:3em;
+}
