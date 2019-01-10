@@ -109,7 +109,7 @@ function filters() {
         guestwc: $("#ib-filter-guestwc").is(':checked'),
         elevator: $("#ib-filter-elevator").is(':checked'),
         garden: $("#ib-filter-garden").is(':checked'),
-        districts: selectedDistricts()
+        districts: Array.from(selectedDistricts())
     };
 }
 
