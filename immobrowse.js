@@ -112,7 +112,7 @@ immobrowse.getSorter = function (property, order) {
 */
 immobrowse.sortByRooms = function (descending) {
     return function (immobilie1, immobilie2) {
-        return immobrowse.compare(immobilie1.rooms(), immobilie2.rooms(), descending);
+        return immobrowse.compare(immobilie1.rooms, immobilie2.rooms, descending);
     };
 };
 
@@ -122,7 +122,7 @@ immobrowse.sortByRooms = function (descending) {
 */
 immobrowse.sortByArea = function (descending) {
     return function (immobilie1, immobilie2) {
-        return immobrowse.compare(immobilie1.area(), immobilie2.area(), descending);
+        return immobrowse.compare(immobilie1.area, immobilie2.area, descending);
     };
 };
 
@@ -132,7 +132,7 @@ immobrowse.sortByArea = function (descending) {
 */
 immobrowse.sortByRent = function (descending) {
     return function (immobilie1, immobilie2) {
-        return immobrowse.compare(immobilie1.rent(), immobilie2.rent(), descending);
+        return immobrowse.compare(immobilie1.rent, immobilie2.rent, descending);
     };
 };
 
@@ -142,7 +142,7 @@ immobrowse.sortByRent = function (descending) {
 */
 immobrowse.sortByStreet = function (descending) {
     return function (immobilie1, immobilie2) {
-        return immobrowse.compare(immobilie1.street(), immobilie2.street(), descending);
+        return immobrowse.compare(immobilie1.street, immobilie2.street, descending);
     };
 };
 
@@ -2265,7 +2265,7 @@ immobrowse.dom.contactEmail = function (
     body.appendChild(h2);
 
     var h3 = document.createElement('h3');
-    h3.textContent = [realEstate.addressPreview(), realEstate.cityPreview()].join(' ');
+    h3.textContent = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
     body.appendChild(h3);
 
     salutation = document.createTextNode(salutation + ' ');
