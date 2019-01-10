@@ -1706,7 +1706,7 @@ immobrowse.RealEstate = class {
                 ul.appendChild(li);
             }
 
-            return ul.outerHTML();
+            return ul.outerHTML;
         }
 
         return '–';
