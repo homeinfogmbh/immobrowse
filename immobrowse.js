@@ -1697,13 +1697,16 @@ immobrowse.RealEstate = class {
         const amenities = Array.from(this.amenities);
 
         if (amenities.length > 0) {
-            let html = '<ul class="ib-amenities-list">';
+            const ul = document.createElement('ul');
+            ul.setAttribute('class', 'ib-amenities-list');
 
             for (let amenity of amenities) {
-                html += '<li>' + amenity + '</li>';
+                let li = document.createElement('li');
+                li.textContent = amenity;
+                ul.appendChild(li);
             }
 
-            return html + '</ul>';
+            return ul.outerHTML();
         }
 
         return '–';
