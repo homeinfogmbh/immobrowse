@@ -103,14 +103,14 @@ function filters() {
         priceMax: priceMax == 0 ? Infinity: priceMax,
         areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
         roomsMin: Number(homeinfo.str.comma2dot($('#ib-rooms-min').val())),
-        ebk: $("#ib-filter-kitchen").is(':checked'),
-        bathtub: $("#ib-filter-bathtub").is(':checked'),
-        window: $("#ib-filter-window").is(':checked'),
-        balcony: $("#ib-filter-balcony").is(':checked'),
-        carSpace: $("#ib-filter-carspace").is(':checked'),
-        guestwc: $("#ib-filter-guestwc").is(':checked'),
-        elevator: $("#ib-filter-elevator").is(':checked'),
-        garden: $("#ib-filter-garden").is(':checked'),
+        ebk: $('#ib-filter-kitchen').is(':checked'),
+        bathtub: $('#ib-filter-bathtub').is(':checked'),
+        window: $('#ib-filter-window').is(':checked'),
+        balcony: $('#ib-filter-balcony').is(':checked'),
+        carSpace: $('#ib-filter-carspace').is(':checked'),
+        guestwc: $('#ib-filter-guestwc').is(':checked'),
+        elevator: $('#ib-filter-elevator').is(':checked'),
+        garden: $('#ib-filter-garden').is(':checked'),
         districts: Array.from(selectedDistricts())
     };
 }
@@ -130,7 +130,7 @@ function list() {
 
 function init() {
     $('#ib-extsearch-button').click(function() {
-        if ($('#extendedSearch').attr('style') == "display: none;")
+        if ($('#extendedSearch').attr('style') == 'display: none;')
             $('#extendedSearch').slideDown();
         else
             $('#extendedSearch').slideUp();

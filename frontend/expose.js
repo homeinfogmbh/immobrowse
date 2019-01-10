@@ -67,7 +67,7 @@ function sendEmail() {
         return;
     }
 
-    var forename = $("#forename").val().trim();
+    var forename = $('#forename').val().trim();
 
     if (forename == '') {
         swal({
@@ -78,7 +78,7 @@ function sendEmail() {
         return;
     }
 
-    var surname = $("#surname").val().trim();
+    var surname = $('#surname').val().trim();
 
     if (surname == '') {
         swal({
@@ -112,9 +112,9 @@ function sendEmail() {
     var salutation;
 
     if ($("input:radio[name='gender']:checked").val() == 1) {
-        salutation = "Herr";
+        salutation = 'Herr';
     } else {
-        salutation = "Frau";
+        salutation = 'Frau';
     }
 
     var objectTitle = realEstate.objectTitle;
@@ -136,9 +136,9 @@ function sendEmail() {
 
 function initContactForm() {
     clearContactForm();
-    $("#send_form").click(sendEmail);
+    $('#send_form').click(sendEmail);
     $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-    $("#clear_form").click(clearContactForm);
+    $('#clear_form').click(clearContactForm);
 }
 
 
@@ -149,16 +149,16 @@ function postRender() {
     $('#main').attr('style', 'padding-top: 80px');
 
     $('.showimage').click(function() {
-        for (var i = 0; i < $(this).data("nrmax"); i++) {
+        for (var i = 0; i < $(this).data('nrmax'); i++) {
             $('#image'+ i).hide();
         }
 
-        $('#image'+ $(this).data("nr")).show();
+        $('#image'+ $(this).data('nr')).show();
     });
 
     $('.btn_contact').click(function(e) {
         //$('#contact').scrollIntoView(true);
-        if ($('#contact').attr('style') == "display: none;") {
+        if ($('#contact').attr('style') == 'display: none;') {
             $('#contact').slideDown();
         } else {
             $('#contact').slideUp();
