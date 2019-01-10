@@ -798,7 +798,8 @@ immobrowse.RealEstate = function (json) {
     this.type = function () {
         for (var type of this.types()) {
             if (type != null) {
-                return homeinfo.str.capitalizeFirstLetter(type.toLowerCase());
+                type = type.toLowerCase();
+                return homeinfo.str.capitalizeFirstLetter(type);
             }
         }
 
