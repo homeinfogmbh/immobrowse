@@ -129,7 +129,7 @@ function init() {
             $('#extendedSearch').slideUp();
     });
 
-    $('.ib-btn-filter-option').on('input',function(e) {
+    $('.ib-btn-filter-option').on('input', function(e) {
         list();
     });
 
