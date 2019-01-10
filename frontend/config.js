@@ -1,11 +1,13 @@
 /*
   Customer's individual ImmoBrowse configuration
 */
-immobrowse.config = {
-  types: ['WOHNUNG'],
-  marketing: ['MIETE_PACHT'],
-  shortFloorNames: true,
-  exposeURLCallback: function (objectId) {
+'use strict';
+
+var immobrowse = immobrowse || {};
+immobrowse.config = immobrowse.config || {};
+immobrowse.config['types'] = ['WOHNUNG'];
+immobrowse.config['marketing'] = ['MIETE_PACHT'];
+immobrowse.config['shortFloorNames'] = true;
+immobrowse.config['exposeURLCallback'] = function (objectId) {
     return 'expose.html?real_estate=' + objectId + '&customer=' + customer;
-  }
 };
