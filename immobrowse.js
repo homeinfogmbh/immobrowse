@@ -906,8 +906,8 @@ immobrowse.RealEstate = class {
             return null;
         }
 
-        var operationalCosts = this.operationalCosts() || 0;
-        var heatingCosts = this.heatingCosts() || 0;
+        var operationalCosts = this.operationalCosts || 0;
+        var heatingCosts = this.heatingCosts || 0;
         return rent + operationalCosts + heatingCosts;
     }
 
@@ -1340,11 +1340,11 @@ immobrowse.RealEstate = class {
                 yield 'Keller';
             }
 
-            if (instance.balconies() > 0) {
+            if (instance.balconies > 0) {
                 yield 'Balkon';
             }
 
-            if (instance.terraces() > 0) {
+            if (instance.terraces > 0) {
                 yield 'Terrasse';
             }
 
@@ -1882,10 +1882,10 @@ immobrowse.RealEstate = class {
                 immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.operationalCosts) || immobrowse.config.na, dataFields);
                 break;
             case 'rooms':
-                immobrowse.dom.preview.addDataFieldCol(element, this.rooms() || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, this.rooms || immobrowse.config.na, dataFields);
                 break;
             case 'area':
-                immobrowse.dom.preview.addDataFieldCol(element, this.area() || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, this.area || immobrowse.config.na, dataFields);
                 break;
             }
         }
@@ -1899,7 +1899,7 @@ immobrowse.RealEstate = class {
     preview (elements) {
         var addressRow = null;
 
-        if (this.showAddress() && immobrowse.config.addressInList) {
+        if (this.showAddress && immobrowse.config.addressInList) {
             addressRow = immobrowse.dom.preview.AddressRow(immobrowse.dom.preview.ObjectAddress(this.address));
         }
 
@@ -1911,7 +1911,7 @@ immobrowse.RealEstate = class {
                     )
                 ),
                 immobrowse.dom.preview.DataCol(
-                    immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle() || immobrowse.config.na)),
+                    immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle || immobrowse.config.na)),
                     addressRow,
                     immobrowse.dom.preview.DataRow(this._dataFields(elements)),
                     immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags)
