@@ -493,13 +493,15 @@ immobrowse.Filter = class {
       Filters a list of real estates.
     */
     filter (realEstates) {
-        return function* (instance) {
+        function* inner (instance) {
             for (let realEstate of realEstates) {
                 if (instance.match(realEstate)) {
                     yield realEstate;
                 }
             }
-        }(this);
+        }
+
+        return inner(this);
     }
 };
 
