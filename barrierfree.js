@@ -38,7 +38,7 @@ barrierfree.getRealEstate = function (objectId, portal, callback) {
     jQuery.ajax({
         url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal,
         success: function (json) {
-            var realEstate = new barrierfree.RealEstate(json, portal);
+            const realEstate = new barrierfree.RealEstate(json, portal);
             callback(realEstate);
         },
         error: function() {
@@ -59,11 +59,10 @@ barrierfree.getRealEstates = function (portal, callback) {
     jQuery.ajax({
         url: 'https://backend.homeinfo.de/barrierfree/list?portal=' + portal,
         success: function (json) {
-            var realEstates = [];
-            var realEstate;
+            const realEstates = [];
 
-            for (var object of json) {
-                realEstate = new barrierfree.RealEstate(object, portal);
+            for (let object of json) {
+                let realEstate = new barrierfree.RealEstate(object, portal);
                 realEstates.push(realEstate);
             }
 
@@ -94,25 +93,25 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
       Determines whether the real estate is completely barrier free
     */
     get completelyBarrierFree () {
-        var barrierFreeness = this.barrier_freeness || {};
+        const barrierFreeness = this.barrier_freeness || {};
 
         function entryOk() {
-            var entry = barrierFreeness.entry || {};
+            const entry = barrierFreeness.entry || {};
             return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
         }
 
         function doorsOk() {
-            var entry = barrierFreeness.entry || {};
+            const entry = barrierFreeness.entry || {};
             return barrierFreeness.wide_door && barrierFreeness.low_thresholds && barrierFreeness.wide_doors && entry.door_opener;
         }
 
         function liftOk() {
-            var lift = barrierFreeness.lift || {};
+            const lift = barrierFreeness.lift || {};
             return lift.value == 'DIN';
         }
 
         function bathOk() {
-            var bath = barrierFreeness.bath || {};
+            const bath = barrierFreeness.bath || {};
             return bath.wide && (bath.shower_tray == 'low' || bath.shower_tray == 'walk-in');
         }
 
@@ -121,7 +120,7 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
         }
 
         function doobellPanelOk() {
-            var entry = barrierFreeness.entry || {};
+            const entry = barrierFreeness.entry || {};
             return entry.doorbell_panel;
         }
 
@@ -132,8 +131,8 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
       Determines whether the real estate is limited barrier free
     */
     get limitedBarrierFree () {
-        var barrierFreeness = this.barrier_freeness || {};
-        var entry = barrierFreeness.entry || {};
+        const barrierFreeness = this.barrier_freeness || {};
+        const entry = barrierFreeness.entry || {};
         return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
     }
 
@@ -162,11 +161,11 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
 
     get barrierFreeAmenities () {
         return function* (instance) {
-            var barrierFreeness = instance.barrier_freeness || {};
-            var entry = barrierFreeness.entry || {};
-            var lift = barrierFreeness.lift || {};
-            var bath = barrierFreeness.bath || {};
-            var balcony = barrierFreeness.balcony || {};
+            const barrierFreeness = instance.barrier_freeness || {};
+            const entry = barrierFreeness.entry || {};
+            const lift = barrierFreeness.lift || {};
+            const bath = barrierFreeness.bath || {};
+            const balcony = barrierFreeness.balcony || {};
 
             if (barrierFreeness.stairs == '0') {
                 yield 'Keine Stufen bis zum Wohnungseingang';
