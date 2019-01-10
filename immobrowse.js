@@ -497,7 +497,7 @@ immobrowse.Filter = class {
 
         for (let realEstate of realEstates) {
             if (this.match(realEstate)) {
-                result.pushd(realEstate);
+                result.push(realEstate);
             }
         }
 
