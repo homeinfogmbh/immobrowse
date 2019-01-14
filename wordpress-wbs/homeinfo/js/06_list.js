@@ -155,7 +155,7 @@ immobrowse.wordpress.filters = function () {
 immobrowse.wordpress.list = function () {
     var filter = new immobrowse.Filter(immobrowse.wordpress.filters());
     var settingsFilteredRealEstates = filter.filter(immobrowse.wordpress.realEstates);
-    var districtFilteredRealEstates = immobrowse.wbs.districtFilteredRealEstates();
+    var districtFilteredRealEstates = immobrowse.wbs.districtFilteredRealEstates(immobrowse.wordpress.realEstates);
     var filteredRealEstates = Array.from(immobrowse.wbs.merge(settingsFilteredRealEstates, districtFilteredRealEstates));
     var list = new immobrowse.List(filteredRealEstates);
 
