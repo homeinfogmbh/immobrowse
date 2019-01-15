@@ -93,14 +93,23 @@ def get_list(cid):
             return ('No such customer: {}.'.format(cid), 404)
 
     real_estates = []
+    jsonify_time_total = None
 
     with DebugTime('Getting real estates.'):
         for real_estate in real_estates_of(customer):
-            with DebugTime('Converting real estate to JSON.'):
+            with DebugTime('Converting real estate to JSON.') as jsonify_time:
                 real_estate = real_estate.to_dict(limit=True)
+
+            if jsonify_time_total is None:
+                jsonify_time_total = jsonify_time.duration
+            else:
+                jsonify_time_total += jsonify_time.duration
 
             with DebugTime('Appending JSON real estate to list.'):
                 real_estates.append(real_estate)
+
+    print('DEBUG:', '[{}]\t'.format(datetime.now()), 'JSONification took',
+          jsonify_time_total, flush=True)
 
     with DebugTime('Generating response.'):
         response = Response(dumps(real_estates), mimetype='application/json')
