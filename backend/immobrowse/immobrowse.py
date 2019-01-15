@@ -49,23 +49,37 @@ class DebugTime:
               'took', '{}.{}'.format(self.duration, end), flush=True)
 
 
+def has_override(customer):
+    """Checks if the customer has an override."""
+
+    try:
+        Override.get(Override.customer == customer)
+    except Override.DoesNotExist:
+        return False
+
+    return True
+
+
+def approve(immobilie, override=None):
+    """Chekcs whether the real estate is in any of the portals."""
+
+    if override:
+        return True
+
+    if override is None and has_override(immobilie.customer):
+        return True
+
+    return any(immobilie.approve(portal) for portal in PORTALS)
+
+
 def real_estates_of(customer):
     """Yields real estates of the respective customer."""
 
+    override = has_override(customer)
+
     for immobilie in Immobilie.by_customer(customer):
-        if immobilie.active and approve(immobilie, PORTALS):
+        if immobilie.active and approve(immobilie, override=override):
             yield immobilie
-
-
-def approve(immobilie, portals):
-    """Chekcs whether the real estate is in any of the portals."""
-
-    try:
-        Override.get(Override.customer == immobilie.customer)
-    except Override.DoesNotExist:
-        return any(immobilie.approve(portal) for portal in portals)
-
-    return True
 
 
 @APPLICATION.route('/list/<int:cid>')
@@ -103,7 +117,7 @@ def get_expose(ident):
     except Immobilie.DoesNotExist:
         return ('No such real estate: {}.'.format(ident), 404)
 
-    if approve(immobilie, PORTALS):
+    if approve(immobilie):
         if immobilie.active:
             return jsonify(immobilie.to_dict(limit=True))
 
@@ -121,7 +135,7 @@ def get_attachment(ident):
     except Anhang.DoesNotExist:
         return ('No such attachment: {}'.format(ident), 404)
 
-    if approve(anhang.immobilie, PORTALS):
+    if approve(anhang.immobilie):
         data = anhang.data
         response = make_response(data)
         response.headers['Content-Type'] = mimetype(data)
