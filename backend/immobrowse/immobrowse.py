@@ -29,13 +29,32 @@ _DEBUG_FILE = NamedTemporaryFile(
 print('DEBUG: Logging to file:', _DEBUG_FILE.name, flush=True)
 
 
-def _debug(text, end=linesep):
-    """Writes text to a debug file."""
+class Timeit:
+    """Measures time of an operation."""
 
-    with _DEBUG_FILE as debug:
-        debug.write('[{}]\t'.format(datetime.now()))
-        debug.write(text)
-        debug.write(end)
+    def __init__(self, caption, file=_DEBUG_FILE):
+        self.caption = caption
+        self.file = file
+        self.start = None
+        self.end = None
+
+    def __enter__(self):
+        self.start = datetime.now()
+
+    def __exit__(self, *_):
+        self.end = datetime.now()
+
+    @property
+    def duration(self):
+        """Returns the measured duration."""
+        return self.end - self.start
+
+    def write(self, end=linesep):
+        """Writes the duration to the log file."""
+        with self.file as file:
+            file.write('[{}]\t'.format(datetime.now()))
+            file.write('{} took {}.'.format(self.caption, self.duration))
+            file.write(end)
 
 
 def real_estates_of(customer):
@@ -61,25 +80,22 @@ def approve(immobilie, portals):
 def get_list(cid):
     """Returns the respective real estate list."""
 
-    _debug('Getting customer.')
-
-    try:
-        customer = Customer.get(Customer.id == cid)
-    except Customer.DoesNotExist:
-        _debug('Customer does not exist.')
-        return ('No such customer: {}.'.format(cid), 404)
+    with Timeit('Getting customer.'):
+        try:
+            customer = Customer.get(Customer.id == cid)
+        except Customer.DoesNotExist:
+            return ('No such customer: {}.'.format(cid), 404)
 
     real_estates = []
-    _debug('Getting real estates.')
 
-    for real_estate in real_estates_of(customer):
-        _debug('Converting real estate to JSON.')
-        real_estate = real_estate.to_dict(limit=True)
-        _debug('Converted real estate to JSON.')
+    with Timeit('Getting real estates.'):
+        for real_estate in real_estates_of(customer):
+            with Timeit('Converting real estate to JSON.'):
+                real_estate = real_estate.to_dict(limit=True)
 
-    _debug('Generating response.')
-    response = Response(dumps(real_estates), mimetype='application/json')
-    _debug('Returning response.')
+    with Timeit('Generating response.'):
+        response = Response(dumps(real_estates), mimetype='application/json')
+
     return response
 
 
