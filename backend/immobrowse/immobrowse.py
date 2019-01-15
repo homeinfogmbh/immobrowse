@@ -29,7 +29,7 @@ _DEBUG_FILE = NamedTemporaryFile(
 print('DEBUG: Logging to file:', _DEBUG_FILE.name, flush=True)
 
 
-class Timeit:
+class DebugTime:
     """Measures time of an operation."""
 
     def __init__(self, caption, file=_DEBUG_FILE):
@@ -80,7 +80,7 @@ def approve(immobilie, portals):
 def get_list(cid):
     """Returns the respective real estate list."""
 
-    with Timeit('Getting customer.'):
+    with DebugTime('Getting customer.'):
         try:
             customer = Customer.get(Customer.id == cid)
         except Customer.DoesNotExist:
@@ -88,12 +88,12 @@ def get_list(cid):
 
     real_estates = []
 
-    with Timeit('Getting real estates.'):
+    with DebugTime('Getting real estates.'):
         for real_estate in real_estates_of(customer):
-            with Timeit('Converting real estate to JSON.'):
+            with DebugTime('Converting real estate to JSON.'):
                 real_estate = real_estate.to_dict(limit=True)
 
-    with Timeit('Generating response.'):
+    with DebugTime('Generating response.'):
         response = Response(dumps(real_estates), mimetype='application/json')
 
     return response
