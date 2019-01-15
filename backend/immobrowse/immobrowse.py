@@ -33,6 +33,7 @@ class DebugTime:
 
     def __enter__(self):
         self.start = datetime.now()
+        return self
 
     def __exit__(self, *_):
         self.end = datetime.now()
