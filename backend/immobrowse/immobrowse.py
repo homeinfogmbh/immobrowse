@@ -2,7 +2,10 @@
 
 This web service is part of ImmoBrowse.
 """
+from datetime import datetime
 from json import dumps
+from os import linesep
+from tempfile import NamedTemporaryFile
 
 from flask import make_response, jsonify, Response
 
@@ -19,6 +22,20 @@ __all__ = ['APPLICATION']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 APPLICATION = Application('immobrowse', cors=True, debug=True)
+_DEBUG_FILE = NamedTemporaryFile(
+    'a', prefix='immobrowse_', suffix='.log', delete=False)
+
+
+print('DEBUG: Logging to file:', _DEBUG_FILE.name, flush=True)
+
+
+def _debug(text, end=linesep):
+    """Writes text to a debug file."""
+
+    with _DEBUG_FILE as debug:
+        debug.write('[{}]\t'.format(datetime.now()))
+        debug.write(text)
+        debug.write(end)
 
 
 def real_estates_of(customer):
@@ -44,13 +61,26 @@ def approve(immobilie, portals):
 def get_list(cid):
     """Returns the respective real estate list."""
 
+    _debug('Getting customer.')
+
     try:
         customer = Customer.get(Customer.id == cid)
     except Customer.DoesNotExist:
+        _debug('Customer does not exist.')
         return ('No such customer: {}.'.format(cid), 404)
 
-    real_estates = [r.to_dict(limit=True) for r in real_estates_of(customer)]
-    return Response(dumps(real_estates), mimetype='application/json')
+    real_estates = []
+    _debug('Getting real estates.')
+
+    for real_estate in real_estates_of(customer):
+        _debug('Converting real estate to JSON.')
+        real_estate = real_estate.to_dict(limit=True)
+        _debug('Converted real estate to JSON.')
+
+    _debug('Generating response.')
+    response = Response(dumps(real_estates), mimetype='application/json')
+    _debug('Returning response.')
+    return response
 
 
 @APPLICATION.route('/expose/<int:ident>')
