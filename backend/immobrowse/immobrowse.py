@@ -36,6 +36,7 @@ class DebugTime:
 
     def __exit__(self, *_):
         self.end = datetime.now()
+        self.write()
 
     @property
     def duration(self):
