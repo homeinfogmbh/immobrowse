@@ -5,7 +5,6 @@ This web service is part of ImmoBrowse.
 from datetime import datetime
 from json import dumps
 from os import linesep
-from tempfile import NamedTemporaryFile
 
 from flask import make_response, jsonify, Response
 
@@ -22,19 +21,13 @@ __all__ = ['APPLICATION']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 APPLICATION = Application('immobrowse', cors=True, debug=True)
-_DEBUG_FILE = NamedTemporaryFile(
-    'a', prefix='immobrowse_', suffix='.log', delete=False)
-
-
-print('DEBUG: Logging to file:', _DEBUG_FILE.name, flush=True)
 
 
 class DebugTime:
     """Measures time of an operation."""
 
-    def __init__(self, caption, file=_DEBUG_FILE):
+    def __init__(self, caption):
         self.caption = caption
-        self.file = file
         self.start = None
         self.end = None
 
@@ -51,10 +44,8 @@ class DebugTime:
 
     def write(self, end=linesep):
         """Writes the duration to the log file."""
-        with self.file as file:
-            file.write('[{}]\t'.format(datetime.now()))
-            file.write('{} took {}.'.format(self.caption, self.duration))
-            file.write(end)
+        print('[{}]\t{} took {}.{}'.format(
+            datetime.now(), self.caption, self.duration, end), flush=True)
 
 
 def real_estates_of(customer):
