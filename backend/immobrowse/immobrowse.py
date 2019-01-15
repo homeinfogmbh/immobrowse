@@ -93,6 +93,9 @@ def get_list(cid):
             with DebugTime('Converting real estate to JSON.'):
                 real_estate = real_estate.to_dict(limit=True)
 
+            with DebugTime('Appending JSON real estate to list.'):
+                real_estates.append(real_estate)
+
     with DebugTime('Generating response.'):
         response = Response(dumps(real_estates), mimetype='application/json')
 
