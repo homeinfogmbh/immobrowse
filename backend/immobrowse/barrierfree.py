@@ -3,13 +3,10 @@
 This web service is part of ImmoBrowse.
 """
 
-from json import dumps
+from flask import request
 
-from flask import request, make_response, jsonify, Response
-
-from mimeutil import mimetype
 from openimmodb import Immobilie, Anhang, BarrierFreeness
-from wsgilib import Application
+from wsgilib import Application, Binary, JSON
 
 
 __all__ = ['APPLICATION']
@@ -62,7 +59,7 @@ def get_list():
 
     real_estates = [
         real_estate.to_dict(limit=True) for real_estate in list_(portals)]
-    return Response(dumps(real_estates), mimetype='application/json')
+    return JSON(real_estates)
 
 
 @APPLICATION.route('/expose/<int:ident>')
@@ -84,7 +81,7 @@ def get_expose(ident):
     if barrierfree(immobilie):
         if approve(immobilie, portals):
             if immobilie.active:
-                return jsonify(immobilie.to_dict(limit=True))
+                return JSON(immobilie.to_dict(limit=True))
 
             return ('Real estate is not active.', 404)
 
@@ -110,9 +107,6 @@ def get_attachment(ident):
         return ('No such attachment: {}.'.format(ident), 404)
 
     if approve(attachment.immobilie, portals):
-        data = attachment.data
-        response = make_response(data)
-        response.headers['Content-Type'] = mimetype(data)
-        return response
+        return Binary(attachment.data)
 
     return ('Related real estate not cleared for portal.', 403)

@@ -2,16 +2,9 @@
 
 This web service is part of ImmoBrowse.
 """
-from datetime import datetime
-from json import dumps
-from os import linesep
-
-from flask import make_response, jsonify, Response
-
 from mdb import Customer
-from mimeutil import mimetype
 from openimmodb import Immobilie, Anhang
-from wsgilib import Application
+from wsgilib import Application, Binary, JSON
 
 from immobrowse.orm import Override
 
@@ -21,33 +14,6 @@ __all__ = ['APPLICATION']
 
 PORTALS = ('immobrowse', 'homepage', 'website')
 APPLICATION = Application('immobrowse', cors=True, debug=True)
-
-
-class DebugTime:
-    """Measures time of an operation."""
-
-    def __init__(self, caption):
-        self.caption = caption
-        self.start = None
-        self.end = None
-
-    def __enter__(self):
-        self.start = datetime.now()
-        return self
-
-    def __exit__(self, *_):
-        self.end = datetime.now()
-        self.write()
-
-    @property
-    def duration(self):
-        """Returns the measured duration."""
-        return self.end - self.start
-
-    def write(self, end=linesep):
-        """Writes the duration to the log file."""
-        print('DEBUG:', '[{}]\t{}'.format(datetime.now(), self.caption),
-              'took', '{}.{}'.format(self.duration, end), flush=True)
 
 
 def has_override(customer):
@@ -87,35 +53,15 @@ def real_estates_of(customer):
 def get_list(cid):
     """Returns the respective real estate list."""
 
-    with DebugTime('Getting customer.'):
-        try:
-            customer = Customer.get(Customer.id == cid)
-        except Customer.DoesNotExist:
-            return ('No such customer: {}.'.format(cid), 404)
+    try:
+        customer = Customer.get(Customer.id == cid)
+    except Customer.DoesNotExist:
+        return ('No such customer: {}.'.format(cid), 404)
 
-    real_estates = []
-    jsonify_time_total = None
-
-    with DebugTime('Getting real estates.'):
-        for real_estate in real_estates_of(customer):
-            with DebugTime('Converting real estate to JSON.') as jsonify_time:
-                real_estate = real_estate.to_dict(limit=True)
-
-            if jsonify_time_total is None:
-                jsonify_time_total = jsonify_time.duration
-            else:
-                jsonify_time_total += jsonify_time.duration
-
-            with DebugTime('Appending JSON real estate to list.'):
-                real_estates.append(real_estate)
-
-    print('DEBUG:', '[{}]\tJSONification took:'.format(datetime.now()),
-          jsonify_time_total, flush=True)
-
-    with DebugTime('Generating response.'):
-        response = Response(dumps(real_estates), mimetype='application/json')
-
-    return response
+    real_estates = [
+        real_estate.to_dict(limit=True) for real_estate
+        in real_estates_of(customer)]
+    return JSON(real_estates)
 
 
 @APPLICATION.route('/expose/<int:ident>')
@@ -129,7 +75,7 @@ def get_expose(ident):
 
     if approve(immobilie):
         if immobilie.active:
-            return jsonify(immobilie.to_dict(limit=True))
+            return JSON(immobilie.to_dict(limit=True))
 
         return ('Real estate is not active.', 404)
 
@@ -146,9 +92,6 @@ def get_attachment(ident):
         return ('No such attachment: {}'.format(ident), 404)
 
     if approve(anhang.immobilie):
-        data = anhang.data
-        response = make_response(data)
-        response.headers['Content-Type'] = mimetype(data)
-        return response
+        return Binary(anhang.data)
 
     return ('Related real estate not cleared for portal.', 403)
