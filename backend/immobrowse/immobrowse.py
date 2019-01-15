@@ -109,7 +109,7 @@ def get_list(cid):
             with DebugTime('Appending JSON real estate to list.'):
                 real_estates.append(real_estate)
 
-    print('DEBUG:', '[{}]\t'.format(datetime.now()), 'JSONification took',
+    print('DEBUG:', '[{}]\tJSONification took:'.format(datetime.now()),
           jsonify_time_total, flush=True)
 
     with DebugTime('Generating response.'):
