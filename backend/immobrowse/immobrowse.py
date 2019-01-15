@@ -44,8 +44,8 @@ class DebugTime:
 
     def write(self, end=linesep):
         """Writes the duration to the log file."""
-        print('[{}]\t{} took {}.{}'.format(
-            datetime.now(), self.caption, self.duration, end), flush=True)
+        print('DEBUG:', '[{}]\t{}'.format(datetime.now(), self.caption),
+              'took', '{}.{}'.format(self.duration, end), flush=True)
 
 
 def real_estates_of(customer):
