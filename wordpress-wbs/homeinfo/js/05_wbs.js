@@ -13,17 +13,27 @@ immobrowse.wbs = immobrowse.wbs || {};
 */
 immobrowse.wbs.match = function (realEstate, district) {
     var katernbergStreets = ['Funckstr.', 'Katernberger Schulweg', 'Kruppstr.', 'Siemensstr.'];
+    var result = false;
 
     switch (district) {
     case 'Uellendahl-Katernberg':
-        return katernbergStreets.indexOf(realEstate.geo.strasse) >= 0;
+        result = katernbergStreets.indexOf(realEstate.geo.strasse) >= 0;
+        break;
     case 'Elberfeld':
-        return realEstate.geo.plz.startsWith('421');
+        result = realEstate.geo.plz.startsWith('421');
+        break;
     case 'Barmen':
-        return realEstate.geo.plz.startsWith('422');
+        result = realEstate.geo.plz.startsWith('422');
+        break;
     default:
-        return realEstate.geo.regionaler_zusatz == district;
+        result = realEstate.geo.regionaler_zusatz == district;
+        break;
     }
+
+    var objektnrExtern = realEstate.objectId();
+    var text = result ? 'is' : 'is not';
+    console.log('[DEBUG]: Real estate "' + objektnrExtern + '" ' + text + ' in district "' + district + '".');
+    return result;
 };
 
 
@@ -52,6 +62,7 @@ immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
     if (immobrowse.wordpress.selectedDistricts().length == 0) {
         var args = new homeinfo.QueryString();
         var district = args.ortsteil;
+        console.log('[DEBUG]: Selected district = ' + district);
 
         if (district != null && district != ''){
             return immobrowse.wbs.filter(realEstates, district);
@@ -79,7 +90,7 @@ immobrowse.wbs.merge = function (realEstates1, realEstates2) {
     for (i = 0; i < realEstates2.length; i++) {
         realEstate = realEstates2[i];
 
-        if (processed.includes(realEstate.verwaltung_techn.objektnr_extern)) {
+        if (processed.indexOf(realEstate.verwaltung_techn.objektnr_extern) < 0) {
             continue;
         }
 
