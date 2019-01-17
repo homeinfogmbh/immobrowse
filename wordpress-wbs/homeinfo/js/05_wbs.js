@@ -74,7 +74,7 @@ immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
 /*
     Merges two real estates iterables.
 */
-immobrowse.wbs.merge = function (realEstates1, realEstates2) {
+immobrowse.wbs.intersect = function (realEstates1, realEstates2) {
     var ids1 = [];
     var ids2 = [];
     var processed = [];
