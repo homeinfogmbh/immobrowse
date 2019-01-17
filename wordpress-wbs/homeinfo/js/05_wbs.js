@@ -32,7 +32,6 @@ immobrowse.wbs.match = function (realEstate, district) {
 
     var objektnrExtern = realEstate.objectId();
     var text = result ? 'is' : 'is not';
-    console.log('[DEBUG]: Real estate "' + objektnrExtern + '" ' + text + ' in district "' + district + '".');
     return result;
 };
 
@@ -62,7 +61,6 @@ immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
     if (immobrowse.wordpress.selectedDistricts().length == 0) {
         var args = new homeinfo.QueryString();
         var district = args.ortsteil;
-        console.log('[DEBUG]: Selected district = ' + district);
 
         if (district != null && district != ''){
             return immobrowse.wbs.filter(realEstates, district);
@@ -77,14 +75,28 @@ immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
     Merges two real estates iterables.
 */
 immobrowse.wbs.merge = function (realEstates1, realEstates2) {
+    var ids1 = [];
+    var ids2 = [];
     var processed = [];
     var result = [];
     var realEstate, i;
 
     for (i = 0; i < realEstates1.length; i++) {
         realEstate = realEstates1[i];
-        processed.push(realEstate.verwaltung_techn.objektnr_extern);
-        result.push(realEstate);
+        ids1.push(realEstate.verwaltung_techn.objektnr_extern);
+    }
+
+    for (i = 0; i < realEstates2.length; i++) {
+        realEstate = realEstates2[i];
+        ids2.push(realEstate.verwaltung_techn.objektnr_extern);
+    }
+
+    for (i = 0; i < realEstates1.length; i++) {
+        realEstate = realEstates1[i];
+
+        if (ids2.length == 0 || ids2.indexOf(realEstate.verwaltung_techn.objektnr_extern) >= 0) {
+            result.push(realEstate);
+        }
     }
 
     for (i = 0; i < realEstates2.length; i++) {
@@ -94,8 +106,10 @@ immobrowse.wbs.merge = function (realEstates1, realEstates2) {
             continue;
         }
 
-        processed.push(realEstate.verwaltung_techn.objektnr_extern);
-        result.push(realEstate);
+        if (ids1.length == 0 || ids1.indexOf(realEstate.verwaltung_techn.objektnr_extern) >= 0) {
+            processed.push(realEstate.verwaltung_techn.objektnr_extern);
+            result.push(realEstate);
+        }
     }
 
     return result;

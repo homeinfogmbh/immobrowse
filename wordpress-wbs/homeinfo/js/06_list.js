@@ -95,7 +95,6 @@ immobrowse.wordpress.selectedDistricts = function () {
         }
     }
 
-    console.log('[DEBUG]: User selected districts = ' + JSON.stringify(districts));
     return districts;
 };
 
@@ -156,11 +155,8 @@ immobrowse.wordpress.filters = function () {
 immobrowse.wordpress.list = function () {
     var filter = new immobrowse.Filter(immobrowse.wordpress.filters());
     var settingsFilteredRealEstates = filter.filter(immobrowse.wordpress.realEstates);
-    console.log('[DEBUG]: Settings filtered real estates = ' + JSON.stringify(settingsFilteredRealEstates, null, 2));
     var districtFilteredRealEstates = immobrowse.wbs.districtFilteredRealEstates(immobrowse.wordpress.realEstates);
-    console.log('[DEBUG]: District filtered real estates = ' + JSON.stringify(districtFilteredRealEstates, null, 2));
     var filteredRealEstates = immobrowse.wbs.merge(settingsFilteredRealEstates, districtFilteredRealEstates);
-    console.log('[DEBUG]: Filtered real estates = ' + JSON.stringify(filteredRealEstates, null, 2));
     var list = new immobrowse.List(filteredRealEstates);
 
     if (immobrowse.wordpress.sorting.property != null) {
