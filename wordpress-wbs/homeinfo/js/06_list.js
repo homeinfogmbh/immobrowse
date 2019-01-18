@@ -153,11 +153,11 @@ immobrowse.wordpress.filters = function () {
 
 
 immobrowse.wordpress.list = function () {
-    var filter = new immobrowse.Filter(immobrowse.wordpress.filters());
-    var settingsFilteredRealEstates = filter.filter(immobrowse.wordpress.realEstates);
-    var districtFilteredRealEstates = immobrowse.wbs.districtFilteredRealEstates(immobrowse.wordpress.realEstates);
-    var filteredRealEstates = immobrowse.wbs.intersect(settingsFilteredRealEstates, districtFilteredRealEstates);
-    var list = new immobrowse.List(filteredRealEstates);
+    var filters = immobrowse.wordpress.filters();
+    var filter = new immobrowse.Filter(filters);
+    var realEstates = filter.filter(immobrowse.wordpress.realEstates);
+    realEstates = immobrowse.wbs.districtFilteredRealEstates(realEstates);
+    var list = new immobrowse.List(realEstates);
 
     if (immobrowse.wordpress.sorting.property != null) {
         list.sort(immobrowse.wordpress.sorting.property, immobrowse.wordpress.sorting.order);

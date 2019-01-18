@@ -13,26 +13,17 @@ immobrowse.wbs = immobrowse.wbs || {};
 */
 immobrowse.wbs.match = function (realEstate, district) {
     var katernbergStreets = ['Funckstr.', 'Katernberger Schulweg', 'Kruppstr.', 'Siemensstr.'];
-    var result = false;
 
     switch (district) {
     case 'Uellendahl-Katernberg':
-        result = katernbergStreets.indexOf(realEstate.geo.strasse) >= 0;
-        break;
+        return katernbergStreets.indexOf(realEstate.geo.strasse) >= 0;
     case 'Elberfeld':
-        result = realEstate.geo.plz.startsWith('421');
-        break;
+        return realEstate.geo.plz.startsWith('421');
     case 'Barmen':
-        result = realEstate.geo.plz.startsWith('422');
-        break;
+        return realEstate.geo.plz.startsWith('422');
     default:
-        result = realEstate.geo.regionaler_zusatz == district;
-        break;
+        return realEstate.geo.regionaler_zusatz == district;
     }
-
-    var objektnrExtern = realEstate.objectId();
-    var text = result ? 'is' : 'is not';
-    return result;
 };
 
 
@@ -67,50 +58,5 @@ immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
         }
     }
 
-    return [];
-};
-
-
-/*
-    Merges two real estates iterables.
-*/
-immobrowse.wbs.intersect = function (realEstates1, realEstates2) {
-    var ids1 = [];
-    var ids2 = [];
-    var processed = [];
-    var result = [];
-    var realEstate, i;
-
-    for (i = 0; i < realEstates1.length; i++) {
-        realEstate = realEstates1[i];
-        ids1.push(realEstate.verwaltung_techn.objektnr_extern);
-    }
-
-    for (i = 0; i < realEstates2.length; i++) {
-        realEstate = realEstates2[i];
-        ids2.push(realEstate.verwaltung_techn.objektnr_extern);
-    }
-
-    for (i = 0; i < realEstates1.length; i++) {
-        realEstate = realEstates1[i];
-
-        if (ids2.length == 0 || ids2.indexOf(realEstate.verwaltung_techn.objektnr_extern) >= 0) {
-            result.push(realEstate);
-        }
-    }
-
-    for (i = 0; i < realEstates2.length; i++) {
-        realEstate = realEstates2[i];
-
-        if (processed.indexOf(realEstate.verwaltung_techn.objektnr_extern) < 0) {
-            continue;
-        }
-
-        if (ids1.length == 0 || ids1.indexOf(realEstate.verwaltung_techn.objektnr_extern) >= 0) {
-            processed.push(realEstate.verwaltung_techn.objektnr_extern);
-            result.push(realEstate);
-        }
-    }
-
-    return result;
+    return realEstates;
 };
