@@ -136,19 +136,21 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
         return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
     }
 
+    *_amenities () {
+        yield* super._amenities();
+
+        if (this.completelyBarrierFree()) {
+            yield 'vollständig barrierefrei';
+        } else if (this.limitedBarrierFree()) {
+            yield 'eingeschränkt barrierefrei';
+        }
+    }
+
     /*
       Amenities extension
     */
     get amenities () {
-        return function* (instance, super_amenities) {
-            yield* super_amenities;
-
-            if (instance.completelyBarrierFree()) {
-                yield 'vollständig barrierefrei';
-            } else if (instance.limitedBarrierFree()) {
-                yield 'eingeschränkt barrierefrei';
-            }
-        }(this, super.amenities);
+        return this._amenities();
     }
 
     attachmentURL (anhang) {
@@ -159,106 +161,108 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
         return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
     }
 
+    *_barrierFreeAmenities () {
+        const barrierFreeness = this.barrier_freeness || {};
+        const entry = barrierFreeness.entry || {};
+        const lift = barrierFreeness.lift || {};
+        const bath = barrierFreeness.bath || {};
+        const balcony = barrierFreeness.balcony || {};
+
+        if (barrierFreeness.stairs == '0') {
+            yield 'Keine Stufen bis zum Wohnungseingang';
+        } else if (barrierFreeness.stairs == '0-1') {
+            yield 'Maximal eine Stufe bis zum Wohnungseingang';
+        } else if (barrierFreeness.stairs == '2-8') {
+            yield '2-8 Stufen bis zum Wohnungseingang';
+        }
+
+        if (entry.ramp_din) {
+            yield 'Rampe mit bis zu 6 % Gefälle (nach DIN-Norm)';
+        } else if (entry.ramp_din === false) {
+            yield 'Rampe mit über 6 % Gefälle';
+        }
+
+        if (barrierFreeness.wide_door) {
+            yield 'Mindestbreite der Wohnungseingangstür 90 cm';
+        }
+
+        if (barrierFreeness.low_thresholds) {
+            yield 'keine Türschwellen > 2cm (außer Balkon)';
+        }
+
+        if (barrierFreeness.wide_doors) {
+            yield 'Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)';
+        }
+
+        if (entry.door_opener) {
+            yield 'Automatischer Türöffner an der Haustür';
+        }
+
+        if (lift) {
+            yield 'Aufzug';
+
+            if (lift.wide_door) {
+                yield 'Mindestbreite der Aufzugstür 80 cm';
+            }
+
+            if (lift.value == '90x140') {
+                yield 'Kabinengröße bis 90 x 140 cm Innenmaß';
+            } else if (lift.value == 'DIN') {
+                yield 'Kabinengröße ab 90 x 140 cm Innenmaß (nach DIN-Norm)';
+            }
+        }
+
+        if (bath.bathtub) {
+            yield 'Badewanne';
+        }
+
+        if (bath.shower_tray == 'high') {
+            yield 'Hoher Duschwanne ab 7 cm';
+        } else if (bath.shower_tray == 'low') {
+            yield 'Flache Duschwanne bis 7 cm (nach DIN-Norm)';
+        } else if (bath.shower_tray == 'walk-in') {
+            yield 'Bodengleiche Dusche (nach DIN-Norm)';
+        }
+
+        if (bath.wide) {
+            yield 'Durchgangsbreite Vorderseite Sanitärobjekt zur Wand mind. 120 cm';
+        }
+
+        if (bath.large) {
+            yield 'Größe des Badezimmers ab 3 m²';
+        }
+
+        if (balcony.wide_door) {
+            yield 'Mindestbreite Balkontür 80cm';
+        }
+
+        if (balcony.threshold) {
+            yield 'Balkon mit Schwelle (Höhe 2 cm und mehr)';
+        } else if (balcony.threshold === false) {
+            yield 'Balkon schwellenlos erreichbar (Absatz bis 2 cm)';
+        }
+
+        if (balcony.large) {
+            yield 'Balkongröße über 2,5 m²';
+        }
+
+        if (entry.doorbell_panel) {
+            yield 'Klingeltableau behindertengerecht (große Tasten, große Ziffern, Höhe +/- 85 cm)';
+        }
+
+        if (entry.intercom) {
+            yield 'Gegensprechanlage';
+        }
+
+        if (barrierFreeness.wheelchair_parking == 'indoors') {
+            yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung';
+        } else if (barrierFreeness.wheelchair_parking == 'outdoorsv') {
+            yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung';
+        }
+    }
+
     get barrierFreeAmenities () {
-        return function* (instance) {
-            const barrierFreeness = instance.barrier_freeness || {};
-            const entry = barrierFreeness.entry || {};
-            const lift = barrierFreeness.lift || {};
-            const bath = barrierFreeness.bath || {};
-            const balcony = barrierFreeness.balcony || {};
-
-            if (barrierFreeness.stairs == '0') {
-                yield 'Keine Stufen bis zum Wohnungseingang';
-            } else if (barrierFreeness.stairs == '0-1') {
-                yield 'Maximal eine Stufe bis zum Wohnungseingang';
-            } else if (barrierFreeness.stairs == '2-8') {
-                yield '2-8 Stufen bis zum Wohnungseingang';
-            }
-
-            if (entry.ramp_din) {
-                yield 'Rampe mit bis zu 6 % Gefälle (nach DIN-Norm)';
-            } else if (entry.ramp_din === false) {
-                yield 'Rampe mit über 6 % Gefälle';
-            }
-
-            if (barrierFreeness.wide_door) {
-                yield 'Mindestbreite der Wohnungseingangstür 90 cm';
-            }
-
-            if (barrierFreeness.low_thresholds) {
-                yield 'keine Türschwellen > 2cm (außer Balkon)';
-            }
-
-            if (barrierFreeness.wide_doors) {
-                yield 'Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)';
-            }
-
-            if (entry.door_opener) {
-                yield 'Automatischer Türöffner an der Haustür';
-            }
-
-            if (lift) {
-                yield 'Aufzug';
-
-                if (lift.wide_door) {
-                    yield 'Mindestbreite der Aufzugstür 80 cm';
-                }
-
-                if (lift.value == '90x140') {
-                    yield 'Kabinengröße bis 90 x 140 cm Innenmaß';
-                } else if (lift.value == 'DIN') {
-                    yield 'Kabinengröße ab 90 x 140 cm Innenmaß (nach DIN-Norm)';
-                }
-            }
-
-            if (bath.bathtub) {
-                yield 'Badewanne';
-            }
-
-            if (bath.shower_tray == 'high') {
-                yield 'Hoher Duschwanne ab 7 cm';
-            } else if (bath.shower_tray == 'low') {
-                yield 'Flache Duschwanne bis 7 cm (nach DIN-Norm)';
-            } else if (bath.shower_tray == 'walk-in') {
-                yield 'Bodengleiche Dusche (nach DIN-Norm)';
-            }
-
-            if (bath.wide) {
-                yield 'Durchgangsbreite Vorderseite Sanitärobjekt zur Wand mind. 120 cm';
-            }
-
-            if (bath.large) {
-                yield 'Größe des Badezimmers ab 3 m²';
-            }
-
-            if (balcony.wide_door) {
-                yield 'Mindestbreite Balkontür 80cm';
-            }
-
-            if (balcony.threshold) {
-                yield 'Balkon mit Schwelle (Höhe 2 cm und mehr)';
-            } else if (balcony.threshold === false) {
-                yield 'Balkon schwellenlos erreichbar (Absatz bis 2 cm)';
-            }
-
-            if (balcony.large) {
-                yield 'Balkongröße über 2,5 m²';
-            }
-
-            if (entry.doorbell_panel) {
-                yield 'Klingeltableau behindertengerecht (große Tasten, große Ziffern, Höhe +/- 85 cm)';
-            }
-
-            if (entry.intercom) {
-                yield 'Gegensprechanlage';
-            }
-
-            if (barrierFreeness.wheelchair_parking == 'indoors') {
-                yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung';
-            } else if (barrierFreeness.wheelchair_parking == 'outdoorsv') {
-                yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung';
-            }
-        }(this);
+        return this._barrierFreeAmenities();
     }
 
     render (elements) {

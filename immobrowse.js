@@ -27,6 +27,8 @@
 
 var immobrowse = immobrowse || {};
 
+immobrowse.IMAGE_GROUPS = ['TITELBILD', 'BILD', 'AUSSENANSICHTEN', 'INNENANSICHTEN', 'ANBIETERLOGO'];
+
 
 /*
   Sets a value onto the respective element configuration.
@@ -999,41 +1001,45 @@ immobrowse.RealEstate = class {
         return false;
     }
 
+    *_objectTypes () {
+        const objektart = this.objektkategorie.objektart;
+
+        if (objektart.zimmer != null) {
+            yield 'ZIMMER';
+        }
+
+        if (objektart.wohnung != null) {
+            yield 'WOHNUNG';
+            yield* objektart.wohnung;
+        }
+    }
+
     get objectTypes () {
-        return function* (instance) {
-            const objektart = instance.objektkategorie.objektart;
+        return this._objectTypes();
+    }
 
-            if (objektart.zimmer != null) {
-                yield 'ZIMMER';
-            }
+    *_marketingTypes () {
+        const vermarktungsart = this.objektkategorie.vermarktungsart;
 
-            if (objektart.wohnung != null) {
-                yield 'WOHNUNG';
-                yield* objektart.wohnung;
-            }
-        }(this);
+        if (vermarktungsart.KAUF) {
+            yield 'KAUF';
+        }
+
+        if (vermarktungsart.MIETE_PACHT) {
+            yield 'MIETE_PACHT';
+        }
+
+        if (vermarktungsart.ERBPACHT) {
+            yield 'ERBPACHT';
+        }
+
+        if (vermarktungsart.LEASING) {
+            yield 'LEASING';
+        }
     }
 
     get marketingTypes () {
-        return function* (instance) {
-            const vermarktungsart = instance.objektkategorie.vermarktungsart;
-
-            if (vermarktungsart.KAUF) {
-                yield 'KAUF';
-            }
-
-            if (vermarktungsart.MIETE_PACHT) {
-                yield 'MIETE_PACHT';
-            }
-
-            if (vermarktungsart.ERBPACHT) {
-                yield 'ERBPACHT';
-            }
-
-            if (vermarktungsart.LEASING) {
-                yield 'LEASING';
-            }
-        }(this);
+        return this._marketingTypes();
     }
 
     get showAddress () {
@@ -1185,38 +1191,42 @@ immobrowse.RealEstate = class {
         return null;
     }
 
-    get attachments () {
-        return function* (instance) {
-            if (instance.anhaenge != null) {
-                if (instance.anhaenge.anhang != null) {
-                    for (let anhang of instance.anhaenge.anhang) {
-                        yield anhang;
-                    }
+    *_attachments () {
+        if (this.anhaenge != null) {
+            if (this.anhaenge.anhang != null) {
+                for (let anhang of this.anhaenge.anhang) {
+                    yield anhang;
                 }
             }
-        }(this);
+        }
+    }
+
+    get attachments () {
+        return this._attachments();
+    }
+
+    *_images () {
+        for (let attachment of this.attachments) {
+            if (immobrowse.IMAGE_GROUPS.includes(attachment.gruppe)) {
+                yield attachment;
+            }
+        }
     }
 
     get images () {
-        const imageGroups = ['TITELBILD', 'BILD', 'AUSSENANSICHTEN', 'INNENANSICHTEN', 'ANBIETERLOGO'];
+        return this._images();
+    }
 
-        return function* (instance) {
-            for (let attachment of instance.attachments) {
-                if (imageGroups.includes(attachment.gruppe)) {
-                    yield attachment;
-                }
+    *_floorplans () {
+        for (let attachment of this.attachments) {
+            if (attachment.gruppe == 'GRUNDRISS') {
+                yield attachment;
             }
-        }(this);
+        }
     }
 
     get floorplans () {
-        return function* (instance) {
-            for (let attachment of instance.attachments) {
-                if (attachment.gruppe == 'GRUNDRISS') {
-                    yield attachment;
-                }
-            }
-        }(this);
+        return this._floorplans();
     }
 
     get floorplan () {
@@ -1264,84 +1274,86 @@ immobrowse.RealEstate = class {
         return null;
     }
 
+    *_amenities () {
+        if (this.ausstattung != null) {
+            if (this.ausstattung.rollstuhlgerecht) {
+                yield 'Rollstuhlgerecht';
+            }
+
+            if (this.ausstattung.stellplatzart != null) {
+                if (this.ausstattung.stellplatzart.FREIPLATZ) {
+                    yield 'Stellplatz';
+                }
+            }
+
+            if (this.ausstattung.fahrstuhl != null) {
+                if (this.ausstattung.fahrstuhl.PERSONEN) {
+                    yield 'Personenaufzug';
+                }
+            }
+
+            if (this.ausstattung.gaestewc) {
+                yield 'Gäste WC';
+            }
+        }
+
+        if (this.flaechen != null) {
+            if (this.flaechen.einliegerwohnung) {
+                yield 'Einliegerwohnung';
+            }
+        }
+
+        if (this.lavatoryDryingRoom) {
+            yield 'Wasch- / Trockenraum';
+        }
+
+        if (this.builtInKitchen) {
+            yield 'Einbauk&uuml;che';
+        }
+
+        if (this.shower) {
+            yield 'Dusche';
+        }
+
+        if (this.bathroomWindow) {
+            yield 'Fenster im Bad';
+        }
+
+        if (this.bathTub) {
+            yield 'Badewanne';
+        }
+
+        if (this.cableSatTv) {
+            yield 'Kabel / Sat. / TV';
+        }
+
+        if (this.barrierFree) {
+            yield 'Barrierefrei';
+        }
+
+        if (this.basementRoom) {
+            yield 'Keller';
+        }
+
+        if (this.balconies > 0) {
+            yield 'Balkon';
+        }
+
+        if (this.terraces > 0) {
+            yield 'Terrasse';
+        }
+
+        if (this.petsAllowed) {
+            yield 'Tierhaltung';
+        }
+
+        if (this.gardenUsage) {
+            yield 'Gartennutzung';
+        }
+    }
+
     get amenities () {
-        return function* (instance) {
-            if (instance.ausstattung != null) {
-                if (instance.ausstattung.rollstuhlgerecht) {
-                    yield 'Rollstuhlgerecht';
-                }
-
-                if (instance.ausstattung.stellplatzart != null) {
-                    if (instance.ausstattung.stellplatzart.FREIPLATZ) {
-                        yield 'Stellplatz';
-                    }
-                }
-
-                if (instance.ausstattung.fahrstuhl != null) {
-                    if (instance.ausstattung.fahrstuhl.PERSONEN) {
-                        yield 'Personenaufzug';
-                    }
-                }
-
-                if (instance.ausstattung.gaestewc) {
-                    yield 'Gäste WC';
-                }
-            }
-
-            if (instance.flaechen != null) {
-                if (instance.flaechen.einliegerwohnung) {
-                    yield 'Einliegerwohnung';
-                }
-            }
-
-            if (instance.lavatoryDryingRoom) {
-                yield 'Wasch- / Trockenraum';
-            }
-
-            if (instance.builtInKitchen) {
-                yield 'Einbauk&uuml;che';
-            }
-
-            if (instance.shower) {
-                yield 'Dusche';
-            }
-
-            if (instance.bathroomWindow) {
-                yield 'Fenster im Bad';
-            }
-
-            if (instance.bathTub) {
-                yield 'Badewanne';
-            }
-
-            if (instance.cableSatTv) {
-                yield 'Kabel / Sat. / TV';
-            }
-
-            if (instance.barrierFree) {
-                yield 'Barrierefrei';
-            }
-
-            if (instance.basementRoom) {
-                yield 'Keller';
-            }
-
-            if (instance.balconies > 0) {
-                yield 'Balkon';
-            }
-
-            if (instance.terraces > 0) {
-                yield 'Terrasse';
-            }
-
-            if (instance.petsAllowed) {
-                yield 'Tierhaltung';
-            }
-
-            if (instance.gardenUsage) {
-                yield 'Gartennutzung';
-            }
-        }(this);
+        return this._amenities();
     }
 
     get serviceCharge () {
@@ -1494,35 +1506,37 @@ immobrowse.RealEstate = class {
         return null;
     }
 
+    *_heatingTypes () {
+        if (this.ausstattung != null) {
+            if (this.ausstattung.heizungsart != null) {
+                if (this.ausstattung.heizungsart.OFEN) {
+                    yield 'Ofen';
+                }
+
+                if (this.ausstattung.heizungsart.ETAGE) {
+                    yield 'Etagenheizung';
+                }
+
+                if (this.ausstattung.heizungsart.ZENTRAL) {
+                    yield 'Zentralheizung';
+                }
+
+                if (this.ausstattung.heizungsart.FERN) {
+                    yield 'Fernwärme';
+                }
+
+                if (this.ausstattung.heizungsart.FUSSBODEN) {
+                    yield 'Fussbodenheizung';
+                }
+            }
+        }
+    }
+
     /*
       Returns the heating types.
     */
     get heatingTypes () {
-        return function* (instance) {
-            if (instance.ausstattung != null) {
-                if (instance.ausstattung.heizungsart != null) {
-                    if (instance.ausstattung.heizungsart.OFEN) {
-                        yield 'Ofen';
-                    }
-
-                    if (instance.ausstattung.heizungsart.ETAGE) {
-                        yield 'Etagenheizung';
-                    }
-
-                    if (instance.ausstattung.heizungsart.ZENTRAL) {
-                        yield 'Zentralheizung';
-                    }
-
-                    if (instance.ausstattung.heizungsart.FERN) {
-                        yield 'Fernwärme';
-                    }
-
-                    if (instance.ausstattung.heizungsart.FUSSBODEN) {
-                        yield 'Fussbodenheizung';
-                    }
-                }
-            }
-        }(this);
+        return this._heatingTypes();
     }
 
     /*
@@ -1685,12 +1699,14 @@ immobrowse.RealEstate = class {
         return contact;
     }
 
+    *_amenitiesTags () {
+        for (let amenity of this.amenities) {
+            yield immobrowse.dom.AmenitiesTag(amenity);
+        }
+    }
+
     get amenitiesTags () {
-        return function* (instance) {
-            for (let amenity of instance.amenities) {
-                yield immobrowse.dom.AmenitiesTag(amenity);
-            }
-        }(this);
+        return this._amenitiesTags();
     }
 
     get amenitiesList () {
