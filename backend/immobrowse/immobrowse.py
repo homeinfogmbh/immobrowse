@@ -56,7 +56,7 @@ def get_list(cid):
     try:
         customer = Customer.get(Customer.id == cid)
     except Customer.DoesNotExist:
-        return ('No such customer: {}.'.format(cid), 404)
+        return (f'No such customer: {cid}.', 404)
 
     real_estates = [
         real_estate.to_dict(limit=True) for real_estate
@@ -71,7 +71,7 @@ def get_expose(ident):
     try:
         immobilie = Immobilie.get(Immobilie.id == ident)
     except Immobilie.DoesNotExist:
-        return ('No such real estate: {}.'.format(ident), 404)
+        return (f'No such real estate: {ident}.', 404)
 
     if approve(immobilie):
         if immobilie.active:
@@ -89,7 +89,7 @@ def get_attachment(ident):
     try:
         anhang = Anhang.get(Anhang.id == ident)
     except Anhang.DoesNotExist:
-        return ('No such attachment: {}'.format(ident), 404)
+        return (f'No such attachment: {ident}', 404)
 
     if approve(anhang.immobilie):
         return Binary(anhang.data)

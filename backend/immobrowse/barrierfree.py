@@ -76,7 +76,7 @@ def get_expose(ident):
     try:
         immobilie = Immobilie.get(Immobilie.id == ident)
     except Immobilie.DoesNotExist:
-        return ('No such real estate: {}.'.format(ident), 404)
+        return (f'No such real estate: {ident}.', 404)
 
     if barrierfree(immobilie):
         if approve(immobilie, portals):
@@ -104,7 +104,7 @@ def get_attachment(ident):
     try:
         attachment = Anhang.get(Anhang.id == ident)
     except Anhang.DoesNotExist:
-        return ('No such attachment: {}.'.format(ident), 404)
+        return (f'No such attachment: {ident}.', 404)
 
     if approve(attachment.immobilie, portals):
         return Binary(attachment.data)
