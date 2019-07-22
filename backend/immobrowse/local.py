@@ -11,7 +11,7 @@ from flask import request, send_file, Flask, Response
 from peewee import ForeignKeyField, CharField
 
 from mdb import Customer
-from openimmo import factories
+from openimmo import anbieter
 from openimmodb import Immobilie, Anhang
 
 from immobrowse.orm import ImmoBrowseModel
@@ -27,8 +27,6 @@ APPLICATION = Flask('realestatesd')
 
 class UnauthorizedError(Exception):
     """Indicates that the respective request is unauthorized."""
-
-    pass
 
 
 def authorized(function):
@@ -53,14 +51,16 @@ def authorized(function):
 def _anbieter(customer):
     """Returns the respective realtor as XML."""
 
-    anbieter = factories.anbieter(repr(customer), str(customer))
+    result = anbieter(
+        anbieternr=repr(customer), firma=str(customer),
+        openimmo_anid=repr(customer))
 
     for immobilie in Immobilie.select().where(Immobilie.customer == customer):
         attachments = [
             anhang.remote(ANHANG_URL) for anhang in immobilie.anhang]
-        anbieter.immobilie.append(immobilie.to_dom(attachments=attachments))
+        result.immobilie.append(immobilie.to_dom(attachments=attachments))
 
-    return Response(anbieter.toxml(), mimetype='text/xml')
+    return Response(result.toxml(), mimetype='text/xml')
 
 
 @APPLICATION.route('/anhang/<int:ident>', methods=['GET'])
@@ -87,7 +87,7 @@ def _handle_invalid_access_token(_):
 class AccessToken(ImmoBrowseModel):
     """Access tokens for customers."""
 
-    class Meta:
+    class Meta:     # pylint: disable=C0111,R0903
         table_name = 'access_token'
 
     customer = ForeignKeyField(
