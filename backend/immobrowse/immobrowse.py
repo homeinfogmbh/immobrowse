@@ -5,6 +5,7 @@ This web service is part of ImmoBrowse.
 from filedb import FileError
 from mdb import Customer
 from openimmodb import Immobilie, Anhang
+from openimmolib.util import active
 from wsgilib import Application, Binary, JSON
 
 from immobrowse.orm import Override
@@ -75,7 +76,7 @@ def get_expose(ident):
         return (f'No such real estate: {ident}.', 404)
 
     if approve(immobilie):
-        if immobilie.active:
+        if active(immobilie):
             return JSON(immobilie.to_dict(limit=True))
 
         return ('Real estate is not active.', 404)
