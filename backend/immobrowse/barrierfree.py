@@ -6,7 +6,6 @@ This web service is part of ImmoBrowse.
 from flask import request
 
 from openimmodb import Immobilie, Anhang, BarrierFreeness
-from openimmolib.util import active
 from wsgilib import Application, Binary, JSON
 
 
@@ -83,7 +82,7 @@ def get_expose(ident):
 
     if barrierfree(immobilie):
         if approve(immobilie, portals):
-            if active(immobilie):
+            if immobilie.active:
                 return JSON(immobilie.to_dict(limit=True))
 
             return ('Real estate is not active.', 404)
