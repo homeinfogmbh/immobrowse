@@ -19,7 +19,7 @@ PORTALS = {
         'barrierefrei-wohnen-bremen',
         'barrierefrei-wohnen-bremerhaven',
         'breba')}
-APPLICATION = Application('barrierfree', cors=True, debug=True)
+APPLICATION = Application('barrierfree', debug=True)
 
 
 def approve(immobilie, portals):
