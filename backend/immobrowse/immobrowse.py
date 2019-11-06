@@ -15,7 +15,7 @@ __all__ = ['APPLICATION']
 
 
 PORTALS = ('immobrowse', 'homepage', 'website')
-APPLICATION = Application('immobrowse', debug=True)
+APPLICATION = Application('immobrowse', debug=True, cors=True)
 
 
 def has_override(customer):
