@@ -49,6 +49,16 @@ immobrowse.wordpress.back = function () {
 };
 
 
+immobrowse.wordpress.positionPlan = function () {
+    var street = immobrowse.wordpress.realEstate.geo.strasse || '';
+    var houseNumber = immobrowse.wordpress.realEstate.geo.hausnummer || '';
+    var zipCode = immobrowse.wordpress.realEstate.geo.plz || '';
+    var city = immobrowse.wordpress.realEstate.geo.ort || '';
+    var positionPlanUrl = 'https://www.google.de/maps/place/' + street + '+' + houseNumber + ',+' + zipCode + '+' + city;
+    window.open(positionPlanUrl);
+};
+
+
 immobrowse.wordpress.clearContactForm = function () {
     jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
     jQuery('#gender_female').click();

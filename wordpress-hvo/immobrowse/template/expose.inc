@@ -18,17 +18,22 @@
         « Zur&uuml;ck
       </button>
     </div>
-    <div class="col-md-3 col-centered">
+    <div class="col-md-6 col-centered">
       <div class="ib-detail-print ib-centered">
         <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printExpose();">
           Expose drucken
         </button>
       </div>
-    </div>
-    <div class="col-md-3 col-centered">
+      &nbsp;
       <div class="ib-detail-print ib-centered">
         <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printGrundriss();">
           Grundriss drucken
+        </button>
+      </div>
+      &nbsp;
+      <div class="ib-detail-print ib-centered">
+        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.positionPlan();">
+          Lageplan öffnen
         </button>
       </div>
     </div>
