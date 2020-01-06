@@ -6,79 +6,84 @@ if ( !function_exists( 'add_action' ) ) {
         exit;
 }
 
+class MySettingsPage {
 
-class HomeinfoImmobrowseOptions {
     // Holds the values to be used in the fields callbacks
     private $options;
 
     public function __construct() {
-        add_action('admin_menu', array($this, 'add_plugin_page'));
-        add_action('admin_init', array($this, 'page_init'));
+        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+        add_action( 'admin_init', array( $this, 'page_init' ) );
 
-        //fill current options
-        $this->options = get_option('homeinfo_immobrowse_options');
+	//fill current options
+	$this->options = get_option('ImmobrowseOptions');
+
     }
 
     //fuegt Einstellungsseite hinzu
     public function add_plugin_page() {
         // This page will be under "Settings"
         add_options_page(
-            'Settings Admin',
-            'HOMEINFO ImmoBrowse',
-            'manage_options',
-            'homeinfo_immobrowse_settings_page',
-            array($this, 'create_admin_page')
+            'Settings Admin', 
+            'Homeinfo Immobrowse', 
+            'manage_options', 
+            'ImmobrowseSettingPage', 
+            array( $this, 'create_admin_page' )
         );
     }
 
     //Einstellungsseite befuellen
     public function create_admin_page() {
-        echo '<div class="wrap"><h1>HOMEINFO ImmoBrowse Einstellungen</h1>';
+        echo '<div class="wrap">
+            <h1>Homeinfo ImmoBrowse Einstellungen</h1>';
 
-        if (isset($_GET['settings-updated'])) {
-            // add settings saved message with the class of "updated"
-            add_settings_error('wporg_messages', 'wporg_message', __('Settings Saved', 'wporg'), 'updated');
-        }
+	if ( isset( $_GET['settings-updated'] ) ) {
+		// add settings saved message with the class of "updated"
+		add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
+	}
 
         echo '<form method="post" action="options.php">';
 
         // This prints out all hidden setting fields
-        settings_fields('homeinfo_immobrowse_options');
-        do_settings_sections('homeinfo_immobrowse_settings_page');
+        settings_fields( 'ImmobrowseOptions' );
+        do_settings_sections( 'ImmobrowseSettingPage' );
         submit_button();
 
 
-        echo '</form></div>';
+        echo '  </form>
+        </div>';
     }
 
-    public function page_init() {
+
+    public function page_init()
+    {        
         register_setting(
-            'homeinfo_immobrowse_options', // Option group
-            'homeinfo_immobrowse_options', // Option name
-            array($this, 'sanitize') // Sanitize
+            'ImmobrowseOptions', // Option group
+            'ImmobrowseOptions', // Option name
+            array( $this, 'sanitize' ) // Sanitize
         );
 
         add_settings_section(
-            'homeinfo_immobrowse_settings_section', // ID
+            'setting_section_1', // ID
             'Kundenspezifische Einstellungen', // Title
-            array($this, ''), // Callback
-            'homeinfo_immobrowse_settings_page' // Page
-        );
+            array( $this, '' ), // Callback
+            'ImmobrowseSettingPage' // Page
+        );  
 
         add_settings_field(
             'customerId', // ID
-            'Kundennummer', // Title
-            array($this, 'customerId_callback'), // Callback
-            'homeinfo_immobrowse_settings_page', // Page
-            'homeinfo_immobrowse_settings_section' // Section
-        );
+            'Kundennummer', // Title 
+            array( $this, 'customerId_callback' ), // Callback
+            'ImmobrowseSettingPage', // Page
+            'setting_section_1' // Section           
+        );      
         add_settings_field(
             'recaptcha', // ID
-            'ReCAPTCHA Site Key', // Title
-            array($this, 'recaptcha_callback'), // Callback
-            'homeinfo_immobrowse_settings_page', // Page
-            'homeinfo_immobrowse_settings_section' // Section
-        );
+            'ReCAPTCHA Site Key', // Title 
+            array( $this, 'recaptcha_callback' ), // Callback
+            'ImmobrowseSettingPage', // Page
+            'setting_section_1' // Section           
+        );   
 
     }
 
@@ -89,32 +94,26 @@ class HomeinfoImmobrowseOptions {
      */
     public function sanitize( $input ) {
         $new_input = array();
-
-        if (isset($input['customerId'])) {
-            $new_input['customerId'] = absint($input['customerId']);
-        }
-
-        if (isset($input['recaptcha'])) {
-            $new_input['recaptcha'] = htmlentities($input['recaptcha']);
-        }
+        if( isset( $input['customerId'] ) )
+            $new_input['customerId'] = absint( $input['customerId'] );
+	if( isset( $input['recaptcha'] ) )
+	    $new_input['recaptcha'] = htmlentities($input['recaptcha']);
 
         return $new_input;
     }
 
-    /**
+    /** 
      * Get the settings option array and print one of its values
      */
     public function customerId_callback() {
-        echo '<input type="text" id="customerId" name="homeinfo_immobrowse_options[customerId]" value="' . $this->options['customerId'] . '" />';
+	echo '<input type="text" id="customerId" name="ImmobrowseOptions[customerId]" value="'.$this->options['customerId'].'" />';
     }
 
     public function recaptcha_callback() {
-        echo '<input type="text" id="recaptcha" name="homeinfo_immobrowse_options[recaptcha]" value="' . $this->options['recaptcha'] . '" />';
+	echo '<input type="text" id="recaptcha" name="ImmobrowseOptions[recaptcha]" value="'.$this->options['recaptcha'].'" />';
     }
 
 }
 
-
-if (is_admin()) {
-    $homeinfo_immobrowse_options = new HomeinfoImmobrowseOptions();
-}
+if( is_admin() )
+    $my_settings_page = new MySettingsPage();

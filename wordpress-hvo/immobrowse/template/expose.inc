@@ -1,29 +1,45 @@
-<script>
-    var PLUGIN_BASE = '[BASEDIR]';
-</script>
 <div class="container homeinfo">
   <div id="header" class="row row-centered ib-header no-print">
-<div class="col-md-2 col-centered ib-centered">
-      <button type="button" class="btn btn-default" onclick="immobrowse.expose.back();">« Zurück</button>
-    </div>
-    <div class="col-md-2 col-centered">
-      <div class="ib-detail-print ib-centered">
-        <button type="button" class="btn btn-info" onclick="immobrowse.expose.printExpose();">Exposé drucken</button>
-      </div>
-    </div>
-    <div id="objectTitle" class="col-md-3 col-centered ib-title">
+    <div id="objectTitle" class="col-md-6 col-centered ib-title">
       Objekttitel
     </div>
-    <div id="objectId" class="col-md-3 col-centered ib-id">
+    <div id="objectId" class="col-md-6 col-centered ib-id">
       Objekt ID
     </div>
-    <div class="col-md-2 col-centered last_btn">
+  </div>
+  <div class="row row-centered ib-header no-print">
+    <div id="objectAddress" class="col-md-12 col-centered ib-address">
+      Objekt Adresse
+    </div>
+  </div>
+  <div class="row row-centered ib-header no-print">
+    <div class="col-md-3 col-centered ib-centered">
+      <button type="button" class="btn btn-default" onclick="immobrowse.wordpress.back();">
+        « Zur&uuml;ck
+      </button>
+    </div>
+    <div class="col-md-3 col-centered">
+      <div class="ib-detail-print ib-centered">
+        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printExpose();">
+          Expose drucken
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 col-centered">
+      <div class="ib-detail-print ib-centered">
+        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printGrundriss();">
+          Grundriss drucken
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 col-centered">
       <div class="ib-detail-contactform ib-centered">
-        <button type="button" class="btn btn-success homeinfo-contact" id="btnmodel" data-toggle="modal" >Kontaktformular</button>
+        <button id="btnContactForm" type="button" class="btn btn-success homeinfo-contact" data-toggle="modal" data-target="#contactForm">
+          Kontaktformular
+        </button>
       </div>
     </div>
   </div>
-   
   <div class="row row-centered">
     <div id="expose" class="col-md-12 ib-expose">
       <div class="row row-centered">
@@ -179,7 +195,7 @@
           <div id="amenitiesList" class="row row-centered"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
+      <div id="descriptionContainer" class="row row-centered ib-expose-data-row">
         <div class="col-md-12 ib-expose-data-col">
           <div class="row row-centered ib-section-caption">
             Objektbeschreibung
@@ -187,7 +203,7 @@
           <div id="description" class="row row-centered ib-justified"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
+      <div id="exposureContainer" class="row row-centered ib-expose-data-row">
         <div class="col-md-12 ib-expose-data-col">
           <div class="row row-centered ib-section-caption">
             Lagebeschreibung
@@ -195,7 +211,7 @@
           <div id="exposure" class="row row-centered ib-justified"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
+      <div id="miscellaneaContainer" class="row row-centered ib-expose-data-row">
         <div class="col-md-12 ib-expose-data-col">
           <div class="row row-centered ib-section-caption">
             Sonstiges
@@ -203,7 +219,7 @@
           <div id="miscellanea" class="row row-centered ib-justified"></div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
+      <div id="contactInformation" class="row row-centered ib-expose-data-row">
         <div class="col-md-6 ib-expose-data-col">
           <div class="row row-centered ib-section-caption">
             Kontakt
@@ -214,7 +230,7 @@
             </div>
             <div id="contactName" class="col-xs-6"></div>
           </div>
-          <div class="row row-centered">
+          <div id="contactCompanyContainer" class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
               Firma
             </div>
@@ -232,7 +248,7 @@
             </div>
             <div id="contactPhone" class="col-xs-6"></div>
           </div>
-          <div class="row row-centered">
+          <div id="contactWebsiteContainer" class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
               Website
             </div>
