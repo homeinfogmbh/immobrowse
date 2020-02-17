@@ -23,11 +23,11 @@
     * sweetalert.js
     * immobrowse.js
 */
-var args = new homeinfo.QueryString();
+var urlParams = new URLSearchParams(window.location.search);
 // XXX: Change config for appropriate productive setting.
 var mailer = new immobrowse.Mailer('homeinfo-testing');
-var customer = args.customer;
-var objectId = args.real_estate;
+var customer = urlParams.get('customer');
+var objectId = urlParams.get('real_estate');
 var elements;
 var realEstate;
 var imageGallery;
