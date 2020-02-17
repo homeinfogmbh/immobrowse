@@ -125,8 +125,7 @@ immobrowse.wordpress.sendEmail = function() {
         salutation = 'Frau';
     }
 
-    var objectTitle = immobrowse.wordpress.realEstate.objectTitle();
-    var objectAddress = [immobrowse.wordpress.realEstate.addressPreview(), immobrowse.wordpress.realEstate.cityPreview()].join(' ');
+    var member = jQuery('input:radio[name=\'member\']:checked').val() == 1;
     var phone = jQuery('#phone').val().trim();
 
     if (phone == '') {
@@ -174,9 +173,9 @@ immobrowse.wordpress.sendEmail = function() {
     var city = jQuery('#city').val().trim();
     var message = jQuery('#message').val().trim();
     var recipient = immobrowse.wordpress.realEstate.contact().email;
-    var html = immobrowse.mkContactMail(
-        objectTitle, objectAddress, salutation, forename, surname,
-        phone, street, houseNumber, zipCode, city, message);
+    var html = immobrowse.dom.contactEmail(
+        immobrowse.wordpress.realEstate.realEstate, message, salutation, forename,
+        surname, phone, street, houseNumber, zipCode, city, member).outerHTML;
     immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId(), html, recipient, email);
     grecaptcha.reset();
 };
@@ -262,7 +261,6 @@ immobrowse.wordpress.setupGalleries = function() {
     if (floorplans.length > 0) {
         jQuery('#floorplan').attr('src', immobrowse.wordpress.realEstate.attachmentURL(floorplans[0]));
     }
-
 
 
     if (floorplans.length > 0) {

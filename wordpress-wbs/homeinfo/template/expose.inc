@@ -273,7 +273,7 @@
       </div>
       <div class="modal-body">
         <div class="row" id="the_form" style="margin-top:10px;">
-          <div class="col-md-6">
+          <div class="col-md-3">
            <p><strong>Anrede</strong></p>
              <div class="btn-group" data-toggle="buttons">
                <label class="btn btn-default">
@@ -281,6 +281,17 @@
                </label>
                <label class="btn btn-default">
                  <input type="radio" name="gender" id="gender_female" value="0">Frau
+               </label>
+             </div>
+          </div>
+          <div class="col-md-3">
+           <p><strong>Mitglied</strong></p>
+             <div class="btn-group" data-toggle="buttons">
+               <label class="btn btn-default">
+                 <input type="radio" name="member" id="member_yes" value="1">Ja
+               </label>
+               <label class="btn btn-default">
+                 <input type="radio" name="member" id="member_no" value="0">Nein
                </label>
              </div>
           </div>
@@ -324,7 +335,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="house_number">Haus-Nr.</label>
-              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.*">
+              <input type="text" class="form-control" id="house_number" placeholder="Hausnummer*">
             </div>
           </div>
           <div class="col-md-3">
