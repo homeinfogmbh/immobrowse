@@ -235,10 +235,10 @@ immobrowse.districts = function (realEstates) {
         let district = realEstate.district;
 
         if (district != null) {
-            if (districts[district] != undefined) {
-                districts[district] += 1;
-            } else {
+            if (districts[district] == undefined) {
                 districts[district] = 1;
+            } else {
+                districts[district] += 1;
             }
         }
     }
