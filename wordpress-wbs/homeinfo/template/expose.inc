@@ -312,25 +312,25 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="phone">Telefon</label>
-              <input type="text" class="form-control" id="phone" placeholder="Telefon">
+              <input type="text" class="form-control" id="phone" placeholder="Telefon*">
             </div>
           </div>
           <div class="col-md-8">
             <div class="form-group">
               <label for="street">Straße</label>
-              <input type="text" class="form-control" id="street" placeholder="Straße">
+              <input type="text" class="form-control" id="street" placeholder="Straße*">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="house_number">Haus-Nr.</label>
-              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
+              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.*">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label for="zip_code">PLZ</label>
-              <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
+              <input type="text" class="form-control" id="zip_code" placeholder="PLZ*">
             </div>
           </div>
           <div class="col-md-9">

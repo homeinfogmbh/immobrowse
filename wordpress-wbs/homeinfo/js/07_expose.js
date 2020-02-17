@@ -128,9 +128,49 @@ immobrowse.wordpress.sendEmail = function() {
     var objectTitle = immobrowse.wordpress.realEstate.objectTitle();
     var objectAddress = [immobrowse.wordpress.realEstate.addressPreview(), immobrowse.wordpress.realEstate.cityPreview()].join(' ');
     var phone = jQuery('#phone').val().trim();
+
+    if (phone == '') {
+        swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "Telefon" ausfüllen.',
+            type: 'warning'
+        });
+        return;
+    }
+
     var street = jQuery('#street').val().trim();
+
+    if (street == '') {
+        swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "Straße" ausfüllen.',
+            type: 'warning'
+        });
+        return;
+    }
+
     var houseNumber = jQuery('#house_number').val().trim();
+
+    if (houseNumber == '') {
+        swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "Hausnummer" ausfüllen.',
+            type: 'warning'
+        });
+        return;
+    }
+
     var zipCode = jQuery('#zip_code').val().trim();
+
+    if (zipCode == '') {
+        swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "PLZ" ausfüllen.',
+            type: 'warning'
+        });
+        return;
+    }
+
     var city = jQuery('#city').val().trim();
     var message = jQuery('#message').val().trim();
     var recipient = immobrowse.wordpress.realEstate.contact().email;
