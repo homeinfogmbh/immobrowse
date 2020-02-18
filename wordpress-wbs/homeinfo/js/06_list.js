@@ -75,8 +75,8 @@ immobrowse.wordpress.toggleSorting = function (property) {
 immobrowse.wordpress.renderDistricts = function (districtsElement, districtElements) {
     districtsElement.html('');
 
-    for (var i = 0; i < districtElements.length; i++) {
-        districtsElement.append(districtElements[i]);
+    for (const districtElement of districtElements) {
+        districtsElement.append(districtElement);
     }
 
     jQuery('.ib-select-district').click(function() {

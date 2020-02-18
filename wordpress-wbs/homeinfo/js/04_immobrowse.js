@@ -209,8 +209,8 @@ immobrowse.yesNo = function (boolean) {
 immobrowse.cities = function (realEstates) {
     const cities = [];
 
-    for (let realEstate of realEstates) {
-        let city = realEstate.geo.ort;
+    for (const realEstate of realEstates) {
+        const city = realEstate.geo.ort;
 
         if (city != null) {
             if (cities[city] != undefined) {
@@ -231,14 +231,14 @@ immobrowse.cities = function (realEstates) {
 immobrowse.districts = function (realEstates) {
     const districts = [];
 
-    for (let realEstate of realEstates) {
-        let district = realEstate.district;
+    for (const realEstate of realEstates) {
+        const district = realEstate.district;
 
         if (district != null) {
-            if (districts[district] != undefined) {
-                districts[district] += 1;
-            } else {
+            if (districts[district] == undefined) {
                 districts[district] = 1;
+            } else {
+                districts[district] += 1;
             }
         }
     }
@@ -253,9 +253,9 @@ immobrowse.districts = function (realEstates) {
 immobrowse.districtElements = function* (realEstates) {
     const districts = immobrowse.districts(realEstates);
 
-    for (let district in districts) {
+    for (const district in districts) {
         if (districts.hasOwnProperty(district)) {
-            let inputElement = document.createElement('input');
+            const inputElement = document.createElement('input');
             inputElement.setAttribute('type', 'checkbox');
             inputElement.setAttribute('class', 'ib-select-district');
             inputElement.setAttribute('name', district);
@@ -493,7 +493,7 @@ immobrowse.Filter = class {
       Filters a list of real estates.
     */
     *filter (realEstates) {
-        for (let realEstate of realEstates) {
+        for (const realEstate of realEstates) {
             if (this.match(realEstate)) {
                 yield realEstate;
             }
@@ -514,7 +514,7 @@ immobrowse.RealEstate = class {
             {'name': 'area', 'caption': 'Fläche ca.'},
         ];
 
-        for (let prop in json) {
+        for (const prop in json) {
             if (json.hasOwnProperty(prop)) {
                 this[prop] = json[prop];
             }
@@ -703,27 +703,25 @@ immobrowse.RealEstate = class {
             return null;
         }
 
-        let anhang;
-
-        for (anhang of this.anhaenge.anhang) {
+        for (const anhang of this.anhaenge.anhang) {
             if (anhang.gruppe == 'TITELBILD') {
                 return anhang;
             }
         }
 
-        for (anhang of this.anhaenge.anhang) {
+        for (const anhang of this.anhaenge.anhang) {
             if (anhang.gruppe == 'AUSSENANSICHTEN') {
                 return anhang;
             }
         }
 
-        for (anhang of this.anhaenge.anhang) {
+        for (const anhang of this.anhaenge.anhang) {
             if (anhang.gruppe == 'BILD') {
                 return anhang;
             }
         }
 
-        for (anhang of this.anhaenge.anhang) {
+        for (const anhang of this.anhaenge.anhang) {
             if (anhang.gruppe == 'GRUNDRISS') {
                 return anhang;
             }
@@ -1092,8 +1090,8 @@ immobrowse.RealEstate = class {
             return true;
         }
 
-        for (let type of types) {
-            for (let objectType of this.objectTypes) {
+        for (const type of types) {
+            for (const objectType of this.objectTypes) {
                 if (type == objectType) {
                     return true;
                 }
@@ -1108,8 +1106,8 @@ immobrowse.RealEstate = class {
             return true;
         }
 
-        for (let type of types) {
-            for (let marketingType of this.marketingTypes) {
+        for (const type of types) {
+            for (const marketingType of this.marketingTypes) {
                 if (type == marketingType) {
                     return true;
                 }
@@ -1194,7 +1192,7 @@ immobrowse.RealEstate = class {
     *_attachments () {
         if (this.anhaenge != null) {
             if (this.anhaenge.anhang != null) {
-                for (let anhang of this.anhaenge.anhang) {
+                for (const anhang of this.anhaenge.anhang) {
                     yield anhang;
                 }
             }
@@ -1206,7 +1204,7 @@ immobrowse.RealEstate = class {
     }
 
     *_images () {
-        for (let attachment of this.attachments) {
+        for (const attachment of this.attachments) {
             if (immobrowse.IMAGE_GROUPS.includes(attachment.gruppe)) {
                 yield attachment;
             }
@@ -1218,7 +1216,7 @@ immobrowse.RealEstate = class {
     }
 
     *_floorplans () {
-        for (let attachment of this.attachments) {
+        for (const attachment of this.attachments) {
             if (attachment.gruppe == 'GRUNDRISS') {
                 yield attachment;
             }
@@ -1230,7 +1228,7 @@ immobrowse.RealEstate = class {
     }
 
     get floorplan () {
-        for (let floorplan of this.floorplans) {
+        for (const floorplan of this.floorplans) {
             return floorplan;
         }
 
@@ -1443,6 +1441,8 @@ immobrowse.RealEstate = class {
         if (this.verwaltung_objekt != null) {
             return this.verwaltung_objekt.wbs_sozialwohnung;
         }
+
+        return null;
     }
 
     get constructionYear () {
@@ -1700,7 +1700,7 @@ immobrowse.RealEstate = class {
     }
 
     *_amenitiesTags () {
-        for (let amenity of this.amenities) {
+        for (const amenity of this.amenities) {
             yield immobrowse.dom.AmenitiesTag(amenity);
         }
     }
@@ -1716,8 +1716,8 @@ immobrowse.RealEstate = class {
             const ul = document.createElement('ul');
             ul.setAttribute('class', 'ib-amenities-list');
 
-            for (let amenity of amenities) {
-                let li = document.createElement('li');
+            for (const amenity of amenities) {
+                const li = document.createElement('li');
                 li.textContent = amenity;
                 ul.appendChild(li);
             }
@@ -1874,7 +1874,7 @@ immobrowse.RealEstate = class {
         elements = elements || this._defaultElements;
         const dataFields = [];
 
-        for (let element of elements) {
+        for (const element of elements) {
             switch (element.name) {
             case 'coldRent':
                 immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.rent) || immobrowse.config.na, dataFields);
@@ -1961,8 +1961,8 @@ immobrowse.RealEstate.list = function (cid) {
         function (json) {
             const realEstates = [];
 
-            for (let object of json) {
-                let realEstate = new immobrowse.RealEstate(object);
+            for (const object of json) {
+                const realEstate = new immobrowse.RealEstate(object);
                 realEstates.push(realEstate);
             }
 
@@ -2001,7 +2001,7 @@ immobrowse.List = class {
     render (listElement, elements) {
         listElement.html('');  // Clear element.
 
-        for (let realEstate of this.realEstates) {
+        for (const realEstate of this.realEstates) {
             const preview = realEstate.preview(elements);
             listElement.append(preview);
         }
@@ -2133,7 +2133,7 @@ immobrowse.dom.preview.DataRow = function (dataColumns) {
     const element = document.createElement('div');
     element.setAttribute('class', 'row row-centered ib-preview-data');
 
-    for (let child of dataColumns) {
+    for (const child of dataColumns) {
         element.appendChild(child);
     }
 
@@ -2231,7 +2231,7 @@ immobrowse.dom.preview.AmenitiesTags = function (amenities) {
     const element = document.createElement('div');
     element.setAttribute('class', 'ib-preview-tags');
 
-    for (let child of amenities) {
+    for (const child of amenities) {
         element.appendChild(child);
     }
 
