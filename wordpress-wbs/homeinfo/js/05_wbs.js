@@ -6,17 +6,16 @@
 
 var immobrowse = immobrowse ||  {};
 immobrowse.wbs = immobrowse.wbs || {};
+immobrowse.wbs.KATERNBERG_STREETS = ['Funckstr.', 'Katernberger Schulweg', 'Kruppstr.', 'Siemensstr.'];
 
 
 /*
     Matches a real estate against a district.
 */
 immobrowse.wbs.match = function (realEstate, district) {
-    var katernbergStreets = ['Funckstr.', 'Katernberger Schulweg', 'Kruppstr.', 'Siemensstr.'];
-
     switch (district) {
     case 'Uellendahl-Katernberg':
-        return katernbergStreets.indexOf(realEstate.geo.strasse) >= 0;
+        return immobrowse.wbs.KATERNBERG_STREETS.includes(realEstate.geo.strasse);
     case 'Elberfeld':
         return realEstate.geo.plz.startsWith('421');
     case 'Barmen':
@@ -31,11 +30,9 @@ immobrowse.wbs.match = function (realEstate, district) {
     Filters real estates by WBS district.
 */
 immobrowse.wbs.filter = function (realEstates, district) {
-    var result = [];
+    const result = [];
 
-    for (var i = 0; i < realEstates.length; i++) {
-        var realEstate = realEstates[i];
-
+    for (const realEstate of realEstates) {
         if (immobrowse.wbs.match(realEstate, district)) {
             result.push(realEstate);
         }
@@ -50,8 +47,8 @@ immobrowse.wbs.filter = function (realEstates, district) {
 */
 immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
     if (immobrowse.wordpress.selectedDistricts().length == 0) {
-        var args = new homeinfo.QueryString();
-        var district = args.ortsteil;
+        const urlParams = new URLSearchParams(window.location.search);
+        const district = urlParams.get('ortsteil');
 
         if (district != null && district != ''){
             return immobrowse.wbs.filter(realEstates, district);

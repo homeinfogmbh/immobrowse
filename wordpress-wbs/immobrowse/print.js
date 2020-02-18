@@ -117,8 +117,8 @@ immobrowse.wbsWuppertal.print.render = function (realEstate) {
 
 
 immobrowse.wbsWuppertal.print.init = function () {
-    var args = new homeinfo.QueryString();
-    var objectId = args.real_estate;
+    const urlParams = new URLSearchParams(window.location.search);
+    const objectId = urlParams.get('real_estate');
     immobrowse.RealEstate.get(objectId).then(immobrowse.wbsWuppertal.print.render);
 };
 

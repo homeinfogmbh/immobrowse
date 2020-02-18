@@ -286,10 +286,10 @@ immobrowse.wordpress.render = function (realEstate) {
 
 
 immobrowse.wordpress.initExpose = function () {
-    var args = new homeinfo.QueryString();
+    const urlParams = new URLSearchParams(window.location.search);
     // XXX: Change config for appropriate productive setting
     immobrowse.wordpress.mailer = new immobrowse.Mailer(homeinfo_recaptcha);
-    immobrowse.wordpress.objectId = args.real_estate;
+    immobrowse.wordpress.objectId = urlParams.get('real_estate');
     immobrowse.wordpress.elements = {
         objectId: jQuery('#objectId'),
         objectTitle: jQuery('#objectTitle'),
