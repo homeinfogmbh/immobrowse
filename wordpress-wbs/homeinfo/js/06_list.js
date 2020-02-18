@@ -36,7 +36,7 @@ immobrowse.wordpress.listElement = null;
 
 
 immobrowse.wordpress.toggleOrder = function () {
-    var previousOrder = immobrowse.wordpress.sorting.order;
+    const previousOrder = immobrowse.wordpress.sorting.order;
 
     if (immobrowse.wordpress.sorting.order == 'descending') {
         immobrowse.wordpress.sorting.order = 'ascending';
@@ -49,8 +49,8 @@ immobrowse.wordpress.toggleOrder = function () {
 
 
 immobrowse.wordpress.toggleSorting = function (property) {
-    var previousIssuer = document.getElementById('ib-sort-' + immobrowse.wordpress.sorting.property);
-    var issuer = document.getElementById('ib-sort-' + property);
+    const previousIssuer = document.getElementById('ib-sort-' + immobrowse.wordpress.sorting.property);
+    const issuer = document.getElementById('ib-sort-' + property);
     immobrowse.wordpress.toggleOrder();
     immobrowse.wordpress.sorting.property = property;
 
@@ -86,12 +86,12 @@ immobrowse.wordpress.renderDistricts = function (districtsElement, districtEleme
 
 
 immobrowse.wordpress.selectedDistricts = function () {
-    var districts = [];
-    var checkboxes = document.getElementsByClassName('ib-select-district');
+    const districts = [];
+    const checkboxes = document.getElementsByClassName('ib-select-district');
 
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            districts.push(checkboxes[i].getAttribute('name'));
+    for (const checkbox of checkboxes) {
+        if (checkbox.checked) {
+            districts.push(checkbox.getAttribute('name'));
         }
     }
 
@@ -100,7 +100,7 @@ immobrowse.wordpress.selectedDistricts = function () {
 
 
 immobrowse.wordpress.filters = function () {
-    var priceMax = jQuery('#ib-price-max').val();
+    let priceMax = jQuery('#ib-price-max').val();
 
     if (! priceMax) {
         priceMax = Infinity;
@@ -108,7 +108,7 @@ immobrowse.wordpress.filters = function () {
         priceMax = Number(homeinfo.str.comma2dot(priceMax));
     }
 
-    var priceMin = jQuery('#ib-price-min').val();
+    let priceMin = jQuery('#ib-price-min').val();
 
     if (! priceMin) {
         priceMin = 0;
@@ -116,7 +116,7 @@ immobrowse.wordpress.filters = function () {
         priceMin = Number(homeinfo.str.comma2dot(priceMin));
     }
 
-    var areaMin = jQuery('#ib-area-min').val();
+    let areaMin = jQuery('#ib-area-min').val();
 
     if (! areaMin) {
         areaMin = 0;
@@ -124,7 +124,7 @@ immobrowse.wordpress.filters = function () {
         areaMin = Number(homeinfo.str.comma2dot(areaMin));
     }
 
-    var roomsMin = jQuery('#ib-rooms-min').val();
+    let roomsMin = jQuery('#ib-rooms-min').val();
 
     if (! roomsMin) {
         roomsMin = 0;
@@ -153,11 +153,11 @@ immobrowse.wordpress.filters = function () {
 
 
 immobrowse.wordpress.list = function () {
-    var filters = immobrowse.wordpress.filters();
-    var filter = new immobrowse.Filter(filters);
-    var realEstates = filter.filter(immobrowse.wordpress.realEstates);
+    const filters = immobrowse.wordpress.filters();
+    const filter = new immobrowse.Filter(filters);
+    let realEstates = filter.filter(immobrowse.wordpress.realEstates);
     realEstates = immobrowse.wbs.districtFilteredRealEstates(realEstates);
-    var list = new immobrowse.List(realEstates);
+    const list = new immobrowse.List(realEstates);
 
     if (immobrowse.wordpress.sorting.property != null) {
         list.sort(immobrowse.wordpress.sorting.property, immobrowse.wordpress.sorting.order);

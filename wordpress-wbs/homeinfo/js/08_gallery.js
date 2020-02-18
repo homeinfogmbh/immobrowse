@@ -53,13 +53,15 @@ immobrowse.wordpress.gallery.previousCallback = function (galleryObj) {
 };
 
 
-immobrowse.wordpress.gallery.Gallery = function (images, mapping, urlCallback) {
-    this.images = images;
-    this.mapping = mapping;
-    this.urlCallback = urlCallback;
-    this.index = 0;
+immobrowse.wordpress.gallery.Gallery = class {
+    constructor (images, mapping, urlCallback) {
+        this.images = images;
+        this.mapping = mapping;
+        this.urlCallback = urlCallback;
+        this.index = 0;
+    }
 
-    this.next = function () {
+    next () {
         this.index++;
 
         if (this.index >= this.images.length) {
@@ -67,9 +69,9 @@ immobrowse.wordpress.gallery.Gallery = function (images, mapping, urlCallback) {
         }
 
         this.render();
-    };
+    }
 
-    this.previous = function () {
+    previous () {
         this.index--;
 
         if (this.index < 0) {
@@ -77,19 +79,19 @@ immobrowse.wordpress.gallery.Gallery = function (images, mapping, urlCallback) {
         }
 
         this.render();
-    };
+    }
 
-    this.bind = function () {
+    bind () {
         this.mapping.next.unbind('click');
         this.mapping.next.click(immobrowse.wordpress.gallery.nextCallback(this));
         this.mapping.previous.unbind('click');
         this.mapping.previous.click(immobrowse.wordpress.gallery.previousCallback(this));
-    };
+    }
 
-    this.render = function () {
+    render () {
         this.mapping.image.attr('src', this.urlCallback(this.images[this.index]));
         this.mapping.title.html(this.images[this.index].anhangtitel);
         this.mapping.index.html(this.index + 1);
         this.mapping.count.html(this.images.length);
-    };
+    }
 };
