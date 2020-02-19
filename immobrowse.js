@@ -527,11 +527,12 @@ immobrowse.RealEstate = class {
       Queries real estate data from the API and returns a thenable.
     */
     static get (id) {
+        const cls = this;
         return jQuery.ajax({
             url: 'https://backend.homeinfo.de/immobrowse/expose/' + id
         }).then(
             function (json) {
-                return new this(json);
+                return new cls(json);
             },
             function () {
                 swal({
@@ -547,6 +548,7 @@ immobrowse.RealEstate = class {
       Queries API for real estate list and returns a thenable.
     */
     static list (cid) {
+        const cls = this;
         return jQuery.ajax({
             url: 'https://backend.homeinfo.de/immobrowse/list/' + cid
         }).then(
@@ -554,7 +556,7 @@ immobrowse.RealEstate = class {
                 const realEstates = [];
 
                 for (const object of json) {
-                    const realEstate = new this(object);
+                    const realEstate = new cls(object);
                     realEstates.push(realEstate);
                 }
 
