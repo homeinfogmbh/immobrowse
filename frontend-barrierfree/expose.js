@@ -281,11 +281,13 @@ $(document).ready(function () {
         }
     };
 
-    barrierfree.getRealEstate(objectId, portal, function (realEstate_) {
-        realEstate = realEstate_;
-        setupGalleries();
-        realEstate.render(elements);
-        document.title = 'Exposé Nr. ' + realEstate.objectId();
-        postRender();
-    });
+    barrierfree.RealEstate.get(objectId, portal).then(
+        function (realEstate_) {
+            realEstate = realEstate_;
+            setupGalleries();
+            realEstate.render(elements);
+            document.title = 'Exposé Nr. ' + realEstate.objectId();
+            postRender();
+        }
+    );
 });

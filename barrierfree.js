@@ -32,54 +32,6 @@ barrierfree.logger = new homeinfo.logging.Logger('barrierfree');
 
 
 /*
-  Queries real estate data from the API and runs callback function.
-*/
-barrierfree.getRealEstate = function (objectId, portal, callback) {
-    jQuery.ajax({
-        url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal,
-        success: function (json) {
-            const realEstate = new barrierfree.RealEstate(json, portal);
-            callback(realEstate);
-        },
-        error: function() {
-            swal({
-                title: 'Immobilie konnte nicht geladen werden.',
-                text: 'Bitte versuchen Sie es später noch ein Mal.',
-                type: 'error'
-            });
-        }
-    });
-}
-
-
-/*
-  Queries API for real estate list and runs callback function.
-*/
-barrierfree.getRealEstates = function (portal, callback) {
-    jQuery.ajax({
-        url: 'https://backend.homeinfo.de/barrierfree/list?portal=' + portal,
-        success: function (json) {
-            const realEstates = [];
-
-            for (let object of json) {
-                let realEstate = new barrierfree.RealEstate(object, portal);
-                realEstates.push(realEstate);
-            }
-
-            callback(realEstates);
-        },
-        error: function() {
-            swal({
-                title: 'Immobilien konnten nicht geladen werden.',
-                text: 'Bitte versuchen Sie es später noch ein Mal.',
-                type: 'error'
-            });
-        }
-    });
-}
-
-
-/*
   Extended real estate with additional barrier
   freeness related properties and methods.
 */
@@ -87,6 +39,55 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
     constructor (json, portal) {
         super(json);
         this.portal = portal;
+    }
+
+    /*
+      Queries real estate data from the API.
+    */
+    static get (objectId, portal) {
+        const cls = this;
+        return jQuery.ajax({
+            url: 'https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal
+        }).then(
+            function (json) {
+                return new cls(json, portal);
+            },
+            function() {
+                swal({
+                    title: 'Immobilie konnte nicht geladen werden.',
+                    text: 'Bitte versuchen Sie es später noch ein Mal.',
+                    type: 'error'
+                });
+            }
+        );
+    }
+
+    /*
+      Queries API for real estate list.
+    */
+    static list (portal) {
+        const cls = this;
+        return jQuery.ajax({
+            url: 'https://backend.homeinfo.de/barrierfree/list?portal=' + portal
+        }).then(
+            function (json) {
+                const realEstates = [];
+
+                for (const object of json) {
+                    const realEstate = new cls(object, portal);
+                    realEstates.push(realEstate);
+                }
+
+                return realEstates;
+            },
+            function() {
+                swal({
+                    title: 'Immobilien konnten nicht geladen werden.',
+                    text: 'Bitte versuchen Sie es später noch ein Mal.',
+                    type: 'error'
+                });
+            }
+        );
     }
 
     /*
