@@ -1141,11 +1141,11 @@ immobrowse.RealEstate = class {
             return true;
         }
 
+        const ownTypes = new Set(this.objectTypes);
+
         for (const type of types) {
-            for (const objectType of this.objectTypes) {
-                if (type == objectType) {
-                    return true;
-                }
+            if (ownTypes.has(type)) {
+                return true;
             }
         }
 
@@ -1157,11 +1157,11 @@ immobrowse.RealEstate = class {
             return true;
         }
 
+        const ownTypes = new Set(this.marketingTypes);
+
         for (const type of types) {
-            for (const marketingType of this.marketingTypes) {
-                if (type == marketingType) {
-                    return true;
-                }
+            if (ownTypes.has(type)) {
+                return true;
             }
         }
 
