@@ -231,7 +231,7 @@ immobrowse.wordpress.setupGalleries = function() {
         'previous': jQuery('#galleryPrevious')
     };
     console.log('DEBUG: Getting images.');
-    const images = Array.from(immobrowse.wordpress.realEstate.images());
+    const images = Array.from(immobrowse.wordpress.realEstate.images);
 
     console.log('DEBUG: Defining URL callback.');
     function attachmentUrlCallback(attachment) {
@@ -262,7 +262,7 @@ immobrowse.wordpress.setupGalleries = function() {
     }
 
     console.log('DEBUG: Getting floor plans.');
-    const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans());
+    const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans);
     console.log('DEBUG: Instatiating floor plan gallery.');
     immobrowse.wordpress.floorplanGallery = new immobrowse.wordpress.gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
