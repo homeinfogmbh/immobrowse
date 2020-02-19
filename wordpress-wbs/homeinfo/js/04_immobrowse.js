@@ -254,7 +254,7 @@ immobrowse.districtElements = function* (realEstates) {
     const districts = immobrowse.districts(realEstates);
 
     for (const district in districts) {
-        if (districts.hasOwnProperty(district)) {
+        if (Object.prototype.hasOwnProperty.call(districts, district)) {
             const inputElement = document.createElement('input');
             inputElement.setAttribute('type', 'checkbox');
             inputElement.setAttribute('class', 'ib-select-district');
@@ -363,7 +363,9 @@ immobrowse.Mailer = class {
       Sends the respective emails.
     */
     send (response, subject, body, recipient, reply_to) {
-        return jQuery.ajax(this._getAjax(this._getUrl(response, subject, recipient, reply_to), body));
+        const url = this._getUrl(response, subject, recipient, reply_to);
+        const ajaxQuery = this._getAjax(url, body);
+        return jQuery.ajax(ajaxQuery);
     }
 };
 
@@ -515,10 +517,57 @@ immobrowse.RealEstate = class {
         ];
 
         for (const prop in json) {
-            if (json.hasOwnProperty(prop)) {
+            if (Object.prototype.hasOwnProperty.call(json, prop)) {
                 this[prop] = json[prop];
             }
         }
+    }
+
+    /*
+      Queries real estate data from the API and returns a thenable.
+    */
+    static get (id) {
+        return jQuery.ajax({
+            url: 'https://backend.homeinfo.de/immobrowse/expose/' + id
+        }).then(
+            function (json) {
+                return new this(json);
+            },
+            function () {
+                swal({
+                    title: 'Immobilie konnte nicht geladen werden.',
+                    text: 'Bitte versuchen Sie es später noch ein Mal.',
+                    type: 'error'
+                });
+            }
+        );
+    }
+
+    /*
+      Queries API for real estate list and returns a thenable.
+    */
+    static list (cid) {
+        return jQuery.ajax({
+            url: 'https://backend.homeinfo.de/immobrowse/list/' + cid
+        }).then(
+            function (json) {
+                const realEstates = [];
+
+                for (const object of json) {
+                    const realEstate = new this(object);
+                    realEstates.push(realEstate);
+                }
+
+                return realEstates;
+            },
+            function () {
+                swal({
+                    title: 'Immobilien konnten nicht geladen werden.',
+                    text: 'Bitte versuchen Sie es später noch ein Mal.',
+                    type: 'error'
+                });
+            }
+        );
     }
 
     get street () {
@@ -1927,55 +1976,6 @@ immobrowse.RealEstate = class {
             this.detailsURL
         );
     }
-};
-
-
-/*
-  Queries real estate data from the API and returns a thenable.
-*/
-immobrowse.RealEstate.get = function (id) {
-    return jQuery.ajax({
-        url: 'https://backend.homeinfo.de/immobrowse/expose/' + id
-    }).then(
-        function (json) {
-            return new immobrowse.RealEstate(json);
-        },
-        function () {
-            swal({
-                title: 'Immobilie konnte nicht geladen werden.',
-                text: 'Bitte versuchen Sie es später noch ein Mal.',
-                type: 'error'
-            });
-        }
-    );
-};
-
-
-/*
-  Queries API for real estate list and returns a thenable.
-*/
-immobrowse.RealEstate.list = function (cid) {
-    return jQuery.ajax({
-        url: 'https://backend.homeinfo.de/immobrowse/list/' + cid
-    }).then(
-        function (json) {
-            const realEstates = [];
-
-            for (const object of json) {
-                const realEstate = new immobrowse.RealEstate(object);
-                realEstates.push(realEstate);
-            }
-
-            return realEstates;
-        },
-        function () {
-            swal({
-                title: 'Immobilien konnten nicht geladen werden.',
-                text: 'Bitte versuchen Sie es später noch ein Mal.',
-                type: 'error'
-            });
-        }
-    );
 };
 
 
