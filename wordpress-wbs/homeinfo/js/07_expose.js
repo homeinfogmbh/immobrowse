@@ -221,6 +221,7 @@ immobrowse.wordpress.postRender = function () {
 
 
 immobrowse.wordpress.setupGalleries = function() {
+    console.log('DEBUG: Defining mapping.');
     const galleryMapping = {
         'image': jQuery('#galleryImage'),
         'title': jQuery('#galleryTitle'),
@@ -229,18 +230,23 @@ immobrowse.wordpress.setupGalleries = function() {
         'next': jQuery('#galleryNext'),
         'previous': jQuery('#galleryPrevious')
     };
+    console.log('DEBUG: Getting images.');
     const images = Array.from(immobrowse.wordpress.realEstate.images());
 
+    console.log('DEBUG: Defining URL callback.');
     function attachmentUrlCallback(attachment) {
         return immobrowse.wordpress.realEstate.attachmentURL(attachment);
     }
 
+    console.log('DEBUG: Instantiating image gallery.');
     immobrowse.wordpress.imageGallery = new immobrowse.wordpress.gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
 
+    console.log('DEBUG: Checking images > 0.');
     if (images.length > 0) {
         jQuery('#titleImage').attr('src', immobrowse.wordpress.realEstate.attachmentURL(images[0]));
     }
 
+    console.log('DEBUG: Checking images > 1.');
     if (images.length > 1) {
         for (const image of images){
             jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(image) + '"/>');
@@ -255,13 +261,17 @@ immobrowse.wordpress.setupGalleries = function() {
         jQuery('#titleImageFrame, #furtherImages').addClass('ib-browsable');
     }
 
+    console.log('DEBUG: Getting floor plans.');
     const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans());
+    console.log('DEBUG: Instatiating floor plan gallery.');
     immobrowse.wordpress.floorplanGallery = new immobrowse.wordpress.gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
+    console.log('DEBUG: Checking floor plans > 0.');
     if (floorplans.length > 0) {
         jQuery('#floorplan').attr('src', immobrowse.wordpress.realEstate.attachmentURL(floorplans[0]));
     }
 
+    console.log('DEBUG: Checking floor plans > 1.');
     if (floorplans.length > 1) {
         jQuery('#floorplanFrame').click(function() {
             immobrowse.wordpress.floorplanGallery.bind();
@@ -275,12 +285,17 @@ immobrowse.wordpress.setupGalleries = function() {
 
 
 immobrowse.wordpress.render = function (realEstate) {
+    console.log('DEBUG: Setting real estate.');
+    console.log(JSON.stringify(realEstate, null, 2));
     immobrowse.wordpress.realEstate = realEstate;
+    console.log('DEBUG: Setting up galleries.');
     immobrowse.wordpress.setupGalleries();
+    console.log('DEBUG: Rendering real estate.');
     immobrowse.wordpress.realEstate.render(immobrowse.wordpress.elements);
+    console.log('DEBUG: Setting title.');
     document.title = 'Exposé Nr. ' + immobrowse.wordpress.realEstate.objectId();
+    console.log('DEBUG: Executing postRender().');
     immobrowse.wordpress.postRender();
-
 };
 
 
