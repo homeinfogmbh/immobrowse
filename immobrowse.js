@@ -513,7 +513,7 @@ immobrowse.RealEstate = class {
             {'name': 'coldRent', 'caption': 'Kaltmiete'},
             {'name': 'serviceCharge', 'caption': 'Nebenkosten'},
             {'name': 'rooms', 'caption': 'Zimmer'},
-            {'name': 'area', 'caption': 'Fläche ca.'},
+            {'name': 'area', 'caption': 'Fläche ca.'}
         ];
 
         for (const prop in json) {
