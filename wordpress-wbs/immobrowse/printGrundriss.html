@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<!--
+  @licstart  The following is the entire license notice for the JavaScript code in this page.
+  The JavaScript code in this page is free software: you can
+  redistribute it and/or modify it under the terms of the GNU
+  General Public License (GNU GPL) as published by the Free Software
+  Foundation, either version 3 of the License, or (at your option)
+  any later version.  The code is distributed WITHOUT ANY WARRANTY;
+  without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+  As additional permission under GNU GPL version 3 section 7, you
+  may distribute non-source (e.g., minimized or compacted) forms of
+  that code without the copy of the GNU GPL normally required by
+  section 4, provided you include this license notice and a URL
+  through which recipients can access the Corresponding Source.
+  @licend  The above is the entire license notice
+-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grundriss Druckvorschau</title>
+  <link rel="stylesheet" href="https://libraries.homeinfo.de/bootstrap/latest/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://libraries.homeinfo.de/sweetalert/dist/sweetalert.css">
+  <link rel="stylesheet" href="immobrowse.css">
+  <link rel="stylesheet" href="print.css">
+  <script src="https://libraries.homeinfo.de/jquery/jquery-latest.min.js"></script>
+  <script src="https://libraries.homeinfo.de/bootstrap/latest/js/bootstrap.min.js"></script>
+  <script src="https://libraries.homeinfo.de/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://javascript.homeinfo.de/homeinfo.js"></script>
+  <script src="immobrowse.js"></script>
+  <script src="printGrundriss.js"></script>
+</head>
+<div class="container">
+  <div id="header" class="row row-centered ib-header">
+    <div id="objectTitle" class="col-md-5 col-centered ib-title">
+      Objekttitel
+    </div>
+    <div id="objectId" class="col-md-4 col-centered ib-id">
+      Objekt ID
+    </div>
+    <div class="col-md-3 col-centered no-print">
+      <div class="ib-detail-print ib-centered">
+        <button type="button" class="btn btn-info" onclick="print(); close();">
+          Drucken
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row row-centered ib-header">
+    <div id="objectAddress" class="col-md-12 col-centered ib-address">
+      Objekt Adresse
+    </div>
+  </div>
+  <div class="row row-centered">
+    <div id="expose" class="col-md-12 ib-expose">
+      <div class="row row-centered">
+        <div class="col-sm-12">
+          <div class="thumbnail">
+            <div id="floorplanFrame" class="ib-image-frame">
+              <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
+            </div>
+            <div id="floorplanCaption" class="caption">
+              Grundriss
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="contactInformation" class="row row-centered ib-expose-data-row">
+        <div class="col-md-6 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Kontakt
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Name
+            </div>
+            <div id="contactName" class="col-xs-6"></div>
+          </div>
+          <div id="contactCompanyContainer" class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Firma
+            </div>
+            <div id="contactCompany" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Adresse
+            </div>
+            <div id="contactAddress" class="col-xs-6"></div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Telefon
+            </div>
+            <div id="contactPhone" class="col-xs-6"></div>
+          </div>
+          <div id="contactWebsiteContainer" class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Website
+            </div>
+            <div id="contactWebsite" class="col-xs-6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="loader">
+      <div class="loader"></div>
+    </div>
+  </div>
+</div>
