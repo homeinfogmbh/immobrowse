@@ -172,11 +172,11 @@ immobrowse.wordpress.sendEmail = function() {
 
     const city = jQuery('#city').val().trim();
     const message = jQuery('#message').val().trim();
-    const recipient = immobrowse.wordpress.realEstate.contact().email;
+    const recipient = immobrowse.wordpress.realEstate.contact.email;
     const html = immobrowse.dom.contactEmail(
-        immobrowse.wordpress.realEstate.realEstate, message, salutation, forename,
+        immobrowse.wordpress.realEstate, message, salutation, forename,
         surname, phone, street, houseNumber, zipCode, city, member).outerHTML;
-    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId(), html, recipient, email);
+    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, html, recipient, email);
     grecaptcha.reset();
 };
 
