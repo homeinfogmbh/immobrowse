@@ -110,7 +110,7 @@ immobrowse.wbsWuppertal.print.getElements = function () {
 
 immobrowse.wbsWuppertal.print.render = function (realEstate) {
     realEstate.render(immobrowse.wbsWuppertal.print.getElements());
-    document.title = 'Exposé Nr. ' + realEstate.objectId();
+    document.title = 'Exposé Nr. ' + realEstate.objectId;
     jQuery('#loader').hide();
     jQuery('#main').attr('style', 'padding-top: 80px');
 };
