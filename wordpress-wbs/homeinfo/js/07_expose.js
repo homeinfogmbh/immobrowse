@@ -125,7 +125,16 @@ immobrowse.wordpress.sendEmail = function() {
         salutation = 'Frau';
     }
 
-    const member = jQuery('input:radio[name=\'member\']:checked').val() == 1;
+    let member = jQuery('input:radio[name=\'member\']:checked').val();
+
+    if (member == 1) {
+        member = true;
+    } else if (member == 0) {
+        member = false;
+    } else {
+        member = null;
+    }
+
     const phone = jQuery('#phone').val().trim();
 
     if (phone == '') {
@@ -171,6 +180,16 @@ immobrowse.wordpress.sendEmail = function() {
     }
 
     const city = jQuery('#city').val().trim();
+
+    if (city == '') {
+        swal({
+            title: 'Achtung!',
+            text: 'Bitte Pflichtfeld "Ort" ausfüllen.',
+            type: 'warning'
+        });
+        return;
+    }
+
     const message = jQuery('#message').val().trim();
     const recipient = immobrowse.wordpress.realEstate.contact.email;
     const html = immobrowse.dom.contactEmail(

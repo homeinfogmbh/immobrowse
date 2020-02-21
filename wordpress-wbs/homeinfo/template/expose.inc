@@ -347,7 +347,7 @@
           <div class="col-md-9">
             <div class="form-group">
               <label for="city">Ort</label>
-              <input type="text" class="form-control" id="city" placeholder="Ort">
+              <input type="text" class="form-control" id="city" placeholder="Ort*">
             </div>
           </div>
           <div class="col-md-12">
