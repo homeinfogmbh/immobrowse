@@ -74,7 +74,7 @@ def _anhang(customer, ident):
     except Anhang.DoesNotExist:
         return ('No such attachment.', 404)
 
-    return send_file(BytesIO(anhang.data), mimetype=anhang.format)
+    return send_file(BytesIO(anhang.bytes), mimetype=anhang.format)
 
 
 @APPLICATION.errorhandler(UnauthorizedError)

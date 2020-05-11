@@ -92,6 +92,6 @@ def get_attachment(ident):
         return (f'No such attachment: {ident}', 404)
 
     if approve(anhang.immobilie):
-        return Binary(anhang.data)
+        return Binary(anhang.bytes)
 
     return ('Related real estate not cleared for portal.', 403)
