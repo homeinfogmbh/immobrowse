@@ -82,6 +82,7 @@ function immobrowse_setup_css() {
 function immobrowse_setup_js() {
 	$javaScripts = [
 		"jquery-3.5.1.min.js",
+		"bootstrap.min.js",
 		"sweetalert.min.js",
 		"homeinfo.js",
 		"config.js",
