@@ -71,30 +71,35 @@ function vc_remove_wp_ver_css_js( $src ) {
 
 add_filter( 'style_loader_src', array( $this, 'vc_remove_wp_ver_css_js' ), 9999 );
 add_filter( 'script_loader_src', array( $this, 'vc_remove_wp_ver_css_js' ), 9999 );
-add_action( 'wp_enqueue_scripts', array( $this, 'immobrowse_setup_js') );
+add_action( 'wp_enqueue_scripts', array( $this, 'immobrowse_setup_scripts') );
 
-function immobrowse_setup_js() {
-	foreach ( glob( plugin_dir_path( __FILE__ )."css/*.css") as $cssfile ){
-		$cssfile=basename($cssfile);
-		$cssClass=substr($cssfile, 0, -4);
+function immobrowse_setup_scripts() {
+	$javaScripts = ["sweetalert_min.js", "homeinfo.js", "config.js", "immobrowse.js"];
+
+	if ( isset( $_GET['real_estate'] ) ) {
+		if ( isset( $_GET['print_expose'] ) ) {
+			array_push( $javaScripts, "print_expose.js" );
+		} else if ( isset( $_GET['print_floorplan'] ) ) {
+			array_push( $javaScripts, "print_floorplan.js" );
+		} else {
+			array_push( $javaScripts, "expose.js" );
+			array_push( $javaScripts, "gallery.js" );
+		}
+	} else {
+		array_push( $javaScripts, "list.js" );
+	}
+
+	foreach ( glob( plugin_dir_path( __FILE__ )."css/*.css") as $cssfile ) {
+		$cssfile = basename($cssfile);
+		$cssClass = substr($cssfile, 0, -4);
 
 		wp_register_style( 'immobrowsecss-'.$cssClass, plugins_url( 'css/'.$cssfile,__FILE__ ) );
 		wp_enqueue_style( 'immobrowsecss-'.$cssClass );
 	}
 
-	foreach ( glob( plugin_dir_path( __FILE__ )."js/*.js" ) as $jsfile ){
-		$jsfile=basename($jsfile);
-		$jsClass=substr($jsfile, 0, -3);
-		$basenameWithoutPrefix=substr($jsfile, 3);
-
-		/* Load list.js and expose.js only when loading the respective site. */
-		if ( $basenameWithoutPrefix == "list.js" && isset( $_GET['real_estate'] ) ) {
-			continue;
-		} else if ( $basenameWithoutPrefix == "expose.js" && ! isset( $_GET['real_estate'] ) ) {
-			continue;
-		}
-
-		wp_enqueue_script( 'immobrowsejs-'.$jsClass, plugins_url( 'js/'.$jsfile,__FILE__ ) );
+	foreach ( $javaScripts as $jsfile ) {
+		$jsfile = plugins_url( 'js/'.$jsfile, __FILE__ )
+		wp_enqueue_script( 'immobrowsejs-'.$jsfile, plugins_url( 'js/'.$jsfile,__FILE__ ) );
 	}
 
 	wp_enqueue_script( 'immobrowsejs-recaptcha','https://www.google.com/recaptcha/api.js' );
