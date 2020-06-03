@@ -69,11 +69,17 @@ function vc_remove_wp_ver_css_js( $src ) {
 	return $src;
 }
 
-add_filter( 'style_loader_src', array( $this, 'vc_remove_wp_ver_css_js' ), 9999 );
-add_filter( 'script_loader_src', array( $this, 'vc_remove_wp_ver_css_js' ), 9999 );
-add_action( 'wp_enqueue_scripts', array( $this, 'immobrowse_setup_scripts') );
+function immobrowse_setup_css() {
+	foreach ( glob( plugin_dir_path( __FILE__ )."css/*.css") as $cssfile ) {
+		$cssfile = basename($cssfile);
+		$cssClass = substr($cssfile, 0, -4);
 
-function immobrowse_setup_scripts() {
+		wp_register_style( 'immobrowsecss-'.$cssClass, plugins_url( 'css/'.$cssfile,__FILE__ ) );
+		wp_enqueue_style( 'immobrowsecss-'.$cssClass );
+	}
+}
+
+function immobrowse_setup_js() {
 	$javaScripts = ["sweetalert_min.js", "homeinfo.js", "config.js", "immobrowse.js"];
 
 	if ( isset( $_GET['real_estate'] ) ) {
@@ -89,19 +95,20 @@ function immobrowse_setup_scripts() {
 		array_push( $javaScripts, "list.js" );
 	}
 
-	foreach ( glob( plugin_dir_path( __FILE__ )."css/*.css") as $cssfile ) {
-		$cssfile = basename($cssfile);
-		$cssClass = substr($cssfile, 0, -4);
-
-		wp_register_style( 'immobrowsecss-'.$cssClass, plugins_url( 'css/'.$cssfile,__FILE__ ) );
-		wp_enqueue_style( 'immobrowsecss-'.$cssClass );
-	}
-
 	foreach ( $javaScripts as $jsfile ) {
-		$jsfile = plugins_url( 'js/'.$jsfile, __FILE__ )
+		$jsfile = plugins_url( 'js/'.$jsfile, __FILE__ );
 		wp_enqueue_script( 'immobrowsejs-'.$jsfile, plugins_url( 'js/'.$jsfile,__FILE__ ) );
 	}
 
 	wp_enqueue_script( 'immobrowsejs-recaptcha','https://www.google.com/recaptcha/api.js' );
 }
+
+function immobrowse_setup_scripts() {
+	immobrowse_setup_css();
+	immobrowse_setup_js();
+}
+
+add_filter( 'style_loader_src', 'vc_remove_wp_ver_css_js', 9999 );
+add_filter( 'script_loader_src', 'vc_remove_wp_ver_css_js', 9999 );
+add_action( 'wp_enqueue_scripts', 'immobrowse_setup_scripts' );
 ?>
