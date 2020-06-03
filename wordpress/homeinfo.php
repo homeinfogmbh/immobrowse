@@ -19,19 +19,28 @@ function immobrowse_shortcut() {
 	$options = get_option('ImmobrowseOptions');
 
 	if ( isset( $_GET['real_estate'] ) ) {
-		if ( isset( $_GET['print'] ) ) {
-			$filename = plugin_dir_path( __FILE__ )."template/print.inc";
+		if ( isset( $_GET['print_expose'] ) ) {
+			$filename = plugin_dir_path( __FILE__ )."template/print_expose.inc";
 
-			if ( file_exists( $filename ){
+			if ( file_exists( $filename ) {
 				$content = file_get_contents( $filename );
 				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
 			} else {
-				$content = "Datei print.inc existiert nicht.";
+				$content = "Datei print_expose.inc existiert nicht.";
+			}
+		} else if ( isset( $_GET['print_floorplan'] ) ) {
+			$filename = plugin_dir_path( __FILE__ )."template/print_floorplan.inc";
+
+			if ( file_exists( $filename ) {
+				$content = file_get_contents( $filename );
+				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
+			} else {
+				$content = "Datei print_floorplan.inc existiert nicht.";
 			}
 		} else {
 			$filename = plugin_dir_path( __FILE__ )."template/expose.inc";
 
-			if ( file_exists( $filename ) ){
+			if ( file_exists( $filename ) ) {
 				$content = file_get_contents( $filename );
 				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
 				$content = str_replace( "[RECAPTCHA]", $options['recaptcha'], $content );

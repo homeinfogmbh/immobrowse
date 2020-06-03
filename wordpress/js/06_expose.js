@@ -1,7 +1,7 @@
 /*
   expose.js - ImmoBrowse Expose front end JavaScript
 
-  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017-2020 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,12 +36,12 @@ immobrowse.wordpress.floorplanGallery = null;
 
 
 immobrowse.wordpress.printGrundriss = function (){
-    window.open('/immobrowse/printGrundriss.html?real_estate=' + immobrowse.wordpress.objectId);
+    window.open('?real_estate=' + immobrowse.wordpress.objectId + '&print_floorplan');
 };
 
 
 immobrowse.wordpress.printExpose = function (){
-    window.open('/immobrowse/print.html?real_estate=' + immobrowse.wordpress.objectId);
+    window.open('?real_estate=' + immobrowse.wordpress.objectId + '&print_expose');
 };
 
 immobrowse.wordpress.back = function () {

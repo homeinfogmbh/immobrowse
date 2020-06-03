@@ -1,7 +1,7 @@
 /*
-    print.js - ImmoBrowse Expose front end JavaScript
+    print_expose.js - ImmoBrowse Exposé printing JavaScript
 
-    (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+    (C) 2017-2020 HOMEINFO - Digitale Informationssysteme GmbH
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
         * immobrowse.js
 */
 var immobrowse = immobrowse || {};
-immobrowse.wbsWuppertal = immobrowse.wbsWuppertal || {};
-immobrowse.wbsWuppertal.print = immobrowse.wbsWuppertal.print || {};
+immobrowse.print = immobrowse.print || {};
+immobrowse.print.expose = immobrowse.print.expose || {};
 
 
-immobrowse.wbsWuppertal.print.getElements = function () {
+immobrowse.print.expose.getElements = function () {
     return {
         objectId: jQuery('#objectId'),
         objectTitle: jQuery('#objectTitle'),
@@ -108,19 +108,19 @@ immobrowse.wbsWuppertal.print.getElements = function () {
 };
 
 
-immobrowse.wbsWuppertal.print.render = function (realEstate) {
-    realEstate.render(immobrowse.wbsWuppertal.print.getElements());
+immobrowse.print.expose.render = function (realEstate) {
+    realEstate.render(immobrowse.print.expose.getElements());
     document.title = 'Exposé Nr. ' + realEstate.objectId();
     jQuery('#loader').hide();
     jQuery('#main').attr('style', 'padding-top: 80px');
 };
 
 
-immobrowse.wbsWuppertal.print.init = function () {
+immobrowse.print.expose.init = function () {
     var args = new homeinfo.QueryString();
     var objectId = args.real_estate;
-    immobrowse.RealEstate.get(objectId).then(immobrowse.wbsWuppertal.print.render);
+    immobrowse.RealEstate.get(objectId).then(immobrowse.print.expose.render);
 };
 
 
-jQuery(document).ready(immobrowse.wbsWuppertal.print.init);
+jQuery(document).ready(immobrowse.print.expose.init);
