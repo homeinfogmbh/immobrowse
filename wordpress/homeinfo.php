@@ -17,44 +17,26 @@ add_shortcode('ImmoBrowse', 'immobrowse_shortcut');
 
 function immobrowse_shortcut() {
 	$options = get_option('ImmobrowseOptions');
+	$filename = "liste.inc";
 
 	if ( isset( $_GET['real_estate'] ) ) {
 		if ( isset( $_GET['print_expose'] ) ) {
-			$filename = plugin_dir_path( __FILE__ )."template/print_expose.inc";
-
-			if ( file_exists( $filename ) {
-				$content = file_get_contents( $filename );
-				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
-			} else {
-				$content = "Datei print_expose.inc existiert nicht.";
-			}
+			$filename = "print_expose.inc";
 		} else if ( isset( $_GET['print_floorplan'] ) ) {
-			$filename = plugin_dir_path( __FILE__ )."template/print_floorplan.inc";
-
-			if ( file_exists( $filename ) {
-				$content = file_get_contents( $filename );
-				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
-			} else {
-				$content = "Datei print_floorplan.inc existiert nicht.";
-			}
+			$filename = "print_floorplan.inc";
 		} else {
-			$filename = plugin_dir_path( __FILE__ )."template/expose.inc";
-
-			if ( file_exists( $filename ) ) {
-				$content = file_get_contents( $filename );
-				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
-				$content = str_replace( "[RECAPTCHA]", $options['recaptcha'], $content );
-			} else {
-				$content = "Datei expose.inc existiert nicht.";
-			}
+			$filename = "expose.inc";
 		}
+	}
+
+	$filepath = plugin_dir_path( __FILE__ )."template/".$filename;
+
+	if ( file_exists( $filepath ) ) {
+		$content = file_get_contents( $filepath );
+		$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
+		$content = str_replace( "[RECAPTCHA]", $options['recaptcha'], $content );
 	} else {
-		$filename = plugin_dir_path( __FILE__ )."template/liste.inc";
-		if ( file_exists( $filename ) ){
-			$content = file_get_contents( $filename );
-		} else {
-			$content = "Datei liste.inc existiert nicht.";
-		}
+		$content = "Datei ".$filepath." existiert nicht.";
 	}
 
 	$content =
