@@ -3,7 +3,7 @@
 * Plugin Name: HOMEINFO ImmoBrowse
 * Plugin URI: https://www.homeinfo.de/
 * Description: Anzeige Ihrer HOMEINFO Immobilien auf Ihrer Website
-* Version: 1.1.5
+* Version: 1.1.6
 **/
 
 // Make sure we don't expose any info if called directly
