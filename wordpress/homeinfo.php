@@ -18,20 +18,31 @@ add_shortcode('ImmoBrowse', 'immobrowse_shortcut');
 function immobrowse_shortcut() {
 	$options = get_option('ImmobrowseOptions');
 
-	if (isset( $_GET['real_estate'] ) ) {
+	if ( isset( $_GET['real_estate'] ) ) {
+		if ( isset( $_GET['print'] ) ) {
+			$filename = plugin_dir_path( __FILE__ )."template/print.inc";
 
-		if ( file_exists( plugin_dir_path( __FILE__ )."template/expose.inc" ) ){
-			$content = file_get_contents( plugin_dir_path( __FILE__ )."template/expose.inc" );
-			$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
-			$content = str_replace( "[RECAPTCHA]", $options['recaptcha'], $content );
+			if ( file_exists( $filename ){
+				$content = file_get_contents( $filename );
+				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
+			} else {
+				$content = "Datei print.inc existiert nicht.";
+			}
 		} else {
-			$content = "Datei expose.inc existiert nicht.";
+			$filename = plugin_dir_path( __FILE__ )."template/expose.inc";
+
+			if ( file_exists( $filename ) ){
+				$content = file_get_contents( $filename );
+				$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
+				$content = str_replace( "[RECAPTCHA]", $options['recaptcha'], $content );
+			} else {
+				$content = "Datei expose.inc existiert nicht.";
+			}
 		}
-
 	} else {
-
-		if ( file_exists( plugin_dir_path( __FILE__ )."template/liste.inc" ) ){
-				$content = file_get_contents( plugin_dir_path( __FILE__ )."template/liste.inc" );
+		$filename = plugin_dir_path( __FILE__ )."template/liste.inc";
+		if ( file_exists( $filename ) ){
+			$content = file_get_contents( $filename );
 		} else {
 			$content = "Datei liste.inc existiert nicht.";
 		}
