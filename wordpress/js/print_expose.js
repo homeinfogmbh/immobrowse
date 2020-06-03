@@ -110,7 +110,7 @@ immobrowse.print.expose.getElements = function () {
 
 immobrowse.print.expose.render = function (realEstate) {
     realEstate.render(immobrowse.print.expose.getElements());
-    document.title = 'Exposé Nr. ' + realEstate.objectId();
+    document.title = 'Exposé Nr. ' + realEstate.objectId;
     jQuery('#loader').hide();
     jQuery('#main').attr('style', 'padding-top: 80px');
 };
