@@ -97,8 +97,9 @@ immobrowse.wordpress.selectedDistricts = function () {
 
     /* Add districts from query string iff none have been selected. */
     if (districts.length == 0) {
-        var args = new homeinfo.QueryString();
-        var district = args.ortsteil;
+        const url = new URL(location);
+        const params = new URLSearchParams(url.search);
+        var district = params.get('ortsteil');
 
         if (district != null && district != ''){
             districts.push(district);

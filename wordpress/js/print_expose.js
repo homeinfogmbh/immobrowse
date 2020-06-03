@@ -117,8 +117,9 @@ immobrowse.print.expose.render = function (realEstate) {
 
 
 immobrowse.print.expose.init = function () {
-    var args = new homeinfo.QueryString();
-    var objectId = args.real_estate;
+    const url = new URL(location);
+    const params = new URLSearchParams(url.search);
+    const objectId = params.get('real_estate');
     immobrowse.RealEstate.get(objectId).then(immobrowse.print.expose.render);
 };
 
