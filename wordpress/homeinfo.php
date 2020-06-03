@@ -95,9 +95,9 @@ function immobrowse_setup_js() {
 		array_push( $javaScripts, "list.js" );
 	}
 
-	foreach ( $javaScripts as $jsfile ) {
-		$jsfile = plugins_url( 'js/'.$jsfile, __FILE__ );
-		wp_enqueue_script( 'immobrowsejs-'.$jsfile, plugins_url( 'js/'.$jsfile,__FILE__ ) );
+	foreach ( $javaScripts as $javaScript ) {
+		$javaScript = plugins_url( 'js/'.$javaScript, __FILE__ );
+		wp_enqueue_script( 'immobrowsejs-'.$javaScript, $javaScript );
 	}
 
 	wp_enqueue_script( 'immobrowsejs-recaptcha','https://www.google.com/recaptcha/api.js' );
