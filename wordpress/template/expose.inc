@@ -1,38 +1,38 @@
-<div class="container homeinfo">
-  <div id="header" class="row row-centered ib-header no-print">
-    <div id="objectTitle" class="col-md-6 col-centered ib-title">
+<div class="container">
+  <div id="header" class="w3-row ib-header no-print">
+    <div id="objectTitle" class="w3-col m6 ib-title">
       Objekttitel
     </div>
-    <div id="objectId" class="col-md-6 col-centered ib-id">
+    <div id="objectId" class="w3-col m6 ib-id">
       Objekt ID
     </div>
   </div>
-  <div class="row row-centered ib-header no-print">
-    <div id="objectAddress" class="col-md-12 col-centered ib-address">
+  <div class="w3-row ib-header no-print">
+    <div id="objectAddress" class="w3-col m12 ib-address">
       Objekt Adresse
     </div>
   </div>
-  <div class="row row-centered ib-header no-print">
-    <div class="col-md-3 col-centered ib-centered">
+  <div class="w3-row ib-header no-print">
+    <div class="w3-col m3 ib-centered">
       <button type="button" class="btn btn-default" onclick="immobrowse.wordpress.back();">
         « Zur&uuml;ck
       </button>
     </div>
-    <div class="col-md-3 col-centered">
+    <div class="w3-col m3">
       <div class="ib-detail-print ib-centered">
         <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printExpose();">
           Expose drucken
         </button>
       </div>
     </div>
-    <div class="col-md-3 col-centered">
+    <div class="w3-col m3">
       <div class="ib-detail-print ib-centered">
         <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printGrundriss();">
           Grundriss drucken
         </button>
       </div>
     </div>
-    <div class="col-md-3 col-centered">
+    <div class="w3-col m3">
       <div class="ib-detail-contactform ib-centered">
         <button id="btnContactForm" type="button" class="btn btn-success homeinfo-contact" data-toggle="modal" data-target="#contactForm">
           Kontaktformular
@@ -40,10 +40,10 @@
       </div>
     </div>
   </div>
-  <div class="row row-centered">
-    <div id="expose" class="col-md-12 ib-expose">
-      <div class="row row-centered">
-        <div class="col-sm-6">
+  <div class="w3-row">
+    <div id="expose" class="w3-col m12 ib-expose">
+      <div class="w3-row">
+        <div class="w3-col s6">
           <div class="thumbnail">
             <div id="titleImageFrame" class="ib-image-frame">
               <img src="[BASEDIR]img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="w3-col s6">
           <div class="thumbnail">
             <div id="floorplanFrame" class="ib-image-frame">
               <img src="[BASEDIR]img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
@@ -68,191 +68,191 @@
           </div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="w3-row ib-expose-data-row">
+        <div class="w3-col m6 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Preise
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Kaltmiete
             </div>
-            <div id="coldRent" class="col-xs-6"></div>
+            <div id="coldRent" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Nebenkosten
             </div>
-            <div id="serviceCharge" class="col-xs-6"></div>
+            <div id="serviceCharge" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Kaution / Genoss.-Ant.
             </div>
-            <div id="securityDeposit" class="col-xs-6"></div>
+            <div id="securityDeposit" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Heizkosten in NK enthalten?
             </div>
-            <div id="heatingCostsInServiceCharge" class="col-xs-6"></div>
+            <div id="heatingCostsInServiceCharge" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Heizkosten
             </div>
-            <div id="heatingCosts" class="col-xs-6"></div>
+            <div id="heatingCosts" class="w3-col s6"></div>
           </div>
         </div>
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+        <div class="w3-col m6 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Zustand und Ausstattung
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Verfügbar ab
             </div>
-            <div id="availableFrom" class="col-xs-6"></div>
+            <div id="availableFrom" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Wohnfläche
             </div>
-            <div id="livingArea" class="col-xs-6"></div>
+            <div id="livingArea" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Zimmer
             </div>
-            <div id="rooms" class="col-xs-6"></div>
+            <div id="rooms" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Etage
             </div>
-            <div id="floor" class="col-xs-6"></div>
+            <div id="floor" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Baujahr
             </div>
-            <div id="constructionYear" class="col-xs-6"></div>
+            <div id="constructionYear" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Zustand
             </div>
-            <div id="state" class="col-xs-6"></div>
+            <div id="state" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Letzte Modernisierung
             </div>
-            <div id="lastModernization" class="col-xs-6"></div>
+            <div id="lastModernization" class="w3-col s6"></div>
           </div>
         </div>
       </div>
-      <div class="row row-centered ib-expose-data-row">
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div class="w3-row ib-expose-data-row">
+        <div class="w3-col m6 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Energieausweis
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Ausweisart
             </div>
-            <div id="energyCertificateType" class="col-xs-6"></div>
+            <div id="energyCertificateType" class="w3-col s6"></div>
           </div>
-          <div id="energyConsumptionContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="energyConsumptionContainer" class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Endenergie-<br />verbrauch
             </div>
-            <div id="energyConsumption" class="col-xs-6"></div>
+            <div id="energyConsumption" class="w3-col s6"></div>
           </div>
-          <div id="energyDemandContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="energyDemandContainer" class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Endenergie-<br />bedarf
             </div>
-            <div id="energyDemand" class="col-xs-6"></div>
+            <div id="energyDemand" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Primär-<br />energie-<br />träger
             </div>
-            <div id="primaryEnergyCarrier" class="col-xs-6"></div>
+            <div id="primaryEnergyCarrier" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Wertklasse
             </div>
-            <div id="valueClass" class="col-xs-6"></div>
+            <div id="valueClass" class="w3-col s6"></div>
           </div>
         </div>
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+        <div class="w3-col m6 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Ausstattung
           </div>
-          <div id="amenitiesList" class="row row-centered"></div>
+          <div id="amenitiesList" class="w3-row"></div>
         </div>
       </div>
-      <div id="descriptionContainer" class="row row-centered ib-expose-data-row">
-        <div class="col-md-12 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div id="descriptionContainer" class="w3-row ib-expose-data-row">
+        <div class="w3-col m12 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Objektbeschreibung
           </div>
-          <div id="description" class="row row-centered ib-justified"></div>
+          <div id="description" class="w3-row ib-justified"></div>
         </div>
       </div>
-      <div id="exposureContainer" class="row row-centered ib-expose-data-row">
-        <div class="col-md-12 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div id="exposureContainer" class="w3-row ib-expose-data-row">
+        <div class="w3-col m12 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Lagebeschreibung
           </div>
-          <div id="exposure" class="row row-centered ib-justified"></div>
+          <div id="exposure" class="w3-row ib-justified"></div>
         </div>
       </div>
-      <div id="miscellaneaContainer" class="row row-centered ib-expose-data-row">
-        <div class="col-md-12 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div id="miscellaneaContainer" class="w3-row ib-expose-data-row">
+        <div class="w3-col m12 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Sonstiges
           </div>
-          <div id="miscellanea" class="row row-centered ib-justified"></div>
+          <div id="miscellanea" class="w3-row ib-justified"></div>
         </div>
       </div>
-      <div id="contactInformation" class="row row-centered ib-expose-data-row">
-        <div class="col-md-6 ib-expose-data-col">
-          <div class="row row-centered ib-section-caption">
+      <div id="contactInformation" class="w3-row ib-expose-data-row">
+        <div class="w3-col m6 ib-expose-data-col">
+          <div class="w3-row ib-section-caption">
             Kontakt
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Name
             </div>
-            <div id="contactName" class="col-xs-6"></div>
+            <div id="contactName" class="w3-col s6"></div>
           </div>
-          <div id="contactCompanyContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="contactCompanyContainer" class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Firma
             </div>
-            <div id="contactCompany" class="col-xs-6"></div>
+            <div id="contactCompany" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Adresse
             </div>
-            <div id="contactAddress" class="col-xs-6"></div>
+            <div id="contactAddress" class="w3-col s6"></div>
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Telefon
             </div>
-            <div id="contactPhone" class="col-xs-6"></div>
+            <div id="contactPhone" class="w3-col s6"></div>
           </div>
-          <div id="contactWebsiteContainer" class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
+          <div id="contactWebsiteContainer" class="w3-row">
+            <div class="w3-col s6 ib-price-caption">
               Website
             </div>
-            <div id="contactWebsite" class="col-xs-6"></div>
+            <div id="contactWebsite" class="w3-col s6"></div>
           </div>
         </div>
       </div>
@@ -272,8 +272,8 @@
         <h4 class="modal-title">Kontaktformular</h4>
       </div>
       <div class="modal-body">
-        <div class="row" id="the_form" style="margin-top:10px;">
-          <div class="col-md-6">
+        <div class="w3-row" id="the_form" style="margin-top:10px;">
+          <div class="w3-col m6">
            <p><strong>Anrede</strong></p>
              <div class="btn-group" data-toggle="buttons">
                <label class="btn btn-default">
@@ -284,78 +284,78 @@
                </label>
              </div>
           </div>
-          <div class="col-md-6" id="contact_form_object_nr">
+          <div class="w3-col m6" id="contact_form_object_nr">
             <p><strong>Objektnummer</strong></p>
             <input type="text" class="form-control" id="object_id" disabled>
           </div>
-          <div class="row">
-            <div class="col-md-12">&nbsp;</div>
+          <div class="w3-row">
+            <div class="w3-col m12">&nbsp;</div>
           </div>
-          <div class="col-md-6">
+          <div class="w3-col m6">
             <div class="form-group">
               <label for="forename">Vorname</label>
               <input type="text" class="form-control" id="forename" placeholder="Vorname*">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="w3-col m6">
             <div class="form-group">
               <label for="surname">Nachname</label>
               <input type="text" class="form-control" id="surname" placeholder="Nachname*">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="w3-col m6">
             <div class="form-group">
               <label for="email">E-Mail Adresse</label>
               <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="w3-col m6">
             <div class="form-group">
               <label for="phone">Telefon</label>
               <input type="text" class="form-control" id="phone" placeholder="Telefon">
             </div>
           </div>
-          <div class="col-md-8">
+          <div class="w3-col m8">
             <div class="form-group">
               <label for="street">Straße</label>
               <input type="text" class="form-control" id="street" placeholder="Straße">
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="w3-col m4">
             <div class="form-group">
               <label for="house_number">Haus-Nr.</label>
               <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="w3-col m3">
             <div class="form-group">
               <label for="zip_code">PLZ</label>
               <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
             </div>
           </div>
-          <div class="col-md-9">
+          <div class="w3-col m9">
             <div class="form-group">
               <label for="city">Ort</label>
               <input type="text" class="form-control" id="city" placeholder="Ort">
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="w3-col m12">
             <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
           </div>
-          <div class="col-md-12" style="color:#979696; font-size:10px;">
+          <div class="w3-col m12" style="color:#979696; font-size:10px;">
             Mit einem (*) gekennzeichnete Felder sind Pflichfelder
           </div>
-          <div class="col-md-12" style="margin-top:20px;">
+          <div class="w3-col m12" style="margin-top:20px;">
             <div class="g-recaptcha" data-sitekey="[RECAPTCHA]"></div>
           </div>
         </div>
         <hr>
-        <div class="row" id="contact_form_response" style="display:none;">
+        <div class="w3-row" id="contact_form_response" style="display:none;">
           <hr>
-          <div class="col-md-2">
+          <div class="w3-col m2">
             <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
           </div>
-          <div class="col-md-9">
+          <div class="w3-col m9">
             <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
           </div>
         </div>
