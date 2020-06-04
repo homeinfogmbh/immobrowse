@@ -2109,7 +2109,7 @@ immobrowse.dom.preview.DataFieldRow = function (child) {
 
 immobrowse.dom.preview.DataFieldCol = function (captionRow, valueRow) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'col-md-3');
+    element.setAttribute('class', 'w3-col m3');
     element.appendChild(captionRow);
     element.appendChild(valueRow);
     return element;
@@ -2138,7 +2138,7 @@ immobrowse.dom.preview.ObjectAddress = function (address) {
 
 immobrowse.dom.preview.AddressRow = function (objectAddress) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'row row-centered');
+    element.setAttribute('class', 'w3-row w3-centered');
     element.appendChild(objectAddress);
     return element;
 };
@@ -2154,7 +2154,7 @@ immobrowse.dom.preview.ObjectTitle = function (title) {
 
 immobrowse.dom.preview.TitleRow = function (objectTitle) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'row row-centered');
+    element.setAttribute('class', 'w3-row w3-centered');
     element.appendChild(objectTitle);
     return element;
 };
@@ -2162,7 +2162,7 @@ immobrowse.dom.preview.TitleRow = function (objectTitle) {
 
 immobrowse.dom.preview.DataCol = function (titleRow, addressRow, dataRow, amenitiesTags) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'col-sm-8');
+    element.setAttribute('class', 'w3-col s8');
     element.appendChild(titleRow);
 
     if (addressRow != null) {
@@ -2199,7 +2199,7 @@ immobrowse.dom.preview.ImageFrame = function (image) {
 
 immobrowse.dom.preview.ImageCol = function (imageFrame) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'col-sm-4');
+    element.setAttribute('class', 'w3-col s4');
     element.appendChild(imageFrame);
     return element;
 };
@@ -2207,7 +2207,7 @@ immobrowse.dom.preview.ImageCol = function (imageFrame) {
 
 immobrowse.dom.preview.MainRow = function (imageCol, dataCol) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'row row-centered ib-preview-container');
+    element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
     element.appendChild(imageCol);
     element.appendChild(dataCol);
     return element;
