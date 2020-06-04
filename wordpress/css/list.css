@@ -54,19 +54,3 @@
 .ib-preview-tags {
   padding-top: 2em;
 }
-
-.homeinfo input {
- padding: initial !important;}
- 
-.homeinfo{
-    max-width: 800px !important;}
-
-    
-@media (max-width: 1190px) {
-      
-      
-      .homeinfo {
-	width:auto !important;
-	
-      }
-}
