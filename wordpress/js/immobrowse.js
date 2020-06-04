@@ -2162,7 +2162,7 @@ immobrowse.dom.preview.TitleRow = function (objectTitle) {
 
 immobrowse.dom.preview.DataCol = function (titleRow, addressRow, dataRow, amenitiesTags) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'w3-col s8');
+    element.setAttribute('class', 'w3-col m8');
     element.appendChild(titleRow);
 
     if (addressRow != null) {
@@ -2199,7 +2199,7 @@ immobrowse.dom.preview.ImageFrame = function (image) {
 
 immobrowse.dom.preview.ImageCol = function (imageFrame) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'w3-col s4');
+    element.setAttribute('class', 'w3-col m4');
     element.appendChild(imageFrame);
     return element;
 };
