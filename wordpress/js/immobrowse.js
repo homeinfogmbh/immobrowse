@@ -1947,18 +1947,22 @@ immobrowse.RealEstate = class {
         }
 
         return immobrowse.dom.preview.Entry(
-            immobrowse.dom.preview.MainRow(
+            immobrowse.dom.preview.HeaderRow(
                 immobrowse.dom.preview.ImageCol(
                     immobrowse.dom.preview.ImageFrame(
                         immobrowse.dom.preview.TitleImage(this.attachmentURL(this.titleImage))
                     )
                 ),
-                immobrowse.dom.preview.DataCol(
+                immobrowse.dom.preview.TitleCol(
                     immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle || immobrowse.config.na)),
-                    addressRow,
-                    immobrowse.dom.preview.DataRow(this._dataFields(elements)),
-                    immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags)
+                    addressRow
                 )
+            ),
+            immobrowse.dom.preview.DataRow(
+                this._dataFields(elements)
+            ),
+            immobrowse.dom.preview.AmenitiesRow(
+                immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags)
             ),
             this.detailsURL
         );
@@ -2118,7 +2122,7 @@ immobrowse.dom.preview.DataFieldCol = function (captionRow, valueRow) {
 
 immobrowse.dom.preview.DataRow = function (dataColumns) {
     const element = document.createElement('div');
-    element.setAttribute('class', 'row row-centered ib-preview-data');
+    element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
 
     for (const child of dataColumns) {
         element.appendChild(child);
@@ -2160,7 +2164,7 @@ immobrowse.dom.preview.TitleRow = function (objectTitle) {
 };
 
 
-immobrowse.dom.preview.DataCol = function (titleRow, addressRow, dataRow, amenitiesTags) {
+immobrowse.dom.preview.TitleCol = function (titleRow, addressRow) {
     const element = document.createElement('div');
     element.setAttribute('class', 'w3-col m8');
     element.appendChild(titleRow);
@@ -2169,6 +2173,13 @@ immobrowse.dom.preview.DataCol = function (titleRow, addressRow, dataRow, amenit
         element.appendChild(addressRow);
     }
 
+    return element;
+};
+
+
+immobrowse.dom.preview.DataCol = function (dataRow, amenitiesTags) {
+    const element = document.createElement('div');
+    element.setAttribute('class', 'w3-col m8');
     element.appendChild(dataRow);
     element.appendChild(amenitiesTags);
     return element;
@@ -2205,11 +2216,11 @@ immobrowse.dom.preview.ImageCol = function (imageFrame) {
 };
 
 
-immobrowse.dom.preview.MainRow = function (imageCol, dataCol) {
+immobrowse.dom.preview.HeaderRow = function (imageCol, titleCol) {
     const element = document.createElement('div');
     element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
     element.appendChild(imageCol);
-    element.appendChild(dataCol);
+    element.appendChild(titleCol);
     return element;
 };
 
@@ -2226,11 +2237,21 @@ immobrowse.dom.preview.AmenitiesTags = function (amenities) {
 };
 
 
-immobrowse.dom.preview.Entry = function (mainRow, detailsURL) {
+immobrowse.dom.preview.AmenitiesRow = function (amenitiesTags) {
+    const element = document.createElement('div');
+    element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
+    element.appendChild(amenitiesTags);
+    return element;
+};
+
+
+immobrowse.dom.preview.Entry = function (headerRow, dataRow, amenitiesRow, detailsURL) {
     const element = document.createElement('div');
     element.setAttribute('class', 'ib-preview-item');
     element.setAttribute('onclick', 'immobrowse.open("' + detailsURL + '");');
-    element.appendChild(mainRow);
+    element.appendChild(headerRow);
+    element.appendChild(dataRow);
+    element.appendChild(amenitiesRow);
     return element;
 };
 

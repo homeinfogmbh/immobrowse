@@ -67,9 +67,8 @@ body {
 }
 
 .ib-image-frame {
-  height: 300px;
+  height: 5em;
   position:relative;
- /* background-color: #666666;*/
 }
 
 .ib-framed-image {
