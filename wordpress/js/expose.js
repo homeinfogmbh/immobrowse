@@ -99,7 +99,7 @@ immobrowse.wordpress.sendEmail = function() {
 
     var salutation;
 
-    if (jQuery('input:radio[name=\'gender\']:checked').val() == 1) {
+    if (jQuery('input:radio[name=\'salutation\']:checked').val() == 1) {
         salutation = 'Herr';
     } else {
         salutation = 'Frau';
@@ -137,7 +137,7 @@ immobrowse.wordpress.postRender = function () {
     jQuery('#main').attr('style', 'padding-top: 80px');
 
     jQuery('.showimage').click(function() {
-        for (var i = 0; i < jQuery(this).data('nrmax'); i++) {
+        for (const i = 0; i < jQuery(this).data('nrmax'); i++) {
             jQuery('#image'+ i).hide();
         }
 
@@ -183,7 +183,7 @@ immobrowse.wordpress.setupGalleries = function() {
     }
 
     if (images.length > 1) {
-        for (var i=1;i<images.length;i++){
+        for (const i = 1; i < images.length; i++){
             jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(images[i])+'"/>');
         }
 

@@ -277,10 +277,10 @@
            <p><strong>Anrede</strong></p>
              <div class="btn-group" data-toggle="buttons">
                <label class="btn btn-default">
-                 <input type="radio" name="gender" id="gender_male" value="1">Herr
+                 <input type="radio" name="salutation" value="1">Herr
                </label>
                <label class="btn btn-default">
-                 <input type="radio" name="gender" id="gender_female" value="0">Frau
+                 <input type="radio" name="salutation" value="0">Frau
                </label>
              </div>
           </div>
