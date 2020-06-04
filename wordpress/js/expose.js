@@ -69,51 +69,31 @@ immobrowse.wordpress.sendEmail = function() {
     var response = grecaptcha.getResponse();
 
     if (response.length == 0) {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte den CAPTCHA lösen.',
-            type: 'warning'
-        });
+        alert('Bitte den CAPTCHA lösen.');
         return;
     }
 
     var forename = jQuery('#forename').val().trim();
 
     if (forename == '') {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte Pflichtfeld "Vorname" ausfüllen.',
-            type: 'warning'
-        });
+        alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
         return;
     }
 
     var surname = jQuery('#surname').val().trim();
 
     if (surname == '') {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte Pflichtfeld "Nachname" ausfüllen.',
-            type: 'warning'
-        });
+        alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
         return;
     }
 
     var email = jQuery('#email').val().trim();
 
     if (email == '') {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.',
-            type: 'warning'
-        });
+        alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
         return;
     } else if (homeinfo.str.isEmail(email) == false) {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte geben Sie eine gültige E-Mail Adresse an.',
-            type: 'warning'
-        });
+        alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
         return;
     }
 

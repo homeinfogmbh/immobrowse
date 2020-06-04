@@ -290,20 +290,13 @@ immobrowse.Mailer = class {
         }
 
         if (successMsg == null) {
-            this.successMsg = {
-                title: 'Anfrage versendet!',
-                type: 'success'
-            };
+            this.successMsg = 'Anfrage versendet!';
         } else {
             this.successMsg = successMsg;
         }
 
         if (errorMsg == null) {
-            this.errorMsg = {
-                title: 'Fehler beim Versenden!',
-                text: 'Bitte versuchen Sie es später noch ein Mal.',
-                type: 'error'
-            };
+            this.errorMsg = 'Fehler beim Versenden!\nBitte versuchen Sie es später noch ein Mal.';
         } else {
             this.errorMsg = errorMsg;
         }
@@ -351,10 +344,10 @@ immobrowse.Mailer = class {
             data: body,
             cache: false,
             success: function () {
-                swal(successMsg);
+                alert(successMsg);
             },
             error: function () {
-                swal(errorMsg);
+                alert(errorMsg);
             }
         };
     }
@@ -535,11 +528,7 @@ immobrowse.RealEstate = class {
                 return new cls(json);
             },
             function () {
-                swal({
-                    title: 'Immobilie konnte nicht geladen werden.',
-                    text: 'Bitte versuchen Sie es später noch ein Mal.',
-                    type: 'error'
-                });
+                alert('Immobilie konnte nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.');
             }
         );
     }
@@ -563,11 +552,7 @@ immobrowse.RealEstate = class {
                 return realEstates;
             },
             function () {
-                swal({
-                    title: 'Immobilien konnten nicht geladen werden.',
-                    text: 'Bitte versuchen Sie es später noch ein Mal.',
-                    type: 'error'
-                });
+                alert('Immobilien konnten nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.');
             }
         );
     }
