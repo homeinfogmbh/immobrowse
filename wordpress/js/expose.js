@@ -183,7 +183,7 @@ immobrowse.wordpress.setupGalleries = function() {
     }
 
     if (images.length > 1) {
-        for (const i = 1; i < images.length; i++){
+        for (let i = 1; i < images.length; i++){
             jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(images[i])+'"/>');
         }
 
