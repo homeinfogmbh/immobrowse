@@ -1,10 +1,22 @@
 <div class="container">
   <div class="w3-row ib-header">
-    <div class="w3-col m9">
+    <div class="w3-col m3">
       <div class="item">
         <div class="content">
           <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
+        </div>
+      </div>
+    </div>
+    <div class="w3-col m3">
+      <div class="item">
+        <div class="content">
           <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
+        </div>
+      </div>
+    </div>
+    <div class="w3-col m3">
+      <div class="item">
+        <div class="content">
           <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
         </div>
       </div>
@@ -19,7 +31,7 @@
   </div>
 
   <div class="w3-row ib-header" style="margin-top:-15px">
-    <div class="w3-col m6">
+    <div class="w3-col m9">
       <div class="item">
         <div class="content">
           <button id="ib-sort-rooms" onclick="immobrowse.wordpress.toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
@@ -28,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="w3-col m6">
+    <div class="w3-col m3">
       <div class="item">
         <div class="content" style="text-align:right">
           <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
