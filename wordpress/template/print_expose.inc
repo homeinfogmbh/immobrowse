@@ -25,7 +25,7 @@
         <div class="col-sm-6">
           <div class="thumbnail">
             <div id="titleImageFrame" class="ib-image-frame">
-              <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
+              <img src="[BASEDIR]img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
             </div>
             <div id="titleImageCaption" class="caption">
               Titelbild
@@ -35,7 +35,7 @@
         <div class="col-sm-6">
           <div class="thumbnail">
             <div id="floorplanFrame" class="ib-image-frame">
-              <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
+              <img src="[BASEDIR]img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
             </div>
             <div id="floorplanCaption" class="caption">
               Grundriss

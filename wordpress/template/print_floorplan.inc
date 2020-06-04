@@ -25,7 +25,7 @@
         <div class="col-sm-12">
           <div class="thumbnail">
             <div id="floorplanFrame" class="ib-image-frame">
-              <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
+              <img src="[BASEDIR]img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
             </div>
             <div id="floorplanCaption" class="caption">
               Grundriss
