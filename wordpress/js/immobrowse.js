@@ -21,7 +21,6 @@
   Requires:
     * homeinfo.js
     * jquery.js
-    * sweetalert.js
 */
 'use strict';
 
@@ -1737,7 +1736,7 @@ immobrowse.RealEstate = class {
 
     *_amenitiesTags () {
         for (const amenity of this.amenities) {
-            yield immobrowse.dom.AmenitiesTag(amenity);
+            yield new immobrowse.dom.AmenitiesTag(amenity);
         }
     }
 
@@ -1943,26 +1942,28 @@ immobrowse.RealEstate = class {
         let addressRow = null;
 
         if (this.showAddress && immobrowse.config.addressInList) {
-            addressRow = immobrowse.dom.preview.AddressRow(immobrowse.dom.preview.ObjectAddress(this.address));
+            addressRow = new immobrowse.dom.AddressRow(new immobrowse.dom.ObjectAddress(this.address));
         }
 
-        return immobrowse.dom.preview.Entry(
-            immobrowse.dom.preview.HeaderRow(
-                immobrowse.dom.preview.ImageCol(
-                    immobrowse.dom.preview.ImageFrame(
-                        immobrowse.dom.preview.TitleImage(this.attachmentURL(this.titleImage))
+        return new immobrowse.dom.Entry(
+            new immobrowse.dom.HeaderRow(
+                new immobrowse.dom.ImageCol(
+                    new immobrowse.dom.ImageFrame(
+                        new immobrowse.dom.TitleImage(
+                            this.attachmentURL(this.titleImage)
+                        )
                     )
                 ),
-                immobrowse.dom.preview.TitleCol(
-                    immobrowse.dom.preview.TitleRow(immobrowse.dom.preview.ObjectTitle(this.objectTitle || immobrowse.config.na)),
+                new immobrowse.dom.TitleCol(
+                    new immobrowse.dom.TitleRow(
+                        new immobrowse.dom.ObjectTitle(this.objectTitle || immobrowse.config.na)
+                    ),
                     addressRow
                 )
             ),
-            immobrowse.dom.preview.DataRow(
-                this._dataFields(elements)
-            ),
-            immobrowse.dom.preview.AmenitiesRow(
-                immobrowse.dom.preview.AmenitiesTags(this.amenitiesTags)
+            new immobrowse.dom.DataRow(this._dataFields(elements)),
+            new immobrowse.dom.AmenitiesRow(
+                new immobrowse.dom.AmenitiesTags(this.amenitiesTags)
             ),
             this.detailsURL
         );
@@ -2001,367 +2002,10 @@ immobrowse.List = class {
 
 
 /*
-  ImmoBrowse's DOM factories.
-*/
-immobrowse.dom = immobrowse.dom || {};
-
-
-immobrowse.dom.OvalInner = function (content) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'oval-inner');
-    element.innerHTML = content;
-    return element;
-};
-
-
-immobrowse.dom.OvalOuter = function (ovalInner) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'oval-outer');
-    element.appendChild(ovalInner);
-    return element;
-};
-
-
-immobrowse.dom.AmenitiesTag = function (content) {
-    return immobrowse.dom.OvalOuter(immobrowse.dom.OvalInner(content));
-};
-
-
-immobrowse.dom.Numerator = function (content) {
-    const element = document.createElement('span');
-    element.setAttribute('class', 'numerator');
-    element.innerHTML = content;
-    return element;
-};
-
-
-immobrowse.dom.Denominator = function (content) {
-    const element = document.createElement('span');
-    element.setAttribute('class', 'denominator');
-    element.innerHTML = content;
-    return element;
-};
-
-
-immobrowse.dom.Fraction = function (numerator, denominator) {
-    const element = document.createElement('span');
-    element.setAttribute('class', 'fraction');
-    element.appendChild(numerator);
-    element.appendChild(denominator);
-    return element;
-};
-
-
-immobrowse.dom.Kwhsma = function () {
-    return immobrowse.dom.Fraction(
-        immobrowse.dom.Numerator('kWh'),
-        immobrowse.dom.Denominator('m<sup>2</sup>&middot;a'));
-};
-
-
-// DOMs for preview.
-immobrowse.dom.preview = immobrowse.dom.preview || {};
-
-
-/*
-  Appends a data row to the list iff value is not null or hiding is disabled.
-*/
-immobrowse.dom.preview.addDataFieldCol = function (element, value, list) {
-    const caption = element.caption;
-    const hide = element.hide || false;
-
-    if (value == null) {
-        if (hide) {
-            return;
-        }
-
-        value = immobrowse.config.na;
-    }
-
-    list.push(
-        immobrowse.dom.preview.DataFieldCol(
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(caption)),
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue(value))
-        )
-    );
-};
-
-
-immobrowse.dom.preview.DataFieldCaption = function (caption) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-preview-data-caption');
-    element.innerHTML = caption;
-    return element;
-};
-
-
-immobrowse.dom.preview.DataFieldValue = function (value) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-preview-data-value');
-    element.innerHTML = value;
-    return element;
-};
-
-
-immobrowse.dom.preview.DataFieldRow = function (child) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'row');
-    element.appendChild(child);
-    return element;
-};
-
-
-immobrowse.dom.preview.DataFieldCol = function (captionRow, valueRow) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-col m3');
-    element.appendChild(captionRow);
-    element.appendChild(valueRow);
-    return element;
-};
-
-
-immobrowse.dom.preview.DataRow = function (dataColumns) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
-
-    for (const child of dataColumns) {
-        element.appendChild(child);
-    }
-
-    return element;
-};
-
-
-immobrowse.dom.preview.ObjectAddress = function (address) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-preview-title');
-    element.innerHTML = address;
-    return element;
-};
-
-
-immobrowse.dom.preview.AddressRow = function (objectAddress) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-row w3-centered');
-    element.appendChild(objectAddress);
-    return element;
-};
-
-
-immobrowse.dom.preview.ObjectTitle = function (title) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-preview-title');
-    element.innerHTML = title;
-    return element;
-};
-
-
-immobrowse.dom.preview.TitleRow = function (objectTitle) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-row w3-centered');
-    element.appendChild(objectTitle);
-    return element;
-};
-
-
-immobrowse.dom.preview.TitleCol = function (titleRow, addressRow) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-col m8');
-    element.appendChild(titleRow);
-
-    if (addressRow != null) {
-        element.appendChild(addressRow);
-    }
-
-    return element;
-};
-
-
-immobrowse.dom.preview.DataCol = function (dataRow, amenitiesTags) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-col m8');
-    element.appendChild(dataRow);
-    element.appendChild(amenitiesTags);
-    return element;
-};
-
-
-immobrowse.dom.preview.TitleImage = function (url) {
-    const element = document.createElement('img');
-
-    if (url == null) {
-        url = 'img/dummy.jpg';
-    }
-
-    element.setAttribute('src', url);
-    element.setAttribute('class', 'ib-framed-image');
-    element.setAttribute('alt', 'Titelbild');
-    return element;
-};
-
-
-immobrowse.dom.preview.ImageFrame = function (image) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-image-frame');
-    element.appendChild(image);
-    return element;
-};
-
-
-immobrowse.dom.preview.ImageCol = function (imageFrame) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-col m4');
-    element.appendChild(imageFrame);
-    return element;
-};
-
-
-immobrowse.dom.preview.HeaderRow = function (imageCol, titleCol) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
-    element.appendChild(imageCol);
-    element.appendChild(titleCol);
-    return element;
-};
-
-
-immobrowse.dom.preview.AmenitiesTags = function (amenities) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-preview-tags');
-
-    for (const child of amenities) {
-        element.appendChild(child);
-    }
-
-    return element;
-};
-
-
-immobrowse.dom.preview.AmenitiesRow = function (amenitiesTags) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'w3-row w3-centered ib-preview-container');
-    element.appendChild(amenitiesTags);
-    return element;
-};
-
-
-immobrowse.dom.preview.Entry = function (headerRow, dataRow, amenitiesRow, detailsURL) {
-    const element = document.createElement('div');
-    element.setAttribute('class', 'ib-preview-item');
-    element.setAttribute('onclick', 'immobrowse.open("' + detailsURL + '");');
-    element.appendChild(headerRow);
-    element.appendChild(dataRow);
-    element.appendChild(amenitiesRow);
-    return element;
-};
-
-
-/*
-  Creates a contact email.
-*/
-immobrowse.dom.contactEmail = function (
-    realEstate, message, salutation, forename, surname,
-    phone, street, houseNumber, zipCode, city, member = null) {
-    function  newline () {
-        return document.createElement('br');
-    }
-
-    const doc = document.implementation.createHTMLDocument('Anfrage zu Objekt');
-    const body = doc.body;
-
-    const h1 = document.createElement('h1');
-    h1.textContent = 'Anfrage zu Objekt';
-    body.appendChild(h1);
-
-    const h2 = document.createElement('h2');
-    h2.textContent = realEstate.objectTitle;
-    body.appendChild(h2);
-
-    const h3 = document.createElement('h3');
-    h3.textContent = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
-    body.appendChild(h3);
-
-    salutation = document.createTextNode(salutation + ' ');
-    body.appendChild(salutation);
-
-    const span = document.createElement('span');
-    span.setAttribute('style', 'font-variant:small-caps;');
-    span.textContent = [forename, surname].join(' ');
-    body.appendChild(span);
-
-    let inquirerInfo = false;
-    let streetAndHouseNumber = street;
-
-    if (streetAndHouseNumber) {
-        if (houseNumber) {
-            streetAndHouseNumber += ' ' + houseNumber;
-        }
-
-        streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
-        body.appendChild(newline());
-        body.appendChild(streetAndHouseNumber);
-        inquirerInfo = true;
-    }
-
-    if (city) {
-        if (zipCode) {
-            const zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
-            body.appendChild(newline());
-            body.appendChild(zipCodeAndCity);
-        } else {
-            city = document.createTextNode(city);
-            body.appendChild(newline());
-            body.appendChild(city);
-        }
-
-        inquirerInfo = true;
-    } else if (zipCode) {
-        zipCode = document.createTextNode(zipCode);
-        body.appendChild(newline());
-        body.appendChild(zipCode);
-        inquirerInfo = true;
-    }
-
-    if (phone) {
-        phone = document.createTextNode('Tel.: ' + phone);
-        body.appendChild(newline());
-        body.appendChild(phone);
-        inquirerInfo = true;
-    }
-
-    if (member != null) {
-        member = document.createTextNode('Mitglied: ' + member ? 'Ja' : 'Nein');
-        body.appendChild(newline());
-        body.appendChild(member);
-        inquirerInfo = true;
-    }
-
-    if (inquirerInfo) {
-        body.appendChild(newline());
-        body.appendChild(newline());    // two new lines.
-    } else {
-        const space = document.createTextNode(' ');
-        body.appendChild(space);
-    }
-
-    const messageHeader = document.createTextNode('hat folgende Anfrage an Sie:');
-    body.appendChild(messageHeader);
-    body.appendChild(newline());
-    body.appendChild(newline());  // two new lines.
-
-    const div = document.createElement('div');
-    div.setAttribute('style', 'font-style:italic;');
-    div.innerHTML = message.replace('\n', '\n<br>\n');
-    body.appendChild(div);
-    return doc.documentElement;
-};
-
-
-/*
   Customer-dependent configuration defaults.
 */
 immobrowse.config = immobrowse.config || {};
 immobrowse.config.listedHint = immobrowse.config.listedHint || 'Gebäude liegt im Denkmalschutzbereich.';
 immobrowse.config.na = immobrowse.config.na || 'k. A.';
-immobrowse.config.kwh = immobrowse.config.kwh || immobrowse.dom.Kwhsma().outerHTML;
+immobrowse.config.kwh = immobrowse.config.kwh || (new immobrowse.dom.Kwhsma()).outerHTML;
 immobrowse.config.addressInList = immobrowse.config.addressInList || false;
