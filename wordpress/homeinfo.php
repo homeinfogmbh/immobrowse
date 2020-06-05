@@ -1,9 +1,11 @@
 <?php
 /**
 * Plugin Name: HOMEINFO ImmoBrowse
-* Plugin URI: https://www.homeinfo.de/
 * Description: Anzeige Ihrer HOMEINFO Immobilien auf Ihrer Website
 * Version: 1.1.6
+* Author: HOMEINFO - Digitale Informationssysteme GmbH
+* Author URI: https://www.homeinfo.de/
+* License: GPL v3 or later
 **/
 
 // Make sure we don't expose any info if called directly
