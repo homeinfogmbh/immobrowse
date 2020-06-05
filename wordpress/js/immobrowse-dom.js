@@ -111,9 +111,9 @@ immobrowse.dom.addDataFieldCol = function (element, value, list) {
     }
 
     list.push(
-        immobrowse.dom.preview.DataFieldCol(
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldCaption(element.caption)),
-            immobrowse.dom.preview.DataFieldRow(immobrowse.dom.preview.DataFieldValue(value))
+        new immobrowse.dom.DataFieldCol(
+            new immobrowse.dom.DataFieldRow(new immobrowse.dom.DataFieldCaption(element.caption)),
+            new immobrowse.dom.DataFieldRow(new immobrowse.dom.DataFieldValue(value))
         )
     );
 };
