@@ -187,6 +187,17 @@ immobrowse.squareMeters = function (area) {
 
 
 /*
+    Returns kWh / m²a unit.
+*/
+immobrowse.kilowattHoursPerSquareMeterAndYear = function () {
+    if (immobrowse.config.kwh == null)
+        return (new immobrowse.dom.KilowattHoursPerSquareMeterAndYear()).outerHTML;
+
+    return immobrowse.config.kwh;
+};
+
+
+/*
   Converts a boolean value to "Ja", respectively "Nein".
 */
 immobrowse.yesNo = function (boolean) {
@@ -1621,7 +1632,7 @@ immobrowse.RealEstate = class {
 
             if (energiepass.energieverbrauchkennwert != null && energiepass.energieverbrauchkennwert != '') {
                 const energieverbrauchkennwert = Number(homeinfo.str.comma2dot(energiepass.energieverbrauchkennwert));
-                const consumption = immobrowse.germanDecimal(energieverbrauchkennwert) + immobrowse.config.kwh;
+                const consumption = immobrowse.germanDecimal(energieverbrauchkennwert) + immobrowse.config.kilowattHoursPerSquareMeterAndYear();
                 energyCertificate.value = consumption;
                 energyCertificate.consumption = consumption;
             }
@@ -1630,7 +1641,7 @@ immobrowse.RealEstate = class {
 
             if (energiepass.endenergiebedarf != null && energiepass.endenergiebedarf != '') {
                 const endenergiebedarf = Number(homeinfo.str.comma2dot(energiepass.endenergiebedarf));
-                const demand = immobrowse.germanDecimal(endenergiebedarf) + immobrowse.config.kwh;
+                const demand = immobrowse.germanDecimal(endenergiebedarf) + immobrowse.config.kilowattHoursPerSquareMeterAndYear();
                 energyCertificate.value = demand;
                 energyCertificate.demand = demand;
             }
@@ -2007,5 +2018,4 @@ immobrowse.List = class {
 immobrowse.config = immobrowse.config || {};
 immobrowse.config.listedHint = immobrowse.config.listedHint || 'Gebäude liegt im Denkmalschutzbereich.';
 immobrowse.config.na = immobrowse.config.na || 'k. A.';
-immobrowse.config.kwh = immobrowse.config.kwh || (new immobrowse.dom.KilowattHoursPerSquareMeterAndYear()).outerHTML;
 immobrowse.config.addressInList = immobrowse.config.addressInList || false;
