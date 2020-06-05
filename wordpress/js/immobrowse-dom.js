@@ -31,7 +31,7 @@ immobrowse.dom.OvalInner = class extends HTMLDivElement {
         this.innerHTML = content;
     }
 };
-customElements.define('oval-inner', immobrowse.dom.OvalInner, {extends: 'div'});
+customElements.define('ib-oval-inner', immobrowse.dom.OvalInner, {extends: 'div'});
 
 
 immobrowse.dom.OvalOuter = class extends HTMLDivElement {
@@ -41,7 +41,7 @@ immobrowse.dom.OvalOuter = class extends HTMLDivElement {
         this.appendChild(ovalInner);
     }
 };
-customElements.define('oval-outer', immobrowse.dom.OvalOuter, {extends: 'div'});
+customElements.define('ib-oval-outer', immobrowse.dom.OvalOuter, {extends: 'div'});
 
 
 immobrowse.dom.AmenitiesTag = class extends immobrowse.dom.OvalOuter {
@@ -49,7 +49,7 @@ immobrowse.dom.AmenitiesTag = class extends immobrowse.dom.OvalOuter {
         super(new immobrowse.dom.OvalInner(content));
     }
 };
-customElements.define('amenities-tag', immobrowse.dom.AmenitiesTag, {extends: 'div'});
+customElements.define('ib-amenities-tag', immobrowse.dom.AmenitiesTag, {extends: 'div'});
 
 
 immobrowse.dom.Numerator = class extends HTMLSpanElement {
@@ -59,7 +59,7 @@ immobrowse.dom.Numerator = class extends HTMLSpanElement {
         this.innerHTML = content;
     }
 };
-customElements.define('numerator', immobrowse.dom.Numerator, {extends: 'span'});
+customElements.define('ib-numerator', immobrowse.dom.Numerator, {extends: 'span'});
 
 
 immobrowse.dom.Denominator = class extends HTMLSpanElement {
@@ -69,7 +69,7 @@ immobrowse.dom.Denominator = class extends HTMLSpanElement {
         this.innerHTML = content;
     }
 };
-customElements.define('denominator', immobrowse.dom.Denominator, {extends: 'span'});
+customElements.define('ib-denominator', immobrowse.dom.Denominator, {extends: 'span'});
 
 
 immobrowse.dom.Fraction = class extends HTMLSpanElement {
@@ -87,15 +87,15 @@ immobrowse.dom.Fraction = class extends HTMLSpanElement {
         this.appendChild(denominator);
     }
 };
-customElements.define('fraction', immobrowse.dom.Fraction, {extends: 'span'});
+customElements.define('ib-fraction', immobrowse.dom.Fraction, {extends: 'span'});
 
 
-immobrowse.dom.Kwhsma = class extends immobrowse.dom.Fraction {
+immobrowse.dom.KilowattHoursPerSquareMeterAndYear = class extends immobrowse.dom.Fraction {
     constructor () {
         super('kWh','m&sup2;&middot;a');
     }
 };
-customElements.define('kwhsma', immobrowse.dom.Kwhsma, {extends: 'span'});
+customElements.define('ib-kwhsma', immobrowse.dom.KilowattHoursPerSquareMeterAndYear, {extends: 'span'});
 
 
 /*
@@ -126,7 +126,7 @@ immobrowse.dom.DataFieldCaption = class extends HTMLDivElement {
         this.innerHTML = caption;
     }
 };
-customElements.define('data-field-caption', immobrowse.dom.DataFieldCaption, {extends: 'div'});
+customElements.define('ib-data-field-caption', immobrowse.dom.DataFieldCaption, {extends: 'div'});
 
 
 immobrowse.dom.DataFieldValue = class extends HTMLDivElement {
@@ -136,7 +136,7 @@ immobrowse.dom.DataFieldValue = class extends HTMLDivElement {
         this.innerHTML = value;
     }
 };
-customElements.define('data-field-value', immobrowse.dom.DataFieldValue, {extends: 'div'});
+customElements.define('ib-data-field-value', immobrowse.dom.DataFieldValue, {extends: 'div'});
 
 
 immobrowse.dom.DataFieldRow = class extends HTMLDivElement {
@@ -146,7 +146,7 @@ immobrowse.dom.DataFieldRow = class extends HTMLDivElement {
         this.appendChild(child);
     }
 };
-customElements.define('data-field-row', immobrowse.dom.DataFieldRow, {extends: 'div'});
+customElements.define('ib-data-field-row', immobrowse.dom.DataFieldRow, {extends: 'div'});
 
 
 immobrowse.dom.DataFieldCol = class extends HTMLDivElement {
@@ -157,7 +157,7 @@ immobrowse.dom.DataFieldCol = class extends HTMLDivElement {
         this.appendChild(valueRow);
     }
 };
-customElements.define('data-field-col', immobrowse.dom.DataFieldCol, {extends: 'div'});
+customElements.define('ib-data-field-col', immobrowse.dom.DataFieldCol, {extends: 'div'});
 
 
 immobrowse.dom.DataRow = class extends HTMLDivElement {
@@ -170,7 +170,7 @@ immobrowse.dom.DataRow = class extends HTMLDivElement {
         }
     }
 };
-customElements.define('data-row', immobrowse.dom.DataRow, {extends: 'div'});
+customElements.define('ib-data-row', immobrowse.dom.DataRow, {extends: 'div'});
 
 
 immobrowse.dom.ObjectAddress = class extends HTMLDivElement {
@@ -180,7 +180,7 @@ immobrowse.dom.ObjectAddress = class extends HTMLDivElement {
         this.innerHTML = address;
     }
 };
-customElements.define('object-address', immobrowse.dom.ObjectAddress, {extends: 'div'});
+customElements.define('ib-object-address', immobrowse.dom.ObjectAddress, {extends: 'div'});
 
 
 immobrowse.dom.AddressRow = class extends HTMLDivElement {
@@ -190,7 +190,7 @@ immobrowse.dom.AddressRow = class extends HTMLDivElement {
         this.appendChild(objectAddress);
     }
 };
-customElements.define('address-row', immobrowse.dom.AddressRow, {extends: 'div'});
+customElements.define('ib-address-row', immobrowse.dom.AddressRow, {extends: 'div'});
 
 
 immobrowse.dom.ObjectTitle = class extends HTMLDivElement {
@@ -200,7 +200,7 @@ immobrowse.dom.ObjectTitle = class extends HTMLDivElement {
         this.innerHTML = title;
     }
 };
-customElements.define('object-title', immobrowse.dom.ObjectTitle, {extends: 'div'});
+customElements.define('ib-object-title', immobrowse.dom.ObjectTitle, {extends: 'div'});
 
 
 immobrowse.dom.TitleRow = class extends HTMLDivElement {
@@ -210,7 +210,7 @@ immobrowse.dom.TitleRow = class extends HTMLDivElement {
         this.appendChild(objectTitle);
     }
 };
-customElements.define('title-row', immobrowse.dom.TitleRow, {extends: 'div'});
+customElements.define('ib-title-row', immobrowse.dom.TitleRow, {extends: 'div'});
 
 
 immobrowse.dom.TitleCol = class extends HTMLDivElement {
@@ -224,7 +224,7 @@ immobrowse.dom.TitleCol = class extends HTMLDivElement {
         }
     }
 };
-customElements.define('title-col', immobrowse.dom.TitleCol, {extends: 'div'});
+customElements.define('ib-title-col', immobrowse.dom.TitleCol, {extends: 'div'});
 
 
 immobrowse.dom.DataCol = class extends HTMLDivElement {
@@ -235,7 +235,7 @@ immobrowse.dom.DataCol = class extends HTMLDivElement {
         this.appendChild(amenitiesTags);
     }
 };
-customElements.define('data-col', immobrowse.dom.DataCol, {extends: 'div'});
+customElements.define('ib-data-col', immobrowse.dom.DataCol, {extends: 'div'});
 
 
 immobrowse.dom.TitleImage = class extends HTMLImageElement {
@@ -251,7 +251,7 @@ immobrowse.dom.TitleImage = class extends HTMLImageElement {
         this.setAttribute('alt', 'Titelbild');
     }
 };
-customElements.define('title-iamge', immobrowse.dom.TitleImage, {extends: 'img'});
+customElements.define('ib-title-iamge', immobrowse.dom.TitleImage, {extends: 'img'});
 
 
 immobrowse.dom.ImageFrame = class extends HTMLDivElement {
@@ -261,7 +261,7 @@ immobrowse.dom.ImageFrame = class extends HTMLDivElement {
         this.appendChild(image);
     }
 };
-customElements.define('image-frame', immobrowse.dom.ImageFrame, {extends: 'div'});
+customElements.define('ib-image-frame', immobrowse.dom.ImageFrame, {extends: 'div'});
 
 
 immobrowse.dom.ImageCol = class extends HTMLDivElement {
@@ -271,7 +271,7 @@ immobrowse.dom.ImageCol = class extends HTMLDivElement {
         this.appendChild(imageFrame);
     }
 };
-customElements.define('image-col', immobrowse.dom.ImageCol, {extends: 'div'});
+customElements.define('ib-image-col', immobrowse.dom.ImageCol, {extends: 'div'});
 
 
 immobrowse.dom.HeaderRow = class extends HTMLDivElement {
@@ -282,7 +282,7 @@ immobrowse.dom.HeaderRow = class extends HTMLDivElement {
         this.appendChild(titleCol);
     }
 };
-customElements.define('header-row', immobrowse.dom.HeaderRow, {extends: 'div'});
+customElements.define('ib-header-row', immobrowse.dom.HeaderRow, {extends: 'div'});
 
 
 immobrowse.dom.AmenitiesTags = class extends HTMLDivElement {
@@ -295,7 +295,7 @@ immobrowse.dom.AmenitiesTags = class extends HTMLDivElement {
         }
     }
 };
-customElements.define('amenities-tags', immobrowse.dom.AmenitiesTags, {extends: 'div'});
+customElements.define('ib-amenities-tags', immobrowse.dom.AmenitiesTags, {extends: 'div'});
 
 
 immobrowse.dom.AmenitiesRow = class extends HTMLDivElement {
@@ -305,7 +305,7 @@ immobrowse.dom.AmenitiesRow = class extends HTMLDivElement {
         this.appendChild(amenitiesTags);
     }
 };
-customElements.define('amenities-row', immobrowse.dom.AmenitiesRow, {extends: 'div'});
+customElements.define('ib-amenities-row', immobrowse.dom.AmenitiesRow, {extends: 'div'});
 
 
 immobrowse.dom.Entry = class extends HTMLDivElement {
@@ -318,7 +318,7 @@ immobrowse.dom.Entry = class extends HTMLDivElement {
         this.appendChild(amenitiesRow);
     }
 };
-customElements.define('entry', immobrowse.dom.Entry, {extends: 'div'});
+customElements.define('ib-entry', immobrowse.dom.Entry, {extends: 'div'});
 
 
 /*
