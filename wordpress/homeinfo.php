@@ -85,6 +85,7 @@ function immobrowse_setup_js() {
 		"bootstrap.min.js",
 		"sweetalert.min.js",
 		"homeinfo.js",
+		"immobrowse-dom.js",
 		"config.js",
 		"immobrowse.js"
 	];
