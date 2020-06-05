@@ -92,7 +92,7 @@ customElements.define('fraction', immobrowse.dom.Fraction, {extends: 'span'});
 
 immobrowse.dom.Kwhsma = class extends immobrowse.dom.Fraction {
     constructor () {
-        super('kWh','m<sup>2</sup>&middot;a');
+        super('kWh','m&sup2;&middot;a');
     }
 };
 customElements.define('kwhsma', immobrowse.dom.Kwhsma, {extends: 'span'});
