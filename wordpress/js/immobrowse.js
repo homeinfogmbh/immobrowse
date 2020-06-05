@@ -2007,5 +2007,5 @@ immobrowse.List = class {
 immobrowse.config = immobrowse.config || {};
 immobrowse.config.listedHint = immobrowse.config.listedHint || 'Gebäude liegt im Denkmalschutzbereich.';
 immobrowse.config.na = immobrowse.config.na || 'k. A.';
-immobrowse.config.kwh = immobrowse.config.kwh || (new immobrowse.dom.Kwhsma()).outerHTML;
+immobrowse.config.kwh = immobrowse.config.kwh || (new immobrowse.dom.KilowattHoursPerSquareMeterAndYear()).outerHTML;
 immobrowse.config.addressInList = immobrowse.config.addressInList || false;
