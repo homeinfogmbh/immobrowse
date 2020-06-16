@@ -265,13 +265,9 @@
 
 <!-- Modal -->
 <div id="contactForm" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Kontaktformular</h4>
-      </div>
-      <div class="modal-body">
+  <div class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
         <div class="w3-row" id="the_form" style="margin-top:10px;">
           <div class="w3-col m6">
            <p><strong>Anrede</strong></p>
@@ -371,8 +367,8 @@
 </div>
 
 <div id="gallery" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="w3-modal">
+    <div class="w3-modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" id="close_modal">
