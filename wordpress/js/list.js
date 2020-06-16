@@ -36,7 +36,7 @@ immobrowse.wordpress.listElement = null;
 
 
 immobrowse.wordpress.toggleOrder = function () {
-    var previousOrder = immobrowse.wordpress.sorting.order;
+    const previousOrder = immobrowse.wordpress.sorting.order;
 
     if (immobrowse.wordpress.sorting.order == 'descending') {
         immobrowse.wordpress.sorting.order = 'ascending';
@@ -49,12 +49,12 @@ immobrowse.wordpress.toggleOrder = function () {
 
 
 immobrowse.wordpress.toggleSorting = function (property) {
-    var previousIssuer = document.getElementById('ib-sort-' + immobrowse.wordpress.sorting.property);
-    var issuer = document.getElementById('ib-sort-' + property);
+    const previousIssuer = document.getElementById('ib-sort-' + immobrowse.wordpress.sorting.property);
+    const issuer = document.getElementById('ib-sort-' + property);
     immobrowse.wordpress.toggleOrder();
     immobrowse.wordpress.sorting.property = property;
 
-    // Remove arrow symbol
+    // Remove arrow symbol.
     if (previousIssuer != null) {
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
     }
@@ -75,8 +75,8 @@ immobrowse.wordpress.toggleSorting = function (property) {
 immobrowse.wordpress.renderDistricts = function (districtsElement, districtElements) {
     districtsElement.html('');
 
-    for (var i = 0; i < districtElements.length; i++) {
-        districtsElement.append(districtElements[i]);
+    for (const districtElement of districtElements) {
+        districtsElement.append(districtElement);
     }
 
     jQuery('.ib-select-district').click(function() {
@@ -86,12 +86,12 @@ immobrowse.wordpress.renderDistricts = function (districtsElement, districtEleme
 
 
 immobrowse.wordpress.selectedDistricts = function () {
-    var districts = [];
-    var checkboxes = document.getElementsByClassName('ib-select-district');
+    const districts = [];
+    const checkboxes = document.getElementsByClassName('ib-select-district');
 
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            districts.push(checkboxes[i].getAttribute('name'));
+    for (const checkbox of checkboxes) {
+        if (checkbox.checked) {
+            districts.push(checkbox.getAttribute('name'));
         }
     }
 
@@ -99,7 +99,7 @@ immobrowse.wordpress.selectedDistricts = function () {
     if (districts.length == 0) {
         const url = new URL(location);
         const params = new URLSearchParams(url.search);
-        var district = params.get('ortsteil');
+        const district = params.get('ortsteil');
 
         if (district != null && district != ''){
             districts.push(district);
@@ -111,7 +111,7 @@ immobrowse.wordpress.selectedDistricts = function () {
 
 
 immobrowse.wordpress.filters = function () {
-    var priceMax = jQuery('#ib-price-max').val();
+    let priceMax = jQuery('#ib-price-max').val();
 
     if (! priceMax) {
         priceMax = Infinity;
@@ -119,7 +119,7 @@ immobrowse.wordpress.filters = function () {
         priceMax = Number(priceMax.replace(',', '.'));
     }
 
-    var priceMin = jQuery('#ib-price-min').val();
+    let priceMin = jQuery('#ib-price-min').val();
 
     if (! priceMin) {
         priceMin = 0;
@@ -127,7 +127,7 @@ immobrowse.wordpress.filters = function () {
         priceMin = Number(priceMin.replace(',', '.'));
     }
 
-    var areaMin = jQuery('#ib-area-min').val();
+    let areaMin = jQuery('#ib-area-min').val();
 
     if (! areaMin) {
         areaMin = 0;
@@ -135,7 +135,7 @@ immobrowse.wordpress.filters = function () {
         areaMin = Number(areaMin.replace(',', '.'));
     }
 
-    var roomsMin = jQuery('#ib-rooms-min').val();
+    let roomsMin = jQuery('#ib-rooms-min').val();
 
     if (! roomsMin) {
         roomsMin = 0;
@@ -143,7 +143,7 @@ immobrowse.wordpress.filters = function () {
         roomsMin = Number(roomsMin.replace(',', '.'));
     }
 
-    var filters = {
+    return filters = {
         types: immobrowse.config.types,
         marketing: immobrowse.config.marketing,
         priceMin: priceMin,
@@ -160,14 +160,12 @@ immobrowse.wordpress.filters = function () {
         garden: jQuery('#ib-filter-garden').is(':checked'),
         districts: immobrowse.wordpress.selectedDistricts()
     };
-
-    return filters;
 };
 
 
 immobrowse.wordpress.list = function () {
-    var filter = new immobrowse.Filter(immobrowse.wordpress.filters());
-    var list = new immobrowse.List(filter.filter(immobrowse.wordpress.realEstates));
+    const filter = new immobrowse.Filter(immobrowse.wordpress.filters());
+    const list = new immobrowse.List(filter.filter(immobrowse.wordpress.realEstates));
 
     if (immobrowse.wordpress.sorting.property != null) {
         list.sort(immobrowse.wordpress.sorting.property, immobrowse.wordpress.sorting.order);
