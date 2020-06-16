@@ -171,7 +171,7 @@ immobrowse.wordpress.setupGalleries = function() {
     };
     const images = Array.from(immobrowse.wordpress.realEstate.images);
     const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans);
-    const pictures = imagens.concat(floorplans);
+    const pictures = images.concat(floorplans);
 
     function attachmentUrlCallback(attachment) {
         return immobrowse.wordpress.realEstate.attachmentURL(attachment);
