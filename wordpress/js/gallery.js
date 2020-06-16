@@ -29,26 +29,26 @@ immobrowse.wordpress = immobrowse.wordpress || {};
 immobrowse.wordpress.gallery = immobrowse.wordpress.gallery || {};
 
 
-immobrowse.wordpress.gallery.next = function (galleryObj) {
-    galleryObj.next();
+immobrowse.wordpress.gallery.next = function (gallery) {
+    gallery.next();
 };
 
 
-immobrowse.wordpress.gallery.previous = function (galleryObj) {
-    galleryObj.previous();
+immobrowse.wordpress.gallery.previous = function (gallery) {
+    gallery.previous();
 };
 
 
-immobrowse.wordpress.gallery.nextCallback = function (galleryObj) {
+immobrowse.wordpress.gallery.nextCallback = function (gallery) {
     return function () {
-        galleryObj.next();
+        gallery.next();
     };
 };
 
 
-immobrowse.wordpress.gallery.previousCallback = function (galleryObj) {
+immobrowse.wordpress.gallery.previousCallback = function (gallery) {
     return function () {
-        galleryObj.previous();
+        gallery.previous();
     };
 };
 
