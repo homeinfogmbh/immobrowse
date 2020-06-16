@@ -143,7 +143,7 @@ immobrowse.wordpress.filters = function () {
         roomsMin = Number(roomsMin.replace(',', '.'));
     }
 
-    return filters = {
+    return {
         types: immobrowse.config.types,
         marketing: immobrowse.config.marketing,
         priceMin: priceMin,
