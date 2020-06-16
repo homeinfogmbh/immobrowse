@@ -1940,22 +1940,22 @@ immobrowse.RealEstate = class {
         for (const element of elements) {
             switch (element.name) {
             case 'coldRent':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.rent) || immobrowse.config.na, dataFields);
+                immobrowse.dom.addDataFieldCol(element, immobrowse.euro(this.rent) || immobrowse.config.na, dataFields);
                 break;
             case 'totalRent':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.totalRent) || immobrowse.config.na, dataFields);
+                immobrowse.dom.addDataFieldCol(element, immobrowse.euro(this.totalRent) || immobrowse.config.na, dataFields);
                 break;
             case 'serviceCharge':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.serviceCharge) || immobrowse.config.na, dataFields);
+                immobrowse.dom.addDataFieldCol(element, immobrowse.euro(this.serviceCharge) || immobrowse.config.na, dataFields);
                 break;
             case 'operationalCosts':
-                immobrowse.dom.preview.addDataFieldCol(element, immobrowse.euro(this.operationalCosts) || immobrowse.config.na, dataFields);
+                immobrowse.dom.addDataFieldCol(element, immobrowse.euro(this.operationalCosts) || immobrowse.config.na, dataFields);
                 break;
             case 'rooms':
-                immobrowse.dom.preview.addDataFieldCol(element, this.rooms || immobrowse.config.na, dataFields);
+                immobrowse.dom.addDataFieldCol(element, this.rooms || immobrowse.config.na, dataFields);
                 break;
             case 'area':
-                immobrowse.dom.preview.addDataFieldCol(element, this.area || immobrowse.config.na, dataFields);
+                immobrowse.dom.addDataFieldCol(element, this.area || immobrowse.config.na, dataFields);
                 break;
             }
         }
