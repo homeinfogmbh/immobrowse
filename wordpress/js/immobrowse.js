@@ -27,6 +27,7 @@
 var immobrowse = immobrowse || {};
 
 immobrowse.IMAGE_GROUPS = ['TITELBILD', 'BILD', 'AUSSENANSICHTEN', 'INNENANSICHTEN', 'ANBIETERLOGO'];
+immobrowse.EMAIL = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
 
 /*
@@ -210,6 +211,24 @@ immobrowse.yesNo = function (boolean) {
     }
 
     return 'Nein';
+};
+
+
+/*
+    Returns date like <%d.%m.%Y>.
+*/
+immobrowse.dateToString = function (date) {
+    function paddDate (num) {
+        if (num < 10) {
+            return '0' + num;
+        }
+
+        return '' + num;
+    };
+
+    return paddDate(date.getDate())
+        + '.' + paddDate(date.getMonth() + 1)
+        + '.' + paddDate(date.getFullYear());
 };
 
 
@@ -846,7 +865,7 @@ immobrowse.RealEstate = class {
         for (let type of this.types) {
             if (type != null) {
                 type = type.toLowerCase();
-                return homeinfo.str.capitalizeFirstLetter(type);
+                return type.charAt(0).toUpperCase() + type.slice(1)
             }
         }
 
@@ -1197,7 +1216,7 @@ immobrowse.RealEstate = class {
 
     get miscellanea () {
         if (this.freitexte != null) {
-            if (! homeinfo.str.isEmpty(this.freitexte.sonstige_angaben)) {
+            if (this.freitexte.sonstige_angaben != null && this.freitexte.sonstige_angaben.trim() != '') {
                 return this.freitexte.sonstige_angaben;
             }
         }
@@ -1207,7 +1226,7 @@ immobrowse.RealEstate = class {
 
     get description () {
         if (this.freitexte != null) {
-            if (! homeinfo.str.isEmpty(this.freitexte.objektbeschreibung)) {
+            if (this.freitexte.objektbeschreibung != null && this.freitexte.objektbeschreibung.trim() != '') {
                 return this.freitexte.objektbeschreibung;
             }
         }
@@ -1217,7 +1236,7 @@ immobrowse.RealEstate = class {
 
     get exposure () {
         if (this.freitexte != null) {
-            if (! homeinfo.str.isEmpty(this.freitexte.lage)) {
+            if (this.freitexte.lage != null && this.freitexte.lage.trim() != '') {
                 return this.freitexte.lage;
             }
         }
@@ -1227,7 +1246,7 @@ immobrowse.RealEstate = class {
 
     get amenitiesDescription () {
         if (this.freitexte != null) {
-            if (! homeinfo.str.isEmpty(this.freitexte.ausstatt_beschr)) {
+            if (this.freitexte.ausstatt_beschr != null && this.freitexte.ausstatt_beschr.trim() != '') {
                 return this.freitexte.ausstatt_beschr;
             }
         }
@@ -1472,7 +1491,7 @@ immobrowse.RealEstate = class {
         if (this.verwaltung_objekt != null) {
             if (this.verwaltung_objekt.abdatum != null) {
                 const date = new Date(this.verwaltung_objekt.abdatum);
-                return homeinfo.date.date(date);
+                return immobrowse.dateToString(date);
             }
 
             if (this.verwaltung_objekt.verfuegbar_ab != null) {
@@ -1631,7 +1650,7 @@ immobrowse.RealEstate = class {
             energyCertificate.type = 'Verbrauchsausweis';
 
             if (energiepass.energieverbrauchkennwert != null && energiepass.energieverbrauchkennwert != '') {
-                const energieverbrauchkennwert = Number(homeinfo.str.comma2dot(energiepass.energieverbrauchkennwert));
+                const energieverbrauchkennwert = Number(energiepass.energieverbrauchkennwert.replace(',', '.'));
                 const consumption = immobrowse.germanDecimal(energieverbrauchkennwert) + immobrowse.config.kilowattHoursPerSquareMeterAndYear();
                 energyCertificate.value = consumption;
                 energyCertificate.consumption = consumption;
@@ -1640,7 +1659,7 @@ immobrowse.RealEstate = class {
             energyCertificate.type = 'Bedarfsausweis';
 
             if (energiepass.endenergiebedarf != null && energiepass.endenergiebedarf != '') {
-                const endenergiebedarf = Number(homeinfo.str.comma2dot(energiepass.endenergiebedarf));
+                const endenergiebedarf = Number(energiepass.endenergiebedarf.replace(',', '.'));
                 const demand = immobrowse.germanDecimal(endenergiebedarf) + immobrowse.config.kilowattHoursPerSquareMeterAndYear();
                 energyCertificate.value = demand;
                 energyCertificate.demand = demand;
@@ -1651,10 +1670,8 @@ immobrowse.RealEstate = class {
             energyCertificate.constructionYear = energiepass.baujahr;
         } else {
             // Fall back to real estate's construction year.
-            const constructionYear = this.constructionYear;
-
-            if (constructionYear) {
-                energyCertificate.constructionYear = constructionYear;
+            if (this.constructionYear) {
+                energyCertificate.constructionYear = this.constructionYear;
             }
         }
 

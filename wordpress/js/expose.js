@@ -20,7 +20,6 @@
 
   Requires:
       * jquery.js
-      * sweetalert.js
       * immobrowse.js
 */
 'use strict';
@@ -66,38 +65,38 @@ immobrowse.wordpress.clearContactForm = function () {
 
 
 immobrowse.wordpress.sendEmail = function() {
-    var response = grecaptcha.getResponse();
+    const response = grecaptcha.getResponse();
 
     if (response.length == 0) {
         alert('Bitte den CAPTCHA lösen.');
         return;
     }
 
-    var forename = jQuery('#forename').val().trim();
+    const forename = jQuery('#forename').val().trim();
 
     if (forename == '') {
         alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
         return;
     }
 
-    var surname = jQuery('#surname').val().trim();
+    const surname = jQuery('#surname').val().trim();
 
     if (surname == '') {
         alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
         return;
     }
 
-    var email = jQuery('#email').val().trim();
+    const email = jQuery('#email').val().trim();
 
     if (email == '') {
         alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
         return;
-    } else if (homeinfo.str.isEmail(email) == false) {
+    } else if (!immobrowse.EMAIL.test(email)) {
         alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
         return;
     }
 
-    var salutation;
+    let salutation;
 
     if (jQuery('input:radio[name=\'salutation\']:checked').val() == 1) {
         salutation = 'Herr';
@@ -105,16 +104,16 @@ immobrowse.wordpress.sendEmail = function() {
         salutation = 'Frau';
     }
 
-    var objectTitle = immobrowse.wordpress.realEstate.objectTitle;
-    var objectAddress = [immobrowse.wordpress.realEstate.addressPreview, immobrowse.wordpress.realEstate.cityPreview].join(' ');
-    var phone = jQuery('#phone').val().trim();
-    var street = jQuery('#street').val().trim();
-    var houseNumber = jQuery('#house_number').val().trim();
-    var zipCode = jQuery('#zip_code').val().trim();
-    var city = jQuery('#city').val().trim();
-    var message = jQuery('#message').val().trim();
-    var recipient = immobrowse.wordpress.realEstate.contact.email;
-    var html = immobrowse.mkContactMail(
+    const objectTitle = immobrowse.wordpress.realEstate.objectTitle;
+    const objectAddress = [immobrowse.wordpress.realEstate.addressPreview, immobrowse.wordpress.realEstate.cityPreview].join(' ');
+    const phone = jQuery('#phone').val().trim();
+    const street = jQuery('#street').val().trim();
+    const houseNumber = jQuery('#house_number').val().trim();
+    const zipCode = jQuery('#zip_code').val().trim();
+    const city = jQuery('#city').val().trim();
+    const message = jQuery('#message').val().trim();
+    const recipient = immobrowse.wordpress.realEstate.contact.email;
+    const html = immobrowse.mkContactMail(
         objectTitle, objectAddress, salutation, forename, surname,
         phone, street, houseNumber, zipCode, city, message);
     immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, html, recipient, email);
@@ -137,7 +136,7 @@ immobrowse.wordpress.postRender = function () {
     jQuery('#main').attr('style', 'padding-top: 80px');
 
     jQuery('.showimage').click(function() {
-        for (const i = 0; i < jQuery(this).data('nrmax'); i++) {
+        for (let i = 0; i < jQuery(this).data('nrmax'); i++) {
             jQuery('#image'+ i).hide();
         }
 
@@ -162,7 +161,7 @@ immobrowse.wordpress.postRender = function () {
 
 
 immobrowse.wordpress.setupGalleries = function() {
-    var galleryMapping = {
+    const galleryMapping = {
         'image': jQuery('#galleryImage'),
         'title': jQuery('#galleryTitle'),
         'index': jQuery('#galleryIndex'),
@@ -170,21 +169,23 @@ immobrowse.wordpress.setupGalleries = function() {
         'next': jQuery('#galleryNext'),
         'previous': jQuery('#galleryPrevious')
     };
-    var images = Array.from(immobrowse.wordpress.realEstate.images);
+    const images = Array.from(immobrowse.wordpress.realEstate.images);
+    const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans);
+    const pictures = imagens.concat(floorplans);
 
     function attachmentUrlCallback(attachment) {
         return immobrowse.wordpress.realEstate.attachmentURL(attachment);
     }
 
-    immobrowse.wordpress.imageGallery = new immobrowse.wordpress.gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
+    immobrowse.wordpress.imageGallery = new immobrowse.wordpress.gallery.Gallery(pictures, galleryMapping, attachmentUrlCallback);
 
-    if (images.length > 0) {
-        jQuery('#titleImage').attr('src', immobrowse.wordpress.realEstate.attachmentURL(images[0]));
+    if (pictures.length > 0) {
+        jQuery('#titleImage').attr('src', immobrowse.wordpress.realEstate.attachmentURL(pictures[0]));
     }
 
-    if (images.length > 1) {
-        for (let i = 1; i < images.length; i++){
-            jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(images[i])+'"/>');
+    if (pictures.length > 1) {
+        for (let i = 1; i < pictures.length; i++){
+            jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(pictures[i])+'"/>');
         }
 
         jQuery('#titleImageFrame, #furtherImages').click(function() {
@@ -194,25 +195,6 @@ immobrowse.wordpress.setupGalleries = function() {
         });
 
         jQuery('#titleImageFrame, #furtherImages').addClass('ib-browsable');
-    }
-
-    var floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans);
-    immobrowse.wordpress.floorplanGallery = new immobrowse.wordpress.gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
-
-    if (floorplans.length > 0) {
-        jQuery('#floorplan').attr('src', immobrowse.wordpress.realEstate.attachmentURL(floorplans[0]));
-    }
-
-
-
-    if (floorplans.length > 0) {
-        jQuery('#floorplanFrame').click(function() {
-            immobrowse.wordpress.floorplanGallery.bind();
-            immobrowse.wordpress.floorplanGallery.render();
-            jQuery('#gallery').modal('toggle');
-        });
-
-        jQuery('#floorplanFrame').addClass('ib-browsable');
     }
 };
 
@@ -230,7 +212,6 @@ immobrowse.wordpress.render = function (realEstate) {
 immobrowse.wordpress.initExpose = function () {
     const url = new URL(location);
     const params = new URLSearchParams(url.search);
-    // XXX: Change config for appropriate productive setting
     immobrowse.wordpress.mailer = new immobrowse.Mailer(homeinfo_recaptcha);
     immobrowse.wordpress.objectId = params.get('real_estate');
     immobrowse.wordpress.elements = {

@@ -20,8 +20,8 @@
 
   Requires:
       * jquery.js
-      * sweetalert.js
       * immobrowse.js
+      * immobrowse-dom.js
 */
 'use strict';
 
@@ -116,7 +116,7 @@ immobrowse.wordpress.filters = function () {
     if (! priceMax) {
         priceMax = Infinity;
     } else {
-        priceMax = Number(homeinfo.str.comma2dot(priceMax));
+        priceMax = Number(priceMax.replace(',', '.'));
     }
 
     var priceMin = jQuery('#ib-price-min').val();
@@ -124,7 +124,7 @@ immobrowse.wordpress.filters = function () {
     if (! priceMin) {
         priceMin = 0;
     } else {
-        priceMin = Number(homeinfo.str.comma2dot(priceMin));
+        priceMin = Number(priceMin.replace(',', '.'));
     }
 
     var areaMin = jQuery('#ib-area-min').val();
@@ -132,7 +132,7 @@ immobrowse.wordpress.filters = function () {
     if (! areaMin) {
         areaMin = 0;
     } else {
-        areaMin = Number(homeinfo.str.comma2dot(areaMin));
+        areaMin = Number(areaMin.replace(',', '.'));
     }
 
     var roomsMin = jQuery('#ib-rooms-min').val();
@@ -140,7 +140,7 @@ immobrowse.wordpress.filters = function () {
     if (! roomsMin) {
         roomsMin = 0;
     } else {
-        roomsMin = Number(homeinfo.str.comma2dot(roomsMin));
+        roomsMin = Number(roomsMin.replace(',', '.'));
     }
 
     var filters = {
