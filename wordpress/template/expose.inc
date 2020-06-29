@@ -43,27 +43,16 @@
   <div class="w3-row">
     <div id="expose" class="w3-col m12 ib-expose">
       <div class="w3-row">
-        <div class="w3-col s6">
+        <div class="w3-col s12">
           <div class="thumbnail">
             <div id="titleImageFrame" class="ib-image-frame">
               <img src="[BASEDIR]img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
             </div>
 
-            <div style="text-align: center;width:100%;height:30px;" id="furtherImages"></div>
+            <div id="furtherImages" class="ib-further-images"></div>
 
             <div id="titleImageCaption" class="caption">
               Titelbild
-            </div>
-          </div>
-        </div>
-        <div class="w3-col s6">
-          <div class="thumbnail">
-            <div id="floorplanFrame" class="ib-image-frame">
-              <img src="[BASEDIR]img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
-            </div>
-            <div style="text-align: center;width:100%;height:30px;">&nbsp;</div>
-            <div id="floorplanCaption" class="caption">
-              Grundriss
             </div>
           </div>
         </div>

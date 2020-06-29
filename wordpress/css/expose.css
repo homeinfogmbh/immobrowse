@@ -71,3 +71,13 @@
   list-style-image: url('../img/ok.png');
   padding-left:3em;
 }
+
+.ib-further-image {
+  height: 35px;
+}
+
+.ib-further-images {
+  text-align: center;
+  width:100%;
+  height:30px;
+}

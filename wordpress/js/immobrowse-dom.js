@@ -288,7 +288,7 @@ customElements.define('ib-header-row', immobrowse.dom.HeaderRow, {extends: 'div'
 immobrowse.dom.AmenitiesTags = class extends HTMLDivElement {
     constructor (amenities) {
         super();
-        this.setAttribute('class', 'ib-preview-tags');
+        //this.setAttribute('class', 'ib-preview-tags');
 
         for (const child of amenities) {
             this.appendChild(child);
@@ -319,6 +319,22 @@ immobrowse.dom.Entry = class extends HTMLDivElement {
     }
 };
 customElements.define('ib-entry', immobrowse.dom.Entry, {extends: 'div'});
+
+
+immobrowse.dom.PreviewImage = class extends HTMLImageElement {
+    constructor (url) {
+        super();
+
+        if (url == null) {
+            url = 'img/dummy.jpg';
+        }
+
+        this.setAttribute('src', url);
+        this.setAttribute('class', 'ib-further-image');
+        this.setAttribute('alt', 'Bildergalerie');
+    }
+};
+customElements.define('ib-preview-iamge', immobrowse.dom.PreviewImage, {extends: 'img'});
 
 
 /*

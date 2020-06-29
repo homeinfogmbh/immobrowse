@@ -34,12 +34,12 @@ immobrowse.wordpress.imageGallery = null;
 immobrowse.wordpress.floorplanGallery = null;
 
 
-immobrowse.wordpress.printGrundriss = function (){
+immobrowse.wordpress.printGrundriss = function () {
     window.open('?real_estate=' + immobrowse.wordpress.objectId + '&print_floorplan');
 };
 
 
-immobrowse.wordpress.printExpose = function (){
+immobrowse.wordpress.printExpose = function () {
     window.open('?real_estate=' + immobrowse.wordpress.objectId + '&print_expose');
 };
 
@@ -184,14 +184,18 @@ immobrowse.wordpress.setupGalleries = function() {
     }
 
     if (pictures.length > 1) {
+        let furtherImages = document.getElementById('furtherImages');
+        let image, src;
+
         for (let i = 1; i < pictures.length; i++){
-            jQuery('#furtherImages').append('<img style="height:35px" src="' + immobrowse.wordpress.realEstate.attachmentURL(pictures[i])+'"/>');
+            src = immobrowse.wordpress.realEstate.attachmentURL(pictures[i]);
+            image = new immobrowse.dom.PreviewImage(src);
+            furtherImages.appendChild(image);
         }
 
         jQuery('#titleImageFrame, #furtherImages').click(function() {
             immobrowse.wordpress.imageGallery.bind();
             immobrowse.wordpress.imageGallery.render();
-            jQuery('#gallery').modal('toggle');
         });
 
         jQuery('#titleImageFrame, #furtherImages').addClass('ib-browsable');

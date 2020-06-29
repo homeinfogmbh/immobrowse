@@ -35,7 +35,7 @@ body {
   padding-left: 6px;
   padding-right: 6px;
   width: auto;
-  height: 20px;
+  height: 30px;
   background: #666666;
   border-radius: 40px;
   text-align: center;
@@ -43,9 +43,9 @@ body {
   font-weight: bold;
 }
 
-.oval-outer{
+.oval-outer {
   padding-top: 1em;
-  padding-left: 1em;
+  padding-right: 1em;
   display: table-column;
   width: auto;
   float: left;
