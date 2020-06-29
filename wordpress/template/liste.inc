@@ -31,18 +31,12 @@
   </div>
 
   <div class="w3-row ib-header" style="margin-top:-15px">
-    <div class="w3-col m9">
+    <div class="w3-col m12">
       <div class="item">
         <div class="content">
           <button id="ib-sort-rooms" onclick="immobrowse.wordpress.toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
           <button id="ib-sort-area" onclick="immobrowse.wordpress.toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fläche</button>
           <button id="ib-sort-rent" onclick="immobrowse.wordpress.toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
-        </div>
-      </div>
-    </div>
-    <div class="w3-col m3">
-      <div class="item">
-        <div class="content" style="text-align:right">
           <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
         </div>
       </div>
