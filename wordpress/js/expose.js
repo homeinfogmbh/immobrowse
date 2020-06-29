@@ -187,7 +187,7 @@ immobrowse.wordpress.setupGalleries = function() {
         let furtherImages = document.getElementById('furtherImages');
         let image, src;
 
-        for (const picture of pictures.length){
+        for (const picture of pictures){
             src = immobrowse.wordpress.realEstate.attachmentURL(picture);
             image = new immobrowse.dom.PreviewImage(src);
             furtherImages.appendChild(image);
