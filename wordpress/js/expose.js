@@ -30,8 +30,6 @@ immobrowse.wordpress.mailer = null;
 immobrowse.wordpress.objectId = null;
 immobrowse.wordpress.elements = null;
 immobrowse.wordpress.realEstate = null;
-immobrowse.wordpress.imageGallery = null;
-immobrowse.wordpress.floorplanGallery = null;
 
 
 immobrowse.wordpress.printGrundriss = function () {
@@ -64,7 +62,7 @@ immobrowse.wordpress.clearContactForm = function () {
 };
 
 
-immobrowse.wordpress.sendEmail = function() {
+immobrowse.wordpress.sendEmail = function () {
     const response = grecaptcha.getResponse();
 
     if (response.length == 0) {
@@ -160,15 +158,15 @@ immobrowse.wordpress.postRender = function () {
 };
 
 
-immobrowse.wordpress.setupGalleries = function() {
-    const galleryMapping = {
-        'image': jQuery('#galleryImage'),
-        'title': jQuery('#galleryTitle'),
-        'index': jQuery('#galleryIndex'),
-        'count': jQuery('#galleryImages'),
-        'next': jQuery('#galleryNext'),
-        'previous': jQuery('#galleryPrevious')
-    };
+immobrowse.wordpress.setTitleImage = function (image) {
+    console.log('Setting title image.');
+    const titleImage = document.getElementById('titleImage');
+    titleImage.setAttribute('src', image.getAttribute('src'));
+    console.log('Set title image to: ' + image.getAttribute('src'));
+};
+
+
+immobrowse.wordpress.setupGallery = function () {
     const images = Array.from(immobrowse.wordpress.realEstate.images);
     const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans);
     const pictures = images.concat(floorplans);
@@ -177,26 +175,21 @@ immobrowse.wordpress.setupGalleries = function() {
         return immobrowse.wordpress.realEstate.attachmentURL(attachment);
     }
 
-    immobrowse.wordpress.imageGallery = new immobrowse.wordpress.gallery.Gallery(pictures, galleryMapping, attachmentUrlCallback);
-
     if (pictures.length > 0) {
         jQuery('#titleImage').attr('src', immobrowse.wordpress.realEstate.attachmentURL(pictures[0]));
     }
 
     if (pictures.length > 1) {
         let furtherImages = document.getElementById('furtherImages');
-        let image, src;
+        let image, src, alt;
 
         for (const picture of pictures){
             src = immobrowse.wordpress.realEstate.attachmentURL(picture);
-            image = new immobrowse.dom.PreviewImage(src);
+            alt = picture.anhangtitel || 'Bild';
+            image = new immobrowse.dom.PreviewImage(src, alt);
+            image.setAttribute('onclick', 'immobrowse.wordpress.setTitleImage(this);');
             furtherImages.appendChild(image);
         }
-
-        jQuery('#titleImageFrame, #furtherImages').click(function() {
-            immobrowse.wordpress.imageGallery.bind();
-            immobrowse.wordpress.imageGallery.render();
-        });
 
         jQuery('#titleImageFrame, #furtherImages').addClass('ib-browsable');
     }
@@ -205,7 +198,7 @@ immobrowse.wordpress.setupGalleries = function() {
 
 immobrowse.wordpress.render = function (realEstate) {
     immobrowse.wordpress.realEstate = realEstate;
-    immobrowse.wordpress.setupGalleries();
+    immobrowse.wordpress.setupGallery();
     immobrowse.wordpress.realEstate.render(immobrowse.wordpress.elements);
     document.title = 'Exposé Nr. ' + immobrowse.wordpress.realEstate.objectId;
     immobrowse.wordpress.postRender();
