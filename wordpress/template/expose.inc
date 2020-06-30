@@ -13,29 +13,22 @@
     </div>
   </div>
   <div class="w3-row ib-header no-print">
-    <div class="w3-col m3 ib-centered">
-      <button type="button" class="btn btn-default" onclick="immobrowse.wordpress.back();">
+    <div class="w3-col m4 ib-centered">
+      <button type="button" class="w3-button w3-green" onclick="immobrowse.wordpress.back();">
         « Zur&uuml;ck
       </button>
     </div>
-    <div class="w3-col m3">
+    <div class="w3-col m4">
       <div class="ib-detail-print ib-centered">
-        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printExpose();">
+        <button type="button" class="w3-button w3-blue" onclick="immobrowse.wordpress.printExpose();">
           Expose drucken
         </button>
       </div>
     </div>
-    <div class="w3-col m3">
+    <div class="w3-col m4">
       <div class="ib-detail-print ib-centered">
-        <button type="button" class="btn btn-info" onclick="immobrowse.wordpress.printGrundriss();">
+        <button type="button" class="w3-button w3-blue" onclick="immobrowse.wordpress.printGrundriss();">
           Grundriss drucken
-        </button>
-      </div>
-    </div>
-    <div class="w3-col m3">
-      <div class="ib-detail-contactform ib-centered">
-        <button id="btnContactForm" type="button" class="btn btn-success homeinfo-contact" data-toggle="modal" data-target="#contactForm">
-          Kontaktformular
         </button>
       </div>
     </div>
@@ -49,11 +42,11 @@
               <img src="[BASEDIR]img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
             </div>
 
-            <div id="furtherImages" class="ib-further-images"></div>
-
-            <div id="titleImageCaption" class="caption">
+            <div id="titleImageCaption" class="w3-center">
               Titelbild
             </div>
+
+            <div id="furtherImages" class="ib-further-images"></div>
           </div>
         </div>
       </div>
@@ -209,7 +202,7 @@
         </div>
       </div>
       <div id="contactInformation" class="w3-row ib-expose-data-row">
-        <div class="w3-col m6 ib-expose-data-col">
+        <div class="w3-col m12 ib-expose-data-col">
           <div class="w3-row ib-section-caption">
             Kontakt
           </div>
@@ -350,43 +343,6 @@
         <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
         <img src="[BASEDIR]img/preloader.gif" id="loading" style="display:none;">
         <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="gallery" class="modal fade" role="dialog">
-  <div class="w3-modal">
-    <div class="w3-modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" id="close_modal">
-            <span class="glyphicon glyphicon-remove btn-lg .ib-gallery-close-button"></span>
-          </span>
-        </button>
-        <div class="ib-gallery-title">
-          <h3 class="modal-title" id="galleryTitle"></h3>
-        </div>
-      </div>
-      <div class="modal-body ib-gallery-image-container">
-         <img id="galleryImage" src="" class="img-thumbnail">
-      </div>
-      <div class="modal-footer">
-        <table width="100%">
-          <tr>
-              <td>
-                <span id="galleryPrevious" class="glyphicon glyphicon-chevron-left btn-lg pull-left ib-gallery-scroll-button" aria-hidden="true"></span>
-              </td>
-              <td align="middle">
-                <span id="galleryIndex"></span>
-                  /
-                <span id="galleryImages"></span>
-              </td>
-              <td>
-                <span id="galleryNext" class="glyphicon glyphicon-chevron-right btn-lg pull-right ib-gallery-scroll-button" aria-hidden="true"></span>
-              </td>
-            </tr>
-        </table>
       </div>
     </div>
   </div>
