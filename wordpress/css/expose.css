@@ -69,10 +69,11 @@
 
 .ib-amenities-list {
   list-style-image: url('../img/ok.png');
-  padding-left:3em;
+  padding-left: 3em;
 }
 
 .ib-further-image {
+  display: inline;
   height: 35px;
 }
 
