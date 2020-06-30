@@ -103,9 +103,8 @@ customElements.define('ib-kwhsma', immobrowse.dom.KilowattHoursPerSquareMeterAnd
 */
 immobrowse.dom.addDataFieldCol = function (element, value, list) {
     if (value == null) {
-        if (element.hide || false) {
+        if (element.hide || false)
             return;
-        }
 
         value = immobrowse.config.na;
     }
@@ -165,9 +164,8 @@ immobrowse.dom.DataRow = class extends HTMLDivElement {
         super();
         this.setAttribute('class', 'w3-row w3-centered ib-preview-container');
 
-        for (const child of dataColumns) {
+        for (const child of dataColumns)
             this.appendChild(child);
-        }
     }
 };
 customElements.define('ib-data-row', immobrowse.dom.DataRow, {extends: 'div'});
@@ -219,9 +217,8 @@ immobrowse.dom.TitleCol = class extends HTMLDivElement {
         this.setAttribute('class', 'w3-col m8');
         this.appendChild(titleRow);
 
-        if (addressRow != null) {
+        if (addressRow != null)
             this.appendChild(addressRow);
-        }
     }
 };
 customElements.define('ib-title-col', immobrowse.dom.TitleCol, {extends: 'div'});
@@ -242,9 +239,8 @@ immobrowse.dom.TitleImage = class extends HTMLImageElement {
     constructor (url) {
         super();
 
-        if (url == null) {
+        if (url == null)
             url = 'img/dummy.jpg';
-        }
 
         this.setAttribute('src', url);
         this.setAttribute('class', 'ib-framed-image');
@@ -290,9 +286,8 @@ immobrowse.dom.AmenitiesTags = class extends HTMLDivElement {
         super();
         //this.setAttribute('class', 'ib-preview-tags');
 
-        for (const child of amenities) {
+        for (const child of amenities)
             this.appendChild(child);
-        }
     }
 };
 customElements.define('ib-amenities-tags', immobrowse.dom.AmenitiesTags, {extends: 'div'});
@@ -322,16 +317,17 @@ customElements.define('ib-entry', immobrowse.dom.Entry, {extends: 'div'});
 
 
 immobrowse.dom.PreviewImage = class extends HTMLImageElement {
-    constructor (url) {
+    constructor (url, alt) {
         super();
 
-        if (url == null) {
+        if (url == null)
             url = 'img/dummy.jpg';
-        }
 
         this.setAttribute('src', url);
         this.setAttribute('class', 'ib-further-image');
-        this.setAttribute('alt', 'Bildergalerie');
+
+        if (alt)
+            this.setAttribute('alt', alt);
     }
 };
 customElements.define('ib-preview-iamge', immobrowse.dom.PreviewImage, {extends: 'img'});
@@ -374,9 +370,8 @@ immobrowse.dom.contactEmail = function (
     let streetAndHouseNumber = street;
 
     if (streetAndHouseNumber) {
-        if (houseNumber) {
+        if (houseNumber)
             streetAndHouseNumber += ' ' + houseNumber;
-        }
 
         streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
         body.appendChild(newline());
