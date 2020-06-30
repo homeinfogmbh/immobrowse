@@ -159,10 +159,11 @@ immobrowse.wordpress.postRender = function () {
 
 
 immobrowse.wordpress.setTitleImage = function (image) {
-    console.log('Setting title image.');
     const titleImage = document.getElementById('titleImage');
+    const titleImageCaption = document.getElementById('titleImageCaption');
+
     titleImage.setAttribute('src', image.getAttribute('src'));
-    console.log('Set title image to: ' + image.getAttribute('src'));
+    titleImageCaption.innerHTML = image.getAttribute('alt');
 };
 
 
