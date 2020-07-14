@@ -9,6 +9,64 @@ $IMMOBROWSE_IMAGE_GROUPS = [
 ];
 
 
+function immobrowse_street($immobilie) {
+	if ($immobilie['geo']) {
+		return $immobilie['geo']['strasse'];
+	}
+
+	return null;
+}
+
+function immobrowse_house_number($immobilie) {
+	if ($immobilie['geo']) {
+		return $immobilie['geo']['hausnummer'];
+	}
+
+	return null;
+}
+
+function immobrowse_zip_code($immobilie) {
+	if ($immobilie['geo']) {
+		return $immobilie['geo']['plz'];
+	}
+
+	return null;
+}
+
+function immobrowse_city($immobilie) {
+	if ($immobilie['geo']) {
+		return $immobilie['geo']['ort'];
+	}
+
+	return null;
+}
+
+function immobrowse_district($immobilie) {
+	if ($immobilie['geo']) {
+		return $immobilie['geo']['regionaler_zusatz'];
+	}
+
+	return null;
+}
+
+function immobrowse_street_and_house_number($immobilie) {
+	$street = immobrowse_street($immobilie);
+	$houseNumber = immobrowse_house_number($immobilie);
+	$streetAndHouseNumber = [];
+
+	if ($street)
+		array_push($streetAndHouseNumber, $street);
+
+	if ($houseNumber)
+		array_push($streetAndHouseNumber, $houseNumber);
+
+        if (count(streetAndHouseNumber) > 0) {
+            return implode(' ', streetAndHouseNumber);
+        }
+
+        return null;
+}
+
 function immobrowse_attachments($immobilie) {
 	$anhaenge = $immobilie['anhaenge'];
 
