@@ -10,41 +10,36 @@ $IMMOBROWSE_IMAGE_GROUPS = [
 
 
 function immobrowse_street($immobilie) {
-	if ($immobilie['geo']) {
+	if ($immobilie['geo'])
 		return $immobilie['geo']['strasse'];
-	}
 
 	return null;
 }
 
 function immobrowse_house_number($immobilie) {
-	if ($immobilie['geo']) {
+	if ($immobilie['geo'])
 		return $immobilie['geo']['hausnummer'];
-	}
 
 	return null;
 }
 
 function immobrowse_zip_code($immobilie) {
-	if ($immobilie['geo']) {
+	if ($immobilie['geo'])
 		return $immobilie['geo']['plz'];
-	}
 
 	return null;
 }
 
 function immobrowse_city($immobilie) {
-	if ($immobilie['geo']) {
+	if ($immobilie['geo'])
 		return $immobilie['geo']['ort'];
-	}
 
 	return null;
 }
 
 function immobrowse_district($immobilie) {
-	if ($immobilie['geo']) {
+	if ($immobilie['geo'])
 		return $immobilie['geo']['regionaler_zusatz'];
-	}
 
 	return null;
 }
@@ -60,9 +55,8 @@ function immobrowse_street_and_house_number($immobilie) {
 	if ($houseNumber)
 		array_push($streetAndHouseNumber, $houseNumber);
 
-        if (count($streetAndHouseNumber) > 0) {
+        if (count($streetAndHouseNumber) > 0)
             return implode(' ', $streetAndHouseNumber);
-        }
 
         return null;
 }
@@ -82,9 +76,8 @@ function immobrowse_zip_code_and_city($immobilie) {
 	if ($district && $district != $city)
 		array_push($zipCodeAndCity, $district);
 
-        if (count($zipCodeAndCity) > 0) {
+        if (count($zipCodeAndCity) > 0)
             return implode(' ', $zipCodeAndCity);
-        }
 
         return null;
 }
@@ -100,11 +93,22 @@ function immobrowse_address($immobilie) {
 	if ($zipCodeAndCity)
 		array_push($address, $zipCodeAndCity);
 
-        if (count($address) > 0) {
+        if (count($address) > 0)
             return implode(' ', $address);
-        }
 
         return null;
+}
+
+function immobrowse_address_preview($immobilie) {
+	$strasse = immobrowse_street($immobilie);
+	if (!$strasse)
+		return null;
+
+	$hausnummer = immobrowse_house_number($immobilie);
+	if ($hausnummer)
+		return $strasse . ' ' . $hausnummer;
+
+	return $strasse;
 }
 
 function immobrowse_attachments($immobilie) {
