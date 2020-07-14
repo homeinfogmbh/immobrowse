@@ -146,15 +146,6 @@ function immobrowse_floorplans($immobilie) {
 	}
 }
 
-function immobrowse_district($immobilie) {
-	$geo = $immobilie['geo'];
-
-	if (!$geo)
-		return;
-
-	return $geo['regionaler_zusatz'];
-}
-
 function immobrowse_districts($immobilien) {
 	$districts = array();
 
