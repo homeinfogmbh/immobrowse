@@ -74,6 +74,71 @@ function immobrowse_districts($immobilien) {
 	return $districts;
 }
 
+/*
+ *  Yields human-readable amenities of the real estate.
+ */
 function immobrowse_amenities($immobilie) {
+	$ausstattung = $immobilie['ausstattung'];
+	if ($ausstattung) {
+		if ($ausstattung['rollstuhlgerecht'])
+			yield 'Rollstuhlgerecht';
 
+		if ($ausstattung['stellplatzart']) {
+			if ($ausstattung['stellplatzart']['FREIPLATZ'])
+				yield 'Stellplatz';
+		}
+
+		if ($ausstattung['fahrstuhl']) {
+			if ($ausstattung['fahrstuhl']['PERSONEN'])
+				yield 'Personenaufzug';
+
+			if ($ausstattung['fahrstuhl']['LASTEN'])
+				yield 'Lastenaufzug';
+		}
+
+		if ($ausstattung['gaestewc'])
+			yield 'Gäste WC';
+	}
+
+	$flaechen = $immobilie['flaechen'];
+	if ($flaechen) {
+		if ($flaechen['einliegerwohnung'])
+			yield 'Einliegerwohnung';
+	}
+
+	if ($immobilie['lavatoryDryingRoom'])
+		yield 'Wasch- / Trockenraum';
+
+	if ($immobilie['builtInKitchen'])
+		yield 'Einbauk&uuml;che';
+
+	if ($immobilie['shower'])
+		yield 'Dusche';
+
+	if ($immobilie['bathroomWindow'])
+		yield 'Fenster im Bad';
+
+	if ($immobilie['bathTub'])
+		yield 'Badewanne';
+
+	if ($immobilie['cableSatTv'])
+		yield 'Kabel / Sat. / TV';
+
+	if ($immobilie['barrierFree'])
+		yield 'Barrierefrei';
+
+	if ($immobilie['basementRoom'])
+		yield 'Keller';
+
+	if ($immobilie['balconies'] > 0)
+		yield 'Balkon';
+
+	if ($immobilie['terraces'] > 0)
+		yield 'Terrasse';
+
+	if ($immobilie['petsAllowed'])
+		yield 'Tierhaltung';
+
+	if ($immobilie['gardenUsage'])
+		yield 'Gartennutzung';
 }
