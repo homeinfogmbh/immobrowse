@@ -52,7 +52,7 @@ function immobrowse_district($immobilie) {
 function immobrowse_street_and_house_number($immobilie) {
 	$street = immobrowse_street($immobilie);
 	$houseNumber = immobrowse_house_number($immobilie);
-	$streetAndHouseNumber = [];
+	$streetAndHouseNumber = array();
 
 	if ($street)
 		array_push($streetAndHouseNumber, $street);
@@ -60,8 +60,48 @@ function immobrowse_street_and_house_number($immobilie) {
 	if ($houseNumber)
 		array_push($streetAndHouseNumber, $houseNumber);
 
-        if (count(streetAndHouseNumber) > 0) {
-            return implode(' ', streetAndHouseNumber);
+        if (count($streetAndHouseNumber) > 0) {
+            return implode(' ', $streetAndHouseNumber);
+        }
+
+        return null;
+}
+
+function immobrowse_zip_code_and_city($immobilie) {
+	$zipCode = immobrowse_zip_code($immobilie);
+	$city = immobrose_city($immobilie);
+	$district = immobrowse_district($immobilie);
+	$zipCodeAndCity = array();
+
+	if ($zipCode)
+		array_push($zipCodeAndCity, $zipCode);
+
+	if ($city)
+		array_push($zipCodeAndCity, $city);
+
+	if ($district && $district != $city)
+		array_push($zipCodeAndCity, $district);
+
+        if (count($zipCodeAndCity) > 0) {
+            return implode(' ', $zipCodeAndCity);
+        }
+
+        return null;
+}
+
+function immobrowse_address($immobilie) {
+	$streetAndHouseNumber = immobrowse_street_and_house_number($immobilie);
+	$zipCodeAndCity = immobrowse_zip_code_and_city($immobilie);
+	$address = array();
+
+	if ($streetAndHouseNumber)
+		array_push($address, $streetAndHouseNumber);
+
+	if ($zipCodeAndCity)
+		array_push($address, $zipCodeAndCity);
+
+        if (count($address) > 0) {
+            return implode(' ', $address);
         }
 
         return null;
