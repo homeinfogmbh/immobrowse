@@ -122,10 +122,8 @@ function immobrowse_city_preview($immobilie) {
 }
 
 function immobrowse_object_title($immobilie) {
-	if ($immobilie['freitexte']) {
-		if ($immobilie['freitexte']['objekttitel'])
-			return $immobilie['freitexte']['objekttitel'];
-	}
+	if ($immobilie['freitexte'] && $immobilie['freitexte']['objekttitel'])
+		return $immobilie['freitexte']['objekttitel'];
 
 	$title = '';
 	$rooms = immobrowse_rooms($immobilie);
