@@ -142,3 +142,42 @@ function immobrowse_amenities($immobilie) {
 	if ($immobilie['gardenUsage'])
 		yield 'Gartennutzung';
 }
+
+function immobrowse_service_charge($immobilie) {
+	if ($immobilie['preise']) {
+		if ($immobilie['preise']['nebenkosten'])
+			return $immobilie['preise']['nebenkosten'];
+	}
+
+	return null;
+}
+
+function immobrowse_operational_costs($immobilie) {
+	if ($immobilie['preise']) {
+		if ($immobilie['preise']['betriebskostennetto'])
+			return $immobilie['preise']['betriebskostennetto'];
+	}
+
+	return null;
+}
+
+function immobrowse_heating_costs($immobilie) {
+	if ($immobilie['preise'])
+		return $immobilie['preise']['heizkosten'];
+
+	return null;
+}
+
+function immobrowse_heating_costs_in_service_change($immobilie) {
+	if ($immobilie['preise'])
+		return $immobilie['preise']['heizkosten_enthalten'];
+
+	return null;
+}
+
+function immobrowse_security_deposit($immobilie) {
+	if ($immobilie['preise'])
+		return $immobilie['preise']['kaution'];
+
+	return null;
+}
