@@ -111,6 +111,38 @@ function immobrowse_address_preview($immobilie) {
 	return $strasse;
 }
 
+function immobrowse_city_preview($immobilie) {
+	if (!$immobilie['geo'] || !$immobilie['geo']['ort'])
+		return 'N/A';
+
+	if (!$immobilie['geo']['regionaler_zusatz'] || $immobilie['geo']['regionaler_zusatz'] == $immobilie['geo']['ort'])
+		return $immobilie['geo']['ort'];
+
+	return $immobilie['geo']['ort'] . ' ' . $immobilie['geo']['regionaler_zusatz'];
+}
+
+function immobrowse_object_title($immobilie) {
+	if ($immobilie['freitexte']) {
+		if ($immobilie['freitexte']['objekttitel'])
+			return $immobilie['freitexte']['objekttitel'];
+	}
+
+	$title = '';
+	$rooms = immobrowse_rooms($immobilie);
+
+	if ($rooms)
+		$title .= 'Wohnunh | ';
+	else
+		$title .= $rooms . ' Zimmer Wohnung | ';
+
+	if (immobrowse_show_address($immobilie)) {
+		$title .= immobrowse_address_preview($immobilie) || 'N/A';
+		$title .= ' | ';
+	}
+
+	return $title . immobrowse_city_preview($immobilie);
+}
+
 function immobrowse_attachments($immobilie) {
 	$anhaenge = $immobilie['anhaenge'];
 
