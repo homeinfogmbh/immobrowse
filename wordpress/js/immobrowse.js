@@ -297,6 +297,45 @@ immobrowse.districtElements = function* (realEstates) {
 
 
 /*
+  Returns a human readable primary energy source.
+*/
+immobrowse.translatePrimaerenergietraeger = function (primaerenergietraeger) {
+    switch (primaerenergietraeger) {
+    case 'OEL':
+        return 'Öl';
+    case 'GAS':
+        return 'Gas';
+    case 'ELEKTRO':
+        return 'Elektisch';
+    case 'ALTERNATIV':
+        return 'Alternativ';
+    case 'SOLAR':
+        return 'Solar';
+    case 'ERDWAERME':
+        return 'Erdwärme';
+    case 'LUFTWP':
+        return 'Wärmepumpe Luft-Wasser';
+    case 'FERN':
+        return 'Fernwärme';
+    case 'BLOCK':
+        return 'Blockheizkraftwerk';
+    case 'WASSER-ELEKTRO':
+        return 'Ergänzendes dezentrales Warmwasser';
+    case 'PELLET':
+        return 'Pellet';
+    case 'KOHLE':
+        return 'Kohle';
+    case 'HOLZ':
+        return 'Holz';
+    case 'FLUESSIGGAS':
+        return 'Flüssiggas';
+    }
+
+    return primaerenergietraeger;
+};
+
+
+/*
   Opens the respective URL.
 */
 immobrowse.open = function (url) {
@@ -1115,41 +1154,6 @@ immobrowse.RealEstate = class {
         return true;
     }
 
-    translatePrimaerenergietraeger (primaerenergietraeger) {
-        switch (primaerenergietraeger) {
-        case 'OEL':
-            return 'Öl';
-        case 'GAS':
-            return 'Gas';
-        case 'ELEKTRO':
-            return 'Elektisch';
-        case 'ALTERNATIV':
-            return 'Alternativ';
-        case 'SOLAR':
-            return 'Solar';
-        case 'ERDWAERME':
-            return 'Erdwärme';
-        case 'LUFTWP':
-            return 'Wärmepumpe Luft-Wasser';
-        case 'FERN':
-            return 'Fernwärme';
-        case 'BLOCK':
-            return 'Blockheizkraftwerk';
-        case 'WASSER-ELEKTRO':
-            return 'Ergänzendes dezentrales Warmwasser';
-        case 'PELLET':
-            return 'Pellet';
-        case 'KOHLE':
-            return 'Kohle';
-        case 'HOLZ':
-            return 'Holz';
-        case 'FLUESSIGGAS':
-            return 'Flüssiggas';
-        }
-
-        return primaerenergietraeger;
-    }
-
     matchTypes (types) {
         if (types == null) {
             return true;
@@ -1676,7 +1680,7 @@ immobrowse.RealEstate = class {
         }
 
         if (energiepass.primaerenergietraeger != null) {
-            energyCertificate.primaryEnergyCarrier = this.translatePrimaerenergietraeger(energiepass.primaerenergietraeger);
+            energyCertificate.primaryEnergyCarrier = immobrowse.translatePrimaerenergietraeger(energiepass.primaerenergietraeger);
         }
 
         if (energiepass.wertklasse != null && energiepass.wertklasse != '') {
