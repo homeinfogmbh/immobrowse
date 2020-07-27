@@ -7,41 +7,46 @@ $IMMOBROWSE_IMAGE_GROUPS = [
 	'INNENANSICHTEN',
 	'ANBIETERLOGO'
 ];
+$IMMOBROWSE_AREAS = [
+	'gesamtflaeche',
+	'nutzflaeche',
+	'wohnflaeche'
+];
 
 
 function immobrowse_street($immobilie) {
-	if ($immobilie['geo'])
-		return $immobilie['geo']['strasse'];
+	if ($immobilie->geo)
+		return $immobilie->geo->strasse;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_house_number($immobilie) {
-	if ($immobilie['geo'])
-		return $immobilie['geo']['hausnummer'];
+	if ($immobilie->geo)
+		return $immobilie->geo->hausnummer;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_zip_code($immobilie) {
-	if ($immobilie['geo'])
-		return $immobilie['geo']['plz'];
+	if ($immobilie->geo)
+		return $immobilie->geo->plz;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_city($immobilie) {
-	if ($immobilie['geo'])
-		return $immobilie['geo']['ort'];
+	if ($immobilie->geo)
+		return $immobilie->geo->ort;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_district($immobilie) {
-	if ($immobilie['geo'])
-		return $immobilie['geo']['regionaler_zusatz'];
+	if ($immobilie->geo)
+		return $immobilie->geo->regionaler_zusatz;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_street_and_house_number($immobilie) {
@@ -58,7 +63,7 @@ function immobrowse_street_and_house_number($immobilie) {
         if (count($streetAndHouseNumber) > 0)
             return implode(' ', $streetAndHouseNumber);
 
-        return null;
+        return NULL;
 }
 
 function immobrowse_zip_code_and_city($immobilie) {
@@ -79,7 +84,7 @@ function immobrowse_zip_code_and_city($immobilie) {
         if (count($zipCodeAndCity) > 0)
             return implode(' ', $zipCodeAndCity);
 
-        return null;
+        return NULL;
 }
 
 function immobrowse_address($immobilie) {
@@ -96,13 +101,13 @@ function immobrowse_address($immobilie) {
         if (count($address) > 0)
             return implode(' ', $address);
 
-        return null;
+        return NULL;
 }
 
 function immobrowse_address_preview($immobilie) {
 	$strasse = immobrowse_street($immobilie);
 	if (!$strasse)
-		return null;
+		return NULL;
 
 	$hausnummer = immobrowse_house_number($immobilie);
 	if ($hausnummer)
@@ -112,73 +117,334 @@ function immobrowse_address_preview($immobilie) {
 }
 
 function immobrowse_city_preview($immobilie) {
-	if (!$immobilie['geo'] || !$immobilie['geo']['ort'])
+	if ($immobilie->geo == NULL || $immobilie->geo->ort == NULL)
 		return 'N/A';
 
-	if (!$immobilie['geo']['regionaler_zusatz'] || $immobilie['geo']['regionaler_zusatz'] == $immobilie['geo']['ort'])
-		return $immobilie['geo']['ort'];
+	if ($immobilie->geo->regionaler_zusatz == NULL || $immobilie->geo->regionaler_zusatz == $immobilie->geo->ort)
+		return $immobilie->geo->ort;
 
-	return $immobilie['geo']['ort'] . ' ' . $immobilie['geo']['regionaler_zusatz'];
+	return $immobilie->geo->ort . ' ' . $immobilie->geo->regionaler_zusatz;
 }
 
 function immobrowse_object_title($immobilie) {
-	if ($immobilie['freitexte'] && $immobilie['freitexte']['objekttitel'])
-		return $immobilie['freitexte']['objekttitel'];
+	if ($immobilie->freitexte && $immobilie->freitexte->objekttitel)
+		return $immobilie->freitexte->objekttitel;
 
 	$title = '';
 	$rooms = immobrowse_rooms($immobilie);
 
 	if ($rooms)
-		$title .= 'Wohnunh | ';
+		$title .= 'Wohnung | ';
 	else
 		$title .= $rooms . ' Zimmer Wohnung | ';
 
-	if (immobrowse_show_address($immobilie)) {
-		$title .= immobrowse_address_preview($immobilie) || 'N/A';
-		$title .= ' | ';
-	}
+	if (immobrowse_show_address($immobilie))
+		$title .= (immobrowse_address_preview($immobilie) || 'N/A') . ' | ';
 
 	return $title . immobrowse_city_preview($immobilie);
 }
 
 function immobrowse_attachments($immobilie) {
-	$anhaenge = $immobilie['anhaenge'];
-
-	if (!$anhaenge)
+	if (!$immobilie->anhaenge || !$immobilie->anhaenge->anhang)
 		return;
 
-	$anhaenge = $anhaenge['anhang'];
-
-	if (!$anhaenge || empty($anhaenge))
-		return;
-
-	foreach ($anhaenge as $anhang)
+	foreach ($immobilie->anhaenge->anhang as $anhang)
 		yield $anhang;
 }
 
 function immobrowse_images($immobilie) {
-	$anhaenge = immobrowse_attachments($immobilie);
-
-	if (!$anhaenge || empty($anhaenge))
-		return;
-
-	foreach ($anhaenge['anhang'] as $anhang) {
-		if (in_array($anhang['gruppe'], $IMMOBROWSE_IMAGE_GROUPS)
+	foreach (immobrowse_attachments($immobilie) as $anhang) {
+		if (in_array($anhang->gruppe, $IMMOBROWSE_IMAGE_GROUPS))
 			yield $anhang;
 	}
 }
 
 function immobrowse_floorplans($immobilie) {
-	$anhaenge = immobrowse_attachments($immobilie);
-
-	if (!$anhaenge || empty($anhaenge))
-		return;
-
-	foreach ($anhaenge['anhang'] as $anhang) {
-		if ($anhang['gruppe'] == 'GRUNDRISS')
+	foreach (immobrowse_attachments($immobilie) as $anhang) {
+		if ($anhang->gruppe == 'GRUNDRISS')
 			yield $anhang;
 	}
 }
+
+function immobrowse_title_image($immobilie) {
+	foreach (immobrowse_attachments($immobilie) as $anhang) {
+		if ($anhang->gruppe == 'TITELBILD')
+			return $anhang;
+	}
+
+	foreach (immobrowse_attachments($immobilie) as $anhang) {
+		if ($anhang->gruppe == 'AUSSENANSICHTEN')
+			return $anhang;
+	}
+
+	foreach (immobrowse_attachments($immobilie) as $anhang) {
+		if ($anhang->gruppe == 'BILD')
+			return $anhang;
+	}
+
+	foreach (immobrowse_attachments($immobilie) as $anhang) {
+		if ($anhang->gruppe == 'GRUNDRISS')
+			return $anhang;
+	}
+}
+
+function immobrowse_rooms($immobilie) {
+	if ($immobilie->flaechen)
+		return $immobilie->flaechen->anzahl_zimmer;
+
+	return NULL;
+}
+
+function immobrowse_bathrooms($immobilie) {
+	if ($immobilie->flaechen)
+		return $immobilie->flaechen->anzahl_badezimmer;
+
+	return NULL;
+}
+
+function immobrowse_bedrooms($immobilie) {
+	if ($immobilie->flaechen)
+		return $immobilie->flaechen->anzahl_schlafzimmer;
+
+	return NULL;
+}
+
+function immobrowse_types($immobilie) {
+	if (!$immobilie->objektkategorie || !$immobilie->objektkategorie->objektart)
+		return [];
+
+	if ($immobilie->objektkategorie->objektart->zimmer)
+		return $immobilie->objektkategorie->objektart->zimmer;
+
+	if ($immobilie->objektkategorie->objektart->wohnung)
+		return $immobilie->objektkategorie->objektart->wohnung;
+
+	if ($immobilie->objektkategorie->objektart->haus)
+		return $immobilie->objektkategorie->objektart->haus;
+
+	if ($immobilie->objektkategorie->objektart->grundstueck)
+		return $immobilie->objektkategorie->objektart->grundstueck;
+
+	if ($immobilie->objektkategorie->objektart->buero_praxen)
+		return $immobilie->objektkategorie->objektart->buero_praxen;
+
+	if ($immobilie->objektkategorie->objektart->einzelhandel)
+		return $immobilie->objektkategorie->objektart->einzelhandel;
+
+	if ($immobilie->objektkategorie->objektart->gastgewerbe)
+		return $immobilie->objektkategorie->objektart->gastgewerbe;
+
+	if ($immobilie->objektkategorie->objektart->hallen_lager_prod)
+		return $immobilie->objektkategorie->objektart->hallen_lager_prod;
+
+	if ($immobilie->objektkategorie->objektart->land_und_forstwirtschaft)
+		return $immobilie->objektkategorie->objektart->land_und_forstwirtschaft;
+
+	if ($immobilie->objektkategorie->objektart->parken)
+		return $immobilie->objektkategorie->objektart->parken;
+
+	if ($immobilie->objektkategorie->objektart->sonstige)
+		return $immobilie->objektkategorie->objektart->sonstige;
+
+	if ($immobilie->objektkategorie->objektart->freizeitimmobilie_gewerblich)
+		return $immobilie->objektkategorie->objektart->freizeitimmobilie_gewerblich;
+
+	if ($immobilie->objektkategorie->objektart->zinshaus_renditeobjekt)
+		return $immobilie->objektkategorie->objektart->zinshaus_renditeobjekt;
+
+	return [];
+}
+
+function immobrowse_type($immobilie) {
+	foreach (immobrowse_types($immobilie) as $type)
+		return ucfirst(strtolower($type));
+}
+
+function immobrowse_garden_usage($immobilie) {
+	if ($immobilie->ausstattung)
+		return $immobilie->aussttattung->gartennutzung;
+
+	return NULL;
+}
+
+function immobrowse_pets_allowed($immobilie) {
+	if ($immobilie->verwaltung_objekt)
+		return $immobilie->verwaltung_objekt->haustiere;
+
+	return NULL;
+}
+
+function immobrowse_area($immobilie) {
+	if (!$immobilie->flaechen)
+		return NULL;
+
+	if ($immobilie->flaechen->wohnflaeche)
+		return $immobilie->flaechen->wohnflaeche;
+
+	if ($immobilie->flaechen->nutzflaeche)
+		return $immobilie->flaechen->nutzflaeche;
+
+	return $immobilie->flaechen->gesamtflaeche;
+}
+
+function immobrowse_net_cold_rent($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->nettokaltmiete;
+
+	return NULL;
+}
+
+function immobrowse_cold_rent($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->kaltmiete;
+
+	return NULL;
+}
+
+function immobrowse_warm_rent($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->warmmiete;
+
+	return NULL;
+}
+
+function immobrowse_rent($immobilie) {
+	$netColdRent = immobrowse_net_cold_rent($immobilie);
+
+	if ($netColdRent)
+		return $netColdRent;
+
+	return immobrowse_cold_rent($immobilie);
+}
+
+function immobrowse_totaled_up_rent($immobilie) {
+	$rent = immobrowse_rent($immobilie);
+
+	if (!$rent)
+		return NULL;
+
+	$operationalCosts = immobrowse_operational_costs($immobilie) || 0;
+	$heatingCosts = immobrowse_heating_costs($immobilie) || 0;
+	return $rent + $operationalCosts + $heatingCosts;
+}
+
+function immobrowse_total_rent($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->gesamtmietenetto;
+
+	return NULL;
+}
+
+function immobrowse_cable_sat_tv($immobilie) {
+	if ($immobilie->ausstattung)
+		return $immobilie->ausstattung->kabel_sat_tv;
+
+	return NULL;
+}
+
+function immobrowse_built_in_kitchen($immobilie) {
+	if ($immobilie->ausstattung && $immobilie->ausstattung->kueche)
+		return $immobilie->ausstattung->kueche->EBK;
+
+	return NULL;
+}
+
+function immobrowse_basement_room($immobilie) {
+	if ($immobilie->ausstattung)
+		return $immobilie->ausstattung->unterkellert;
+
+	return NULL;
+}
+
+function immobrowse_balconies($immobilie) {
+	if ($immobilie->flaechen)
+		return $immobilie->flaechen->anzahl_balkone;
+
+	return NULL;
+}
+
+function immobrowse_terraces($immobilie) {
+	if ($immobilie->flaechen)
+		return $immobilie->flaechen->anzahl_terrassen;
+
+	return NULL;
+}
+
+function immobrowse_shower($immobilie) {
+	if ($immobilie->ausstattung && $immobilie->ausstattung->bad)
+		return $immobilie->ausstattung->bad->DUSCHE;
+
+	return NULL;
+}
+
+function immobrowse_bath_tub($immobilie) {
+	if ($immobilie->ausstattung && $immobilie->ausstattung->bad)
+		return $immobilie->ausstattung->bad->WANNE;
+
+	return NULL;
+}
+
+function immobrowse_bathroom_window($immobilie) {
+	if ($immobilie->ausstattung && $immobilie->ausstattung->bad)
+		return $immobilie->ausstattung->bad->FENSTER;
+
+	return NULL;
+}
+
+function immobrowse_lavatory_drying_room($immobilie) {
+	if ($immobilie->ausstattung)
+		return $immobilie->ausstattung->wasch_trockenraum;
+
+	return NULL;
+}
+
+function immobrowse_barrier_free($immobilie) {
+	if ($immobilie->ausstattung)
+		return $immobilie->ausstattung->barrierefrei;
+
+	return NULL;
+}
+
+function immobrowse_object_types($immobilie) {
+	if (!$immobilie->objektkategorie || !$immobilie->objektkategorie->objektart)
+		return;
+
+	if ($immobilie->objektkategorie->objektart->zimmer)
+		yield 'ZIMMER';
+
+	if ($immobilie->objektkategorie->objektart->wohnung) {
+		yield 'WOHNUNG';
+
+		foreach ($immobilie->objektkategorie->objektart->wohnung as $type)
+			yield $type;
+	}
+}
+
+function immobrowse_marketing_types($immobilie) {
+	if (!$immobilie->objektkategorie || !$immobilie->objektkategorie->vermarktungsart)
+		return;
+
+	if ($immobilie->objektkategorie->vermarktungsart->KAUF)
+		yield 'KAUF';
+
+	if ($immobilie->objektkategorie->vermarktungsart->MIETE_PACHT)
+		yield 'MIETE_PACHT';
+
+	if ($immobilie->objektkategorie->vermarktungsart->ERBPACHT)
+		yield 'ERBPACHT';
+
+	if ($immobilie->objektkategorie->vermarktungsart->LEASING)
+		yield 'LEASING';
+}
+
+function immobrowse_show_address($immobilie) {
+	if ($immobilie->verwaltung_objekt)
+		return $immobilie->verwaltung_objekt->objektadresse_freigeben;
+
+	return FALSE;
+}
+
+function
 
 function immobrowse_districts($immobilien) {
 	$districts = array();
