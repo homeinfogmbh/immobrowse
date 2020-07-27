@@ -111,7 +111,7 @@ function immobrowse_address_preview($immobilie) {
 
 	$hausnummer = immobrowse_house_number($immobilie);
 	if ($hausnummer)
-		return $strasse . ' ' . $hausnummer;
+		return "$strasse $hausnummer";
 
 	return $strasse;
 }
@@ -123,25 +123,26 @@ function immobrowse_city_preview($immobilie) {
 	if ($immobilie->geo->regionaler_zusatz == NULL || $immobilie->geo->regionaler_zusatz == $immobilie->geo->ort)
 		return $immobilie->geo->ort;
 
-	return $immobilie->geo->ort . ' ' . $immobilie->geo->regionaler_zusatz;
+	return "$immobilie->geo->ort $immobilie->geo->regionaler_zusatz";
 }
 
 function immobrowse_object_title($immobilie) {
 	if ($immobilie->freitexte && $immobilie->freitexte->objekttitel)
 		return $immobilie->freitexte->objekttitel;
 
-	$title = '';
 	$rooms = immobrowse_rooms($immobilie);
 
 	if ($rooms)
-		$title .= 'Wohnung | ';
+		$title = "$rooms Zimmer Wohnung |";
 	else
-		$title .= $rooms . ' Zimmer Wohnung | ';
+		$title = 'Wohnung |';
 
 	if (immobrowse_show_address($immobilie))
-		$title .= (immobrowse_address_preview($immobilie) || 'N/A') . ' | ';
+		$address = immobrowse_address_preview($immobilie) || 'N/A';
+	else
+		$address = immobrowse_city_preview($immobilie) || 'N/A';
 
-	return $title . immobrowse_city_preview($immobilie);
+	return "$title $address";
 }
 
 function immobrowse_attachments($immobilie) {
@@ -444,7 +445,44 @@ function immobrowse_show_address($immobilie) {
 	return FALSE;
 }
 
-function
+function immobrowse_match_types($immobilie, $types) {
+	if (!$types)
+		return TRUE;
+
+	$ownTypes = iterator_to_array(immobrowse_object_types($immobilie));
+
+	foreach ($types as $type) {
+		if (in_array($type, $ownTypes))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+function immobrowse_match_marketing($immobilie, $types) {
+	if (!$types)
+		return TRUE;
+
+	$ownTypes = iterator_to_array(immobrowse_marketing_types($immobilie));
+
+	foreach ($types as $type) {
+		if (in_array($type, $ownTypes))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+function immobrowse_object_id($immobilie) {
+	return $immobilie->verwaltung_techn->objektnr_extern;
+}
+
+function immobrowse_attachment_url($anhang) {
+	if ($anhang)
+		return "https://backend.homeinfo.de/immobrowse/attachment/$anhang->id";
+
+	return NULL;
+}
 
 function immobrowse_districts($immobilien) {
 	$districts = array();
