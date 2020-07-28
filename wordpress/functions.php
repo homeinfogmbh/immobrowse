@@ -189,6 +189,11 @@ function immobrowse_title_image($immobilie) {
 	}
 }
 
+function immobrowse_floorplan($immobilie) {
+	foreach (immobrowse_floorplans($immobilie) as $floorplan)
+		return $floorplan;
+}
+
 function immobrowse_rooms($immobilie) {
 	if ($immobilie->flaechen)
 		return $immobilie->flaechen->anzahl_zimmer;
@@ -484,6 +489,82 @@ function immobrowse_attachment_url($anhang) {
 	return NULL;
 }
 
+function immobrowse_default_details_url($immobilie, $baseURL) {
+	if (!$baseURL)
+		return NULL;
+
+	return "$baseURL?real_estate=$immobilie->id";
+}
+
+function immobrowse_details_url($immobilie, $options) {
+	if ($options['exposeURLCallback'])
+		return $options['exposeURLCallback'];
+
+	if ($options['detailsURL'])
+		return immobrowse_default_details_url($immobilie, $options['detailsURL']);
+
+	return immobrowse_default_details_url($immobilie, 'expose.html');
+}
+
+function immobrowse_miscellanea($immobilie) {
+	if ($immobilie->freitexte)
+		return $immobilie->freitexte->sonstige_angaben;
+
+	return NULL;
+}
+
+function immobrowse_description($immobilie) {
+	if ($immobilie->freitexte)
+		return $immobilie->freitexte->objektbeschreibung;
+
+	return NULL;
+}
+
+function immobrowse_exposure($immobilie) {
+	if ($immobilie->freitexte)
+		return $immobilie->freitexte->lage;
+
+	return NULL;
+}
+
+function immobrowse_amenities_description($immobilie) {
+	if ($immobilie->freitexte)
+		return $immobilie->freitexte->ausstatt_beschr;
+
+	return NULL;
+}
+
+function immobrowse_floor($immobilie, $options) {
+	if ($options['shortFloorNames']) {
+		$dg = 'DG';
+		$og = 'OG';
+		$eg = 'EG';
+		$ug = 'UG';
+	} else {
+		$dg = 'Dachgeschoss';
+		$og = 'Obergeschoss';
+		$eg = 'Erdgeschoss';
+		$ug = 'Untergeschoss';
+	}
+
+	if ($immobilie->geo && $immobilie->geo->etage !== NULL) {
+		if ($immobilie->geo->anzahl_etagen !== NULL) {
+			if ($immobilie->geo->etage == $immobilie->geo->anzahl_etagen)
+				return dg;
+		}
+
+		if ($immobilie->geo->etage < 0)
+			return -$immobilie->geo->etage . ". $ug";
+
+		if ($immobilie->geo->etage > 0)
+			return "$immobilie->geo->etage. $og";
+
+		return $eg;
+	}
+
+	return NULL;
+}
+
 function immobrowse_districts($immobilien) {
 	$districts = array();
 
@@ -505,68 +586,64 @@ function immobrowse_districts($immobilien) {
  *  Yields human-readable amenities of the real estate.
  */
 function immobrowse_amenities($immobilie) {
-	$ausstattung = $immobilie['ausstattung'];
-	if ($ausstattung) {
-		if ($ausstattung['rollstuhlgerecht'])
+	if ($immobilie->ausstattung) {
+		if ($immobilie->ausstattung->rollstuhlgerecht)
 			yield 'Rollstuhlgerecht';
 
-		if ($ausstattung['stellplatzart']) {
-			if ($ausstattung['stellplatzart']['FREIPLATZ'])
-				yield 'Stellplatz';
-		}
+		if ($immobilie->ausstattung->stellplatzart)
+			yield 'Stellplatz';
 
-		if ($ausstattung['fahrstuhl']) {
-			if ($ausstattung['fahrstuhl']['PERSONEN'])
+		if ($immobilie->ausstattung->fahrstuhl) {
+			if ($immobilie->ausstattung->fahrstuhl->PERSONEN)
 				yield 'Personenaufzug';
 
-			if ($ausstattung['fahrstuhl']['LASTEN'])
+			if ($immobilie->ausstattung->fahrstuhl->LASTEN)
 				yield 'Lastenaufzug';
 		}
 
-		if ($ausstattung['gaestewc'])
+		if ($immobilie->ausstattung->gaestewc)
 			yield 'Gäste WC';
 	}
 
-	$flaechen = $immobilie['flaechen'];
-	if ($flaechen) {
-		if ($flaechen['einliegerwohnung'])
+	if ($immobilie->flaechen) {
+		if ($immobilie->flaechen->einliegerwohnung)
 			yield 'Einliegerwohnung';
 	}
 
-	if ($immobilie['lavatoryDryingRoom'])
+	if (immobrowse_lavatory_drying_room($immobilie))
 		yield 'Wasch- / Trockenraum';
 
-	if ($immobilie['builtInKitchen'])
+	if (immobrowse_built_in_kitchen($immobilie))
 		yield 'Einbauk&uuml;che';
 
-	if ($immobilie['shower'])
+	if (immobrowse_shower($immobilie))
 		yield 'Dusche';
 
-	if ($immobilie['bathroomWindow'])
+	if (immobrowse_bathroom_window($immobilie))
 		yield 'Fenster im Bad';
 
-	if ($immobilie['bathTub'])
+	if (immobrowse_bath_tub($immobilie))
 		yield 'Badewanne';
 
-	if ($immobilie['cableSatTv'])
+	if (immobrowse_cable_sat_tv($immobilie))
 		yield 'Kabel / Sat. / TV';
 
-	if ($immobilie['barrierFree'])
+	if (immobrowse_barrier_free($immobilie))
 		yield 'Barrierefrei';
 
-	if ($immobilie['basementRoom'])
+	if (immobrowse_basement_room($immobilie))
 		yield 'Keller';
 
-	if ($immobilie['balconies'] > 0)
+	if (immobrowse_balconies($immobilie))
 		yield 'Balkon';
 
-	if ($immobilie['terraces'] > 0)
+	if (immobrowse_terraces($immobilie))
 		yield 'Terrasse';
 
-	if ($immobilie['petsAllowed'])
+	if (immobrowse_pets_allowed($immobilie))
 		yield 'Tierhaltung';
 
-	if ($immobilie['gardenUsage'])
+	if (immobrowse_garden_usage($immobilie))
 		yield 'Gartennutzung';
 }
 
