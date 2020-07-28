@@ -60,10 +60,10 @@ function immobrowse_street_and_house_number($immobilie) {
 	if ($houseNumber)
 		array_push($streetAndHouseNumber, $houseNumber);
 
-        if (count($streetAndHouseNumber) > 0)
-            return implode(' ', $streetAndHouseNumber);
+		if (count($streetAndHouseNumber) > 0)
+			return implode(' ', $streetAndHouseNumber);
 
-        return NULL;
+		return NULL;
 }
 
 function immobrowse_zip_code_and_city($immobilie) {
@@ -81,10 +81,10 @@ function immobrowse_zip_code_and_city($immobilie) {
 	if ($district && $district != $city)
 		array_push($zipCodeAndCity, $district);
 
-        if (count($zipCodeAndCity) > 0)
-            return implode(' ', $zipCodeAndCity);
+		if (count($zipCodeAndCity) > 0)
+			return implode(' ', $zipCodeAndCity);
 
-        return NULL;
+		return NULL;
 }
 
 function immobrowse_address($immobilie) {
@@ -98,10 +98,10 @@ function immobrowse_address($immobilie) {
 	if ($zipCodeAndCity)
 		array_push($address, $zipCodeAndCity);
 
-        if (count($address) > 0)
-            return implode(' ', $address);
+		if (count($address) > 0)
+			return implode(' ', $address);
 
-        return NULL;
+		return NULL;
 }
 
 function immobrowse_address_preview($immobilie) {
@@ -648,40 +648,130 @@ function immobrowse_amenities($immobilie) {
 }
 
 function immobrowse_service_charge($immobilie) {
-	if ($immobilie['preise']) {
-		if ($immobilie['preise']['nebenkosten'])
-			return $immobilie['preise']['nebenkosten'];
-	}
+	if ($immobilie->preise)
+		return $immobilie->preise->nebenkosten;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_operational_costs($immobilie) {
-	if ($immobilie['preise']) {
-		if ($immobilie['preise']['betriebskostennetto'])
-			return $immobilie['preise']['betriebskostennetto'];
-	}
+	if ($immobilie->preise)
+		return $immobilie->preise->betriebskostennetto;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_heating_costs($immobilie) {
-	if ($immobilie['preise'])
-		return $immobilie['preise']['heizkosten'];
+	if ($immobilie->preise)
+		return $immobilie->preise->heizkosten;
 
-	return null;
+	return NULL;
 }
 
-function immobrowse_heating_costs_in_service_change($immobilie) {
-	if ($immobilie['preise'])
-		return $immobilie['preise']['heizkosten_enthalten'];
+function immobrowse_heating_costs_in_service_charge($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->heizkosten_enthalten;
 
-	return null;
+	return NULL;
 }
 
 function immobrowse_security_deposit($immobilie) {
-	if ($immobilie['preise'])
-		return $immobilie['preise']['kaution'];
+	if ($immobilie->preise)
+		return $immobilie->preise->kaution;
 
-	return null;
+	return NULL;
+}
+
+function immobrowse_provision($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->provisionnetto;
+
+	return NULL;
+}
+
+function immobrowse_subject_to_commission($immobilie) {
+	if ($immobilie->preise)
+		return $immobilie->preise->provisionspflichtig;
+
+	return NULL;
+}
+
+function immobrowse_living_area($immobilie) {
+	if ($immobilie->flaechen)
+		return $immobilie->flaechen->wohnflaeche;
+
+	return NULL;
+}
+
+function immobrowse_available_from($immobilie) {
+	if ($immobilie->verwaltung_objekt) {
+		if ($immobilie->verwaltung_objekt->abdatum) {
+			$time = strtotime($immobilie->verwaltung_objekt->abdatum);
+			return date('dd.mm.YYYY', $time);
+		}
+
+		return $immobilie->verwaltung_objekt->verfuegbar_ab;
+	}
+
+	return NULL;
+}
+
+function immobrowse_council_flat($immobilie) {
+	if ($immobilie->verwaltung_objekt)
+		return $immobilie->verwaltung_objekt->wbs_sozialwohnung;
+
+	return NULL;
+}
+
+function immobrowse_contruction_year($immobilie) {
+	if ($immobilie->zustand_angaben)
+		return $immobilie->zustand_angaben->baujahr;
+
+	return NULL;
+}
+
+function immobrowse_state($immobilie) {
+	if ($immobilie->zustand_angaben) {
+		switch ($immobilie->zustand_angaben->zustand) {
+		case 'ERSTBEZUG':
+			return 'Erstbezug';
+		case 'TEIL_VOLLRENOVIERUNGSBED':
+			return 'Teil-/Vollrenovierungsbedürftig';
+		case 'NEUWERTIG':
+			return 'Neuwertig';
+		case 'TEIL_VOLLRENOVIERT':
+			return 'Teil-/Vollrenoviert';
+		case 'TEIL_SANIERT':
+			return 'Teilsaniert';
+		case 'VOLL_SANIERT':
+			return 'Vollsaniert';
+		case 'SANIERUNGSBEDUERFTIG':
+			return 'Sanierungsbedürftig';
+		case 'BAUFAELLIG':
+			return 'Baufällig';
+		case 'NACH_VEREINBARUNG':
+			return 'Nach Vereinbarung';
+		case 'MODERNISIERT':
+			return 'Modernisiert';
+		case 'GEPFLEGT':
+			return 'Gepflegt';
+		case 'ROHBAU':
+			return 'Rohbau';
+		case 'ENTKERNT':
+			return 'Entkernt';
+		case 'ABRISSOBJEKT':
+			return 'Abrissobjekt';
+		case 'PROJEKTIERT':
+			return 'Projektiert';
+		}
+	}
+
+	return NULL;
+}
+
+function immobrowse_last_modernization($immobilie) {
+	if ($immobilie->zustand_angaben)
+		return $immobilie->zustand_angaben->letztemodernisierung;
+
+	return NULL;
 }
