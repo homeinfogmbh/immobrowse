@@ -775,3 +775,45 @@ function immobrowse_last_modernization($immobilie) {
 
 	return NULL;
 }
+
+function immobrowse_heating_types($immobilie) {
+	if ($immobilie->ausstattung && $immobilie->ausstattung->heizungsart) {
+		if ($immobilie->ausstattung->heizungsart->OFEN)
+			yield 'Ofen';
+
+		if ($immobilie->ausstattung->heizungsart->ETAGE)
+			yield 'Etagenheizung';
+
+		if ($immobilie->ausstattung->heizungsart->ZENTRAL)
+			yield 'Zentralheizung';
+
+		if ($immobilie->ausstattung->heizungsart->FERN)
+			yield 'Fernwärme';
+
+		if ($immobilie->ausstattung->heizungsart->FUSSBODEN)
+			yield 'Fussbodenheizung';
+	}
+}
+
+function immobrowse_heating_type($immobilie, $options) {
+	$heatingTypes = iterator_to_array(immobrowse_heating_types($immobilie));
+
+	if (count($heatingTypes) > 0)
+		return implode(', ', $heatingTypes);
+
+	return $options['notApplicable'];
+}
+
+function immobrowse_listed($immobilie) {
+	if ($immobilie->verwaltung_objekt)
+		return $immobilie->verwaltung_objekt->denkmalgeschuetzt;
+
+	return NULL;
+}
+
+function immobrowse_energy_certificate($immobilie) {
+	if ($immobilie->zustand_angaben && count($immobilie->zustand_angaben->energiepass))
+		return $immobilie->zustand_angaben->energiepass[0];
+
+	return NULL;
+}
