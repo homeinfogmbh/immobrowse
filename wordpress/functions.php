@@ -817,3 +817,69 @@ function immobrowse_energy_certificate($immobilie) {
 
 	return NULL;
 }
+
+function immobrowse_contact($immobilie) {
+	if (!$immobilie->kontaktperson)
+		return NULL;
+
+	$contact = [];
+	$name = [];
+	$address = [];
+
+	if ($immobilie->kontaktperson->anrede) {
+		$contact['salutation'] = $immobilie->kontaktperson->anrede;
+		array_push($name, $immobilie->kontaktperson->anrede);
+	}
+
+	if ($immobilie->kontaktperson->vorname) {
+		$contact['firstName'] = $immobilie->kontaktperson->vorname;
+		array_push($name, $immobilie->kontaktperson->vorname);
+	}
+
+	$contact['lastName'] = $immobilie->kontaktperson->name;
+	array_push($name, $immobilie->kontaktperson->name);
+	$contact['name'] = implode(' ', $name);
+
+	if ($immobilie->kontaktperson->firma)
+		$contact['company'] = $immobilie->kontaktperson->firma;
+
+	if ($immobilie->kontaktperson->strasse)
+		$contact['street'] = $immobilie->kontaktperson->strasse;
+
+	if ($immobilie->kontaktperson->hausnummer)
+		$contact['houseNUmber'] = $immobilie->kontaktperson->hausnummer;
+
+	if ($contact['street'] && $contact['houseNumber']) {
+		$contact['streetAndHouseNumber'] = $contact['street'] . ' ' . $contact['houseNumber'];
+		array_push($address, $contact['streetAndHouseNumber']);
+	}
+
+	if ($immobilie->kontaktperson->plz)
+		$contact['zipCode'] = $immobilie->kontaktperson->plz;
+
+	if ($immobilie->kontaktperson->ort)
+		$contact['city'] = $immobilie->kontaktperson->ort;
+
+	if ($contact['zipCode'] && $contact['city']) {
+		$contact['zipCodeAndCity'] = $contact['zipCode'] . ' ' . $contact['city'];
+		array_push($address, $contact['zipCodeAndCity']);
+	}
+
+	if (count($address) > 0)
+		$contact['address'] = implode(', ', $address);
+
+	if ($immobilie->kontaktperson->email_direkt)
+		$contact['email'] = $immobilie->kontaktperson->email_direkt;
+	else
+		$contact['email'] = $immobilie->kontaktperson->email_zentrale;
+
+	if ($immobilie->kontaktperson->tel_durchw)
+		$contact['email'] = $immobilie->kontaktperson->tel_durchw;
+	else
+		$contact['email'] = $immobilie->kontaktperson->tel_zentrale;
+
+	if ($immobilie->kontaktperson->url)
+		$contact['website'] = $immobilie->kontaktperson->url;
+
+	return $contact;
+}
