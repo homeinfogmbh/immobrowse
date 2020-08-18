@@ -98,10 +98,10 @@ function immobrowse_address($immobilie) {
 	if ($zipCodeAndCity)
 		array_push($address, $zipCodeAndCity);
 
-		if (count($address) > 0)
-			return implode(' ', $address);
+	if (count($address) > 0)
+		return implode(' ', $address);
 
-		return NULL;
+	return NULL;
 }
 
 function immobrowse_address_preview($immobilie) {
