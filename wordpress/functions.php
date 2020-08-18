@@ -60,10 +60,10 @@ function immobrowse_street_and_house_number($immobilie) {
 	if ($houseNumber)
 		array_push($streetAndHouseNumber, $houseNumber);
 
-		if (count($streetAndHouseNumber) > 0)
-			return implode(' ', $streetAndHouseNumber);
+	if (count($streetAndHouseNumber) > 0)
+		return implode(' ', $streetAndHouseNumber);
 
-		return NULL;
+	return NULL;
 }
 
 function immobrowse_zip_code_and_city($immobilie) {
@@ -81,10 +81,10 @@ function immobrowse_zip_code_and_city($immobilie) {
 	if ($district && $district != $city)
 		array_push($zipCodeAndCity, $district);
 
-		if (count($zipCodeAndCity) > 0)
-			return implode(' ', $zipCodeAndCity);
+	if (count($zipCodeAndCity) > 0)
+		return implode(' ', $zipCodeAndCity);
 
-		return NULL;
+	return NULL;
 }
 
 function immobrowse_address($immobilie) {
