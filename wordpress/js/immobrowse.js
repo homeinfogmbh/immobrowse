@@ -431,80 +431,95 @@ immobrowse.Filter = class {
         if (this.rules.areaMin != null) {
             if (realEstate.flaechen == null)
                 return false;
-            else if (this.rules.areaMin > realEstate.flaechen.wohnflaeche)
+
+            if (this.rules.areaMin > realEstate.flaechen.wohnflaeche)
                 return false;
         }
 
         if (this.rules.roomsMin != null) {
             if (realEstate.flaechen == null)
                 return false;
-            else if (this.rules.roomsMin > realEstate.flaechen.anzahl_zimmer)
+
+            if (this.rules.roomsMin > realEstate.flaechen.anzahl_zimmer)
                 return false;
         }
 
         if (this.rules.ebk) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (realEstate.ausstattung.kueche == null)
+
+            if (realEstate.ausstattung.kueche == null)
                 return false;
-            else if (! realEstate.ausstattung.kueche.EBK)
+
+            if (! realEstate.ausstattung.kueche.EBK)
                 return false;
         }
 
         if (this.rules.bathtub) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (realEstate.ausstattung.bad == null)
+
+            if (realEstate.ausstattung.bad == null)
                 return false;
-            else if (! realEstate.ausstattung.bad.WANNE)
+
+            if (! realEstate.ausstattung.bad.WANNE)
                 return false;
         }
 
         if (this.rules.window) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (realEstate.ausstattung.bad == null)
+
+            if (realEstate.ausstattung.bad == null)
                 return false;
-            else if (! realEstate.ausstattung.bad.FENSTER)
+
+            if (! realEstate.ausstattung.bad.FENSTER)
                 return false;
         }
 
         if (this.rules.guestwc) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (! realEstate.ausstattung.gaestewc)
+
+            if (! realEstate.ausstattung.gaestewc)
                 return false;
         }
 
         if (this.rules.carSpace) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (realEstate.ausstattung.stellplatzart == null)
+
+            if (realEstate.ausstattung.stellplatzart == null)
                 return false;
-            else if (! realEstate.ausstattung.stellplatzart.TIEFGARAGE)
+
+            if (! realEstate.ausstattung.stellplatzart.TIEFGARAGE)
                 return false;
         }
 
         if (this.rules.elevator) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (realEstate.ausstattung.fahrstuhl == null)
+
+            if (realEstate.ausstattung.fahrstuhl == null)
                 return false;
-            else if (! realEstate.ausstattung.fahrstuhl.PERSONEN)
+
+            if (! realEstate.ausstattung.fahrstuhl.PERSONEN)
                 return false;
         }
 
         if (this.rules.garden) {
             if (realEstate.ausstattung == null)
                 return false;
-            else if (! realEstate.ausstattung.gartennutzung)
+
+            if (! realEstate.ausstattung.gartennutzung)
                 return false;
         }
 
         if (this.rules.balcony) {
             if (realEstate.flaechen == null)
                 return false;
-            else if (realEstate.flaechen.anzahl_balkone == null || realEstate.flaechen.anzahl_balkone == 0)
+
+            if (realEstate.flaechen.anzahl_balkone == null || realEstate.flaechen.anzahl_balkone == 0)
                 return false;
         }
 
@@ -590,46 +605,36 @@ immobrowse.RealEstate = class {
     }
 
     get street () {
-        if (this.geo != null) {
-            if (this.geo.strasse != null)
-                return this.geo.strasse;
-        }
+        if (this.geo != null && this.geo.strasse != null)
+            return this.geo.strasse;
 
         return null;
     }
 
     get houseNumber () {
-        if (this.geo != null) {
-            if (this.geo.hausnummer != null)
-                return this.geo.hausnummer;
-        }
+        if (this.geo != null && this.geo.hausnummer != null)
+            return this.geo.hausnummer;
 
         return null;
     }
 
     get zipCode () {
-        if (this.geo != null) {
-            if (this.geo.plz != null)
-                return this.geo.plz;
-        }
+        if (this.geo != null && this.geo.plz != null)
+            return this.geo.plz;
 
         return null;
     }
 
     get city () {
-        if (this.geo != null) {
-            if (this.geo.ort != null)
-                return this.geo.ort;
-        }
+        if (this.geo != null && this.geo.ort != null)
+            return this.geo.ort;
 
         return null;
     }
 
     get district () {
-        if (this.geo != null) {
-            if (this.geo.regionaler_zusatz != null)
-                return this.geo.regionaler_zusatz;
-        }
+        if (this.geo != null && this.geo.regionaler_zusatz != null)
+            return this.geo.regionaler_zusatz;
 
         return null;
     }
@@ -694,8 +699,8 @@ immobrowse.RealEstate = class {
             if (this.geo.strasse != null) {
                 if (this.geo.hausnummer == null)
                     return this.geo.strasse;
-                else
-                    return this.geo.strasse + ' ' + this.geo.hausnummer;
+
+                return this.geo.strasse + ' ' + this.geo.hausnummer;
             }
         }
 
@@ -716,10 +721,8 @@ immobrowse.RealEstate = class {
     }
 
     get objectTitle () {
-        if (this.freitexte != null) {
-            if (this.freitexte.objekttitel != null)
-                return this.freitexte.objekttitel;
-        }
+        if (this.freitexte != null && this.freitexte.objekttitel != null)
+            return this.freitexte.objekttitel;
 
         let html = '';
 
@@ -793,36 +796,45 @@ immobrowse.RealEstate = class {
     }
 
     get types () {
-        if (this.objektkategorie != null) {
-            if (this.objektkategorie.objektart != null) {
-                if (this.objektkategorie.objektart.zimmer != null) {
-                    return this.objektkategorie.objektart.zimmer;
-                } else if (this.objektkategorie.objektart.wohnung != null) {
-                    return this.objektkategorie.objektart.wohnung;
-                } else if (this.objektkategorie.objektart.haus != null) {
-                    return this.objektkategorie.objektart.haus;
-                } else if (this.objektkategorie.objektart.grundstueck != null) {
-                    return this.objektkategorie.objektart.grundstueck;
-                } else if (this.objektkategorie.objektart.buero_praxen != null) {
-                    return this.objektkategorie.objektart.buero_praxen;
-                } else if (this.objektkategorie.objektart.einzelhandel != null) {
-                    return this.objektkategorie.objektart.einzelhandel;
-                } else if (this.objektkategorie.objektart.gastgewerbe != null) {
-                    return this.objektkategorie.objektart.gastgewerbe;
-                } else if (this.objektkategorie.objektart.hallen_lager_prod != null) {
-                    return this.objektkategorie.objektart.hallen_lager_prod;
-                } else if (this.objektkategorie.objektart.land_und_forstwirtschaft != null) {
-                    return this.objektkategorie.objektart.land_und_forstwirtschaft;
-                } else if (this.objektkategorie.objektart.parken != null) {
-                    return this.objektkategorie.objektart.parken;
-                } else if (this.objektkategorie.objektart.sonstige != null) {
-                    return this.objektkategorie.objektart.sonstige;
-                } else if (this.objektkategorie.objektart.freizeitimmobilie_gewerblich != null) {
-                    return this.objektkategorie.objektart.freizeitimmobilie_gewerblich;
-                } else if (this.objektkategorie.objektart.zinshaus_renditeobjekt != null) {
-                    return this.objektkategorie.objektart.zinshaus_renditeobjekt;
-                }
-            }
+        if (this.objektkategorie != null && this.objektkategorie.objektart != null) {
+            if (this.objektkategorie.objektart.zimmer != null)
+                return this.objektkategorie.objektart.zimmer;
+
+            if (this.objektkategorie.objektart.wohnung != null)
+                return this.objektkategorie.objektart.wohnung;
+
+            if (this.objektkategorie.objektart.haus != null)
+                return this.objektkategorie.objektart.haus;
+
+            if (this.objektkategorie.objektart.grundstueck != null)
+                return this.objektkategorie.objektart.grundstueck;
+
+            if (this.objektkategorie.objektart.buero_praxen != null)
+                return this.objektkategorie.objektart.buero_praxen;
+
+            if (this.objektkategorie.objektart.einzelhandel != null)
+                return this.objektkategorie.objektart.einzelhandel;
+
+            if (this.objektkategorie.objektart.gastgewerbe != null)
+                return this.objektkategorie.objektart.gastgewerbe;
+
+            if (this.objektkategorie.objektart.hallen_lager_prod != null)
+                return this.objektkategorie.objektart.hallen_lager_prod;
+
+            if (this.objektkategorie.objektart.land_und_forstwirtschaft != null)
+                return this.objektkategorie.objektart.land_und_forstwirtschaft;
+
+            if (this.objektkategorie.objektart.parken != null)
+                return this.objektkategorie.objektart.parken;
+
+            if (this.objektkategorie.objektart.sonstige != null)
+                return this.objektkategorie.objektart.sonstige;
+
+            if (this.objektkategorie.objektart.freizeitimmobilie_gewerblich != null)
+                return this.objektkategorie.objektart.freizeitimmobilie_gewerblich;
+
+            if (this.objektkategorie.objektart.zinshaus_renditeobjekt != null)
+                return this.objektkategorie.objektart.zinshaus_renditeobjekt;
         }
 
         return [];
@@ -1116,11 +1128,9 @@ immobrowse.RealEstate = class {
     }
 
     *_attachments () {
-        if (this.anhaenge != null) {
-            if (this.anhaenge.anhang != null) {
-                for (const anhang of this.anhaenge.anhang)
-                    yield anhang;
-            }
+        if (this.anhaenge != null && this.anhaenge.anhang != null) {
+            for (const anhang of this.anhaenge.anhang)
+                yield anhang;
         }
     }
 
@@ -1389,23 +1399,21 @@ immobrowse.RealEstate = class {
     }
 
     *_heatingTypes () {
-        if (this.ausstattung != null) {
-            if (this.ausstattung.heizungsart != null) {
-                if (this.ausstattung.heizungsart.OFEN)
-                    yield 'Ofen';
+        if (this.ausstattung != null && this.ausstattung.heizungsart != null) {
+            if (this.ausstattung.heizungsart.OFEN)
+                yield 'Ofen';
 
-                if (this.ausstattung.heizungsart.ETAGE)
-                    yield 'Etagenheizung';
+            if (this.ausstattung.heizungsart.ETAGE)
+                yield 'Etagenheizung';
 
-                if (this.ausstattung.heizungsart.ZENTRAL)
-                    yield 'Zentralheizung';
+            if (this.ausstattung.heizungsart.ZENTRAL)
+                yield 'Zentralheizung';
 
-                if (this.ausstattung.heizungsart.FERN)
-                    yield 'Fernwärme';
+            if (this.ausstattung.heizungsart.FERN)
+                yield 'Fernwärme';
 
-                if (this.ausstattung.heizungsart.FUSSBODEN)
-                    yield 'Fussbodenheizung';
-            }
+            if (this.ausstattung.heizungsart.FUSSBODEN)
+                yield 'Fussbodenheizung';
         }
     }
 
@@ -1760,9 +1768,8 @@ immobrowse.RealEstate = class {
     preview (elements) {
         let addressRow = null;
 
-        if (this.showAddress && immobrowse.config.addressInList) {
+        if (this.showAddress && immobrowse.config.addressInList)
             addressRow = new immobrowse.dom.AddressRow(new immobrowse.dom.ObjectAddress(this.address));
-        }
 
         return new immobrowse.dom.Entry(
             new immobrowse.dom.HeaderRow(
