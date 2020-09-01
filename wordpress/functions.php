@@ -14,6 +14,31 @@ $IMMOBROWSE_AREAS = [
 ];
 
 
+function immobrowse_compare($alice, $bob, $descending) {
+	if ($alice === NULL) {
+		if ($bob === NULL)
+			return NULL;
+
+		return INF;
+	}
+
+	if ($bob === NULL)
+		return -INF;
+
+	$val = 0;
+
+	if ($alice < $bob)
+		$val = -1;
+	else if ($bob < $alice)
+		$val = 1;
+
+	if ($descending)
+		return -$val;
+
+	return $val;
+}
+
+
 function immobrowse_street($immobilie) {
 	if ($immobilie->geo)
 		return $immobilie->geo->strasse;
@@ -882,4 +907,23 @@ function immobrowse_contact($immobilie) {
 		$contact['website'] = $immobilie->kontaktperson->url;
 
 	return $contact;
+}
+
+function immobrowse_amenities_tags($immobilie) {
+	foreach (immobrowse_amenities($immobilie) as $amenity)
+		yield immobrowse_dom_amenities_tag($amenity);
+}
+
+function immobrowse_amenities_list($immobilie) {
+	$amenities = iterator_to_array(immobrowse_amenities($immobilie));
+
+	if (count($amenities) == 0)
+		return '-';
+
+	$list = [];
+
+	foreach ($amenities as $amenity)
+		array_push($list, '<li>' . 'amenity' . '</li>');
+
+	return '<ul>' . implode($list) . '</ul>';
 }
