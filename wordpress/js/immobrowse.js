@@ -60,28 +60,24 @@ immobrowse.setValue = function (element, value) {
 */
 immobrowse.compare = function (alice, bob, descending) {
     if (alice == null) {
-        if (bob == null) {
+        if (bob == null)
             return 0;
-        }
 
         return Infinity;
     }
 
-    if (bob == null) {
+    if (bob == null)
         return -Infinity;
-    }
 
     let val = 0;
 
-    if (alice < bob) {
+    if (alice < bob)
         val = -1;
-    } else if (bob < alice) {
+    else if (bob < alice)
         val = 1;
-    }
 
-    if (descending) {
-        val = -val;
-    }
+    if (descending)
+        return -val;
 
     return val;
 };
