@@ -728,10 +728,8 @@ immobrowse.RealEstate = class {
         else
             html += this.rooms + ' Zimmer Wohnung | ';
 
-        if (this.showAddress) {
-            html += this.addressPreview || 'N/A';
-            html += ' | ';
-        }
+        if (this.showAddress)
+            html += (this.addressPreview || 'N/A') + ' | ';
 
         html += this.cityPreview;
         return html;
