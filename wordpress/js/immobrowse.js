@@ -146,12 +146,11 @@ immobrowse.sortByStreet = function (descending) {
   Returns a decimal number with German (comma) interpuctuation.
 */
 immobrowse.germanDecimal = function (number, decimals) {
-    if (number != null) {
-        if (decimals == null)
-            decimals = 2;
+    if (decimals == null)
+        decimals = 2;
 
+    if (number != null)
         return number.toFixed(decimals).replace('.', ',');
-    }
 
     return null;
 };
