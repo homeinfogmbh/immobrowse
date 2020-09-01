@@ -721,18 +721,18 @@ immobrowse.RealEstate = class {
         if (this.freitexte != null && this.freitexte.objekttitel != null)
             return this.freitexte.objekttitel;
 
-        let html = '';
+        const items = [];
 
         if (this.rooms == null)
-            html += 'Wohnung | ';
+            items.push('Wohnung');
         else
-            html += this.rooms + ' Zimmer Wohnung | ';
+            items.push(this.rooms + ' Zimmer Wohnung');
 
         if (this.showAddress && this.addressPreview)
-            html += this.addressPreview + ' | ';
+            items.push(this.addressPreview);
 
-        html += this.cityPreview;
-        return html;
+        items.push(this.cityPreview);
+        return html.join(' | ');
     }
 
     /*
