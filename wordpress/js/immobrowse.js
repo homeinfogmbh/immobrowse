@@ -732,7 +732,7 @@ immobrowse.RealEstate = class {
             items.push(this.addressPreview);
 
         items.push(this.cityPreview);
-        return html.join(' | ');
+        return items.join(' | ');
     }
 
     /*
