@@ -28,8 +28,6 @@
 
 var barrierfree = barrierfree || {};
 
-barrierfree.logger = new homeinfo.logging.Logger('barrierfree');
-
 
 /*
   Extended real estate with additional barrier
