@@ -694,13 +694,11 @@ immobrowse.RealEstate = class {
     }
 
     get addressPreview () {
-        if (this.geo != null) {
-            if (this.geo.strasse != null) {
-                if (this.geo.hausnummer == null)
-                    return this.geo.strasse;
+        if (this.geo != null && this.geo.strasse != null) {
+            if (this.geo.hausnummer == null)
+                return this.geo.strasse;
 
-                return this.geo.strasse + ' ' + this.geo.hausnummer;
-            }
+            return this.geo.strasse + ' ' + this.geo.hausnummer;
         }
 
         return null;
