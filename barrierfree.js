@@ -1,7 +1,7 @@
 /*
   barrierfree.js - ImmoBrowse barrier free JavaScript library
 
-  (C) 2017-2019 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017-2020 HOMEINFO - Digitale Informationssysteme GmbH
 
   This library is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -140,11 +140,10 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
     *_amenities () {
         yield* super._amenities();
 
-        if (this.completelyBarrierFree()) {
+        if (this.completelyBarrierFree())
             yield 'vollständig barrierefrei';
-        } else if (this.limitedBarrierFree()) {
+        else if (this.limitedBarrierFree())
             yield 'eingeschränkt barrierefrei';
-        }
     }
 
     /*
@@ -155,9 +154,8 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
     }
 
     attachmentURL (anhang) {
-        if (anhang == null) {
+        if (anhang == null)
             return null;
-        }
 
         return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
     }
@@ -169,97 +167,79 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
         const bath = barrierFreeness.bath || {};
         const balcony = barrierFreeness.balcony || {};
 
-        if (barrierFreeness.stairs == '0') {
+        if (barrierFreeness.stairs == '0')
             yield 'Keine Stufen bis zum Wohnungseingang';
-        } else if (barrierFreeness.stairs == '0-1') {
+        else if (barrierFreeness.stairs == '0-1')
             yield 'Maximal eine Stufe bis zum Wohnungseingang';
-        } else if (barrierFreeness.stairs == '2-8') {
+        else if (barrierFreeness.stairs == '2-8')
             yield '2-8 Stufen bis zum Wohnungseingang';
-        }
 
-        if (entry.ramp_din) {
+        if (entry.ramp_din)
             yield 'Rampe mit bis zu 6 % Gefälle (nach DIN-Norm)';
-        } else if (entry.ramp_din === false) {
+        else if (entry.ramp_din === false)
             yield 'Rampe mit über 6 % Gefälle';
-        }
 
-        if (barrierFreeness.wide_door) {
+        if (barrierFreeness.wide_door)
             yield 'Mindestbreite der Wohnungseingangstür 90 cm';
-        }
 
-        if (barrierFreeness.low_thresholds) {
+        if (barrierFreeness.low_thresholds)
             yield 'keine Türschwellen > 2cm (außer Balkon)';
-        }
 
-        if (barrierFreeness.wide_doors) {
+        if (barrierFreeness.wide_doors)
             yield 'Mindestbreite aller Wohnungstüren 80 cm (außer Abstellraum und Balkon)';
-        }
 
-        if (entry.door_opener) {
+        if (entry.door_opener)
             yield 'Automatischer Türöffner an der Haustür';
-        }
 
         if (lift) {
             yield 'Aufzug';
 
-            if (lift.wide_door) {
+            if (lift.wide_door)
                 yield 'Mindestbreite der Aufzugstür 80 cm';
-            }
 
-            if (lift.value == '90x140') {
+            if (lift.value == '90x140')
                 yield 'Kabinengröße bis 90 x 140 cm Innenmaß';
-            } else if (lift.value == 'DIN') {
+            else if (lift.value == 'DIN')
                 yield 'Kabinengröße ab 90 x 140 cm Innenmaß (nach DIN-Norm)';
-            }
         }
 
-        if (bath.bathtub) {
+        if (bath.bathtub)
             yield 'Badewanne';
-        }
 
-        if (bath.shower_tray == 'high') {
+        if (bath.shower_tray == 'high')
             yield 'Hoher Duschwanne ab 7 cm';
-        } else if (bath.shower_tray == 'low') {
+        else if (bath.shower_tray == 'low')
             yield 'Flache Duschwanne bis 7 cm (nach DIN-Norm)';
-        } else if (bath.shower_tray == 'walk-in') {
+        else if (bath.shower_tray == 'walk-in')
             yield 'Bodengleiche Dusche (nach DIN-Norm)';
-        }
 
-        if (bath.wide) {
+        if (bath.wide)
             yield 'Durchgangsbreite Vorderseite Sanitärobjekt zur Wand mind. 120 cm';
-        }
 
-        if (bath.large) {
+        if (bath.large)
             yield 'Größe des Badezimmers ab 3 m²';
-        }
 
-        if (balcony.wide_door) {
+        if (balcony.wide_door)
             yield 'Mindestbreite Balkontür 80cm';
-        }
 
-        if (balcony.threshold) {
+        if (balcony.threshold)
             yield 'Balkon mit Schwelle (Höhe 2 cm und mehr)';
-        } else if (balcony.threshold === false) {
+        else if (balcony.threshold === false)
             yield 'Balkon schwellenlos erreichbar (Absatz bis 2 cm)';
-        }
 
-        if (balcony.large) {
+        if (balcony.large)
             yield 'Balkongröße über 2,5 m²';
-        }
 
-        if (entry.doorbell_panel) {
+        if (entry.doorbell_panel)
             yield 'Klingeltableau behindertengerecht (große Tasten, große Ziffern, Höhe +/- 85 cm)';
-        }
 
-        if (entry.intercom) {
+        if (entry.intercom)
             yield 'Gegensprechanlage';
-        }
 
-        if (barrierFreeness.wheelchair_parking == 'indoors') {
+        if (barrierFreeness.wheelchair_parking == 'indoors')
             yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung';
-        } else if (barrierFreeness.wheelchair_parking == 'outdoorsv') {
+        else if (barrierFreeness.wheelchair_parking == 'outdoorsv')
             yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung';
-        }
     }
 
     get barrierFreeAmenities () {
@@ -283,15 +263,13 @@ barrierfree.Filter = class extends immobrowse.Filter {
 
     match (realEstate) {
         if (this.rules.completelyBarrierFree) {
-            if (! realEstate.completelyBarrierFree) {
+            if (! realEstate.completelyBarrierFree)
                 return false;
-            }
         }
 
         if (this.rules.limitedBarrierFree) {
-            if (! realEstate.limitedBarrierFree) {
+            if (! realEstate.limitedBarrierFree)
                 return false;
-            }
         }
 
         return super.match(realEstate);
