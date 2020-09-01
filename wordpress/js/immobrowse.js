@@ -89,9 +89,8 @@ immobrowse.compare = function (alice, bob, descending) {
 immobrowse.getSorter = function (property, order) {
     let descending = false;
 
-    if (order == 'descending') {
+    if (order == 'descending')
         descending = true;
-    }
 
     switch(property) {
     case 'rooms': return immobrowse.sortByRooms(descending);
@@ -148,9 +147,8 @@ immobrowse.sortByStreet = function (descending) {
 */
 immobrowse.germanDecimal = function (number, decimals) {
     if (number != null) {
-        if (decimals == null) {
+        if (decimals == null)
             decimals = 2;
-        }
 
         return number.toFixed(decimals).replace('.', ',');
     }
@@ -163,9 +161,8 @@ immobrowse.germanDecimal = function (number, decimals) {
   Formats the respective number as EUR currency.
 */
 immobrowse.euro = function (price) {
-    if (price != null) {
+    if (price != null)
         return immobrowse.germanDecimal(price) + ' &euro;';
-    }
 
     return null;
 };
@@ -175,9 +172,8 @@ immobrowse.euro = function (price) {
   Formats the respective number as square meters.
 */
 immobrowse.squareMeters = function (area) {
-    if (area != null) {
+    if (area != null)
         return immobrowse.germanDecimal(area) + ' m&sup2;';
-    }
 
     return null;
 };
@@ -198,13 +194,11 @@ immobrowse.kilowattHoursPerSquareMeterAndYear = function () {
   Converts a boolean value to "Ja", respectively "Nein".
 */
 immobrowse.yesNo = function (boolean) {
-    if (boolean == null) {
+    if (boolean == null)
         return null;
-    }
 
-    if (boolean == true) {
+    if (boolean == true)
         return 'Ja';
-    }
 
     return 'Nein';
 };
@@ -215,9 +209,8 @@ immobrowse.yesNo = function (boolean) {
 */
 immobrowse.dateToString = function (date) {
     function paddDate (num) {
-        if (num < 10) {
+        if (num < 10)
             return '0' + num;
-        }
 
         return '' + num;
     };
@@ -238,11 +231,10 @@ immobrowse.cities = function (realEstates) {
         const city = realEstate.geo.ort;
 
         if (city != null) {
-            if (cities[city] != undefined) {
+            if (cities[city] != undefined)
                 cities[city] += 1;
-            } else {
+            else
                 cities[city] = 1;
-            }
         }
     }
 
@@ -260,11 +252,10 @@ immobrowse.districts = function (realEstates) {
         const district = realEstate.district;
 
         if (district != null) {
-            if (districts[district] == undefined) {
+            if (districts[district] == undefined)
                 districts[district] = 1;
-            } else {
+            else
                 districts[district] += 1;
-            }
         }
     }
 
@@ -347,23 +338,20 @@ immobrowse.Mailer = class {
         this.baseUrl = 'https://hisecon.homeinfo.de';
         this.config = config;
 
-        if (html == null) {
+        if (html == null)
             this.html = true;
-        } else {
+        else
             this.html = html;
-        }
 
-        if (successMsg == null) {
+        if (successMsg == null)
             this.successMsg = 'Anfrage versendet!';
-        } else {
+        else
             this.successMsg = successMsg;
-        }
 
-        if (errorMsg == null) {
+        if (errorMsg == null)
             this.errorMsg = 'Fehler beim Versenden!\nBitte versuchen Sie es später noch ein Mal.';
-        } else {
+        else
             this.errorMsg = errorMsg;
-        }
     }
 
     /*
@@ -372,25 +360,20 @@ immobrowse.Mailer = class {
     _getUrl (response, subject, recipient, reply_to) {
         let url = this.baseUrl + '?config=' + this.config;
 
-        if (response) {
+        if (response)
             url += '&response=' + response;
-        }
 
-        if (subject) {
+        if (subject)
             url += '&subject=' + subject;
-        }
 
-        if (recipient) {
+        if (recipient)
             url += '&recipient=' + recipient;
-        }
 
-        if (reply_to) {
+        if (reply_to)
             url += '&reply_to=' + reply_to;
-        }
 
-        if (this.html) {
+        if (this.html)
             url += '&html=true';
-        }
 
         return url;
     }
@@ -439,109 +422,96 @@ immobrowse.Filter = class {
       Match filters on a real estate's JSON data.
     */
     match (realEstate) {
-        if (this.rules.priceMin > realEstate.rent) {
+        if (this.rules.priceMin > realEstate.rent)
             return false;
-        }
 
-        if (this.rules.priceMax < realEstate.rent) {
+        if (this.rules.priceMax < realEstate.rent)
             return false;
-        }
 
         if (this.rules.areaMin != null) {
-            if (realEstate.flaechen == null) {
+            if (realEstate.flaechen == null)
                 return false;
-            } else if (this.rules.areaMin > realEstate.flaechen.wohnflaeche) {
+            else if (this.rules.areaMin > realEstate.flaechen.wohnflaeche)
                 return false;
-            }
         }
 
         if (this.rules.roomsMin != null) {
-            if (realEstate.flaechen == null) {
+            if (realEstate.flaechen == null)
                 return false;
-            } else if (this.rules.roomsMin > realEstate.flaechen.anzahl_zimmer) {
+            else if (this.rules.roomsMin > realEstate.flaechen.anzahl_zimmer)
                 return false;
-            }
         }
 
         if (this.rules.ebk) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (realEstate.ausstattung.kueche == null) {
+            else if (realEstate.ausstattung.kueche == null)
                 return false;
-            } else if (! realEstate.ausstattung.kueche.EBK) {
+            else if (! realEstate.ausstattung.kueche.EBK)
                 return false;
-            }
         }
 
         if (this.rules.bathtub) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (realEstate.ausstattung.bad == null) {
+            else if (realEstate.ausstattung.bad == null)
                 return false;
-            } else if (! realEstate.ausstattung.bad.WANNE) {
+            else if (! realEstate.ausstattung.bad.WANNE)
                 return false;
-            }
         }
 
         if (this.rules.window) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (realEstate.ausstattung.bad == null) {
+            else if (realEstate.ausstattung.bad == null)
                 return false;
-            } else if (! realEstate.ausstattung.bad.FENSTER) {
+            else if (! realEstate.ausstattung.bad.FENSTER)
                 return false;
-            }
         }
 
         if (this.rules.guestwc) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (! realEstate.ausstattung.gaestewc) {
+            else if (! realEstate.ausstattung.gaestewc)
                 return false;
-            }
         }
 
         if (this.rules.carSpace) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (realEstate.ausstattung.stellplatzart == null) {
+            else if (realEstate.ausstattung.stellplatzart == null)
                 return false;
-            } else if (! realEstate.ausstattung.stellplatzart.TIEFGARAGE) {
+            else if (! realEstate.ausstattung.stellplatzart.TIEFGARAGE)
                 return false;
-            }
         }
 
         if (this.rules.elevator) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (realEstate.ausstattung.fahrstuhl == null) {
+            else if (realEstate.ausstattung.fahrstuhl == null)
                 return false;
-            } else if (! realEstate.ausstattung.fahrstuhl.PERSONEN) {
+            else if (! realEstate.ausstattung.fahrstuhl.PERSONEN)
                 return false;
-            }
         }
 
         if (this.rules.garden) {
-            if (realEstate.ausstattung == null) {
+            if (realEstate.ausstattung == null)
                 return false;
-            } else if (! realEstate.ausstattung.gartennutzung) {
+            else if (! realEstate.ausstattung.gartennutzung)
                 return false;
-            }
         }
 
         if (this.rules.balcony) {
-            if (realEstate.flaechen == null) {
+            if (realEstate.flaechen == null)
                 return false;
-            } else if (realEstate.flaechen.anzahl_balkone == null || realEstate.flaechen.anzahl_balkone == 0) {
+            else if (realEstate.flaechen.anzahl_balkone == null || realEstate.flaechen.anzahl_balkone == 0)
                 return false;
-            }
         }
 
         if (this.rules.districts != null) {
             if (this.rules.districts.length > 0) {
-                if (this.rules.districts.indexOf(realEstate.district) < 0) {
+                if (this.rules.districts.indexOf(realEstate.district) < 0)
                     return false;
-                }
             }
         }
 
@@ -553,9 +523,8 @@ immobrowse.Filter = class {
     */
     *filter (realEstates) {
         for (const realEstate of realEstates) {
-            if (this.match(realEstate)) {
+            if (this.match(realEstate))
                 yield realEstate;
-            }
         }
     }
 };
@@ -574,9 +543,8 @@ immobrowse.RealEstate = class {
         ];
 
         for (const prop in json) {
-            if (Object.prototype.hasOwnProperty.call(json, prop)) {
+            if (Object.prototype.hasOwnProperty.call(json, prop))
                 this[prop] = json[prop];
-            }
         }
     }
 
@@ -623,9 +591,8 @@ immobrowse.RealEstate = class {
 
     get street () {
         if (this.geo != null) {
-            if (this.geo.strasse != null) {
+            if (this.geo.strasse != null)
                 return this.geo.strasse;
-            }
         }
 
         return null;
@@ -633,9 +600,8 @@ immobrowse.RealEstate = class {
 
     get houseNumber () {
         if (this.geo != null) {
-            if (this.geo.hausnummer != null) {
+            if (this.geo.hausnummer != null)
                 return this.geo.hausnummer;
-            }
         }
 
         return null;
@@ -643,9 +609,8 @@ immobrowse.RealEstate = class {
 
     get zipCode () {
         if (this.geo != null) {
-            if (this.geo.plz != null) {
+            if (this.geo.plz != null)
                 return this.geo.plz;
-            }
         }
 
         return null;
@@ -653,9 +618,8 @@ immobrowse.RealEstate = class {
 
     get city () {
         if (this.geo != null) {
-            if (this.geo.ort != null) {
+            if (this.geo.ort != null)
                 return this.geo.ort;
-            }
         }
 
         return null;
@@ -663,9 +627,8 @@ immobrowse.RealEstate = class {
 
     get district () {
         if (this.geo != null) {
-            if (this.geo.regionaler_zusatz != null) {
+            if (this.geo.regionaler_zusatz != null)
                 return this.geo.regionaler_zusatz;
-            }
         }
 
         return null;
@@ -676,17 +639,14 @@ immobrowse.RealEstate = class {
         const houseNumber = this.houseNumber;
         const streetAndHouseNumber = [];
 
-        if (street) {
+        if (street)
             streetAndHouseNumber.push(street);
-        }
 
-        if (houseNumber) {
+        if (houseNumber)
             streetAndHouseNumber.push(houseNumber);
-        }
 
-        if (streetAndHouseNumber.length > 0) {
+        if (streetAndHouseNumber.length > 0)
             return streetAndHouseNumber.join(' ');
-        }
 
         return null;
     }
@@ -697,21 +657,17 @@ immobrowse.RealEstate = class {
         const district = this.district;
         const zipCodeAndCity = [];
 
-        if (zipCode) {
+        if (zipCode)
             zipCodeAndCity.push(zipCode);
-        }
 
-        if (city) {
+        if (city)
             zipCodeAndCity.push(city);
-        }
 
-        if (district && district != city) {
+        if (district && district != city)
             zipCodeAndCity.push(district);
-        }
 
-        if (zipCodeAndCity.length > 0) {
+        if (zipCodeAndCity.length > 0)
             return zipCodeAndCity.join(' ');
-        }
 
         return null;
     }
@@ -721,17 +677,14 @@ immobrowse.RealEstate = class {
         const zipCodeAndCity = this.zipCodeAndCity;
         const address = [];
 
-        if (streetAndHouseNumber) {
+        if (streetAndHouseNumber)
             address.push(streetAndHouseNumber);
-        }
 
-        if (zipCodeAndCity) {
+        if (zipCodeAndCity)
             address.push(zipCodeAndCity);
-        }
 
-        if (address.length > 0) {
+        if (address.length > 0)
             return address.join(', ');
-        }
 
         return null;
     }
@@ -739,11 +692,10 @@ immobrowse.RealEstate = class {
     get addressPreview () {
         if (this.geo != null) {
             if (this.geo.strasse != null) {
-                if (this.geo.hausnummer == null) {
+                if (this.geo.hausnummer == null)
                     return this.geo.strasse;
-                } else {
+                else
                     return this.geo.strasse + ' ' + this.geo.hausnummer;
-                }
             }
         }
 
@@ -751,35 +703,30 @@ immobrowse.RealEstate = class {
     }
 
     get cityPreview () {
-        if (this.geo == null) {
+        if (this.geo == null)
             return 'N/A';
-        } else {
-            if (this.geo.ort == null) {
-                return 'N/A';
-            } else {
-                if (this.geo.regionaler_zusatz == null || this.geo.regionaler_zusatz == this.geo.ort) {
-                    return this.geo.ort;
-                } else {
-                    return this.geo.ort + ' ' + this.geo.regionaler_zusatz;
-                }
-            }
-        }
+
+        if (this.geo.ort == null)
+            return 'N/A';
+
+        if (this.geo.regionaler_zusatz == null || this.geo.regionaler_zusatz == this.geo.ort)
+            return this.geo.ort;
+
+        return this.geo.ort + ' ' + this.geo.regionaler_zusatz;
     }
 
     get objectTitle () {
         if (this.freitexte != null) {
-            if (this.freitexte.objekttitel != null) {
+            if (this.freitexte.objekttitel != null)
                 return this.freitexte.objekttitel;
-            }
         }
 
         let html = '';
 
-        if (this.rooms == null) {
+        if (this.rooms == null)
             html += 'Wohnung | ';
-        } else {
+        else
             html += this.rooms + ' Zimmer Wohnung | ';
-        }
 
         if (this.showAddress) {
             html += this.addressPreview || 'N/A';
@@ -795,67 +742,52 @@ immobrowse.RealEstate = class {
       real estate or null if none was found.
     */
     get titleImage () {
-        if (this.anhaenge == null) {
+        if (this.anhaenge == null)
             return null;
-        }
 
-        if (this.anhaenge.anhang == null) {
+        if (this.anhaenge.anhang == null)
             return null;
+
+        for (const anhang of this.anhaenge.anhang) {
+            if (anhang.gruppe == 'TITELBILD')
+                return anhang;
         }
 
         for (const anhang of this.anhaenge.anhang) {
-            if (anhang.gruppe == 'TITELBILD') {
+            if (anhang.gruppe == 'AUSSENANSICHTEN')
                 return anhang;
-            }
         }
 
         for (const anhang of this.anhaenge.anhang) {
-            if (anhang.gruppe == 'AUSSENANSICHTEN') {
+            if (anhang.gruppe == 'BILD')
                 return anhang;
-            }
         }
 
         for (const anhang of this.anhaenge.anhang) {
-            if (anhang.gruppe == 'BILD') {
+            if (anhang.gruppe == 'GRUNDRISS')
                 return anhang;
-            }
-        }
-
-        for (const anhang of this.anhaenge.anhang) {
-            if (anhang.gruppe == 'GRUNDRISS') {
-                return anhang;
-            }
         }
 
         return null;
     }
 
     get rooms () {
-        if (this.flaechen != null) {
-            if (this.flaechen.anzahl_zimmer != null) {
-                return immobrowse.germanDecimal(this.flaechen.anzahl_zimmer);
-            }
-        }
+        if (this.flaechen != null && this.flaechen.anzahl_zimmer != null)
+            return immobrowse.germanDecimal(this.flaechen.anzahl_zimmer);
 
         return null;
     }
 
     get bathrooms () {
-        if (this.flaechen != null) {
-            if (this.flaechen.anzahl_badezimmer != null) {
-                return immobrowse.germanDecimal(this.flaechen.anzahl_badezimmer);
-            }
-        }
+        if (this.flaechen != null && this.flaechen.anzahl_badezimmer != null)
+            return immobrowse.germanDecimal(this.flaechen.anzahl_badezimmer);
 
         return null;
     }
 
     get bedrooms () {
-        if (this.flaechen != null) {
-            if (this.flaechen.anzahl_schlafzimmer != null) {
-                return immobrowse.germanDecimal(this.flaechen.anzahl_schlafzimmer);
-            }
-        }
+        if (this.flaechen != null && this.flaechen.anzahl_schlafzimmer != null)
+            return immobrowse.germanDecimal(this.flaechen.anzahl_schlafzimmer);
 
         return null;
     }
@@ -908,35 +840,27 @@ immobrowse.RealEstate = class {
     }
 
     get gardenUsage () {
-        if (this.ausstattung != null) {
-            if (this.ausstattung.gartennutzung != null) {
-                return this.ausstattung.gartennutzung;
-            }
-        }
+        if (this.ausstattung != null && this.ausstattung.gartennutzung != null)
+            return this.ausstattung.gartennutzung;
 
         return null;
     }
 
     get petsAllowed () {
-        if (this.verwaltung_objekt != null) {
-            if (this.verwaltung_objekt.haustiere != null) {
-                return this.verwaltung_objekt.haustiere;
-            }
-        }
+        if (this.verwaltung_objekt != null && this.verwaltung_objekt.haustiere != null)
+            return this.verwaltung_objekt.haustiere;
 
         return null;
     }
 
     get area () {
-        if (this.flaechen == null) {
+        if (this.flaechen == null)
             return null;
-        }
 
         if (this.flaechen.wohnflaeche == null) {
             if (this.flaechen.nutzflaeche == null) {
-                if (this.flaechen.gesamtflaeche == null) {
+                if (this.flaechen.gesamtflaeche == null)
                     return null;
-                }
 
                 return this.flaechen.gesamtflaeche;
             }
@@ -948,49 +872,39 @@ immobrowse.RealEstate = class {
     }
 
     get netColdRent () {
-        if (this.preise != null) {
-            if (this.preise.nettokaltmiete != null) {
-                return this.preise.nettokaltmiete;
-            }
-        }
+        if (this.preise != null && this.preise.nettokaltmiete != null)
+            return this.preise.nettokaltmiete;
 
         return null;
     }
 
     get coldRent () {
-        if (this.preise != null) {
-            if (this.preise.kaltmiete != null) {
-                return this.preise.kaltmiete;
-            }
-        }
+        if (this.preise != null && this.preise.kaltmiete != null)
+            return this.preise.kaltmiete;
 
         return null;
     }
 
     get warmRent () {
-        if (this.preise != null) {
-            if (this.preise.warmmiete != null) {
-                return this.preise.warmmiete;
-            }
-        }
+        if (this.preise != null && this.preise.warmmiete != null)
+            return this.preise.warmmiete;
 
         return null;
     }
 
     get rent () {
-        if (this.netColdRent != null && this.netColdRent != '') {
+        if (this.netColdRent != null && this.netColdRent != '')
             return this.netColdRent;
-        } else if (this.coldRent != null && this.coldRent != '') {
+
+        if (this.coldRent != null && this.coldRent != '')
             return this.coldRent;
-        }
 
         return null;
     }
 
     get totaledUpRent () {
-        if (this.rent == null) {
+        if (this.rent == null)
             return null;
-        }
 
         const operationalCosts = this.operationalCosts || 0;
         const heatingCosts = this.heatingCosts || 0;
@@ -998,103 +912,78 @@ immobrowse.RealEstate = class {
     }
 
     get totalRent () {
-        if (this.preise != null) {
-            if (this.preise.gesamtmietenetto != null) {
-                return this.preise.gesamtmietenetto;
-            }
-        }
+        if (this.preise != null && this.preise.gesamtmietenetto != null)
+            return this.preise.gesamtmietenetto;
 
         return null;
     }
 
     get cableSatTv () {
-        if (this.ausstattung != null) {
+        if (this.ausstattung != null)
             return this.ausstattung.kabel_sat_tv;
-        }
 
         return null;
     }
 
     get builtInKitchen () {
-        if (this.ausstattung != null) {
-            if (this.ausstattung.kueche != null) {
-                return this.ausstattung.kueche.EBK;
-            }
-        }
+        if (this.ausstattung != null && this.ausstattung.kueche != null)
+            return this.ausstattung.kueche.EBK;
 
         return false;
     }
 
     get basementRoom () {
-        if (this.ausstattung != null) {
+        if (this.ausstattung != null)
             return this.ausstattung.unterkellert;
-        }
 
         return null;
     }
 
     get balconies () {
-        if (this.flaechen != null) {
-            if (this.flaechen.anzahl_balkone != null) {
-                return this.flaechen.anzahl_balkone;
-            }
-        }
+        if (this.flaechen != null && this.flaechen.anzahl_balkone != null)
+            return this.flaechen.anzahl_balkone;
 
         return 0;
     }
 
     get terraces () {
-        if (this.flaechen != null) {
-            if (this.flaechen.anzahl_terrassen != null) {
-                return this.flaechen.anzahl_terrassen;
-            }
-        }
+        if (this.flaechen != null && this.flaechen.anzahl_terrassen != null)
+            return this.flaechen.anzahl_terrassen;
 
         return 0;
     }
 
     get shower () {
-        if (this.ausstattung != null) {
-            if (this.ausstattung.bad != null) {
-                return this.ausstattung.bad.DUSCHE;
-            }
-        }
+        if (this.ausstattung != null && this.ausstattung.bad != null)
+            return this.ausstattung.bad.DUSCHE;
 
         return false;
     }
 
     get bathTub () {
-        if (this.ausstattung != null) {
-            if (this.ausstattung.bad != null) {
-                return this.ausstattung.bad.WANNE;
-            }
-        }
+        if (this.ausstattung != null && this.ausstattung.bad != null)
+            return this.ausstattung.bad.WANNE;
 
         return false;
     }
 
     get bathroomWindow () {
-        if (this.ausstattung != null) {
-            if (this.ausstattung.bad != null) {
-                return this.ausstattung.bad.FENSTER;
-            }
-        }
+        if (this.ausstattung != null && this.ausstattung.bad != null)
+            return this.ausstattung.bad.FENSTER;
 
         return false;
     }
 
     get lavatoryDryingRoom () {
-        if (this.ausstattung != null) {
+        if (this.ausstattung != null)
             return this.ausstattung.wasch_trockenraum;
-        }
 
         return false;
     }
 
     get barrierFree () {
-        if (this.ausstattung != null) {
+        if (this.ausstattung != null)
             return this.ausstattung.barrierefrei;
-        }
 
         return false;
     }
@@ -1102,9 +991,8 @@ immobrowse.RealEstate = class {
     *_objectTypes () {
         const objektart = this.objektkategorie.objektart;
 
-        if (objektart.zimmer != null) {
+        if (objektart.zimmer != null)
             yield 'ZIMMER';
-        }
 
         if (objektart.wohnung != null) {
             yield 'WOHNUNG';
@@ -1119,21 +1007,17 @@ immobrowse.RealEstate = class {
     *_marketingTypes () {
         const vermarktungsart = this.objektkategorie.vermarktungsart;
 
-        if (vermarktungsart.KAUF) {
+        if (vermarktungsart.KAUF)
             yield 'KAUF';
-        }
 
-        if (vermarktungsart.MIETE_PACHT) {
+        if (vermarktungsart.MIETE_PACHT)
             yield 'MIETE_PACHT';
-        }
 
-        if (vermarktungsart.ERBPACHT) {
+        if (vermarktungsart.ERBPACHT)
             yield 'ERBPACHT';
-        }
 
-        if (vermarktungsart.LEASING) {
+        if (vermarktungsart.LEASING)
             yield 'LEASING';
-        }
     }
 
     get marketingTypes () {
@@ -1141,42 +1025,35 @@ immobrowse.RealEstate = class {
     }
 
     get showAddress () {
-        if (this.verwaltung_objekt != null) {
-            if (this.verwaltung_objekt.objektadresse_freigeben != null) {
-                return this.verwaltung_objekt.objektadresse_freigeben;
-            }
-        }
+        if (this.verwaltung_objekt != null && this.verwaltung_objekt.objektadresse_freigeben != null)
+            return this.verwaltung_objekt.objektadresse_freigeben;
 
         return true;
     }
 
     matchTypes (types) {
-        if (types == null) {
+        if (types == null)
             return true;
-        }
 
         const ownTypes = new Set(this.objectTypes);
 
         for (const type of types) {
-            if (ownTypes.has(type)) {
+            if (ownTypes.has(type))
                 return true;
-            }
         }
 
         return false;
     }
 
     matchMarketing (types) {
-        if (types == null) {
+        if (types == null)
             return true;
-        }
 
         const ownTypes = new Set(this.marketingTypes);
 
         for (const type of types) {
-            if (ownTypes.has(type)) {
+            if (ownTypes.has(type))
                 return true;
-            }
         }
 
         return false;
@@ -1187,69 +1064,53 @@ immobrowse.RealEstate = class {
     }
 
     attachmentURL (anhang) {
-        if (anhang != null) {
+        if (anhang != null)
             return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id;
-        }
 
         return null;
     }
 
     defaultDetailsURL (baseUrl) {
-        if (baseUrl != null) {
+        if (baseUrl != null)
             return baseUrl + '?real_estate=' + this.id;
-        }
 
         return null;
     }
 
     get detailsURL () {
-        if (immobrowse.config.exposeURLCallback != null) {
+        if (immobrowse.config.exposeURLCallback != null)
             return immobrowse.config.exposeURLCallback(this.id);
-        }
 
-        if (immobrowse.config.detailsURL != null) {
+        if (immobrowse.config.detailsURL != null)
             return this.defaultDetailsURL(immobrowse.config.detailsURL);
-        }
 
         return this.defaultDetailsURL('expose.html');
     }
 
     get miscellanea () {
-        if (this.freitexte != null) {
-            if (this.freitexte.sonstige_angaben != null && this.freitexte.sonstige_angaben.trim() != '') {
-                return this.freitexte.sonstige_angaben;
-            }
-        }
+        if (this.freitexte != null && this.freitexte.sonstige_angaben != null && this.freitexte.sonstige_angaben.trim() != '')
+            return this.freitexte.sonstige_angaben;
 
         return null;
     }
 
     get description () {
-        if (this.freitexte != null) {
-            if (this.freitexte.objektbeschreibung != null && this.freitexte.objektbeschreibung.trim() != '') {
-                return this.freitexte.objektbeschreibung;
-            }
-        }
+        if (this.freitexte != null && this.freitexte.objektbeschreibung != null && this.freitexte.objektbeschreibung.trim() != '')
+            return this.freitexte.objektbeschreibung;
 
         return null;
     }
 
     get exposure () {
-        if (this.freitexte != null) {
-            if (this.freitexte.lage != null && this.freitexte.lage.trim() != '') {
-                return this.freitexte.lage;
-            }
-        }
+        if (this.freitexte != null && this.freitexte.lage != null && this.freitexte.lage.trim() != '')
+            return this.freitexte.lage;
 
         return null;
     }
 
     get amenitiesDescription () {
-        if (this.freitexte != null) {
-            if (this.freitexte.ausstatt_beschr != null && this.freitexte.ausstatt_beschr.trim() != '') {
-                return this.freitexte.ausstatt_beschr;
-            }
-        }
+        if (this.freitexte != null && this.freitexte.ausstatt_beschr != null && this.freitexte.ausstatt_beschr.trim() != '')
+            return this.freitexte.ausstatt_beschr;
 
         return null;
     }
@@ -1257,9 +1118,8 @@ immobrowse.RealEstate = class {
     *_attachments () {
         if (this.anhaenge != null) {
             if (this.anhaenge.anhang != null) {
-                for (const anhang of this.anhaenge.anhang) {
+                for (const anhang of this.anhaenge.anhang)
                     yield anhang;
-                }
             }
         }
     }
@@ -1270,9 +1130,8 @@ immobrowse.RealEstate = class {
 
     *_images () {
         for (const attachment of this.attachments) {
-            if (immobrowse.IMAGE_GROUPS.includes(attachment.gruppe)) {
+            if (immobrowse.IMAGE_GROUPS.includes(attachment.gruppe))
                 yield attachment;
-            }
         }
     }
 
@@ -1282,9 +1141,8 @@ immobrowse.RealEstate = class {
 
     *_floorplans () {
         for (const attachment of this.attachments) {
-            if (attachment.gruppe == 'GRUNDRISS') {
+            if (attachment.gruppe == 'GRUNDRISS')
                 yield attachment;
-            }
         }
     }
 
@@ -1293,9 +1151,8 @@ immobrowse.RealEstate = class {
     }
 
     get floorplan () {
-        for (const floorplan of this.floorplans) {
+        for (const floorplan of this.floorplans)
             return floorplan;
-        }
 
         return null;
     }
@@ -1317,18 +1174,15 @@ immobrowse.RealEstate = class {
         if (this.geo != null) {
             if (this.geo.etage != null) {
                 if (this.geo.anzahl_etagen != null) {
-                    if (this.geo.etage == this.geo.anzahl_etagen) {
+                    if (this.geo.etage == this.geo.anzahl_etagen)
                         return dg;
-                    }
                 }
 
-                if (this.geo.etage < 0) {
+                if (this.geo.etage < 0)
                     return -this.geo.etage + ordinal + ug;
-                }
 
-                if (this.geo.etage > 0) {
+                if (this.geo.etage > 0)
                     return this.geo.etage + ordinal + og;
-                }
 
                 return eg;
             }
@@ -1339,80 +1193,59 @@ immobrowse.RealEstate = class {
 
     *_amenities () {
         if (this.ausstattung != null) {
-            if (this.ausstattung.rollstuhlgerecht) {
+            if (this.ausstattung.rollstuhlgerecht)
                 yield 'Rollstuhlgerecht';
-            }
 
-            if (this.ausstattung.stellplatzart != null) {
-                if (this.ausstattung.stellplatzart.FREIPLATZ) {
-                    yield 'Stellplatz';
-                }
-            }
+            if (this.ausstattung.stellplatzart != null && this.ausstattung.stellplatzart.FREIPLATZ)
+                yield 'Stellplatz';
 
-            if (this.ausstattung.fahrstuhl != null) {
-                if (this.ausstattung.fahrstuhl.PERSONEN) {
-                    yield 'Personenaufzug';
-                }
-            }
+            if (this.ausstattung.fahrstuhl != null && this.ausstattung.fahrstuhl.PERSONEN)
+                yield 'Personenaufzug';
 
-            if (this.ausstattung.gaestewc) {
+            if (this.ausstattung.gaestewc)
                 yield 'Gäste WC';
-            }
         }
 
         if (this.flaechen != null) {
-            if (this.flaechen.einliegerwohnung) {
+            if (this.flaechen.einliegerwohnung)
                 yield 'Einliegerwohnung';
-            }
         }
 
-        if (this.lavatoryDryingRoom) {
+        if (this.lavatoryDryingRoom)
             yield 'Wasch- / Trockenraum';
-        }
 
-        if (this.builtInKitchen) {
+        if (this.builtInKitchen)
             yield 'Einbauk&uuml;che';
-        }
 
-        if (this.shower) {
+        if (this.shower)
             yield 'Dusche';
-        }
 
-        if (this.bathroomWindow) {
+        if (this.bathroomWindow)
             yield 'Fenster im Bad';
-        }
 
-        if (this.bathTub) {
+        if (this.bathTub)
             yield 'Badewanne';
-        }
 
-        if (this.cableSatTv) {
+        if (this.cableSatTv)
             yield 'Kabel / Sat. / TV';
-        }
 
-        if (this.barrierFree) {
+        if (this.barrierFree)
             yield 'Barrierefrei';
-        }
 
-        if (this.basementRoom) {
+        if (this.basementRoom)
             yield 'Keller';
-        }
 
-        if (this.balconies > 0) {
+        if (this.balconies > 0)
             yield 'Balkon';
-        }
 
-        if (this.terraces > 0) {
+        if (this.terraces > 0)
             yield 'Terrasse';
-        }
 
-        if (this.petsAllowed) {
+        if (this.petsAllowed)
             yield 'Tierhaltung';
-        }
 
-        if (this.gardenUsage) {
+        if (this.gardenUsage)
             yield 'Gartennutzung';
-        }
     }
 
     get amenities () {
@@ -1420,69 +1253,57 @@ immobrowse.RealEstate = class {
     }
 
     get serviceCharge () {
-        if (this.preise != null) {
-            if (this.preise.nebenkosten != null && this.preise.nebenkosten != '') {
-                return this.preise.nebenkosten;
-            }
-        }
+        if (this.preise != null && this.preise.nebenkosten != null && this.preise.nebenkosten != '')
+            return this.preise.nebenkosten;
 
         return null;
     }
 
     get operationalCosts () {
-        if (this.preise != null) {
-            if (this.preise.betriebskostennetto != null && this.preise.betriebskostennetto != '') {
-                return this.preise.betriebskostennetto;
-            }
-        }
+        if (this.preise != null && this.preise.betriebskostennetto != null && this.preise.betriebskostennetto != '')
+            return this.preise.betriebskostennetto;
 
         return null;
     }
 
     get heatingCosts () {
-        if (this.preise != null) {
+        if (this.preise != null)
             return this.preise.heizkosten;
-        }
 
         return null;
     }
 
     get heatingCostsInServiceCharge () {
-        if (this.preise != null) {
+        if (this.preise != null)
             return this.preise.heizkosten_enthalten;
-        }
 
         return null;
     }
 
     get securityDeposit () {
-        if (this.preise != null) {
+        if (this.preise != null)
             return this.preise.kaution;
-        }
 
         return null;
     }
 
     get provision () {
-        if (this.preise != null) {
+        if (this.preise != null)
             return this.preise.provisionnetto;
-        }
 
         return null;
     }
 
     get subjectToCommission () {
-        if (this.preise != null) {
+        if (this.preise != null)
             return this.preise.provisionspflichtig;
-        }
 
         return null;
     }
 
     get livingArea () {
-        if (this.flaechen != null) {
+        if (this.flaechen != null)
             return this.flaechen.wohnflaeche;
-        }
 
         return null;
     }
@@ -1494,26 +1315,23 @@ immobrowse.RealEstate = class {
                 return immobrowse.dateToString(date);
             }
 
-            if (this.verwaltung_objekt.verfuegbar_ab != null) {
+            if (this.verwaltung_objekt.verfuegbar_ab != null)
                 return this.verwaltung_objekt.verfuegbar_ab;
-            }
         }
 
         return null;
     }
 
     get councilFlat () {
-        if (this.verwaltung_objekt != null) {
+        if (this.verwaltung_objekt != null)
             return this.verwaltung_objekt.wbs_sozialwohnung;
-        }
 
         return null;
     }
 
     get constructionYear () {
-        if (this.zustand_angaben != null) {
+        if (this.zustand_angaben != null)
             return this.zustand_angaben.baujahr;
-        }
 
         return null;
     }
@@ -1564,9 +1382,8 @@ immobrowse.RealEstate = class {
       Returns the last modernization.
     */
     get lastModernization () {
-        if (this.zustand_angaben != null) {
+        if (this.zustand_angaben != null)
             return this.zustand_angaben.letztemodernisierung;
-        }
 
         return null;
     }
@@ -1574,25 +1391,20 @@ immobrowse.RealEstate = class {
     *_heatingTypes () {
         if (this.ausstattung != null) {
             if (this.ausstattung.heizungsart != null) {
-                if (this.ausstattung.heizungsart.OFEN) {
+                if (this.ausstattung.heizungsart.OFEN)
                     yield 'Ofen';
-                }
 
-                if (this.ausstattung.heizungsart.ETAGE) {
+                if (this.ausstattung.heizungsart.ETAGE)
                     yield 'Etagenheizung';
-                }
 
-                if (this.ausstattung.heizungsart.ZENTRAL) {
+                if (this.ausstattung.heizungsart.ZENTRAL)
                     yield 'Zentralheizung';
-                }
 
-                if (this.ausstattung.heizungsart.FERN) {
+                if (this.ausstattung.heizungsart.FERN)
                     yield 'Fernwärme';
-                }
 
-                if (this.ausstattung.heizungsart.FUSSBODEN) {
+                if (this.ausstattung.heizungsart.FUSSBODEN)
                     yield 'Fussbodenheizung';
-                }
             }
         }
     }
@@ -1610,9 +1422,8 @@ immobrowse.RealEstate = class {
     get heatingType () {
         const heatingTypes = Array.from(this.heatingTypes);
 
-        if (heatingTypes.length == 0) {
+        if (heatingTypes.length == 0)
             return immobrowse.config.na;
-        }
 
         return heatingTypes.join(', ');
     }
@@ -1621,11 +1432,8 @@ immobrowse.RealEstate = class {
       Determines whether the real estate is listed.
     */
     get listed () {
-        if (this.verwaltung_objekt != null) {
-            if (this.verwaltung_objekt.denkmalgeschuetzt != null) {
-                return this.verwaltung_objekt.denkmalgeschuetzt;
-            }
-        }
+        if (this.verwaltung_objekt != null && this.verwaltung_objekt.denkmalgeschuetzt != null)
+            return this.verwaltung_objekt.denkmalgeschuetzt;
 
         return null;
     }
@@ -1675,21 +1483,18 @@ immobrowse.RealEstate = class {
             }
         }
 
-        if (energiepass.primaerenergietraeger != null) {
+        if (energiepass.primaerenergietraeger != null)
             energyCertificate.primaryEnergyCarrier = immobrowse.translatePrimaerenergietraeger(energiepass.primaerenergietraeger);
-        }
 
-        if (energiepass.wertklasse != null && energiepass.wertklasse != '') {
+        if (energiepass.wertklasse != null && energiepass.wertklasse != '')
             energyCertificate.valueClass = energiepass.wertklasse;
-        }
 
         return energyCertificate;
     }
 
     get contact () {
-        if (this.kontaktperson == null) {
+        if (this.kontaktperson == null)
             return null;
-        }
 
         const contact = {};
         const name = [];
@@ -1709,63 +1514,53 @@ immobrowse.RealEstate = class {
         name.push(contact.lastName);
         contact.name = name.join(' ');
 
-        if (this.kontaktperson.firma != null) {
+        if (this.kontaktperson.firma != null)
             contact.company = this.kontaktperson.firma;
-        }
 
-        if (this.kontaktperson.strasse != null) {
+        if (this.kontaktperson.strasse != null)
             contact.street = this.kontaktperson.strasse;
-        }
 
-        if (this.kontaktperson.hausnummer != null) {
+        if (this.kontaktperson.hausnummer != null)
             contact.houseNumber = this.kontaktperson.hausnummer;
-        }
 
         if (this.kontaktperson.strasse != null && this.kontaktperson.hausnummer != null) {
             contact.streetAndHouseNumber = this.kontaktperson.strasse + ' ' + this.kontaktperson.hausnummer;
             address.push(contact.streetAndHouseNumber);
         }
 
-        if (this.kontaktperson.plz != null) {
+        if (this.kontaktperson.plz != null)
             contact.zipCode = this.kontaktperson.plz;
-        }
 
-        if (this.kontaktperson.ort != null) {
+        if (this.kontaktperson.ort != null)
             contact.city = this.kontaktperson.ort;
-        }
 
         if (this.kontaktperson.plz != null && this.kontaktperson.ort != null) {
             contact.zipCodeAndCity = this.kontaktperson.plz + ' ' + this.kontaktperson.ort;
             address.push(contact.zipCodeAndCity);
         }
 
-        if (address.length > 0) {
+        if (address.length > 0)
             contact.address = address.join(', ');
-        }
 
-        if (this.kontaktperson.email_direkt != null) {
+        if (this.kontaktperson.email_direkt != null)
             contact.email = this.kontaktperson.email_direkt;
-        } else if (this.kontaktperson.email_zentrale != null) {
+        else if (this.kontaktperson.email_zentrale != null)
             contact.email = this.kontaktperson.email_zentrale;
-        }
 
-        if (this.kontaktperson.tel_durchw != null) {
+        if (this.kontaktperson.tel_durchw != null)
             contact.phone = this.kontaktperson.tel_durchw;
-        } else if (this.kontaktperson.tel_zentrale != null) {
+        else if (this.kontaktperson.tel_zentrale != null)
             contact.phone = this.kontaktperson.tel_zentrale;
-        }
 
-        if (this.kontaktperson.url != null) {
+        if (this.kontaktperson.url != null)
             contact.website = this.kontaktperson.url;
-        }
 
         return contact;
     }
 
     *_amenitiesTags () {
-        for (const amenity of this.amenities) {
+        for (const amenity of this.amenities)
             yield new immobrowse.dom.AmenitiesTag(amenity);
-        }
     }
 
     get amenitiesTags () {
@@ -1848,13 +1643,11 @@ immobrowse.RealEstate = class {
                 immobrowse.setValue(elements.phone, null);
                 immobrowse.setValue(elements.website, null);
 
-                if (elements.container != null) {
+                if (elements.container != null)
                     elements.container.hide();
-                }
 
-                if (elements.button != null) {
+                if (elements.button != null)
                     elements.button.attr('disabled', true);
-                }
             }
         }
     }
@@ -1881,9 +1674,8 @@ immobrowse.RealEstate = class {
         immobrowse.setValue(elements.objectId, this.objectId);
         immobrowse.setValue(elements.objectTitle, this.objectTitle);
 
-        if (this.showAddress) {
+        if (this.showAddress)
             immobrowse.setValue(elements.address, this.address);
-        }
 
         immobrowse.setValue(elements.objectTitle, this.objectTitle);
         immobrowse.setValue(elements.type, this.type);
@@ -1925,9 +1717,8 @@ immobrowse.RealEstate = class {
         this.renderImage(elements.titleImage, this.titleImage);
         this.renderImage(elements.floorplan, this.floorplan);
 
-        if (this.listed) {
+        if (this.listed)
             immobrowse.setValue(elements.listedHint, immobrowse.config.listedHint);
-        }
     }
 
     /*
