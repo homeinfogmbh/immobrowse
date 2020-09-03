@@ -236,7 +236,7 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
 
         if (barrierFreeness.wheelchair_parking == 'indoors')
             yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung';
-        else if (barrierFreeness.wheelchair_parking == 'outdoorsv')
+        else if (barrierFreeness.wheelchair_parking == 'outdoors')
             yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung';
     }
 
