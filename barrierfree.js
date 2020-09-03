@@ -135,20 +135,13 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
         return barrierFreeness.stairs == '0' || (entry.ramp_din && (barrierFreeness.stairs == '0-1' || barrierFreeness.stairs == '2-8'));
     }
 
-    *_amenities () {
-        yield* super._amenities();
+    *amenities () {
+        yield* super.amenities();
 
         if (this.completelyBarrierFree())
             yield 'vollständig barrierefrei';
         else if (this.limitedBarrierFree())
             yield 'eingeschränkt barrierefrei';
-    }
-
-    /*
-      Amenities extension
-    */
-    get amenities () {
-        return this._amenities();
     }
 
     attachmentURL (anhang) {
@@ -158,7 +151,7 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
         return 'https://backend.homeinfo.de/barrierfree/attachment/' + anhang.id + '?real_estate=' + this.id + '&portal=' + this.portal;
     }
 
-    *_barrierFreeAmenities () {
+    *barrierFreeAmenities () {
         const barrierFreeness = this.barrier_freeness || {};
         const entry = barrierFreeness.entry || {};
         const lift = barrierFreeness.lift || {};
@@ -238,10 +231,6 @@ barrierfree.RealEstate = class extends immobrowse.RealEstate {
             yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m innerhalb der Wohnung';
         else if (barrierFreeness.wheelchair_parking == 'outdoors')
             yield 'Abstellmöglichkeit für Hilfsmittel (Rollator/Rollstuhl) 1,90 x 3 m außerhalb der Wohnung';
-    }
-
-    get barrierFreeAmenities () {
-        return this._barrierFreeAmenities();
     }
 
     render (elements) {
