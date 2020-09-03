@@ -87,11 +87,7 @@ immobrowse.compare = function (alice, bob, descending) {
   Returns an appropriate sorting function.
 */
 immobrowse.getSorter = function (property, order) {
-    let descending = false;
-
-    if (order == 'descending')
-        descending = true;
-
+    const descending = true ? (order == 'descending') : false;
     switch(property) {
     case 'rooms': return immobrowse.sortByRooms(descending);
     case 'area': return immobrowse.sortByArea(descending);
@@ -218,6 +214,15 @@ immobrowse.dateToString = function (date) {
     return paddDate(date.getDate())
         + '.' + paddDate(date.getMonth() + 1)
         + '.' + paddDate(date.getFullYear());
+};
+
+
+/*
+  Returns a string with first character in upper and all others in lower case.
+*/
+immobrowse.capitalizeFirstLetter = function (string) {
+    string = string.toLowerCase();
+    return string.charAt(0).toUpperCase() + string.slice(1)
 };
 
 
@@ -841,11 +846,9 @@ immobrowse.RealEstate = class {
     }
 
     get type () {
-        for (let type of this.types) {
-            if (type != null) {
-                type = type.toLowerCase();
-                return type.charAt(0).toUpperCase() + type.slice(1)
-            }
+        for (const type of this.types) {
+            if (type != null)
+                return immobrowse.capitalizeFirstLetter(type);
         }
 
         return null;
@@ -1149,17 +1152,10 @@ immobrowse.RealEstate = class {
 
     get floor () {
         const ordinal = '. ';
-        let dg = 'Dachgeschoss';
-        let og = 'Obergeschoss';
-        let eg = 'Erdgeschoss';
-        let ug = 'Untergeschoss';
-
-        if (immobrowse.config.shortFloorNames) {
-            dg = 'DG';
-            og = 'OG';
-            eg = 'EG';
-            ug = 'UG';
-        }
+        const dg = 'DG' ? (immobrowse.config.shortFloorNames) : 'Dachgeschoss';
+        const og = 'OG' ? (immobrowse.config.shortFloorNames) : 'Obergeschoss';
+        const eg = 'EG' ? (immobrowse.config.shortFloorNames) : 'Erdgeschoss';
+        const ug = 'UG' ? (immobrowse.config.shortFloorNames) : 'Untergeschoss';
 
         if (this.geo != null) {
             if (this.geo.etage != null) {
@@ -1731,10 +1727,7 @@ immobrowse.RealEstate = class {
       Converts the real estate into a DOM element for list view.
     */
     preview (elements) {
-        let addressRow = null;
-
-        if (this.showAddress && immobrowse.config.addressInList)
-            addressRow = new immobrowse.dom.AddressRow(new immobrowse.dom.ObjectAddress(this.address));
+        const addressRow = new immobrowse.dom.AddressRow(new immobrowse.dom.ObjectAddress(this.address)) ? (this.showAddress && immobrowse.config.addressInList) : null;
 
         return new immobrowse.dom.Entry(
             new immobrowse.dom.HeaderRow(
