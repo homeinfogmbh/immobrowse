@@ -168,8 +168,8 @@ immobrowse.wordpress.setTitleImage = function (image) {
 
 
 immobrowse.wordpress.setupGallery = function () {
-    const images = Array.from(immobrowse.wordpress.realEstate.images);
-    const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans);
+    const images = Array.from(immobrowse.wordpress.realEstate.images());
+    const floorplans = Array.from(immobrowse.wordpress.realEstate.floorplans());
     const pictures = images.concat(floorplans);
 
     function attachmentUrlCallback(attachment) {
