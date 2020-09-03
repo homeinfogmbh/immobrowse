@@ -15,7 +15,6 @@ if ( !function_exists( 'add_action' ) ) {
 }
 
 include('settings.php');
-include('rendering.php');
 add_shortcode('ImmoBrowse', 'immobrowse_shortcut');
 
 function immobrowse_shortcut() {
