@@ -46,7 +46,7 @@ function immobrowse_shortcut() {
 		jQuery.noConflict();
 			var customer=".$options['customerId'].";
 			var homeinfo_recaptcha='".$options['recaptcha']."';
-			var homeinfoBaseurl='".plugins_url( '', __FILE__ )."/';
+			var homeinfo_baseurl='".plugins_url( '', __FILE__ )."/';
 			jQuery(document).ready(function($) {
 				$( \".ib-image-frame, .homeinfo-contact,#furtherImages\" ).on( \"click\", function() {
 					setTimeout(function(){

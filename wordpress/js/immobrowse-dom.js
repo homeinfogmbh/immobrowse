@@ -240,7 +240,7 @@ immobrowse.dom.TitleImage = class extends HTMLImageElement {
         super();
 
         if (url == null)
-            url = 'img/dummy.jpg';
+            url = homeinfo_baseurl + '/img/dummy.jpg';
 
         this.setAttribute('src', url);
         this.setAttribute('class', 'ib-framed-image');
