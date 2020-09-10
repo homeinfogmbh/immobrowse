@@ -26,7 +26,7 @@ APPLICATION = Application('barrierfree', debug=True, cors=True)
 def approve(immobilie, portals):
     """Chekcs whether the real estate is in any of the portals."""
 
-    return any(immobilie.approve(portal) for portal in portals)
+    return any(immobilie.approve_explicit(portal) for portal in portals)
 
 
 def barrierfree(immobilie):
