@@ -33,7 +33,7 @@ def barrierfree(immobilie):
     """Checks whether the real estate is barrier free."""
 
     try:
-        barrier_freeness = immobilie.barrier_freeness
+        barrier_freeness = immobilie.barrier_freeness.get()
     except BarrierFreeness.DoesNotExist:
         return False
 
