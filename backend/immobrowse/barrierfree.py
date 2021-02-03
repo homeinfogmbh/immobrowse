@@ -2,11 +2,12 @@
 
 This web service is part of ImmoBrowse.
 """
+from typing import Iterable, Iterator, Union
 
 from flask import request
 
 from openimmodb import Immobilie, Anhang, BarrierFreeness
-from wsgilib import Application, Binary, JSON
+from wsgilib import Application, Binary, JSON, JSONMessage
 
 
 __all__ = ['APPLICATION']
@@ -23,13 +24,13 @@ PORTALS = {
 APPLICATION = Application('barrierfree', debug=True, cors=True)
 
 
-def approve(immobilie, portals):
+def approve(immobilie: Immobilie, portals: Iterable[str]) -> bool:
     """Chekcs whether the real estate is in any of the portals."""
 
     return any(immobilie.approve_explicit(portal) for portal in portals)
 
 
-def barrierfree(immobilie):
+def barrierfree(immobilie: Immobilie) -> bool:
     """Checks whether the real estate is barrier free."""
 
     try:
@@ -40,7 +41,7 @@ def barrierfree(immobilie):
     return barrier_freeness.complete or barrier_freeness.limited
 
 
-def list_(portals):
+def list_(portals: Iterable[str]) -> Iterator[Immobilie]:
     """Yields barrierfree real estates for the respective portal."""
 
     for immobilie in Immobilie:
@@ -49,7 +50,7 @@ def list_(portals):
 
 
 @APPLICATION.route('/list')
-def get_list():
+def get_list() -> JSON:
     """Returns the list of barrier-free real estates."""
 
     portal = request.args['portal']
@@ -57,15 +58,13 @@ def get_list():
     try:
         portals = PORTALS[portal]
     except KeyError:
-        return ('Unknown portal.', 400)
+        return JSONMessage('Unknown portal.', status=400)
 
-    real_estates = [
-        real_estate.to_dict(limit=True) for real_estate in list_(portals)]
-    return JSON(real_estates)
+    return JSON([re.to_dict(limit=True) for re in list_(portals)])
 
 
 @APPLICATION.route('/expose/<int:ident>')
-def get_expose(ident):
+def get_expose(ident: int) -> Union[JSON, JSONMessage]:
     """Returns the respective expose."""
 
     portal = request.args['portal']
@@ -73,27 +72,22 @@ def get_expose(ident):
     try:
         portals = PORTALS[portal]
     except KeyError:
-        return ('Unknown portal.', 400)
+        return JSONMessage('Unknown portal.', status=400)
 
     try:
         immobilie = Immobilie.get(Immobilie.id == ident)
     except Immobilie.DoesNotExist:
-        return (f'No such real estate: {ident}.', 404)
+        return JSONMessage('No such real estate.', status=404)
 
-    if barrierfree(immobilie):
-        if approve(immobilie, portals):
-            if immobilie.active:
-                return JSON(immobilie.to_dict(limit=True))
+    if all(barrierfree(immobilie), approve(immobilie, portals),
+           immobilie.active):
+        return JSON(immobilie.to_dict(limit=True))
 
-            return ('Real estate is not active.', 404)
-
-        return ('Real estate not cleared for portal.', 403)
-
-    return ('Real estate is not barrier free.', 404)
+    return JSONMessage('No such real estate.', status=404)
 
 
 @APPLICATION.route('/attachment/<int:ident>')
-def get_attachment(ident):
+def get_attachment(ident: int) -> Union[JSON, JSONMessage]:
     """Returns the respective attachment."""
 
     portal = request.args['portal']
@@ -101,14 +95,14 @@ def get_attachment(ident):
     try:
         portals = PORTALS[portal]
     except KeyError:
-        return ('Unknown portal.', 400)
+        return JSONMessage('Unknown portal.', status=400)
 
     try:
         attachment = Anhang.get(Anhang.id == ident)
     except Anhang.DoesNotExist:
-        return (f'No such attachment: {ident}.', 404)
+        return JSONMessage('No such attachment.', status=404)
 
     if approve(attachment.immobilie, portals):
         return Binary(attachment.bytes)
 
-    return ('Related real estate not cleared for portal.', 403)
+    return JSONMessage('No such attachment.', status=404)

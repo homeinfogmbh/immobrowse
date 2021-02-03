@@ -2,9 +2,11 @@
 
 This web service is part of ImmoBrowse.
 """
+from typing import Iterator, Optional, Union
+
 from mdb import Customer
 from openimmodb import Immobilie, Anhang
-from wsgilib import Application, Binary, JSON
+from wsgilib import Application, Binary, JSON, JSONMessage
 
 from immobrowse.orm import Override
 
@@ -16,7 +18,7 @@ PORTALS = ('immobrowse', 'homepage', 'website')
 APPLICATION = Application('immobrowse', debug=True, cors=True)
 
 
-def has_override(customer):
+def has_override(customer: Union[Customer, int]) -> bool:
     """Checks if the customer has an override."""
 
     try:
@@ -27,7 +29,7 @@ def has_override(customer):
     return True
 
 
-def approve(immobilie, override=None):
+def approve(immobilie: Immobilie, override: Optional[bool] = None) -> bool:
     """Chekcs whether the real estate is in any of the portals."""
 
     if override:
@@ -39,7 +41,7 @@ def approve(immobilie, override=None):
     return any(immobilie.approve(portal) for portal in PORTALS)
 
 
-def real_estates_of(customer):
+def real_estates_of(customer: Union[Customer, int]) -> Iterator[Immobilie]:
     """Yields real estates of the respective customer."""
 
     override = has_override(customer)
@@ -49,49 +51,43 @@ def real_estates_of(customer):
             yield immobilie
 
 
-@APPLICATION.route('/list/<int:cid>')
-def get_list(cid):
+@APPLICATION.route('/list/<int:ident>')
+def get_list(ident: int) -> Union[JSON, JSONMessage]:
     """Returns the respective real estate list."""
 
     try:
-        customer = Customer.get(Customer.id == cid)
+        customer = Customer.get(Customer.id == ident)
     except Customer.DoesNotExist:
-        return (f'No such customer: {cid}.', 404)
+        return JSONMessage('No such customer.', status=404)
 
-    real_estates = [
-        real_estate.to_dict(limit=True) for real_estate
-        in real_estates_of(customer)]
-    return JSON(real_estates)
+    return JSON([re.to_dict(limit=True) for re in real_estates_of(customer)])
 
 
 @APPLICATION.route('/expose/<int:ident>')
-def get_expose(ident):
+def get_expose(ident: int) -> Union[JSON, JSONMessage]:
     """Returns the respective detail expose."""
 
     try:
         immobilie = Immobilie.get(Immobilie.id == ident)
     except Immobilie.DoesNotExist:
-        return (f'No such real estate: {ident}.', 404)
+        return JSONMessage('No such real estate.', status=404)
 
-    if approve(immobilie):
-        if immobilie.active:
-            return JSON(immobilie.to_dict(limit=True))
+    if approve(immobilie) and immobilie.active:
+        return JSON(immobilie.to_dict(limit=True))
 
-        return ('Real estate is not active.', 404)
-
-    return ('Real estate not cleared for portal.', 403)
+    return JSONMessage('No such real estate.', status=404)
 
 
 @APPLICATION.route('/attachment/<int:ident>')
-def get_attachment(ident):
+def get_attachment(ident: int) -> Union[JSON, JSONMessage]:
     """Returns the respective attachment."""
 
     try:
         anhang = Anhang.get(Anhang.id == ident)
     except Anhang.DoesNotExist:
-        return (f'No such attachment: {ident}', 404)
+        return JSONMessage('No such attachment.', status=404)
 
     if approve(anhang.immobilie):
         return Binary(anhang.bytes)
 
-    return ('Related real estate not cleared for portal.', 403)
+    return JSONMessage('No such attachment.', status=404)

@@ -2,19 +2,18 @@
 
 This web service is part of ImmoBrowse.
 """
-
 from functools import wraps
 from io import BytesIO
-from uuid import uuid4
+from typing import Callable
 
 from flask import request, send_file, Flask, Response
-from peewee import ForeignKeyField, CharField
 
 from mdb import Customer
 from openimmo import anbieter
 from openimmodb import Immobilie, Anhang
+from wsgilib import JSONMessage
 
-from immobrowse.orm import ImmoBrowseModel
+from immobrowse.orm import AccessToken
 
 
 __all__ = ['APPLICATION']
@@ -29,17 +28,16 @@ class UnauthorizedError(Exception):
     """Indicates that the respective request is unauthorized."""
 
 
-def authorized(function):
+def authorized(function: Callable) -> Callable:
     """Validates the provided access token."""
 
     @wraps(function)
     def wrapper(*args, **kwargs):
         """Wraps the respective function."""
         try:
-            token = AccessToken.get(
-                AccessToken.token == request.args['token'])
-        except KeyError:
-            raise UnauthorizedError()
+            token = AccessToken.get(AccessToken.token == request.args['token'])
+        except (KeyError, AccessToken.DoesNotExist):
+            raise UnauthorizedError() from None
 
         return function(token.customer, *args, **kwargs)
 
@@ -48,7 +46,7 @@ def authorized(function):
 
 @APPLICATION.route('/anbieter', methods=['GET'])
 @authorized
-def _anbieter(customer):
+def _anbieter(customer: Customer) -> Response:
     """Returns the respective realtor as XML."""
 
     result = anbieter(
@@ -65,7 +63,7 @@ def _anbieter(customer):
 
 @APPLICATION.route('/anhang/<int:ident>', methods=['GET'])
 @authorized
-def _anhang(customer, ident):
+def _anhang(customer: Customer, ident: int) -> Response:
     """Returns the respective attachment."""
 
     try:
@@ -81,28 +79,4 @@ def _anhang(customer, ident):
 def _handle_invalid_access_token(_):
     """Handles the respective error."""
 
-    return ('Unauthorized.', 403)
-
-
-class AccessToken(ImmoBrowseModel):
-    """Access tokens for customers."""
-
-    class Meta:     # pylint: disable=C0111,R0903
-        table_name = 'access_token'
-
-    customer = ForeignKeyField(
-        Customer, column_name='customer', on_delete='CASCADE',
-        on_update='CASCADE')
-    token = CharField(36, default=lambda: str(uuid4()))
-
-    @classmethod
-    def validate(cls, token, customer=None):
-        """Validates the respective token."""
-        customer_expr = True if customer is None else cls.customer == customer
-
-        try:
-            cls.get((cls.token == token) & customer_expr)
-        except cls.DoesNotExist:
-            raise UnauthorizedError()
-
-        return True
+    return JSONMessage('Unauthorized.', status=403)
