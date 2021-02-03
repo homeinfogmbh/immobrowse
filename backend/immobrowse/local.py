@@ -70,7 +70,7 @@ def _anhang(customer: Customer, ident: int) -> Response:
         anhang = Anhang.select().join(Immobilie).where(
             (Anhang.id == ident) & (Immobilie.customer == customer)).get()
     except Anhang.DoesNotExist:
-        return ('No such attachment.', 404)
+        return JSONMessage('No such attachment.', status=404)
 
     return send_file(BytesIO(anhang.bytes), mimetype=anhang.format)
 
