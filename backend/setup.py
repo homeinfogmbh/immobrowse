@@ -13,7 +13,17 @@ setup(
     author_email='<info at homeinfo dot de>',
     maintainer='Richard Neumann',
     maintainer_email='<r dot neumann at homeinfo period de>',
-    requires=['openimmodb'],
+    install_requires=[
+        'configlib',
+        'flask',
+        'mdb',
+        'openimmo',
+        'openimmodb',
+        'peewee',
+        'peeweeplus',
+        'setuptools',
+        'wsgilib'
+    ],
     packages=['immobrowse'],
     description='Real estate search engine.'
 )
