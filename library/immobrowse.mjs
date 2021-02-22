@@ -99,7 +99,6 @@ function getSorter (property, order) {
 */
 function sortByRooms (descending) {
     return (immobilie1, immobilie2) => compare(immobilie1.rooms, immobilie2.rooms, descending);
-    };
 }
 
 
@@ -108,7 +107,6 @@ function sortByRooms (descending) {
 */
 function sortByArea (descending) {
     return (immobilie1, immobilie2) => compare(immobilie1.area, immobilie2.area, descending);
-    };
 }
 
 
@@ -117,7 +115,6 @@ function sortByArea (descending) {
 */
 function sortByRent (descending) {
     return (immobilie1, immobilie2) => compare(immobilie1.rent, immobilie2.rent, descending);
-    };
 }
 
 
@@ -126,7 +123,6 @@ function sortByRent (descending) {
 */
 function sortByStreet (descending) {
     return (immobilie1, immobilie2)  => compare(immobilie1.street, immobilie2.street, descending);
-    };
 }
 
 
