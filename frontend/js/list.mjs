@@ -129,7 +129,7 @@ function list () {
 
 
 export function init () {
-    configure(CONFIG);
+    configure(CONFIG, customer);
     $('#ib-extsearch-button').click(function() {
         if ($('#extendedSearch').attr('style') == 'display: none;')
             $('#extendedSearch').slideDown();

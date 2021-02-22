@@ -21,7 +21,7 @@
 'use strict';
 
 
-export function configure (config) {
+export function configure (config, customer) {
     config['types'] = ['WOHNUNG'];
     config['marketing'] = ['MIETE_PACHT'];
     config['shortFloorNames'] = true;

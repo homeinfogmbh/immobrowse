@@ -208,7 +208,7 @@ function setupGalleries () {
 }
 
 export function init () {
-    configure(CONFIG);
+    configure(CONFIG, customer);
     elements = {
         objectId: $('#objectId'),
         objectTitle: $('#objectTitle'),
