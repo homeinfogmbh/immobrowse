@@ -262,14 +262,6 @@ function translatePrimaerenergietraeger (primaerenergietraeger) {
 
 
 /*
-  Opens the respective URL.
-*/
-export function open (url) {
-    return window.open(url, '_self');
-}
-
-
-/*
   Matches real estates for filtering.
 */
 export class Filter {

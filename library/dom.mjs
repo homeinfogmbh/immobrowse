@@ -268,7 +268,7 @@ class Entry extends HTMLDivElement {
     constructor (headerRow, dataRow, amenitiesRow, detailsURL) {
         super();
         this.setAttribute('class', 'ib-preview-item');
-        this.setAttribute('onclick', 'immobrowse.open("' + detailsURL + '");');
+        this.setAttribute('onclick', 'window.open("' + detailsURL + '", "_self");');
         this.appendChild(headerRow);
         this.appendChild(dataRow);
         this.appendChild(amenitiesRow);
