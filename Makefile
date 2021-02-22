@@ -17,4 +17,4 @@ frontend-immobit:
 
 library:
 	@ install -dm 755 /srv/http/de/homeinfo/javascript/immobrowse
-	@ install -dm 644 -t /srv/http/de/homeinfo/javascript/immobrowse/ library/*.mjs
+	@ install -m 644 -t /srv/http/de/homeinfo/javascript/immobrowse/ library/*.mjs
