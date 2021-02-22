@@ -97,8 +97,8 @@ function* selectedDistricts () {
 function filters () {
     const priceMax = Number(comma2dot($('#ib-price-max').val()));
     return {
-        types: immobrowse.config.types,
-        marketing: immobrowse.config.marketing,
+        types: CONFIG.types,
+        marketing: CONFIG.marketing,
         priceMin: Number(comma2dot($('#ib-price-min').val())),
         priceMax: priceMax == 0 ? Infinity: priceMax,
         areaMin: Number(comma2dot($('#ib-area-min').val())),
