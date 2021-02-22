@@ -1,5 +1,5 @@
 /*
-  dom.js - ImmoBrowse DOM JavaScript library.
+  dom.mjs - ImmoBrowse DOM JavaScript library.
 
   (C) 2021 HOMEINFO - Digitale Informationssysteme GmbH
 

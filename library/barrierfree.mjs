@@ -1,5 +1,5 @@
 /*
-  barrierfree.js - ImmoBrowse library for accessible real estates
+  barrierfree.mjs - ImmoBrowse library for accessible real estates
 
   (C) 2021 HOMEINFO - Digitale Informationssysteme GmbH
 

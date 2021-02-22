@@ -23,7 +23,7 @@
 
 import { capitalizeFirstLetter, euros, germanDecimal } from 'https://javascript.homeinfo.de/lib.mjs';
 import { request } from 'https://javascript.homeinfo.de/requests.mjs';
-import { AmenitiesTag, KilowattHoursPerSquareMeterAndYear, addDataFieldCol, preview } from './dom.js';
+import { AmenitiesTag, KilowattHoursPerSquareMeterAndYear, addDataFieldCol, preview } from './dom.mjs';
 
 
 export const CONFIG = {
