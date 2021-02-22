@@ -21,7 +21,7 @@
 'use strict';
 
 
-import { config } from './config.mjs';
+import { configure } from './config.mjs';
 import { CONFIG, districtElements, Filter, List, RealEstate} from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
 
 
@@ -128,7 +128,7 @@ function list () {
 
 
 export function init () {
-    config();
+    configure(CONFIG);
     $('#ib-extsearch-button').click(function() {
         if ($('#extendedSearch').attr('style') == 'display: none;')
             $('#extendedSearch').slideDown();
