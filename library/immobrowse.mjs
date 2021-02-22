@@ -210,7 +210,7 @@ export function countDistricts (realEstates) {
   Returns a list of district elements for rendering.
 */
 export function *districtElements (realEstates) {
-    for (const [district, count] in countDistricts(realEstates).entries()) {
+    for (const [district, count] in Object.entries(countDistricts(realEstates))) {
         const inputElement = document.createElement('input');
         inputElement.setAttribute('type', 'checkbox');
         inputElement.setAttribute('class', 'ib-select-district');
@@ -421,8 +421,8 @@ export class RealEstate {
     static get (id) {
         const cls = this;
         return request.get('https://backend.homeinfo.de/immobrowse/expose/' + id).then(
-            function (json) {
-                return new cls(json);
+            function (response) {
+                return new cls(response.json);
             },
             function () {
                 alert('Immobilie konnte nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.');
@@ -436,10 +436,10 @@ export class RealEstate {
     static list (cid) {
         const cls = this;
         return request.get('https://backend.homeinfo.de/immobrowse/list/' + cid).then(
-            function (json) {
+            function (response) {
                 const realEstates = [];
 
-                for (const object of json) {
+                for (const object of response.json) {
                     const realEstate = new cls(object);
                     realEstates.push(realEstate);
                 }
