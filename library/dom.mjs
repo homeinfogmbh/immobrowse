@@ -120,7 +120,7 @@ class DataFieldCol extends HTMLDivElement {
 customElements.define('ib-data-field-col', DataFieldCol, {extends: 'div'});
 
 
-class DataRow = class extends HTMLDivElement {
+class DataRow extends HTMLDivElement {
     constructor (dataColumns) {
         super();
         this.setAttribute('class', 'w3-row w3-centered ib-preview-container');
