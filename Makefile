@@ -16,4 +16,5 @@ frontend-immobit:
 	@ make -C frontend-immobit
 
 library:
-	@ install -vm 644 immobrowse-dom.js immobrowse.js barrierfree.js /srv/http/de/homeinfo/javascript/
+	@ install -dm 755 /srv/http/de/homeinfo/javascript/immobrowse
+	@ install -dm 644 -t /srv/http/de/homeinfo/javascript/immobrowse/ library/*.mjs

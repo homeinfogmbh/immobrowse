@@ -1,7 +1,7 @@
 /*
-  gallery.js - ImmoBrowse image gallery
+  gallery.mjs - ImmoBrowse image gallery
 
-  (C) 2017-2020 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2021 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,40 +17,31 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
-
-  Requires:
-    * jquery.js
-    * immobrowse.js
 */
+'use strict';
 
-var gallery = gallery || {};
 
-
-gallery.next = function (galleryObj) {
+export function next (galleryObj) {
     galleryObj.next();
-};
+}
 
 
-gallery.previous = function (galleryObj) {
+export function previous (galleryObj) {
     galleryObj.previous();
-};
+}
 
 
-gallery.nextCallback = function (galleryObj) {
-    return function () {
-        galleryObj.next();
-    };
-};
+export function nextCallback (galleryObj) {
+    return () => galleryObj.next();
+}
 
 
-gallery.previousCallback = function (galleryObj) {
-    return function () {
-        galleryObj.previous();
-    };
-};
+export function previousCallback (galleryObj) {
+    return () => galleryObj.previous();
+}
 
 
-gallery.Gallery = class {
+export class Gallery {
     constructor (images, mapping, urlCallback) {
         this.images = Array.from(images);
         this.mapping = mapping;
@@ -91,4 +82,4 @@ gallery.Gallery = class {
         this.mapping.index.html(this.index + 1);
         this.mapping.count.html(this.images.length);
     }
-};
+}

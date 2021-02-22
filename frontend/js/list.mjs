@@ -1,7 +1,7 @@
 /*
-  list.js - ImmoBrowse list front end JavaScript
+  list.mjs - ImmoBrowse list front end JavaScript
 
-  (C) 2017-2020 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2021 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,23 +17,24 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
-
-  Requires:
-    * jquery.js
-    * sweetalert.js
-    * immobrowse.js
 */
-var urlParams = new URLSearchParams(window.location.search);
-var customer = urlParams.get('customer');
-var sorting = {
+'use strict';
+
+
+import { config } from './config.mjs';
+import { CONFIG, districtElements, Filter, List, RealEstate} from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const customer = urlParams.get('customer');
+const sorting = {
     property: null,
     order: null
 };
-var realEstates;
-var listElement;
+let realEstates, listElement;
 
 
-function toggleOrder() {
+function toggleOrder () {
     const previousOrder = sorting.order;
 
     if (sorting.order == 'descending') {
@@ -46,16 +47,14 @@ function toggleOrder() {
 }
 
 
-function toggleSorting(property) {
+export function toggleSorting (property) {
     const previousIssuer = document.getElementById('ib-sort-' + sorting.property);
     const issuer = document.getElementById('ib-sort-' + property);
     toggleOrder();
     sorting.property = property;
 
-    // Remove arrow symbol
-    if (previousIssuer != null) {
+    if (previousIssuer != null)     // Remove arrow symbol
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
-    }
 
     switch (sorting.order) {
     case 'ascending':
@@ -70,7 +69,7 @@ function toggleSorting(property) {
 }
 
 
-function renderDistricts(districtsElement, districtElements) {
+function renderDistricts (districtsElement, districtElements) {
     districtsElement.html('');
 
     for (let districtElement of districtElements) {
@@ -83,7 +82,7 @@ function renderDistricts(districtsElement, districtElements) {
 }
 
 
-function* selectedDistricts() {
+function* selectedDistricts () {
     const checkboxes = document.getElementsByClassName('ib-select-district');
 
     for (let checkbox of checkboxes) {
@@ -94,7 +93,7 @@ function* selectedDistricts() {
 }
 
 
-function filters() {
+function filters () {
     const priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
     return {
         types: immobrowse.config.types,
@@ -116,9 +115,9 @@ function filters() {
 }
 
 
-function list() {
-    const filter = new immobrowse.Filter(filters());
-    const list = new immobrowse.List(filter.filter(realEstates));
+function list () {
+    const filter = new Filter(filters());
+    const list = new List(filter.filter(realEstates));
 
     if (sorting.property != null) {
         list.sort(sorting.property, sorting.order);
@@ -128,7 +127,8 @@ function list() {
 }
 
 
-function init() {
+export function init () {
+    config();
     $('#ib-extsearch-button').click(function() {
         if ($('#extendedSearch').attr('style') == 'display: none;')
             $('#extendedSearch').slideDown();
@@ -145,15 +145,12 @@ function init() {
     });
 
     listElement = $('#list');
-    immobrowse.RealEstate.list(customer).then(
+    RealEstate.list(customer).then(
         function (realEstates_) {
             realEstates = realEstates_;
-            renderDistricts($('#ib-districts'), immobrowse.districtElements(realEstates));
+            renderDistricts($('#ib-districts'), districtElements(realEstates));
             list();
             $('#loader').hide();
         }
     );
 }
-
-
-$(document).ready(init);

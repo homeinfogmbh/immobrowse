@@ -1,7 +1,7 @@
 /*
-  expose.js - ImmoBrowse Expose front end JavaScript
+  expose.mjs - ImmoBrowse Expose front end.
 
-  (C) 2017-2020 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2021 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,28 +20,34 @@
 
   Requires:
     * jquery.js
-    * sweetalert.js
-    * immobrowse.js
 */
-var urlParams = new URLSearchParams(window.location.search);
+'use strict';
+
+
+import { isEmail } from 'https://javascript.homeinfo.de/lib.mjs'
+import { Mailer } from 'https://javascript.homeinfo.de/hisecon.mjs';
+import { CONFIG, Filter, List, RealEstate } from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
+
+import { configure } from './config.mjs';
+import { Gallery } from './gallery.mjs';
+
+
+const urlParams = new URLSearchParams(window.location.search);
 // XXX: Change config for appropriate productive setting.
-var mailer = new immobrowse.Mailer('homeinfo-testing');
-var customer = urlParams.get('customer');
-var objectId = urlParams.get('real_estate');
-var elements;
-var realEstate;
-var imageGallery;
-var floorplanGallery;
+const mailer = new Mailer('homeinfo-testing');
+const customer = urlParams.get('customer');
+const objectId = urlParams.get('real_estate');
+let elements, realEstate, imageGallery, floorplanGallery;
 
 
-function back() {
+function back () {
     immobrowse.open('list.html?customer=' + customer);
 }
 
 
-function clearContactForm() {
+function clearContactForm () {
     $('#object_id').attr('placeholder', $('#objectId').html());
-      $('#gender_female').click();
+    $('#gender_female').click();
     $('#forename').val('');
     $('#surname').val('');
     $('#email').val('');
@@ -55,78 +61,57 @@ function clearContactForm() {
 }
 
 
-function sendEmail() {
-    var response = grecaptcha.getResponse();
+function sendEmail () {
+    const response = grecaptcha.getResponse();
 
     if (response.length == 0) {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte den CAPTCHA lösen.',
-            type: 'warning'
-        });
+        alert('Bitte den CAPTCHA lösen.');
         return;
     }
 
-    var forename = $('#forename').val().trim();
+    const forename = $('#forename').val().trim();
 
     if (forename == '') {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte Pflichtfeld "Vorname" ausfüllen.',
-            type: 'warning'
-        });
+        alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
         return;
     }
 
-    var surname = $('#surname').val().trim();
+    const surname = $('#surname').val().trim();
 
     if (surname == '') {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte Pflichtfeld "Nachname" ausfüllen.',
-            type: 'warning'
-        });
+        alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
         return;
     }
 
-    var email = $('#email').val().trim();
+    const email = $('#email').val().trim();
 
     if (email == '') {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.',
-            type: 'warning'
-        });
+        alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
         return;
     }
 
-    if (homeinfo.str.isEmail(email) == false) {
-        swal({
-            title: 'Achtung!',
-            text: 'Bitte geben Sie eine gültige E-Mail Adresse an.',
-            type: 'warning'
-        });
+    if (!isEmail(email)) {
+        alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
         return;
     }
 
-    var salutation;
+    let salutation;
 
-    if ($("input:radio[name='gender']:checked").val() == 1) {
+    if (document.querySelector('input:radio[name="gender"]:checked').value == 1)
         salutation = 'Herr';
-    } else {
+    else
         salutation = 'Frau';
-    }
 
-    var objectTitle = realEstate.objectTitle;
-    var objectAddress = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
-    var phone = $('#phone').val().trim();
-    var street = $('#street').val().trim();
-    var houseNumber = $('#house_number').val().trim();
-    var zipCode = $('#zip_code').val().trim();
-    var city = $('#city').val().trim();
-    var message = $('#message').val().trim();
-    var recipient = realEstate.contact.email;
-    var html = immobrowse.dom.contactEmail(
+    const objectTitle = realEstate.objectTitle;
+    const objectAddress = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
+    const phone = document.getElementById('phone').value.trim();
+    const street = document.getElementById('street').value.trim();
+    const houseNumber = document.getElementById('house_number').value.trim();
+    const zipCode = document.getElementById('zip_code').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const recipient = realEstate.contact.email;
+    const html = immobrowse.dom.contactEmail(
         realEstate, message, salutation, forename, surname,
         phone, street, houseNumber, zipCode, city).outerHTML;
     mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId, html, recipient, email);
@@ -134,15 +119,15 @@ function sendEmail() {
 }
 
 
-function initContactForm() {
+function initContactForm () {
     clearContactForm();
-    $('#send_form').click(sendEmail);
+    document.getElementById('send_form').addEventListener('click', sendEmail);
     $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-    $('#clear_form').click(clearContactForm);
+    document.getElementById('#clear_form').click(clearContactForm);
 }
 
 
-function postRender() {
+function postRender () {
     initContactForm();
 
     $('#loader').hide();
@@ -173,7 +158,7 @@ function postRender() {
 }
 
 
-function setupGalleries() {
+function setupGalleries () {
     var galleryMapping = {
         'image': $('#galleryImage'),
         'title': $('#galleryTitle'),
@@ -188,7 +173,7 @@ function setupGalleries() {
         return realEstate.attachmentURL(attachment);
     }
 
-    imageGallery = new gallery.Gallery(images, galleryMapping, attachmentUrlCallback);
+    imageGallery = new Gallery(images, galleryMapping, attachmentUrlCallback);
 
     if (images.length > 0) {
         $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
@@ -205,7 +190,7 @@ function setupGalleries() {
     }
 
     var floorplans = Array.from(realEstate.floorplans);
-    floorplanGallery = new gallery.Gallery(floorplans, galleryMapping, attachmentUrlCallback);
+    floorplanGallery = new Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
     if (floorplans.length > 0) {
         $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
@@ -222,7 +207,8 @@ function setupGalleries() {
     }
 }
 
-function init() {
+export function init () {
+    configure(CONFIG);
     elements = {
         objectId: $('#objectId'),
         objectTitle: $('#objectTitle'),
@@ -295,6 +281,3 @@ function init() {
         }
     );
 }
-
-
-$(document).ready(init);
