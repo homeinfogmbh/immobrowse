@@ -82,7 +82,7 @@ function compare (alice, bob, descending) {
   Returns an appropriate sorting function.
 */
 function getSorter (property, order) {
-    const descending = true ? (order == 'descending') : false;
+    const descending = order == 'descending';
 
     switch(property) {
     case 'rooms': return sortByRooms(descending);
@@ -995,10 +995,10 @@ export class RealEstate {
 
     get floor () {
         const ordinal = '. ';
-        const dg = 'DG' ? (CONFIG.shortFloorNames) : 'Dachgeschoss';
-        const og = 'OG' ? (CONFIG.shortFloorNames) : 'Obergeschoss';
-        const eg = 'EG' ? (CONFIG.shortFloorNames) : 'Erdgeschoss';
-        const ug = 'UG' ? (CONFIG.shortFloorNames) : 'Untergeschoss';
+        const dg = (CONFIG.shortFloorNames) ? 'DG' : 'Dachgeschoss';
+        const og = (CONFIG.shortFloorNames) ? 'OG' : 'Obergeschoss';
+        const eg = (CONFIG.shortFloorNaes) ? 'EG' : 'Erdgeschoss';
+        const ug = (CONFIG.shortFloorNames) ? 'UG' : 'Untergeschoss';
 
         if (this.geo != null) {
             if (this.geo.etage != null) {
@@ -1492,16 +1492,16 @@ export class RealEstate {
         setValue(elements.objectTitle, this.objectTitle);
         setValue(elements.type, this.type);
         // Prices.
-        setValue(elements.coldRent, euros(this.rent) ? this.rent : null);
-        setValue(elements.warmRent, euros(this.warmRent) ? this.warmRent : null);
-        setValue(elements.totaledUpRent, euros(this.totaledUpRent) ? this.totaledUpRent : null);
-        setValue(elements.totalRent, euros(this.totalRent) ? this.totalRent : null);
-        setValue(elements.serviceCharge, euros(this.serviceCharge) ? this.serviceCharge : null);
-        setValue(elements.operationalCosts, euros(this.operationalCosts) ? this.operationalCosts : null);
-        setValue(elements.heatingCosts, euros(this.heatingCosts) ? this.heatingCosts : null);
+        setValue(elements.coldRent, this.rent ? euros(this.rent) : null);
+        setValue(elements.warmRent, this.warmRent ? euros(this.warmRent) : null);
+        setValue(elements.totaledUpRent, this.totaledUpRent ? euros(this.totaledUpRent) : null);
+        setValue(elements.totalRent, this.totalRent ? euros(this.totalRent) : null);
+        setValue(elements.serviceCharge, this.serviceCharge ? euros(this.serviceCharge) : null);
+        setValue(elements.operationalCosts, this.operationalCosts ? euros(this.operationalCosts) : null);
+        setValue(elements.heatingCosts, this.heatingCosts ? euros(this.heatingCosts) : null);
         setValue(elements.heatingCostsInServiceCharge, yesNoNull(this.heatingCostsInServiceCharge));
-        setValue(elements.securityDeposit, euros(this.securityDeposit) ? this.securityDeposit : null);
-        setValue(elements.provision, euros(this.provision) ? this.provision : null);
+        setValue(elements.securityDeposit, this.securityDeposit ? euros(this.securityDeposit) : null);
+        setValue(elements.provision, this.provision ? euros(this.provision) : null);
         setValue(elements.subjectToCommission, yesNoNull(this.subjectToCommission));
         // Areas.
         setValue(elements.livingArea, squareMeters(this.livingArea));
@@ -1543,16 +1543,16 @@ export class RealEstate {
         for (const element of elements) {
             switch (element.name) {
             case 'coldRent':
-                addDataFieldCol(element, euros(this.rent) ? this.rent : CONFIG.na, dataFields);
+                addDataFieldCol(element, this.rent ? euros(this.rent) : CONFIG.na, dataFields);
                 break;
             case 'totalRent':
-                addDataFieldCol(element, euros(this.totalRent) ? this.totalRent : CONFIG.na, dataFields);
+                addDataFieldCol(element, this.totalRent ? euros(this.totalRent) : CONFIG.na, dataFields);
                 break;
             case 'serviceCharge':
-                addDataFieldCol(element, euros(this.serviceCharge) ? this.serviceCharge : CONFIG.na, dataFields);
+                addDataFieldCol(element, this.serviceCharge ? euros(this.serviceCharge) : CONFIG.na, dataFields);
                 break;
             case 'operationalCosts':
-                addDataFieldCol(element, euros(this.operationalCosts) ? this.operationalCosts : CONFIG.na, dataFields);
+                addDataFieldCol(element, this.operationalCosts ? euros(this.operationalCosts) : CONFIG.na, dataFields);
                 break;
             case 'rooms':
                 addDataFieldCol(element, this.rooms || CONFIG.na, dataFields);
