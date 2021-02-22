@@ -21,8 +21,9 @@
 'use strict';
 
 
-import { configure } from './config.mjs';
+import { comma2dot } from 'https://javascript.homeinfo.de/lib.mjs';
 import { CONFIG, districtElements, Filter, List, RealEstate} from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
+import { configure } from './config.mjs';
 
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -94,14 +95,14 @@ function* selectedDistricts () {
 
 
 function filters () {
-    const priceMax = Number(homeinfo.str.comma2dot($('#ib-price-max').val()));
+    const priceMax = Number(comma2dot($('#ib-price-max').val()));
     return {
         types: immobrowse.config.types,
         marketing: immobrowse.config.marketing,
-        priceMin: Number(homeinfo.str.comma2dot($('#ib-price-min').val())),
+        priceMin: Number(comma2dot($('#ib-price-min').val())),
         priceMax: priceMax == 0 ? Infinity: priceMax,
-        areaMin: Number(homeinfo.str.comma2dot($('#ib-area-min').val())),
-        roomsMin: Number(homeinfo.str.comma2dot($('#ib-rooms-min').val())),
+        areaMin: Number(comma2dot($('#ib-area-min').val())),
+        roomsMin: Number(comma2dot($('#ib-rooms-min').val())),
         ebk: $('#ib-filter-kitchen').is(':checked'),
         bathtub: $('#ib-filter-bathtub').is(':checked'),
         window: $('#ib-filter-window').is(':checked'),
