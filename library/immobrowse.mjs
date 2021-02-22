@@ -1589,9 +1589,7 @@ export class List {
     render (listElement, elements) {
         listElement.html('');  // Clear element.
 
-        for (const realEstate of this.realEstates) {
-            const preview = preview(realEstate, elements);
-            listElement.append(preview);
-        }
+        for (const realEstate of this.realEstates)
+            listElement.append(preview(realEstate, elements));
     }
 }
