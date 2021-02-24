@@ -29,17 +29,17 @@ import { configure } from './config.mjs';
 import { Gallery } from './gallery.mjs';
 
 
-const urlParams = new URLSearchParams(window.location.search);
+const URL_PARAMS = new URLSearchParams(window.location.search);
 // XXX: Change config for appropriate productive setting.
-const mailer = new Mailer('homeinfo-testing');
-const customer = urlParams.get('customer');
-const objectId = urlParams.get('real_estate');
-const defaultInquiryText = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
-let elements, realEstate, imageGallery, floorplanGallery;
+const MAILER = new Mailer('homeinfo-testing');
+const CUSTOMER = URL_PARAMS.get('customer');
+const OBJECT_ID = URL_PARAMS.get('real_estate');
+const DEFAULT_INQUIRY_TEXT = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
+let REAL_ESTATE, IMAGE_GALLERY, FLOORPLAN_GALLERY;
 
 
 function back () {
-    immobrowse.open('list.html?customer=' + customer);
+    immobrowse.open('list.html?customer=' + CUSTOMER);
 }
 
 
@@ -54,7 +54,7 @@ function clearContactForm () {
     document.getElementById('house_number').value = '';
     document.getElementById('zip_code').value = '';
     document.getElemebtById('city').value = '';
-    document.getElementById('message').value = defaultInquiryText;
+    document.getElementById('message').value = DEFAULT_INQUIRY_TEXT;
     document.getElemebtById('contact_form_response').style.display = 'none';
 }
 
@@ -90,19 +90,19 @@ function sendEmail () {
     else
         salutation = 'Frau';
 
-    const objectTitle = realEstate.objectTitle;
-    const objectAddress = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
+    const objectTitle = REAL_ESTATE.objectTitle;
+    const objectAddress = [REAL_ESTATE.addressPreview, REAL_ESTATE.cityPreview].join(' ');
     const phone = document.getElementById('phone').value.trim();
     const street = document.getElementById('street').value.trim();
     const houseNumber = document.getElementById('house_number').value.trim();
     const zipCode = document.getElementById('zip_code').value.trim();
     const city = document.getElementById('city').value.trim();
     const message = document.getElementById('message').value.trim();
-    const recipient = realEstate.contact.email;
+    const recipient = REAL_ESTATE.contact.email;
     const html = immobrowse.dom.contactEmail(
-        realEstate, message, salutation, forename, surname,
+        REAL_ESTATE, message, salutation, forename, surname,
         phone, street, houseNumber, zipCode, city).outerHTML;
-    mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId, html, recipient, email);
+    MAILER.send(response, 'Anfrage zu Objekt Nr. ' + REAL_ESTATE.objectId, html, recipient, email);
     grecaptcha.reset();
     clearContactForm();
     document.getElementById('contactForm').style.display = 'none';
@@ -124,124 +124,122 @@ function postRender () {
 
 function setupGalleries () {
     var galleryMapping = {
-        'image': $('#galleryImage'),
-        'title': $('#galleryTitle'),
-        'index': $('#galleryIndex'),
-        'count': $('#galleryImages'),
-        'next': $('#galleryNext'),
-        'previous': $('#galleryPrevious')
+        image: document.getElementById('galleryImage'),
+        title: document.getElementById('galleryTitle'),
+        index: document.getElemeneById('galleryIndex'),
+        count: document.getElemeneById('galleryImages'),
+        next: document.getElemenetById('galleryNext'),
+        previous: document.getElementById('galleryPrevious')
     };
-    var images = Array.from(realEstate.images);
+    var images = Array.from(REAL_ESTATE.images);
 
     function attachmentUrlCallback(attachment) {
-        return realEstate.attachmentURL(attachment);
+        return REAL_ESTATE.attachmentURL(attachment);
     }
 
-    imageGallery = new Gallery(images, galleryMapping, attachmentUrlCallback);
+    IMAGE_GALLERY = new Gallery(images, galleryMapping, attachmentUrlCallback);
 
     if (images.length > 0) {
-        document.getElementById('titleImage').setAttribute('src', realEstate.attachmentURL(images[0]));
+        document.getElementById('titleImage').setAttribute('src', REAL_ESTATE.attachmentURL(images[0]));
     }
 
     if (images.length > 1) {
         document.getElementById('titleImageFrame').addEventListener('click', event => {
-            imageGallery.bind();
-            imageGallery.render();
+            IMAGE_GALLERY.bind();
+            IMAGE_GALLERY.render();
             document.getElementById('gallery').modal('toggle');
         });
 
-        $('#titleImageFrame').addClass('ib-browsable');
+        document.getElementById('titleImageFrame').classList.add('ib-browsable');
     }
 
-    var floorplans = Array.from(realEstate.floorplans);
-    floorplanGallery = new Gallery(floorplans, galleryMapping, attachmentUrlCallback);
+    var floorplans = Array.from(REAL_ESTATE.floorplans);
+    FLOORPLAN_GALLERY = new Gallery(floorplans, galleryMapping, attachmentUrlCallback);
 
     if (floorplans.length > 0) {
-        $('#floorplan').attr('src', realEstate.attachmentURL(floorplans[0]));
+        document.getElementById('floorplan').setAttribute('src', REAL_ESTATE.attachmentURL(floorplans[0]));
     }
 
     if (floorplans.length > 1) {
-        $('#floorplanFrame').click(function() {
-            floorplanGallery.bind();
-            floorplanGallery.render();
-            $('#gallery').modal('toggle');
+        dcoument.getElementById('floorplanFrame').addEventListener('click', event => {
+            FLOORPLAN_GALLERY.bind();
+            FLOORPLAN_GALLERY.render();
+            document.getElementById('gallery').style.display = 'block';
         });
 
-        $('#floorplanFrame').addClass('ib-browsable');
+        document.getElementById('floorplanFrame').classList.add('ib-browsable');
     }
 }
 
 export function init () {
-    configure(CONFIG, customer);
+    configure(CONFIG, CUSTOMER);
     elements = {
-        objectId: $('#objectId'),
-        objectTitle: $('#objectTitle'),
-        coldRent: $('#coldRent'),
-        serviceCharge: $('#serviceCharge'),
-        heatingCosts: $('#heatingCosts'),
-        heatingCostsInServiceCharge: $('#heatingCostsInServiceCharge'),
-        securityDeposit: $('#securityDeposit'),
-        subjectToCommission: $('#subjectToCommission'),
-        livingArea: $('#livingArea'),
-        rooms: $('#rooms'),
-        floor: $('#floor'),
-        availableFrom: $('#availableFrom'),
-        councilFlat: $('#councilFlat'),
-        constructionYear: $('#constructionYear'),
-        state: $('#state'),
-        lastModernization: $('#lastModernization'),
+        objectId: 'objectId',
+        objectTitle: 'objectTitle',
+        coldRent: 'coldRent',
+        serviceCharge: 'serviceCharge',
+        heatingCosts: 'heatingCosts',
+        heatingCostsInServiceCharge: 'heatingCostsInServiceCharge',
+        securityDeposit: 'securityDeposit',
+        subjectToCommission: 'subjectToCommission',
+        livingArea: 'livingArea',
+        rooms: 'rooms',
+        floor: 'floor',
+        availableFrom: 'availableFrom',
+        councilFlat: 'councilFlat',
+        constructionYear: 'constructionYear',
+        state: 'state',
+        lastModernization: 'lastModernization',
         energyCertificate: {
-            type: $('#energyCertificateType'),
+            type: 'energyCertificateType',
             consumption: {
-                value: $('#energyConsumption'),
-                container: $('#energyConsumptionContainer')
+                value: 'energyConsumption',
+                container: 'energyConsumptionContainer'
             },
             demand: {
-                value: $('#energyDemand'),
-                container: $('#energyDemandContainer')
+                value: 'energyDemand',
+                container: 'energyDemandContainer'
             },
-            primaryEnergyCarrier: $('#primaryEnergyCarrier'),
-            valueClass: $('#valueClass')
+            primaryEnergyCarrier: 'primaryEnergyCarrier',
+            valueClass: 'valueClass'
         },
-        description: $('#description'),
-        exposure: $('#exposure'),
-        miscellanea: $('#miscellanea'),
-        salutation: $('#salutation'),
-        firstName: $('#firstName'),
-        lastName: $('#lastName'),
-        company: $('#company'),
-        street: $('#street'),
-        houseNumber: $('#houseNumber'),
-        streetAndHouseNumber: $('#streetAndHouseNumber'),
-        zipCode: $('#zipCode'),
-        city: $('#city'),
-        zipCodeAndCity: $('#zipCodeAndCity'),
-        website: $('#website'),
-        amenitiesList: $('#amenitiesList'),
+        description: 'description',
+        exposure: 'exposure',
+        miscellanea: 'miscellanea',
+        salutation: 'salutation',
+        firstName: 'firstName',
+        lastName: 'lastName',
+        company: 'company',
+        street: 'street',
+        houseNumber: 'houseNumber',
+        streetAndHouseNumber: 'streetAndHouseNumber',
+        zipCode: 'zipCode',
+        city: 'city',
+        zipCodeAndCity: 'zipCodeAndCity',
+        website: 'website',
+        amenitiesList: 'amenitiesList',
         contact: {
-            name: $('#contactName'),
-            company: $('#contactCompany'),
-            address: $('#contactAddress'),
-            phone: $('#contactPhone'),
-            website: $('#contactWebsite')
+            name: 'contactName',
+            company: 'contactCompany',
+            address: 'contactAddress',
+            phone: 'contactPhone',
+            website: 'contactWebsite'
         },
         titleImage: {
-            image: $('#titleImage'),
-            caption: $('#titleImageCaption')
+            image: 'titleImage',
+            caption: 'titleImageCaption'
         },
         floorplan: {
-            image: $('#floorplan'),
-            caption: $('#floorplanCaption')
+            image: 'floorplan',
+            caption: 'floorplanCaption'
         }
     };
 
-    immobrowse.RealEstate.get(objectId).then(
-        function (realEstate_) {
-            realEstate = realEstate_;
-            setupGalleries();
-            realEstate.render(elements);
-            document.title = 'Exposé Nr. ' + realEstate.objectId;
-            postRender();
-        }
-    );
+    immobrowse.RealEstate.get(OBJECT_ID).then(realEstate => {
+        REAL_ESTATE = realEstate;
+        setupGalleries();
+        realEstate.render(elements);
+        document.title = 'Exposé Nr. ' + realEstate.objectId;
+        postRender();
+    });
 }

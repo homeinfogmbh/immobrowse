@@ -21,27 +21,28 @@
 'use strict';
 
 
-import { comma2dot } from 'https://javascript.homeinfo.de/lib.mjs';
+import { Loader, comma2dot } from 'https://javascript.homeinfo.de/lib.mjs';
 import { CONFIG, districtElements, Filter, List, RealEstate} from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
 import { configure } from './config.mjs';
 
 
-const urlParams = new URLSearchParams(window.location.search);
-const customer = urlParams.get('customer');
-const sorting = {
+const URL_PARAMS = new URLSearchParams(window.location.search);
+const CUSTOMER = URL_PARAMS.get('customer');
+const SORTING = {
     property: null,
     order: null
 };
-let realEstates, listElement;
+const LOADER = new Loader('loader', 'list');
+let REAL_ESTATES;
 
 
 function toggleOrder () {
-    const previousOrder = sorting.order;
+    const previousOrder = SORTING.order;
 
-    if (sorting.order == 'descending') {
-        sorting.order = 'ascending';
+    if (SORTING.order == 'descending') {
+        SORTING.order = 'ascending';
     } else {
-        sorting.order = 'descending';
+        SORTING.order = 'descending';
     }
 
     return previousOrder;
@@ -49,15 +50,15 @@ function toggleOrder () {
 
 
 export function toggleSorting (property) {
-    const previousIssuer = document.getElementById('ib-sort-' + sorting.property);
+    const previousIssuer = document.getElementById('ib-sort-' + SORTING.property);
     const issuer = document.getElementById('ib-sort-' + property);
     toggleOrder();
-    sorting.property = property;
+    SORTING.property = property;
 
     if (previousIssuer != null)     // Remove arrow symbol
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
 
-    switch (sorting.order) {
+    switch (SORTING.order) {
     case 'ascending':
         issuer.innerHTML += ' &darr;';
         break;
@@ -71,15 +72,13 @@ export function toggleSorting (property) {
 
 
 function renderDistricts (districtsElement, districtElements) {
-    districtsElement.html('');
+    districtsElement.innerHTML = '';
 
-    for (let districtElement of districtElements) {
-        districtsElement.append(districtElement);
-    }
+    for (const districtElement of districtElements)
+        districtsElement.appendChild(districtElement);
 
-    $('.ib-select-district').click(function() {
-        list();
-    });
+    for (const district of document.getElementsByClassName('ib-select-district'))
+        district.addEventListener('click', event =>  list());
 }
 
 
@@ -95,22 +94,22 @@ function* selectedDistricts () {
 
 
 function filters () {
-    const priceMax = Number(comma2dot($('#ib-price-max').val()));
+    const priceMax = Number(comma2dot(document.getElementById('ib-price-max').value));
     return {
         types: CONFIG.types,
         marketing: CONFIG.marketing,
-        priceMin: Number(comma2dot($('#ib-price-min').val())),
+        priceMin: Number(comma2dot(document.getElemeneById('ib-price-min').value)),
         priceMax: priceMax == 0 ? Infinity: priceMax,
-        areaMin: Number(comma2dot($('#ib-area-min').val())),
-        roomsMin: Number(comma2dot($('#ib-rooms-min').val())),
-        ebk: $('#ib-filter-kitchen').is(':checked'),
-        bathtub: $('#ib-filter-bathtub').is(':checked'),
-        window: $('#ib-filter-window').is(':checked'),
-        balcony: $('#ib-filter-balcony').is(':checked'),
-        carSpace: $('#ib-filter-carspace').is(':checked'),
-        guestwc: $('#ib-filter-guestwc').is(':checked'),
-        elevator: $('#ib-filter-elevator').is(':checked'),
-        garden: $('#ib-filter-garden').is(':checked'),
+        areaMin: Number(comma2dot(document.getElemeneById('ib-area-min').value)),$
+        roomsMin: Number(comma2dot(document.getElemeneById('ib-rooms-min').value)),
+        ebk: document.getElemeneById('ib-filter-kitchen').checked,
+        bathtub: document.getElemeneById('ib-filter-bathtub').checked,
+        window: document.getElemeneById('ib-filter-window').checked,
+        balcony: document.getElemeneById('ib-filter-balcony').checked,
+        carSpace: document.getElemeneById('ib-filter-carspace').checked,
+        guestwc: document.getElemeneById('ib-filter-guestwc').checked,
+        elevator: document.getElemeneById('ib-filter-elevator').checked,
+        garden: document.getElemeneById('ib-filter-garden').checked,
         districts: Array.from(selectedDistricts())
     };
 }
@@ -118,40 +117,36 @@ function filters () {
 
 function list () {
     const filter = new Filter(filters());
-    const list = new List(filter.filter(realEstates));
+    const list = new List(filter.filter(REAL_ESTATES));
 
-    if (sorting.property != null) {
-        list.sort(sorting.property, sorting.order);
+    if (SORTING.property != null) {
+        list.sort(SORTING.property, SORTING.order);
     }
 
-    list.render(listElement);
+    list.render(document.getElementById('list'));
 }
 
 
 export function init () {
-    configure(CONFIG, customer);
-    $('#ib-extsearch-button').click(function() {
-        if ($('#extendedSearch').attr('style') == 'display: none;')
-            $('#extendedSearch').slideDown();
+    LOADER.show();
+    configure(CONFIG, CUSTOMER);
+    document.getElemeneById('ib-extsearch-button').addEventListener('click', event => {
+        if (document.getElemeneById('extendedSearch').style.display == 'none')
+            document.getElemeneById('extendedSearch').style.display = 'block';
         else
-            $('#extendedSearch').slideUp();
+            document.getElemeneById('extendedSearch').style.display = 'none';
     });
 
-    $('.ib-btn-filter-option').on('input', function(e) {
+    for (const filter of document.getElementsByClassName('ib-btn-filter-option'))
+        filter.addEventListener('input', event => list());
+
+    for (const option of document.getElementsByClassName('ib-filter-amenities-option'))
+        option.addEventListener('click', event => list());
+
+    RealEstate.list(CUSTOMER).then(realEstates => {
+        REAL_ESTATES = realEstates;
+        renderDistricts(document.getElementById('ib-districts'), districtElements(realEstates));
         list();
+        LOADER.hide();
     });
-
-    $('.ib-filter-amenities-option').click(function() {
-        list();
-    });
-
-    listElement = $('#list');
-    RealEstate.list(customer).then(
-        function (realEstates_) {
-            realEstates = realEstates_;
-            renderDistricts($('#ib-districts'), districtElements(realEstates));
-            list();
-            $('#loader').hide();
-        }
-    );
 }
