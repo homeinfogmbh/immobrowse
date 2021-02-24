@@ -161,25 +161,33 @@ function dateToString (date) {
 }
 
 
+function setElement (element, value) {
+
+}
+
+
 /*
   Sets a value onto the respective element configuration.
 */
 export function setValue (element, value) {
-    if (element != null) {
+    if (typeof element === 'string' || element instanceof String)
+        element = document.getElementById(element);
+
+    if (element == null)
+        return;
+
+    if (element.container === undefined) {
+        if (value == null)
+            element.innerHTML = CONFIG.na;
+        else
+            element.innerHTML = value;
+    } else {
         if (value == null) {
-            if (element.container == undefined) {
-                element.html(CONFIG.na);
-            } else {
-                element.value.html(CONFIG.na);
-                element.container.hide();
-            }
+            element.value.innerHTML = CONFIG.na;
+            element.style.display = 'none';
         } else {
-            if (element.value == undefined) {
-                element.html(value);
-            } else {
-                element.value.html(value);
-                element.container.show();
-            }
+            element.value.innerHTML = value;
+            element.style.display = 'block';
         }
     }
 }
