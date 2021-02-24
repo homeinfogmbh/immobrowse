@@ -17,9 +17,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   Maintainer: Richard Neumann <r dot neumann at homeinfo period de>
-
-  Requires:
-    * jquery.js
 */
 'use strict';
 
@@ -37,6 +34,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const mailer = new Mailer('homeinfo-testing');
 const customer = urlParams.get('customer');
 const objectId = urlParams.get('real_estate');
+const defaultInquiryText = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
 let elements, realEstate, imageGallery, floorplanGallery;
 
 
@@ -46,54 +44,44 @@ function back () {
 
 
 function clearContactForm () {
-    $('#object_id').attr('placeholder', $('#objectId').html());
-    $('#gender_female').click();
-    $('#forename').val('');
-    $('#surname').val('');
-    $('#email').val('');
-    $('#phone').val('');
-    $('#street').val('');
-    $('#house_number').val('');
-    $('#zip_code').val('');
-    $('#city').val('');
-    $('#message').val('Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.');
-    $('#contact_form_response').hide();
+    document.getElementById('object_id').setAttribute('placeholder', document.getElementById('objectId').innerHTML);
+    document.getElementById('gender_female').checked = true;
+    document.getElementById('forename').value = '';
+    document.getElementById('surname').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('street').value = '';
+    document.getElementById('house_number').value = '';
+    document.getElementById('zip_code').value = '';
+    document.getElemebtById('city').value = '';
+    document.getElementById('message').value = defaultInquiryText;
+    document.getElemebtById('contact_form_response').style.display = 'none';
 }
 
 
 function sendEmail () {
     const response = grecaptcha.getResponse();
 
-    if (response.length == 0) {
-        alert('Bitte den CAPTCHA lösen.');
-        return;
-    }
+    if (response.length == 0)
+        return alert('Bitte den CAPTCHA lösen.');
 
-    const forename = $('#forename').val().trim();
+    const forename = document.getElementById('forename').value.trim();
 
-    if (forename == '') {
-        alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
-        return;
-    }
+    if (forename == '')
+        return alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
 
-    const surname = $('#surname').val().trim();
+    const surname = document.getElemeneById('surname').value.trim();
 
-    if (surname == '') {
-        alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
-        return;
-    }
+    if (surname == '')
+        return alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
 
-    const email = $('#email').val().trim();
+    const email = ducment.getElementById('email').value.trim();
 
-    if (email == '') {
-        alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
-        return;
-    }
+    if (email == '')
+        return alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
 
-    if (!isEmail(email)) {
-        alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
-        return;
-    }
+    if (!isEmail(email))
+        return alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
 
     let salutation;
 
@@ -116,45 +104,21 @@ function sendEmail () {
         phone, street, houseNumber, zipCode, city).outerHTML;
     mailer.send(response, 'Anfrage zu Objekt Nr. ' + realEstate.objectId, html, recipient, email);
     grecaptcha.reset();
+    clearContactForm();
+    document.getElementById('contactForm').style.display = 'none';
 }
 
 
 function initContactForm () {
     clearContactForm();
     document.getElementById('send_form').addEventListener('click', sendEmail);
-    $('#contactFormModal').on('shown.bs.modal', clearContactForm);
-    document.getElementById('#clear_form').click(clearContactForm);
+    document.getElementById('clear_form').addEventListener('click', clearContactForm);
 }
 
 
 function postRender () {
     initContactForm();
-
-    $('#loader').hide();
-    $('#main').attr('style', 'padding-top: 80px');
-
-    $('.showimage').click(function() {
-        for (var i = 0; i < $(this).data('nrmax'); i++) {
-            $('#image'+ i).hide();
-        }
-
-        $('#image'+ $(this).data('nr')).show();
-    });
-
-    $('.btn_contact').click(function(e) {
-        //$('#contact').scrollIntoView(true);
-        if ($('#contact').attr('style') == 'display: none;') {
-            $('#contact').slideDown();
-        } else {
-            $('#contact').slideUp();
-        }
-
-        $('html, body').animate({
-            scrollTop: $('#contact').offset().top
-        }, 500);
-
-        return false; // Not scrolling to top alternative: e.preventDefault();
-    });
+    document.getElementById('loader').style.display = 'none';
 }
 
 
@@ -176,14 +140,14 @@ function setupGalleries () {
     imageGallery = new Gallery(images, galleryMapping, attachmentUrlCallback);
 
     if (images.length > 0) {
-        $('#titleImage').attr('src', realEstate.attachmentURL(images[0]));
+        document.getElementById('titleImage').setAttribute('src', realEstate.attachmentURL(images[0]));
     }
 
     if (images.length > 1) {
-        $('#titleImageFrame').click(function() {
+        document.getElementById('titleImageFrame').addEventListener('click', event => {
             imageGallery.bind();
             imageGallery.render();
-            $('#gallery').modal('toggle');
+            document.getElementById('gallery').modal('toggle');
         });
 
         $('#titleImageFrame').addClass('ib-browsable');

@@ -20,81 +20,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Immobrowse Immobiliensuche</title>
-  <link rel="stylesheet" href="https://libraries.homeinfo.de/bootstrap/latest/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="immobrowse.css">
   <link rel="stylesheet" href="list.css">
-  <script src="https://libraries.homeinfo.de/jquery/jquery-latest.min.js"></script>
-  <script src="https://libraries.homeinfo.de/bootstrap/latest/js/bootstrap.min.js"></script>
   <script type="module">
     import { init } from './js/list.mjs';
     document.addEventListener('DOMContentLoaded', init);
   </script>
 </head>
 
-<div class="container">
-  <div class="row row-centered ib-header">
-    <div class="col-md-3 col-centered">
-      <div class="item">
-        <div class="content">
-          <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
-          <button id="ib-sort-area" onclick="toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fl&auml;che</button>
-          <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
-        </div>
-      </div>
+<div class="w3-container">
+  <div class="w3-row ib-header">
+    <div class="w3-col m3">
+      <button id="ib-sort-rooms" onclick="toggleSorting('rooms');" class="w3-btn ib-btn-sort">Zimmer</button>
+      <button id="ib-sort-area" onclick="toggleSorting('area');" class="w3-btn ib-btn-sort">Fl&auml;che</button>
+      <button id="ib-sort-rent" onclick="toggleSorting('rent');" class="w3-btn ib-btn-sort">Miete</button>
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-price-min" class="w3-input ib-btn-filter-option" type="number" placeholder="Preis von">
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-price-max" class="w3-input ib-btn-filter-option" type="number" placeholder="Preis bis">
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-area-min" class="w3-input ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
     </div>
-    <div class="col-md-2">
-      <div class="item">
-        <div class="content">
-          <input id="ib-rooms-min" class="form-control ib-btn-filter-option" type="number" placeholder="Zimmer ab">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-rooms-min" class="w3-input ib-btn-filter-option" type="number" placeholder="Zimmer ab">
     </div>
     <div class="col-md-1">
-      <div class="item">
-        <div class="content">
-          <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
-        </div>
-      </div>
+      <button id="ib-extsearch-button" class="w3-btn">Erweitert</button>
     </div>
   </div>
-  <div class="row row-centered">
+  <div class="w3-row">
     <div id="extendedSearch" class="ib-extsearch" style="display: none;">
-      <div class="container">
-        <div class="row row-centered">
-          <div class="col-xs-6 col-centered">
+      <div class="w3-container">
+        <div class="w3-row">
+          <div class="w3-col s6">
             <label><strong>Austattung</strong></label><br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen"> Einbauküche (EBK)<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub"> Badewanne<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window"> Fenster im Bad<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony"> Balkon<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace"> Stellplatz<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc"> Gäste-WC<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator"> Fahrstuhl<br>
-            <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden"> Gartennutzung<br>
+            <input id="ib-filter-kitchen" type="checkbox" class="w3-check ib-filter-amenities-option"> Einbauküche (EBK)<br>
+            <input id="ib-filter-bathtub" type="checkbox" class="w3-check ib-filter-amenities-option"> Badewanne<br>
+            <input id="ib-filter-window" type="checkbox" class="w3-check ib-filter-amenities-option"> Fenster im Bad<br>
+            <input id="ib-filter-balcony" type="checkbox" class="w3-check ib-filter-amenities-option"> Balkon<br>
+            <input id="ib-filter-carspace" type="checkbox" class="w3-check ib-filter-amenities-option"> Stellplatz<br>
+            <input id="ib-filter-guestwc" type="checkbox" class="w3-check ib-filter-amenities-option"> Gäste-WC<br>
+            <input id="ib-filter-elevator" type="checkbox" class="w3-check ib-filter-amenities-option"> Fahrstuhl<br>
+            <input id="ib-filter-garden" type="checkbox" class="w3-check ib-filter-amenities-option"> Gartennutzung<br>
           </div>
-          <div class="col-xs-6 col-centered">
+          <div class="w3-col s6">
             <label><strong>Stadtteile</strong></label><br>
             <div id="ib-districts"></div>
           </div>
@@ -102,7 +75,7 @@
       </div>
     </div>
   </div>
-  <div class="row row-centered">
+  <div class="w3-row">
     <div id="list"></div>
     <div id="loader">
       <div class="loader"></div>
