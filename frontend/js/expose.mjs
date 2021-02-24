@@ -170,6 +170,12 @@ function setupGalleries () {
 }
 
 
+function closeContactForm () {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('expose').style.display = 'block';
+}
+
+
 /*
     Toggles between the contact form and the real estate.
 */
@@ -177,13 +183,11 @@ function toggleContactForm () {
     const contactForm = document.getElementById('contactForm');
     const expose = document.getElementById('expose');
 
-    if (contactForm.style.display == 'none') {
-        expose.style.display = 'none';
-        contactForm.style.display = 'block';
-    } else {
-        contactForm.style.display = 'none';
-        expose.style.display = 'block';
-    }
+    if (contactForm.style.display == 'block')
+        return closeContactForm();
+
+    expose.style.display = 'none';
+    contactForm.style.display = 'block';
 }
 
 

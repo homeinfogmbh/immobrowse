@@ -280,86 +280,84 @@
 <!-- Modal -->
 <div id="contactForm" class="w3-modal" role="dialog">
   <div class="w3-modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">Kontaktformular</h4>
+    <h4 class="modal-title">Kontaktformular</h4>
+    <div class="w3-row w3-right">
+      <button id="btnCloseContactForm" type="button" class="close">&times;</button>
     </div>
-    <div class="modal-body">
-      <div class="row" id="the_form" style="margin-top:10px;">
-        <div class="w3-col m6">
-         <p><strong>Anrede</strong></p>
-           <div class="btn-group" data-toggle="buttons">
-             <label class="btn btn-default">
-               <input type="radio" name="gender" id="gender_male" value="1">Herr
-             </label>
-             <label class="btn btn-default">
-               <input type="radio" name="gender" id="gender_female" value="0">Frau
-             </label>
-           </div>
-        </div>
-        <div class="w3-col m6" id="contact_form_object_nr">
-          <p><strong>Objektnummer</strong></p>
-          <input type="text" class="form-control" id="object_id" disabled>
-        </div>
-        <div class="row">
-          <div class="w3-col m12">&nbsp;</div>
-        </div>
-        <div class="w3-col m6">
-          <label for="forename">Vorname</label>
-          <input type="text" class="form-control" id="forename" placeholder="Vorname*">
-        </div>
-        <div class="w3-col m6">
-          <label for="surname">Nachname</label>
-          <input type="text" class="form-control" id="surname" placeholder="Nachname*">
-        </div>
-        <div class="w3-col m6">
-          <label for="email">E-Mail Adresse</label>
-          <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
-        </div>
-        <div class="w3-col m6">
-          <label for="phone">Telefon</label>
-          <input type="text" class="form-control" id="phone" placeholder="Telefon">
-        </div>
-        <div class="w3-col m8">
-          <label for="street">Straße</label>
-          <input type="text" class="form-control" id="street" placeholder="Straße">
-        </div>
-        <div class="w3-col m4">
-          <label for="house_number">Haus-Nr.</label>
-          <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
-        </div>
-        <div class="w3-col m3">
-          <label for="zip_code">PLZ</label>
-          <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
-        </div>
-        <div class="w3-col m9">
-          <label for="city">Ort</label>
-          <input type="text" class="form-control" id="city" placeholder="Ort">
-        </div>
-        <div class="w3-col m12">
-          <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
-        </div>
-        <div class="w3-col m12" style="color:#979696; font-size:10px;">
-          Mit einem (*) gekennzeichnete Felder sind Pflichfelder
-        </div>
-        <div class="w3-col m12" style="margin-top:20px;">
-          <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
-        </div>
+    <div class="row" id="the_form" style="margin-top:10px;">
+      <div class="w3-col m6">
+       <p><strong>Anrede</strong></p>
+         <div class="btn-group" data-toggle="buttons">
+           <label class="btn btn-default">
+             <input type="radio" name="gender" id="gender_male" value="1">Herr
+           </label>
+           <label class="btn btn-default">
+             <input type="radio" name="gender" id="gender_female" value="0">Frau
+           </label>
+         </div>
       </div>
+      <div class="w3-col m6" id="contact_form_object_nr">
+        <p><strong>Objektnummer</strong></p>
+        <input type="text" class="form-control" id="object_id" disabled>
+      </div>
+      <div class="row">
+        <div class="w3-col m12">&nbsp;</div>
+      </div>
+      <div class="w3-col m6">
+        <label for="forename">Vorname</label>
+        <input type="text" class="form-control" id="forename" placeholder="Vorname*">
+      </div>
+      <div class="w3-col m6">
+        <label for="surname">Nachname</label>
+        <input type="text" class="form-control" id="surname" placeholder="Nachname*">
+      </div>
+      <div class="w3-col m6">
+        <label for="email">E-Mail Adresse</label>
+        <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
+      </div>
+      <div class="w3-col m6">
+        <label for="phone">Telefon</label>
+        <input type="text" class="form-control" id="phone" placeholder="Telefon">
+      </div>
+      <div class="w3-col m8">
+        <label for="street">Straße</label>
+        <input type="text" class="form-control" id="street" placeholder="Straße">
+      </div>
+      <div class="w3-col m4">
+        <label for="house_number">Haus-Nr.</label>
+        <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
+      </div>
+      <div class="w3-col m3">
+        <label for="zip_code">PLZ</label>
+        <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
+      </div>
+      <div class="w3-col m9">
+        <label for="city">Ort</label>
+        <input type="text" class="form-control" id="city" placeholder="Ort">
+      </div>
+      <div class="w3-col m12">
+        <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
+      </div>
+      <div class="w3-col m12" style="color:#979696; font-size:10px;">
+        Mit einem (*) gekennzeichnete Felder sind Pflichfelder
+      </div>
+      <div class="w3-col m12" style="margin-top:20px;">
+        <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
+      </div>
+    </div>
+    <hr>
+    <div class="w3-row" id="contact_form_response" style="display:none;">
       <hr>
-      <div class="w3-row" id="contact_form_response" style="display:none;">
-        <hr>
-        <div class="w3-col m2">
-          <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
-        </div>
-        <div class="w3-col m9">
-          <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
-        </div>
+      <div class="w3-col m2">
+        <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
+      </div>
+      <div class="w3-col m9">
+        <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
       </div>
     </div>
-    <div class="modal-footer" style="visible:false;">
-      <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
-      <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
+    <div class="w3-row">
+      <input id="clear_form" type="button" class="w3-btn w3-green" value="Zurücksetzen">
+      <input id="send_form" type="button" class="w3-btn w3-red" value="Anfrage senden">
       <img src="img/preloader.gif" id="loading" style="display:none;">
       <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
     </div>
