@@ -1476,7 +1476,7 @@ export class RealEstate {
             return;
 
         if (element.image != null && element.caption != null) {
-            ensureElement(element.caption).innerHTML = image.anhangtitel;
+            ensureElement(element.caption).innerHTML = (image.anhangtitel == null) ? 'Titelbild' : image.anhangtitel;
             ensureElement(element.image).setAttribute('src', this.attachmentURL(image));
         } else {
             ensureElement(element).setAttribute('src', this.attachmentURL(image));
