@@ -172,7 +172,7 @@ function ensureElement (element) {
 /*
     Sets a value on a container element.
 */
-function setContainer (container, value) {
+function setContainer (element, value) {
     const containerElement = ensureElement(element.container);
     const valueElement = ensureElement(element.value);
 
