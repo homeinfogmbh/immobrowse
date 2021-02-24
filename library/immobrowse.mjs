@@ -161,27 +161,42 @@ function dateToString (date) {
 }
 
 
+function ensureElement (element) {
+    if (typeof element === 'string' || element instanceof String)
+        return document.getElementById(element);
+
+    return element;
+}
+
+
+/*
+    Sets a value on a container element.
+*/
+function setContainer (element, value) {
+    const container = ensureElement(element.container);
+    const value = ensureElement(element.value);
+
+    if (value == null) {
+        value.innerHTML = CONFIG.na;
+        container.style.display = 'none';
+    } else {
+        value.innerHTML = value;
+        container.style.display = 'block';
+    }
+}
+
+
 /*
   Sets a value onto the respective element configuration.
 */
 export function setValue (element, value) {
-    if (typeof element === 'string' || element instanceof String)
-        element = document.getElementById(element);
-
     if (element == null)
         return;
 
-    if (element.container === undefined) {
-        element.innerHTML = (value == null) ? CONFIG.na : value;
-    } else {
-        if (value == null) {
-            element.value.innerHTML = CONFIG.na;
-            element.style.display = 'none';
-        } else {
-            element.value.innerHTML = value;
-            element.style.display = 'block';
-        }
-    }
+    if (element.container != null && element.value != null)
+        return setContainer(element, value);
+
+    element.innerHTML = (value == null) ? CONFIG.na : value;
 }
 
 
