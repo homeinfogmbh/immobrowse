@@ -192,10 +192,17 @@ immobrowse.wordpress.sendEmail = function() {
 
     const message = jQuery('#message').val().trim();
     const recipient = immobrowse.wordpress.realEstate.contact.email;
-    const html = immobrowse.dom.contactEmail(
+    /*
+    const body = immobrowse.dom.contactEmail(
         immobrowse.wordpress.realEstate, message, salutation, forename,
-        surname, phone, street, houseNumber, zipCode, city, member).outerHTML;
-    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, html, recipient, email);
+        surname, phone, street, houseNumber, zipCode, city, member
+    ).outerHTML;
+    */
+    const body = immobrowse.wordpress.createTextEmail(
+        immobrowse.wordpress.realEstate, message, salutation, forename,
+        surname, phone, street, houseNumber, zipCode, city, member
+    );
+    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email);
     grecaptcha.reset();
 };
 
@@ -302,10 +309,39 @@ immobrowse.wordpress.render = function (realEstate) {
 };
 
 
+immobrowse.wordpress.createTextEmail = function(
+        realEstate, message, salutation, forename, surname, phone, street,
+        houseNumber, zipCode, city, member) {
+    let text = 'Anfrage zu Objekt "' + realEstate.objectTitle + '"';
+    text += '\n';
+    text += '\n';
+    text += [realEstate.addressPreview, realEstate.cityPreview].join(' ');
+    text += '\n';
+    text += '\n';
+    text += [salutation, forename, surname].join(' ');
+    text += '\n';
+    text += '\n';
+    text += [street, houseNumber, zipCode, city].join(' ');
+    text += '\n';
+    text += '\n';
+    text += 'Tel.: ' + phone;
+    text += '\n';
+    text += '\n';
+    text += 'Mitglied: ' + (member ? 'Ja' : 'Nein');
+    text += '\n';
+    text += '\n';
+    text += 'hat folgende Anfrage an Sie:';
+    text += '\n';
+    text += '\n';
+    text += message;
+    return text;
+};
+
+
 immobrowse.wordpress.initExpose = function () {
     const urlParams = new URLSearchParams(window.location.search);
     // XXX: Change config for appropriate productive setting
-    immobrowse.wordpress.mailer = new immobrowse.Mailer(homeinfo_recaptcha);
+    immobrowse.wordpress.mailer = new immobrowse.Mailer(homeinfo_recaptcha, false);
     immobrowse.wordpress.objectId = urlParams.get('real_estate');
     immobrowse.wordpress.elements = {
         objectId: jQuery('#objectId'),
