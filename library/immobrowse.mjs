@@ -234,10 +234,12 @@ export function *districtElements (realEstates) {
     for (const [district, count] in Object.entries(countDistricts(realEstates))) {
         const inputElement = document.createElement('input');
         inputElement.setAttribute('type', 'checkbox');
-        inputElement.setAttribute('class', 'ib-select-district');
+        inputElement.setAttribute('class', 'w3-check ib-select-district');
         inputElement.setAttribute('name', district);
+        const label = document.createElement('label');
+        label.innerHTML = district + ' (' + count + ')'
         yield inputElement;
-        yield document.createTextNode(' ' + district + ' (' + count + ')');
+        yield label;
         yield document.createElement('br');
     }
 }
