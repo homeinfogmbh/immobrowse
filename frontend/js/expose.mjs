@@ -54,9 +54,9 @@ function clearContactForm () {
     document.getElementById('street').value = '';
     document.getElementById('house_number').value = '';
     document.getElementById('zip_code').value = '';
-    document.getElemebtById('city').value = '';
+    document.getElementById('city').value = '';
     document.getElementById('message').value = DEFAULT_INQUIRY_TEXT;
-    document.getElemebtById('contact_form_response').style.display = 'none';
+    document.getElementById('contact_form_response').style.display = 'none';
 }
 
 
