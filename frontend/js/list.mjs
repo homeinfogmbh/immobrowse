@@ -98,18 +98,18 @@ function filters () {
     return {
         types: CONFIG.types,
         marketing: CONFIG.marketing,
-        priceMin: Number(comma2dot(document.getElemeneById('ib-price-min').value)),
+        priceMin: Number(comma2dot(document.getElementById('ib-price-min').value)),
         priceMax: priceMax == 0 ? Infinity: priceMax,
-        areaMin: Number(comma2dot(document.getElemeneById('ib-area-min').value)),
-        roomsMin: Number(comma2dot(document.getElemeneById('ib-rooms-min').value)),
-        ebk: document.getElemeneById('ib-filter-kitchen').checked,
-        bathtub: document.getElemeneById('ib-filter-bathtub').checked,
-        window: document.getElemeneById('ib-filter-window').checked,
-        balcony: document.getElemeneById('ib-filter-balcony').checked,
-        carSpace: document.getElemeneById('ib-filter-carspace').checked,
-        guestwc: document.getElemeneById('ib-filter-guestwc').checked,
-        elevator: document.getElemeneById('ib-filter-elevator').checked,
-        garden: document.getElemeneById('ib-filter-garden').checked,
+        areaMin: Number(comma2dot(document.getElementById('ib-area-min').value)),
+        roomsMin: Number(comma2dot(document.getElementById('ib-rooms-min').value)),
+        ebk: document.getElementById('ib-filter-kitchen').checked,
+        bathtub: document.getElementById('ib-filter-bathtub').checked,
+        window: document.getElementById('ib-filter-window').checked,
+        balcony: document.getElementById('ib-filter-balcony').checked,
+        carSpace: document.getElementById('ib-filter-carspace').checked,
+        guestwc: document.getElementById('ib-filter-guestwc').checked,
+        elevator: document.getElementById('ib-filter-elevator').checked,
+        garden: document.getElementById('ib-filter-garden').checked,
         districts: Array.from(selectedDistricts())
     };
 }
@@ -130,11 +130,11 @@ function list () {
 export function init () {
     LOADER.start();
     configure(CONFIG, CUSTOMER);
-    document.getElemeneById('ib-extsearch-button').addEventListener('click', event => {
-        if (document.getElemeneById('extendedSearch').style.display == 'none')
-            document.getElemeneById('extendedSearch').style.display = 'block';
+    document.getElementById('ib-extsearch-button').addEventListener('click', event => {
+        if (document.getElementById('extendedSearch').style.display == 'none')
+            document.getElementById('extendedSearch').style.display = 'block';
         else
-            document.getElemeneById('extendedSearch').style.display = 'none';
+            document.getElementById('extendedSearch').style.display = 'none';
     });
 
     for (const filter of document.getElementsByClassName('ib-btn-filter-option'))
