@@ -41,7 +41,7 @@ export class RealEstate extends RealEstate {
     static get (objectId, portal) {
         const cls = this;
         return request.get('https://backend.homeinfo.de/barrierfree/expose/' + objectId + '?portal=' + portal).then(
-            json => new cls(json, portal),
+            request => new cls(request.json, portal),
             function() {
                 alert('Immobilie konnte nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.');
             }
@@ -54,10 +54,10 @@ export class RealEstate extends RealEstate {
     static list (portal) {
         const cls = this;
         return request.get('https://backend.homeinfo.de/barrierfree/list?portal=' + portal).then(
-            function (json) {
+            function (request) {
                 const realEstates = [];
 
-                for (const object of json) {
+                for (const object of request.json) {
                     const realEstate = new cls(object, portal);
                     realEstates.push(realEstate);
                 }
