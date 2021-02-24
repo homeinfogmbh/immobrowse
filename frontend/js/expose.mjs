@@ -39,11 +39,6 @@ const LOADER = new Loader('loader', 'expose');
 let REAL_ESTATE, IMAGE_GALLERY, FLOORPLAN_GALLERY;
 
 
-function back () {
-    window.open('list.html?customer=' + CUSTOMER, '_self');
-}
-
-
 function clearContactForm () {
     document.getElementById('object_id').setAttribute('placeholder', document.getElementById('objectId').innerHTML);
     document.getElementById('gender_female').checked = true;
@@ -176,6 +171,7 @@ function setupGalleries () {
 
 export function init () {
     LOADER.start();
+    document.getElementById('back').addEventListener('click', event => window.open('list.html?customer=' + CUSTOMER, '_self'));
     configure(CONFIG, CUSTOMER);
     const elements = {
         objectId: 'objectId',
