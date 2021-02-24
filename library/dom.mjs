@@ -363,9 +363,6 @@ export function preview (realEstate, elements) {
 export function contactHTMLEmail (
     realEstate, message, salutation, forename, surname,
     phone, street, houseNumber, zipCode, city, member = null) {
-    function newline () {
-        return document.createElement('br');
-    }
 
     const doc = document.implementation.createHTMLDocument('Anfrage zu Objekt');
     const body = doc.body;
@@ -398,7 +395,7 @@ export function contactHTMLEmail (
             streetAndHouseNumber += ' ' + houseNumber;
 
         streetAndHouseNumber = document.createTextNode(streetAndHouseNumber);
-        body.appendChild(newline());
+        body.appendChild(document.createElement('br'));
         body.appendChild(streetAndHouseNumber);
         inquirerInfo = true;
     }
@@ -406,39 +403,39 @@ export function contactHTMLEmail (
     if (city) {
         if (zipCode) {
             const zipCodeAndCity = document.createTextNode([zipCode, city].join(' '));
-            body.appendChild(newline());
+            body.appendChild(document.createElement('br'));
             body.appendChild(zipCodeAndCity);
         } else {
             city = document.createTextNode(city);
-            body.appendChild(newline());
+            body.appendChild(document.createElement('br'));
             body.appendChild(city);
         }
 
         inquirerInfo = true;
     } else if (zipCode) {
         zipCode = document.createTextNode(zipCode);
-        body.appendChild(newline());
+        body.appendChild(document.createElement('br'));
         body.appendChild(zipCode);
         inquirerInfo = true;
     }
 
     if (phone) {
         phone = document.createTextNode('Tel.: ' + phone);
-        body.appendChild(newline());
+        body.appendChild(document.createElement('br'));
         body.appendChild(phone);
         inquirerInfo = true;
     }
 
     if (member != null) {
         member = document.createTextNode('Mitglied: ' + member ? 'Ja' : 'Nein');
-        body.appendChild(newline());
+        body.appendChild(document.createElement('br'));
         body.appendChild(member);
         inquirerInfo = true;
     }
 
     if (inquirerInfo) {
-        body.appendChild(newline());
-        body.appendChild(newline());    // two new lines.
+        body.appendChild(document.createElement('br'));
+        body.appendChild(document.createElement('br'));    // two new lines.
     } else {
         const space = document.createTextNode(' ');
         body.appendChild(space);
@@ -446,8 +443,8 @@ export function contactHTMLEmail (
 
     const messageHeader = document.createTextNode('hat folgende Anfrage an Sie:');
     body.appendChild(messageHeader);
-    body.appendChild(newline());
-    body.appendChild(newline());  // two new lines.
+    body.appendChild(document.createElement('br'));
+    body.appendChild(document.createElement('br'));  // two new lines.
 
     const div = document.createElement('div');
     div.setAttribute('style', 'font-style:italic;');
