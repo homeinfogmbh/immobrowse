@@ -900,10 +900,10 @@ export class RealEstate {
     }
 
     attachmentURL (anhang) {
-        if (anhang != null)
-            return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id;
+        if (anhang == null)
+            throw 'No attachment specified!';
 
-        return null;
+        return 'https://backend.homeinfo.de/immobrowse/attachment/' + anhang.id;
     }
 
     defaultDetailsURL (baseUrl) {
