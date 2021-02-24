@@ -22,7 +22,7 @@
 
 
 import { isEmail } from 'https://javascript.homeinfo.de/lib.mjs'
-import { Mailer } from 'https://javascript.homeinfo.de/hisecon.mjs';
+import { Contact, EMail, Mailer, immoblueMessage } from 'https://javascript.homeinfo.de/hisecon.mjs';
 import { CONFIG, Filter, List, RealEstate } from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
 
 import { configure } from './config.mjs';
@@ -39,7 +39,7 @@ let REAL_ESTATE, IMAGE_GALLERY, FLOORPLAN_GALLERY;
 
 
 function back () {
-    immobrowse.open('list.html?customer=' + CUSTOMER);
+    window.open('list.html?customer=' + CUSTOMER, '_self');
 }
 
 
@@ -65,14 +65,14 @@ function sendEmail () {
     if (response.length == 0)
         return alert('Bitte den CAPTCHA lösen.');
 
-    const forename = document.getElementById('forename').value.trim();
+    const firstName = document.getElementById('forename').value.trim();
 
-    if (forename == '')
+    if (firstName == '')
         return alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
 
-    const surname = document.getElemeneById('surname').value.trim();
+    const lastName = document.getElemeneById('surname').value.trim();
 
-    if (surname == '')
+    if (lastName == '')
         return alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
 
     const email = ducment.getElementById('email').value.trim();
@@ -97,12 +97,13 @@ function sendEmail () {
     const houseNumber = document.getElementById('house_number').value.trim();
     const zipCode = document.getElementById('zip_code').value.trim();
     const city = document.getElementById('city').value.trim();
+    const address = street + ' ' + houseNumber + ', ' + zipCode + ' ' + city;
     const message = document.getElementById('message').value.trim();
-    const recipient = REAL_ESTATE.contact.email;
-    const html = immobrowse.dom.contactEmail(
-        REAL_ESTATE, message, salutation, forename, surname,
-        phone, street, houseNumber, zipCode, city).outerHTML;
-    MAILER.send(response, 'Anfrage zu Objekt Nr. ' + REAL_ESTATE.objectId, html, recipient, email);
+    const contact = new Contact(salutation, firstName, lastName, address, email, phone, member);
+    const subject = 'Anfrage zu Objekt Nr. ' + REAL_ESTATE.objectId;
+    const text = immoblueMessage(REAL_ESTATE, contact, message);
+    const email = new EMail(subject, text, [REAL_ESTATE.contact.email]);
+    MAILER.send(response, email);
     grecaptcha.reset();
     clearContactForm();
     document.getElementById('contactForm').style.display = 'none';
@@ -235,7 +236,7 @@ export function init () {
         }
     };
 
-    immobrowse.RealEstate.get(OBJECT_ID).then(realEstate => {
+    RealEstate.get(OBJECT_ID).then(realEstate => {
         REAL_ESTATE = realEstate;
         setupGalleries();
         realEstate.render(elements);
