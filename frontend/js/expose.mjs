@@ -130,7 +130,7 @@ function setupGalleries () {
         title: document.getElementById('galleryTitle'),
         index: document.getElementById('galleryIndex'),
         count: document.getElementById('galleryImages'),
-        next: document.getElemenetById('galleryNext'),
+        next: document.getElementById('galleryNext'),
         previous: document.getElementById('galleryPrevious')
     };
     var images = Array.from(REAL_ESTATE.images);
