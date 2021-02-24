@@ -123,7 +123,7 @@ customElements.define('ib-data-field-col', DataFieldCol, {extends: 'div'});
 class DataRow extends HTMLDivElement {
     constructor (dataColumns) {
         super();
-        this.setAttribute('class', 'w3-row w3-centered ib-preview-container');
+        this.setAttribute('class', 'w3-row w3-center ib-preview-container');
 
         for (const child of dataColumns)
             this.appendChild(child);
@@ -145,7 +145,7 @@ customElements.define('ib-object-address', ObjectAddress, {extends: 'div'});
 class AddressRow extends HTMLDivElement {
     constructor (objectAddress) {
         super();
-        this.setAttribute('class', 'w3-row w3-centered');
+        this.setAttribute('class', 'w3-row w3-center');
         this.appendChild(objectAddress);
     }
 }
@@ -165,7 +165,7 @@ customElements.define('ib-object-title', ObjectTitle, {extends: 'div'});
 class TitleRow extends HTMLDivElement {
     constructor (objectTitle) {
         super();
-        this.setAttribute('class', 'w3-row w3-centered');
+        this.setAttribute('class', 'w3-row w3-center');
         this.appendChild(objectTitle);
     }
 }
@@ -234,7 +234,7 @@ customElements.define('ib-image-col', ImageCol, {extends: 'div'});
 class HeaderRow extends HTMLDivElement {
     constructor (imageCol, titleCol) {
         super();
-        this.setAttribute('class', 'w3-row w3-centered ib-preview-container');
+        this.setAttribute('class', 'w3-row w3-center ib-preview-container');
         this.appendChild(imageCol);
         this.appendChild(titleCol);
     }
@@ -257,7 +257,7 @@ customElements.define('ib-amenities-tags', AmenitiesTags, {extends: 'div'});
 class AmenitiesRow extends HTMLDivElement {
     constructor (amenitiesTags) {
         super();
-        this.setAttribute('class', 'w3-row w3-centered ib-preview-container');
+        this.setAttribute('class', 'w3-row w3-center ib-preview-container');
         this.appendChild(amenitiesTags);
     }
 }
