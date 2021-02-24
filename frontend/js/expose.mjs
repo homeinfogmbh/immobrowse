@@ -70,7 +70,7 @@ function sendEmail () {
     if (firstName == '')
         return alert('Bitte Pflichtfeld "Vorname" ausfüllen.');
 
-    const lastName = document.getElemeneById('surname').value.trim();
+    const lastName = document.getElementById('surname').value.trim();
 
     if (lastName == '')
         return alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
@@ -128,8 +128,8 @@ function setupGalleries () {
     var galleryMapping = {
         image: document.getElementById('galleryImage'),
         title: document.getElementById('galleryTitle'),
-        index: document.getElemeneById('galleryIndex'),
-        count: document.getElemeneById('galleryImages'),
+        index: document.getElementById('galleryIndex'),
+        count: document.getElementById('galleryImages'),
         next: document.getElemenetById('galleryNext'),
         previous: document.getElementById('galleryPrevious')
     };
