@@ -196,7 +196,7 @@ export function setValue (element, value) {
     if (element.container != null && element.value != null)
         return setContainer(element, value);
 
-    element.innerHTML = (value == null) ? CONFIG.na : value;
+    ensureElement(element).innerHTML = (value == null) ? CONFIG.na : value;
 }
 
 
