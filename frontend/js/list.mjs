@@ -128,7 +128,7 @@ function list () {
 
 
 export function init () {
-    LOADER.show();
+    LOADER.start();
     configure(CONFIG, CUSTOMER);
     document.getElemeneById('ib-extsearch-button').addEventListener('click', event => {
         if (document.getElemeneById('extendedSearch').style.display == 'none')
@@ -147,6 +147,6 @@ export function init () {
         REAL_ESTATES = realEstates;
         renderDistricts(document.getElementById('ib-districts'), districtElements(realEstates));
         list();
-        LOADER.hide();
+        LOADER.stop();
     });
 }
