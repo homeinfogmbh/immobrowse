@@ -143,6 +143,10 @@ export function init () {
     for (const option of document.getElementsByClassName('ib-filter-amenities-option'))
         option.addEventListener('click', event => list());
 
+    document.getElementById('ib-sort-rooms').addEventListener('click', event => toggleSorting('rooms'));
+    document.getElementById('ib-sort-area').addEventListener('click', event => toggleSorting('area'));
+    document.getElementById('ib-sort-rent').addEventListener('click', event => toggleSorting('rent'));
+
     RealEstate.list(CUSTOMER).then(realEstates => {
         REAL_ESTATES = realEstates;
         renderDistricts(document.getElementById('ib-districts'), districtElements(realEstates));
