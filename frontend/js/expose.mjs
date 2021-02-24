@@ -81,10 +81,12 @@ function sendEmail () {
 
     let salutation;
 
-    if (document.querySelector('input:radio[name="gender"]:checked').value == 1)
+    if (document.querySelector('input:radio[name="gender"]:checked').value == 0)
+        salutation = 'Frau';
+    else if (document.querySelector('input:radio[name="gender"]:checked').value == 1)
         salutation = 'Herr';
     else
-        salutation = 'Frau';
+        salutation = 'Diverse Person';
 
     const objectTitle = REAL_ESTATE.objectTitle;
     const objectAddress = [REAL_ESTATE.addressPreview, REAL_ESTATE.cityPreview].join(' ');
