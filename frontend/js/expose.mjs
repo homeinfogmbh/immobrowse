@@ -22,6 +22,7 @@
 
 
 import { Loader, isEmail } from 'https://javascript.homeinfo.de/lib.mjs'
+import { Address } from 'https://javascript.homeinfo.de/mdb.mjs'
 import { Contact, EMail, Mailer, immoblueMessage } from 'https://javascript.homeinfo.de/hisecon.mjs';
 import { CONFIG, Filter, List, RealEstate } from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
 
@@ -95,7 +96,7 @@ function sendEmail () {
     const houseNumber = document.getElementById('house_number').value.trim();
     const zipCode = document.getElementById('zip_code').value.trim();
     const city = document.getElementById('city').value.trim();
-    const address = street + ' ' + houseNumber + ', ' + zipCode + ' ' + city;
+    const address = new Address(street, houseNumber, zipCode, city);
     const message = document.getElementById('message').value.trim();
     const contact = new Contact(salutation, firstName, lastName, address, emailAddress, phone);
     const subject = 'Anfrage zu Objekt Nr. ' + REAL_ESTATE.objectId;
