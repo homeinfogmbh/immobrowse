@@ -105,7 +105,7 @@ function sendEmail () {
     MAILER.send(response, email);
     grecaptcha.reset();
     clearContactForm();
-    document.getElementById('contactForm').style.display = 'none';
+    closeContactForm();
 }
 
 
