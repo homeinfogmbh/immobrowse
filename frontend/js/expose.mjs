@@ -21,7 +21,7 @@
 'use strict';
 
 
-import { isEmail } from 'https://javascript.homeinfo.de/lib.mjs'
+import { Loader, isEmail } from 'https://javascript.homeinfo.de/lib.mjs'
 import { Contact, EMail, Mailer, immoblueMessage } from 'https://javascript.homeinfo.de/hisecon.mjs';
 import { CONFIG, Filter, List, RealEstate } from 'https://javascript.homeinfo.de/immobrowse/immobrowse.mjs';
 
@@ -35,6 +35,7 @@ const MAILER = new Mailer('homeinfo-testing');
 const CUSTOMER = URL_PARAMS.get('customer');
 const OBJECT_ID = URL_PARAMS.get('real_estate');
 const DEFAULT_INQUIRY_TEXT = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
+const LOADER = new Loader('loader', 'expose');
 let REAL_ESTATE, IMAGE_GALLERY, FLOORPLAN_GALLERY;
 
 
@@ -174,6 +175,7 @@ function setupGalleries () {
 }
 
 export function init () {
+    LOADER.start();
     configure(CONFIG, CUSTOMER);
     const elements = {
         objectId: 'objectId',
@@ -243,5 +245,6 @@ export function init () {
         realEstate.render(elements);
         document.title = 'Exposé Nr. ' + realEstate.objectId;
         postRender();
+        LOADER.stop();
     });
 }
