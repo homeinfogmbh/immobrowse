@@ -1466,7 +1466,7 @@ export class RealEstate {
                     elements.container.hide();
 
                 if (elements.button != null)
-                    elements.button.attr('disabled', true);
+                    elements.button.setAttribute('disabled', true);
             }
         }
     }
@@ -1475,10 +1475,10 @@ export class RealEstate {
         if (element != null) {
             if (image != null) {
                 if (element.image != null) {
-                    element.image.attr('src', this.attachmentURL(image));
+                    element.image.setAttribute('src', this.attachmentURL(image));
                     element.caption.innerHTML = image.anhangtitel;
                 } else {
-                    element.attr('src', this.attachmentURL(image));
+                    element.setAttribute('src', this.attachmentURL(image));
                 }
             }
         }
