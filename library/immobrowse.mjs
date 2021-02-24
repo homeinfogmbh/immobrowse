@@ -21,7 +21,7 @@
 'use strict';
 
 
-import { capitalizeFirstLetter, euros, germanDecimal } from 'https://javascript.homeinfo.de/lib.mjs';
+import { capitalizeFirstLetter, euros, germanDecimal, squareMeters } from 'https://javascript.homeinfo.de/lib.mjs';
 import { request } from 'https://javascript.homeinfo.de/requests.mjs';
 import { AmenitiesTag, KilowattHoursPerSquareMeterAndYear, addDataFieldCol, preview } from './dom.mjs';
 
