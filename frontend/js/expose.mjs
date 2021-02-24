@@ -75,12 +75,12 @@ function sendEmail () {
     if (lastName == '')
         return alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
 
-    const email = ducment.getElementById('email').value.trim();
+    const emailAddress = ducment.getElementById('email').value.trim();
 
-    if (email == '')
+    if (emailAddress == '')
         return alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
 
-    if (!isEmail(email))
+    if (!isEmail(emailAddress))
         return alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
 
     let salutation;
@@ -99,10 +99,11 @@ function sendEmail () {
     const city = document.getElementById('city').value.trim();
     const address = street + ' ' + houseNumber + ', ' + zipCode + ' ' + city;
     const message = document.getElementById('message').value.trim();
-    const contact = new Contact(salutation, firstName, lastName, address, email, phone, member);
+    const contact = new Contact(salutation, firstName, lastName, address, emailAddress, phone, member);
     const subject = 'Anfrage zu Objekt Nr. ' + REAL_ESTATE.objectId;
     const text = immoblueMessage(REAL_ESTATE, contact, message);
-    const email = new EMail(subject, text, [REAL_ESTATE.contact.email]);
+    //const email = new EMail(subject, text, [REAL_ESTATE.contact.email]);
+    const email = new EMail(subject, text, ['r.neumann@homeinfo.de']);
     MAILER.send(response, email);
     grecaptcha.reset();
     clearContactForm();
