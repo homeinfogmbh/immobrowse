@@ -281,7 +281,7 @@
 <div id="contactForm" class="w3-modal" role="dialog">
   <div class="w3-modal-content">
     <div class="w3-container">
-      <h4 class="modal-title">Kontaktformular</h4>
+      <h4 class="modal-title">Kontaktformular für Objekt Nr. <span id="object_id"></span></h4>
       <div class="w3-row w3-right">
         <button id="btnCloseContactForm" type="button" class="close">&times;</button>
       </div>
@@ -289,16 +289,13 @@
         <div class="w3-col m6">
          <p><strong>Anrede</strong></p>
            <div class="btn-group" data-toggle="buttons">
-             <input type="radio" class="w3-input" name="gender" id="gender_female" value="0">
+             <input type="radio" class="w3-radio" name="gender" id="gender_female" value="0">
              <label>Frau</label>
-             <input type="radio" class="w3-input" name="gender" id="gender_male" value="1">
+             <input type="radio" class="w3-radio" name="gender" id="gender_male" value="1">
              <label>Herr</label>
-             <input type="radio" class="w3-input" name="gender" id="gender_diverse" value="2">
+             <input type="radio" class="w3-radio" name="gender" id="gender_diverse" value="2">
              <label>Divers</label>
            </div>
-        </div>
-        <div class="w3-col m6" id="contact_form_object_nr">
-          <p><strong>Objektnummer:&nbsp;</strong><span id="object_id"></span></p>
         </div>
         <div class="w3-col m6">
           <label for="forename">Vorname</label>
