@@ -197,6 +197,7 @@ export function init () {
     LOADER.start();
     document.getElementById('back').addEventListener('click', event => window.open('list.html?customer=' + CUSTOMER, '_self'));
     document.getElementById('btnContactForm').addEventListener('click', toggleContactForm);
+    document.getElementById('btnCloseContactForm').addEventListener('click', closeContactForm);
     configure(CONFIG, CUSTOMER);
     const elements = {
         objectId: 'objectId',
