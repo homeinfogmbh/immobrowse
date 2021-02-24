@@ -231,7 +231,7 @@ export function countDistricts (realEstates) {
   Returns a list of district elements for rendering.
 */
 export function *districtElements (realEstates) {
-    for (const [district, count] in Object.entries(countDistricts(realEstates))) {
+    for (const [district, count] of Object.entries(countDistricts(realEstates))) {
         const inputElement = document.createElement('input');
         inputElement.setAttribute('type', 'checkbox');
         inputElement.setAttribute('class', 'w3-check ib-select-district');
