@@ -100,7 +100,7 @@ function filters () {
         marketing: CONFIG.marketing,
         priceMin: Number(comma2dot(document.getElemeneById('ib-price-min').value)),
         priceMax: priceMax == 0 ? Infinity: priceMax,
-        areaMin: Number(comma2dot(document.getElemeneById('ib-area-min').value)),$
+        areaMin: Number(comma2dot(document.getElemeneById('ib-area-min').value)),
         roomsMin: Number(comma2dot(document.getElemeneById('ib-rooms-min').value)),
         ebk: document.getElemeneById('ib-filter-kitchen').checked,
         bathtub: document.getElemeneById('ib-filter-bathtub').checked,
