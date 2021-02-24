@@ -161,11 +161,6 @@ function dateToString (date) {
 }
 
 
-function setElement (element, value) {
-
-}
-
-
 /*
   Sets a value onto the respective element configuration.
 */
@@ -177,10 +172,7 @@ export function setValue (element, value) {
         return;
 
     if (element.container === undefined) {
-        if (value == null)
-            element.innerHTML = CONFIG.na;
-        else
-            element.innerHTML = value;
+        element.innerHTML = (value == null) ? CONFIG.na : value;
     } else {
         if (value == null) {
             element.value.innerHTML = CONFIG.na;
