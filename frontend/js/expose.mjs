@@ -71,7 +71,7 @@ function sendEmail () {
     if (lastName == '')
         return alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
 
-    const emailAddress = ducment.getElementById('email').value.trim();
+    const emailAddress = document.getElementById('email').value.trim();
 
     if (emailAddress == '')
         return alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
