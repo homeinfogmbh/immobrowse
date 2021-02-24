@@ -173,7 +173,7 @@ function setupGalleries () {
 
 export function init () {
     configure(CONFIG, CUSTOMER);
-    elements = {
+    const elements = {
         objectId: 'objectId',
         objectTitle: 'objectTitle',
         coldRent: 'coldRent',
