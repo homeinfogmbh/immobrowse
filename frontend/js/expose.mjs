@@ -81,9 +81,9 @@ function sendEmail () {
 
     let salutation;
 
-    if (document.querySelector('input:radio[name="gender"]:checked').value == 0)
+    if (document.getElementById('gender_female').checked)
         salutation = 'Frau';
-    else if (document.querySelector('input:radio[name="gender"]:checked').value == 1)
+    else if (document.getElementById('gender_male').checked)
         salutation = 'Herr';
     else
         salutation = 'Diverse Person';
