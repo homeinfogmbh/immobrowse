@@ -169,9 +169,28 @@ function setupGalleries () {
     }
 }
 
+
+/*
+    Toggles between the contact form and the real estate.
+*/
+function toggleContactForm () {
+    const contactForm = document.getElementById('contactForm');
+    const expose = document.getElementById('expose');
+
+    if (contactForm.style.display == 'none') {
+        expose.style.display = 'none';
+        contactForm.style.display = 'block';
+    } else {
+        contactForm.style.display = 'none';
+        expose.style.display = 'block';
+    }
+}
+
+
 export function init () {
     LOADER.start();
     document.getElementById('back').addEventListener('click', event => window.open('list.html?customer=' + CUSTOMER, '_self'));
+    document.getElementById('btnContactForm').addEventListener('click', toggleContactForm);
     configure(CONFIG, CUSTOMER);
     const elements = {
         objectId: 'objectId',
