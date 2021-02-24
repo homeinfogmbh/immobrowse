@@ -78,7 +78,7 @@ function renderDistricts (districtsElement, districtElements) {
         districtsElement.appendChild(districtElement);
 
     for (const district of document.getElementsByClassName('ib-select-district'))
-        district.addEventListener('click', event =>  list());
+        district.addEventListener('click', event => list());
 }
 
 
@@ -86,9 +86,8 @@ function* selectedDistricts () {
     const checkboxes = document.getElementsByClassName('ib-select-district');
 
     for (let checkbox of checkboxes) {
-        if (checkbox.checked) {
+        if (checkbox.checked)
             yield checkbox.getAttribute('name');
-        }
     }
 }
 
