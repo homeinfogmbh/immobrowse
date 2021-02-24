@@ -41,7 +41,7 @@ let REAL_ESTATE, IMAGE_GALLERY, FLOORPLAN_GALLERY;
 
 
 function clearContactForm () {
-    document.getElementById('object_id').setAttribute('placeholder', REAL_ESTATE.objectId);
+    document.getElementById('object_id').innerHTML = REAL_ESTATE.objectId;
     document.getElementById('gender_female').checked = true;
     document.getElementById('forename').value = '';
     document.getElementById('surname').value = '';
