@@ -41,7 +41,7 @@ let REAL_ESTATE, IMAGE_GALLERY, FLOORPLAN_GALLERY;
 
 
 function clearContactForm () {
-    document.getElementById('object_id').setAttribute('placeholder', document.getElementById('objectId').innerHTML);
+    document.getElementById('object_id').setAttribute('placeholder', REAL_ESTATE.objectId);
     document.getElementById('gender_female').checked = true;
     document.getElementById('forename').value = '';
     document.getElementById('surname').value = '';
@@ -114,12 +114,6 @@ function initContactForm () {
     clearContactForm();
     document.getElementById('send_form').addEventListener('click', sendEmail);
     document.getElementById('clear_form').addEventListener('click', clearContactForm);
-}
-
-
-function postRender () {
-    initContactForm();
-    document.getElementById('loader').style.display = 'none';
 }
 
 
@@ -267,7 +261,7 @@ export function init () {
         setupGalleries();
         realEstate.render(elements);
         document.title = 'Exposé Nr. ' + realEstate.objectId;
-        postRender();
+        initContactForm();
         LOADER.stop();
     });
 }
