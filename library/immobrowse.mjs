@@ -1476,8 +1476,8 @@ export class RealEstate {
             return;
 
         if (element.image != null && element.caption != null) {
-            ensureElement(element.image).innerHTML = image.anhangtitel;
-            ensureElement(element.caption).setAttribute('src', this.attachmentURL(image));
+            ensureElement(element.caption).innerHTML = image.anhangtitel;
+            ensureElement(element.image).setAttribute('src', this.attachmentURL(image));
         } else {
             ensureElement(element).setAttribute('src', this.attachmentURL(image));
         }
