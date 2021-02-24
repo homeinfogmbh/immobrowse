@@ -176,6 +176,9 @@ function setContainer (container, value) {
     const containerElement = ensureElement(element.container);
     const valueElement = ensureElement(element.value);
 
+    if (containerElement == null || valueElement == null)
+        return;
+
     if (value == null) {
         valueElement.innerHTML = CONFIG.na;
         containerElement.style.display = 'none';
@@ -196,7 +199,10 @@ export function setValue (element, value) {
     if (element.container != null && element.value != null)
         return setContainer(element, value);
 
-    ensureElement(element).innerHTML = (value == null) ? CONFIG.na : value;
+    element = ensureElement(element);
+
+    if (element != null)
+        element.innerHTML = (value == null) ? CONFIG.na : value;
 }
 
 
