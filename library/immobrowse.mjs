@@ -1455,7 +1455,7 @@ export class RealEstate {
             if (image != null) {
                 if (element.image != null) {
                     element.image.attr('src', this.attachmentURL(image));
-                    element.caption.html(image.anhangtitel);
+                    element.caption.innerHTML = image.anhangtitel;
                 } else {
                     element.attr('src', this.attachmentURL(image));
                 }
@@ -1573,7 +1573,7 @@ export class List {
       Renders the respective real estates into the given HTML element.
     */
     render (listElement, elements) {
-        listElement.html('');  // Clear element.
+        listElement.innerHTML = '';
 
         for (const realEstate of this.realEstates)
             listElement.append(preview(realEstate, elements));
