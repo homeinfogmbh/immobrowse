@@ -172,16 +172,16 @@ function ensureElement (element) {
 /*
     Sets a value on a container element.
 */
-function setContainer (element, value) {
-    const container = ensureElement(element.container);
-    const value = ensureElement(element.value);
+function setContainer (container, value) {
+    const containerElement = ensureElement(element.container);
+    const valueElement = ensureElement(element.value);
 
     if (value == null) {
-        value.innerHTML = CONFIG.na;
-        container.style.display = 'none';
+        valueElement.innerHTML = CONFIG.na;
+        containerElement.style.display = 'none';
     } else {
-        value.innerHTML = value;
-        container.style.display = 'block';
+        valueElement.innerHTML = value;
+        containerElement.style.display = 'block';
     }
 }
 
