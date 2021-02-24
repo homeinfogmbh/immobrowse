@@ -413,12 +413,8 @@ export class RealEstate {
     static get (id) {
         const cls = this;
         return request.get('https://backend.homeinfo.de/immobrowse/expose/' + id).then(
-            function (response) {
-                return new cls(response.json);
-            },
-            function () {
-                alert('Immobilie konnte nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.');
-            }
+            response => new cls(response.json),
+            () => alert('Immobilie konnte nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.')
         );
     }
 
@@ -428,7 +424,7 @@ export class RealEstate {
     static list (cid) {
         const cls = this;
         return request.get('https://backend.homeinfo.de/immobrowse/list/' + cid).then(
-            function (response) {
+            response => {
                 const realEstates = [];
 
                 for (const object of response.json) {
@@ -438,9 +434,7 @@ export class RealEstate {
 
                 return realEstates;
             },
-            function () {
-                alert('Immobilien konnten nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.');
-            }
+            () => alert('Immobilien konnten nicht geladen werden.\nBitte versuchen Sie es später noch ein Mal.')
         );
     }
 
