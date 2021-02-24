@@ -97,7 +97,7 @@ function sendEmail () {
     const city = document.getElementById('city').value.trim();
     const address = street + ' ' + houseNumber + ', ' + zipCode + ' ' + city;
     const message = document.getElementById('message').value.trim();
-    const contact = new Contact(salutation, firstName, lastName, address, emailAddress, phone, member);
+    const contact = new Contact(salutation, firstName, lastName, address, emailAddress, phone);
     const subject = 'Anfrage zu Objekt Nr. ' + REAL_ESTATE.objectId;
     const text = immoblueMessage(REAL_ESTATE, contact, message);
     //const email = new EMail(subject, text, [REAL_ESTATE.contact.email]);
