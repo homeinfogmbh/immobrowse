@@ -83,6 +83,6 @@ export function init (realEstate) {
         next: document.getElementById('galleryNext'),
         previous: document.getElementById('galleryPrevious')
     };
-    setupImageGallery(realEstate, mapping);
-    setupFloorplanGallery(realEstate, mapping);
+    setupImageGallery(realEstate, Object.assign({}, mapping, {}));
+    setupFloorplanGallery(realEstate, Object.assign({}, mapping, {}));
 }
