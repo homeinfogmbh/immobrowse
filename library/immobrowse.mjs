@@ -28,7 +28,7 @@ import { AmenitiesTag, Fraction, addDataFieldCol, preview } from './dom.mjs';
 
 export const CONFIG = {
     addressInList: false,
-    kwh: new Fraction('kWh', 'm&sup2;&middot;a'),
+    kwh: new Fraction('kWh', 'm&sup2;&middot;a').innerText,
     listedHint: 'Gebäude liegt im Denkmalschutzbereich.',
     shortFloorNames: false,
     na: 'k. A.'
