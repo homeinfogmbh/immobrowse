@@ -68,13 +68,29 @@ function closeContactForm () {
 
 
 /*
-    Sends an email with the content from the contact form.
+    Returns the address information.
 */
-function sendEmail (realEstate) {
-    const response = grecaptcha.getResponse();
+function getAddress () {
+    const street = document.getElementById('street').value.trim();
+    const houseNumber = document.getElementById('house_number').value.trim();
+    const zipCode = document.getElementById('zip_code').value.trim();
+    const city = document.getElementById('city').value.trim();
+    return new Address(street, houseNumber, zipCode, city);
+}
 
-    if (response.length == 0)
-        return alert('Bitte den CAPTCHA lösen.');
+
+/*
+    Returns the contact information.
+*/
+function getContact () {
+    let salutation;
+
+    if (document.getElementById('gender_female').checked)
+        salutation = 'Frau';
+    else if (document.getElementById('gender_male').checked)
+        salutation = 'Herr';
+    else
+        salutation = 'Diverse Person';
 
     const firstName = document.getElementById('forename').value.trim();
 
@@ -86,37 +102,54 @@ function sendEmail (realEstate) {
     if (lastName == '')
         return alert('Bitte Pflichtfeld "Nachname" ausfüllen.');
 
-    const emailAddress = document.getElementById('email').value.trim();
+    const address = getAddress();
 
-    if (emailAddress == '')
+    if (address == null)
+        return;
+
+    const email = document.getElementById('email').value.trim();
+
+    if (email == '')
         return alert('Bitte Pflichtfeld "E-Mail Adresse" ausfüllen.');
 
-    if (!isEmail(emailAddress))
+    if (!isEmail(email))
         return alert('Bitte geben Sie eine gültige E-Mail Adresse an.');
 
-    let salutation;
-
-    if (document.getElementById('gender_female').checked)
-        salutation = 'Frau';
-    else if (document.getElementById('gender_male').checked)
-        salutation = 'Herr';
-    else
-        salutation = 'Diverse Person';
-
-    const objectTitle = realEstate.objectTitle;
-    const objectAddress = [realEstate.addressPreview, realEstate.cityPreview].join(' ');
     const phone = document.getElementById('phone').value.trim();
-    const street = document.getElementById('street').value.trim();
-    const houseNumber = document.getElementById('house_number').value.trim();
-    const zipCode = document.getElementById('zip_code').value.trim();
-    const city = document.getElementById('city').value.trim();
-    const address = new Address(street, houseNumber, zipCode, city);
-    const message = document.getElementById('message').value.trim();
-    const contact = new Contact(salutation, firstName, lastName, address, emailAddress, phone);
+    return new Contact(salutation, firstName, lastName, address, email, phone);
+}
+
+
+/*
+    Returns the email.
+*/
+function getEmail (realEstate) {
+    const contact = getContact();
+
+    if (contact == null)
+        return;
+
     const subject = 'Anfrage zu Objekt Nr. ' + realEstate.objectId;
     const text = immoblueMessage(realEstate, contact, message);
-    //const email = new EMail(subject, text, [realEstate.contact.email]);
-    const email = new EMail(subject, text, ['r.neumann@homeinfo.de']);
+    //return new EMail(subject, text, [realEstate.contact.email]);
+    return new EMail(subject, text, ['r.neumann@homeinfo.de']);
+}
+
+
+/*
+    Sends an email with the content from the contact form.
+*/
+function sendEmail (realEstate) {
+    const response = grecaptcha.getResponse();
+
+    if (response.length == 0)
+        return alert('Bitte den CAPTCHA lösen.');
+
+    const email = getEmail(realEstate);
+
+    if (email == null)
+        return;
+
     MAILER.send(response, email);
     grecaptcha.reset();
     clearContactForm(realEstate);
