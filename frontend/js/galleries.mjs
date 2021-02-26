@@ -28,7 +28,7 @@ import { Gallery } from 'https://javascript.homeinfo.de/gallery.mjs'
     Sets up a gallery for real esatate images.
 */
 function setupImageGallery (realEstate, mapping) {
-    const images = Array.from(realEstate.images);
+    const images = Array.from(realEstate.images());
     mapping.open = document.getElementById('titleImage');
 
     if (images.length > 0)
@@ -51,7 +51,7 @@ function setupImageGallery (realEstate, mapping) {
     Sets up a gallery for floor plans.
 */
 function setupFloorplanGallery (realEstate, mapping) {
-    const floorplans = Array.from(realEstate.floorplans);
+    const floorplans = Array.from(realEstate.floorplans());
     mapping.open = document.getElementById('floorplan');
 
     if (floorplans.length > 0)
