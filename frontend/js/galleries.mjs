@@ -37,8 +37,6 @@ function setupImageGallery (realEstate, mapping) {
     if (images.length > 1) {
         const imageGallery = new Gallery(images, mapping, attachment => realEstate.attachmentURL(attachment));
         imageGallery.bind();
-        imageGallery.render();
-        document.getElementById('titleImageFrame').classList.add('ib-browsable');
     }
 }
 
@@ -56,8 +54,6 @@ function setupFloorplanGallery (realEstate, mapping) {
     if (floorplans.length > 1) {
         const floorplanGallery = new Gallery(floorplans, mapping, attachment => realEstate.attachmentURL(attachment));
         floorplanGallery.bind();
-        floorplanGallery.render();
-        document.getElementById('floorplanFrame').classList.add('ib-browsable');
     }
 }
 
