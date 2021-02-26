@@ -35,12 +35,9 @@ function setupImageGallery (realEstate, mapping) {
         document.getElementById('titleImage').setAttribute('src', realEstate.attachmentURL(images[0]));
 
     if (images.length > 1) {
-        document.getElementById('titleImageFrame').addEventListener('click', event => {
-            const imageGallery = new Gallery(images, mapping, attachment => realEstate.attachmentURL(attachment));
-            imageGallery.bind();
-            imageGallery.render();
-        });
-
+        const imageGallery = new Gallery(images, mapping, attachment => realEstate.attachmentURL(attachment));
+        imageGallery.bind();
+        imageGallery.render();
         document.getElementById('titleImageFrame').classList.add('ib-browsable');
     }
 }
@@ -57,12 +54,9 @@ function setupFloorplanGallery (realEstate, mapping) {
         document.getElementById('floorplan').setAttribute('src', realEstate.attachmentURL(floorplans[0]));
 
     if (floorplans.length > 1) {
-        dcoument.getElementById('floorplanFrame').addEventListener('click', event => {
-            const floorplanGallery = new Gallery(floorplans, mapping, attachment => realEstate.attachmentURL(attachment));
-            floorplanGallery.bind();
-            floorplanGallery.render();
-        });
-
+        const floorplanGallery = new Gallery(floorplans, mapping, attachment => realEstate.attachmentURL(attachment));
+        floorplanGallery.bind();
+        floorplanGallery.render();
         document.getElementById('floorplanFrame').classList.add('ib-browsable');
     }
 }
