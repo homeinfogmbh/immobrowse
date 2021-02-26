@@ -61,7 +61,7 @@ class Denominator extends HTMLSpanElement {
 customElements.define('ib-denominator', Denominator, {extends: 'span'});
 
 
-class Fraction extends HTMLSpanElement {
+export class Fraction extends HTMLSpanElement {
     constructor (numerator, denominator) {
         super();
         this.setAttribute('class', 'fraction');
@@ -287,7 +287,7 @@ customElements.define('ib-amenities-tag', AmenitiesTag, {extends: 'div'});
 
 export class KilowattHoursPerSquareMeterAndYear extends Fraction {
     constructor () {
-        super('kWh','m&sup2;&middot;a');
+        super('kWh', 'm&sup2;&middot;a');
     }
 }
 customElements.define('ib-kwhsma', KilowattHoursPerSquareMeterAndYear, {extends: 'span'});

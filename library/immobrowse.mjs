@@ -23,12 +23,12 @@
 
 import { capitalizeFirstLetter, euros, germanDecimal, squareMeters } from 'https://javascript.homeinfo.de/lib.mjs';
 import { request } from 'https://javascript.homeinfo.de/requests.mjs';
-import { AmenitiesTag, KilowattHoursPerSquareMeterAndYear, addDataFieldCol, preview } from './dom.mjs';
+import { AmenitiesTag, Fraction, addDataFieldCol, preview } from './dom.mjs';
 
 
 export const CONFIG = {
     addressInList: false,
-    kwh: (new KilowattHoursPerSquareMeterAndYear()).outerHTML,
+    kwh: (new Fraction('kWh', 'm&sup2;&middot;a')).outerHTML,
     listedHint: 'Gebäude liegt im Denkmalschutzbereich.',
     shortFloorNames: false,
     na: 'k. A.'
