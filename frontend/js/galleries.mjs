@@ -39,7 +39,6 @@ function setupImageGallery (realEstate, mapping) {
             const imageGallery = new Gallery(images, mapping, attachment => realEstate.attachmentURL(attachment));
             imageGallery.bind();
             imageGallery.render();
-            document.getElementById('gallery').modal('toggle');
         });
 
         document.getElementById('titleImageFrame').classList.add('ib-browsable');
@@ -62,7 +61,6 @@ function setupFloorplanGallery (realEstate, mapping) {
             const floorplanGallery = new Gallery(floorplans, mapping, attachment => realEstate.attachmentURL(attachment));
             floorplanGallery.bind();
             floorplanGallery.render();
-            document.getElementById('gallery').style.display = 'block';
         });
 
         document.getElementById('floorplanFrame').classList.add('ib-browsable');
@@ -81,7 +79,9 @@ export function init (realEstate) {
         count: document.getElementById('galleryImages'),
         close: document.getElementById('btnCloseGallery'),
         next: document.getElementById('galleryNext'),
-        previous: document.getElementById('galleryPrevious')
+        previous: document.getElementById('galleryPrevious'),
+        gallery: document.getElementById('gallery'),
+        expose: document.getElementById('expose')
     };
     setupImageGallery(realEstate, Object.assign({}, mapping, {}));
     setupFloorplanGallery(realEstate, Object.assign({}, mapping, {}));
