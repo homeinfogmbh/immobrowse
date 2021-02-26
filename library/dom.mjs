@@ -41,7 +41,7 @@ class OvalOuter extends HTMLDivElement {
 customElements.define('ib-oval-outer', OvalOuter, {extends: 'div'});
 
 
-class Numerator extends HTMLSpanElement {
+export class Numerator extends HTMLSpanElement {
     constructor (content) {
         super();
         this.setAttribute('class', 'numerator');
@@ -51,7 +51,7 @@ class Numerator extends HTMLSpanElement {
 customElements.define('ib-numerator', Numerator, {extends: 'span'});
 
 
-class Denominator extends HTMLSpanElement {
+export class Denominator extends HTMLSpanElement {
     constructor (content) {
         super();
         this.setAttribute('class', 'denominator');
