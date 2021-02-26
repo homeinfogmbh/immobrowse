@@ -26,7 +26,7 @@ import { Address } from 'https://javascript.homeinfo.de/mdb.mjs';
 import { Contact, EMail, Mailer, immoblueMessage } from 'https://javascript.homeinfo.de/hisecon.mjs';
 
 
-const DEFAULT_INQUIRY_TEXT = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
+const MESSAGE = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
 const MAILER = new Mailer('homeinfo-testing');
 
 
@@ -44,7 +44,7 @@ function clearContactForm (realEstate) {
     document.getElementById('house_number').value = '';
     document.getElementById('zip_code').value = '';
     document.getElementById('city').value = '';
-    document.getElementById('message').value = DEFAULT_INQUIRY_TEXT;
+    document.getElementById('message').value = MESSAGE;
     document.getElementById('contact_form_response').style.display = 'none';
 }
 
