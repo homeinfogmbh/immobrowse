@@ -44,12 +44,10 @@ customElements.define('ib-oval-outer', OvalOuter, {extends: 'div'});
 class Numerator extends HTMLSpanElement {
     constructor (content) {
         super();
-
-        if (content === undefined)
-            return;
-
         this.setAttribute('class', 'numerator');
-        this.innerHTML = content;
+
+        if (content !== undefined)
+            this.innerHTML = content;
     }
 }
 customElements.define('ib-numerator', Numerator, {extends: 'span'});
@@ -58,12 +56,10 @@ customElements.define('ib-numerator', Numerator, {extends: 'span'});
 class Denominator extends HTMLSpanElement {
     constructor (content) {
         super();
-
-        if (content === undefined)
-            return;
-
         this.setAttribute('class', 'denominator');
-        this.innerHTML = content;
+
+        if (content !== undefined)
+            this.innerHTML = content;
     }
 }
 customElements.define('ib-denominator', Denominator, {extends: 'span'});
@@ -270,13 +266,13 @@ customElements.define('ib-entry', Entry, {extends: 'div'});
 export class Fraction extends HTMLSpanElement {
     constructor (numerator, denominator) {
         super();
-
-        if (numerator === undefined || denominator === undefined)
-            return;
-
         this.setAttribute('class', 'fraction');
-        this.appendChild(new Numerator(numerator));
-        this.appendChild(new Denominator(denominator));
+
+        if (numerator !== undefined)
+            this.appendChild(new Numerator(numerator));
+
+        if (denominator !== undefined)
+            this.appendChild(new Denominator(denominator));
     }
 }
 customElements.define('ib-fraction', Fraction, {extends: 'span'});
