@@ -95,14 +95,12 @@ const ELEMENTS = {
         caption: 'floorplanCaption'
     }
 };
-let REAL_ESTATE;
 
 
 /*
     Initializes the page based on a real estate.
 */
 function initRealEstate(realEstate) {
-    REAL_ESTATE = realEstate;
     realEstate.render(ELEMENTS);
     document.title = 'Exposé Nr. ' + realEstate.objectId;
     initContactForm(realEstate);
