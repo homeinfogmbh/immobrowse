@@ -164,6 +164,6 @@ export function init (realEstate) {
     clearContactForm(realEstate);
     document.getElementById('btnContactForm').addEventListener('click', openContactForm);
     document.getElementById('btnCloseContactForm').addEventListener('click', closeContactForm);
-    document.getElementById('send_form').addEventListener('click', () => sendEmail(realEstate));
-    document.getElementById('clear_form').addEventListener('click', () => clearContactForm(realEstate));
+    document.getElementById('send_form').addEventListener('click', event => sendEmail(realEstate));
+    document.getElementById('clear_form').addEventListener('click', event => clearContactForm(realEstate));
 }
