@@ -41,7 +41,7 @@ class OvalOuter extends HTMLDivElement {
 customElements.define('ib-oval-outer', OvalOuter, {extends: 'div'});
 
 
-export class Numerator extends HTMLSpanElement {
+class Numerator extends HTMLSpanElement {
     constructor (content) {
         super();
         this.setAttribute('class', 'numerator');
@@ -51,7 +51,7 @@ export class Numerator extends HTMLSpanElement {
 customElements.define('ib-numerator', Numerator, {extends: 'span'});
 
 
-export class Denominator extends HTMLSpanElement {
+class Denominator extends HTMLSpanElement {
     constructor (content) {
         super();
         this.setAttribute('class', 'denominator');
@@ -59,24 +59,6 @@ export class Denominator extends HTMLSpanElement {
     }
 }
 customElements.define('ib-denominator', Denominator, {extends: 'span'});
-
-
-export class Fraction extends HTMLSpanElement {
-    constructor (numerator, denominator) {
-        super();
-        this.setAttribute('class', 'fraction');
-
-        if (!(numerator instanceof Numerator))
-            numerator = new Numerator(numerator);
-
-        if (!(denominator instanceof Denominator))
-            denominator = new Denominator(denominator);
-
-        this.appendChild(numerator);
-        this.appendChild(denominator);
-    }
-}
-customElements.define('ib-fraction', Fraction, {extends: 'span'});
 
 
 class DataFieldCaption extends HTMLDivElement {
@@ -277,20 +259,23 @@ class Entry extends HTMLDivElement {
 customElements.define('ib-entry', Entry, {extends: 'div'});
 
 
+export class Fraction extends HTMLSpanElement {
+    constructor (numerator, denominator) {
+        super();
+        this.setAttribute('class', 'fraction');
+        this.appendChild(new Numerator(numerator));
+        this.appendChild(new Denominator(denominator));
+    }
+}
+customElements.define('ib-fraction', Fraction, {extends: 'span'});
+
+
 export class AmenitiesTag extends OvalOuter {
     constructor (content) {
         super(new OvalInner(content));
     }
 }
 customElements.define('ib-amenities-tag', AmenitiesTag, {extends: 'div'});
-
-
-export class KilowattHoursPerSquareMeterAndYear extends Fraction {
-    constructor () {
-        super('kWh', 'm&sup2;&middot;a');
-    }
-}
-customElements.define('ib-kwhsma', KilowattHoursPerSquareMeterAndYear, {extends: 'span'});
 
 
 /*

@@ -28,7 +28,7 @@ import { AmenitiesTag, Numerator, Denominator, Fraction, addDataFieldCol, previe
 
 export const CONFIG = {
     addressInList: false,
-    kwh: (new Fraction(new Numerator('kWh'), new Denominator('m&sup2;&middot;a'))).outerHTML,
+    kwh: new Fraction('kWh', 'm&sup2;&middot;a'),
     listedHint: 'Gebäude liegt im Denkmalschutzbereich.',
     shortFloorNames: false,
     na: 'k. A.'
