@@ -31,10 +31,8 @@ import { init as initGalleries } from './galleries.mjs';
 
 const URL_PARAMS = new URLSearchParams(window.location.search);
 // XXX: Change config for appropriate productive setting.
-const MAILER = new Mailer('homeinfo-testing');
 const CUSTOMER = URL_PARAMS.get('customer');
 const OBJECT_ID = URL_PARAMS.get('real_estate');
-const DEFAULT_INQUIRY_TEXT = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
 const LOADER = new Loader('loader', 'expose');
 const ELEMENTS = {
     objectId: 'objectId',

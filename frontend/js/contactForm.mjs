@@ -26,6 +26,10 @@ import { Address } from 'https://javascript.homeinfo.de/mdb.mjs';
 import { Contact, EMail, Mailer, immoblueMessage } from 'https://javascript.homeinfo.de/hisecon.mjs';
 
 
+const DEFAULT_INQUIRY_TEXT = 'Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.';
+const MAILER = new Mailer('homeinfo-testing');
+
+
 /*
     Resets the contact form.
 */
