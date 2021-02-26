@@ -21,23 +21,23 @@
 'use strict';
 
 
-export function next (galleryObj) {
-    galleryObj.next();
+export function next (gallery) {
+    gallery.next();
 }
 
 
-export function previous (galleryObj) {
-    galleryObj.previous();
+export function previous (gallery) {
+    gallery.previous();
 }
 
 
-export function nextCallback (galleryObj) {
-    return () => galleryObj.next();
+export function nextCallback (gallery) {
+    return () => gallery.next();
 }
 
 
-export function previousCallback (galleryObj) {
-    return () => galleryObj.previous();
+export function previousCallback (gallery) {
+    return () => gallery.previous();
 }
 
 
@@ -52,9 +52,8 @@ export class Gallery {
     next () {
         this.index++;
 
-        if (this.index >= this.images.length) {
+        if (this.index >= this.images.length)
             this.index = 0;
-        }
 
         this.render();
     }
@@ -62,24 +61,21 @@ export class Gallery {
     previous () {
         this.index--;
 
-        if (this.index < 0) {
+        if (this.index < 0)
             this.index = this.images.length - 1;
-        }
 
         this.render();
     }
 
     bind () {
-        this.mapping.next.unbind('click' );
-        this.mapping.next.click(gallery.nextCallback(this));
-        this.mapping.previous.unbind('click');
-        this.mapping.previous.click(gallery.previousCallback(this));
+        this.mapping.next.addEventListener('click', event => nextCallback(this));
+        this.mapping.previous.addEventListener('click', event => previousCallback(this));
     }
 
     render () {
-        this.mapping.image.attr('src', this.urlCallback(this.images[this.index]));
-        this.mapping.title.html(this.images[this.index].anhangtitel);
-        this.mapping.index.html(this.index + 1);
-        this.mapping.count.html(this.images.length);
+        this.mapping.image.setAttribute('src', this.urlCallback(this.images[this.index]));
+        this.mapping.title.innerHTML = this.images[this.index].anhangtitel;
+        this.mapping.index.innerHTML = this.index + 1;
+        this.mapping.count.innerHTML = this.images.length;
     }
 }
