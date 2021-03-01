@@ -19,36 +19,27 @@ add_shortcode('ImmoBrowse', 'immobrowse_shortcut');
 
 function immobrowse_shortcut() {
 	$options = get_option('ImmobrowseOptions');
-	$filename = "liste.inc";
+	$filebase = "list";
 
 	if ( isset( $_GET['real_estate'] ) ) {
-		if ( isset( $_GET['print_expose'] ) ) {
-			$filename = "print_expose.inc";
-		} else if ( isset( $_GET['print_floorplan'] ) ) {
-			$filename = "print_floorplan.inc";
-		} else {
-			$filename = "expose.inc";
-		}
+		$filebase = "expose";
 	}
 
-	$filepath = plugin_dir_path( __FILE__ )."template/".$filename;
+	$filepath = plugin_dir_path( __FILE__ )."template/".$filebase.".inc";
 
 	if ( file_exists( $filepath ) ) {
 		$content = file_get_contents( $filepath );
-		$content = str_replace( "[BASEDIR]", plugins_url('/',__FILE__ ), $content );
 		$content = str_replace( "[RECAPTCHA]", $options['recaptcha'], $content );
 	} else {
 		$content = "Datei ".$filepath." existiert nicht.";
 	}
 
 	return "<script type=\"module\">
-  import { init } from '../js/expose.mjs';
-
   const CUSTOMER = ".$options['customerId'].";
   const RECAPTCHA = '".$options['recaptcha']."';
-  const BASE_URL = '".plugins_url( '', __FILE__ )."/';
+  import { init } from '".plugins_url( '', __FILE__ )."/js/".$filebase.".mjs';
 
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', () => init(CUSTOMER));
 </script>
 ".$content;
 }
@@ -62,6 +53,8 @@ function vc_remove_wp_ver_css_js( $src ) {
 }
 
 function immobrowse_setup_css() {
+	wp_enqueue_style( 'w3-css', 'https://www.w3schools.com/w3css/4/w3.css' );
+
 	foreach ( glob( plugin_dir_path( __FILE__ )."css/*.css") as $cssfile ) {
 		$cssfile = basename($cssfile);
 		$cssClass = substr($cssfile, 0, -4);

@@ -27,13 +27,12 @@ import { configure } from './config.mjs';
 
 
 const URL_PARAMS = new URLSearchParams(window.location.search);
-const CUSTOMER = null;
 const SORTING = {
     property: null,
     order: null
 };
 const LOADER = new Loader('loader', 'list');
-let REAL_ESTATES;
+let CUSTOMER, REAL_ESTATES;
 
 
 function toggleOrder () {
@@ -126,8 +125,9 @@ function list () {
 }
 
 
-export function init () {
+export function init (customer) {
     LOADER.start();
+    CUSTOMER = customer;
     configure(CONFIG);
     document.getElementById('ib-extsearch-button').addEventListener('click', event => {
         if (document.getElementById('extendedSearch').style.display == 'none')
