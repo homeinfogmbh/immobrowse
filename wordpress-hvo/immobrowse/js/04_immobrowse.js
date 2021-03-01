@@ -280,7 +280,6 @@ immobrowse.open = function (url) {
 */
 immobrowse.Mailer = class {
     constructor (config, html, successMsg, errorMsg) {
-        this.baseUrl = 'https://hisecon.homeinfo.de';
         this.config = config;
 
         if (html == null) {
@@ -310,45 +309,26 @@ immobrowse.Mailer = class {
     }
 
     /*
-      Returns the respective URL for the Ajax call.
-    */
-    _getUrl (response, subject, recipient, reply_to) {
-        let url = this.baseUrl + '?config=' + this.config;
-
-        if (response) {
-            url += '&response=' + response;
-        }
-
-        if (subject) {
-            url += '&subject=' + subject;
-        }
-
-        if (recipient) {
-            url += '&recipient=' + recipient;
-        }
-
-        if (reply_to) {
-            url += '&reply_to=' + reply_to;
-        }
-
-        if (this.html) {
-            url += '&html=true';
-        }
-
-        return url;
-    }
-
-    /*
       Returns the respective Ajax call object.
     */
-    _getAjax (url, body) {
+    _getAjax (response, subject, body, recipient, replyTo) {
+        const config = this.config;
+        const html = this.html;
         const successMsg = this.successMsg;
         const errorMsg = this.errorMsg;
 
         return {
-            url: url,
+            url: 'https://hisecon.homeinfo.de',
             type: 'POST',
-            data: body,
+            data: {
+                config: config,
+                response: response,
+                subject: subject,
+                text: body,
+                contentType: html ? 'application/html' : 'text/plain',
+                recipients: [recipient],
+                replyTo: replyTo
+            },
             cache: false,
             success: function () {
                 swal(successMsg);
@@ -362,9 +342,8 @@ immobrowse.Mailer = class {
     /*
       Sends the respective emails.
     */
-    send (response, subject, body, recipient, reply_to) {
-        const url = this._getUrl(response, subject, recipient, reply_to);
-        const ajaxQuery = this._getAjax(url, body);
+    send (response, subject, body, recipient, replyTo) {
+        const ajaxQuery = this._getAjax(response, subject, body, recipient, replyTo);
         return jQuery.ajax(ajaxQuery);
     }
 };
