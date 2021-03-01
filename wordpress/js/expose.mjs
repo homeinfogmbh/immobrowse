@@ -112,7 +112,7 @@ function initRealEstate(realEstate) {
 */
 export function init () {
     LOADER.start();
-    document.getElementById('back').addEventListener('click', event => window.open('list.html?customer=' + CUSTOMER, '_self'));
+    document.getElementById('back').addEventListener('click', event => window.history.back());
     configure(CONFIG);
     RealEstate.get(OBJECT_ID).then(initRealEstate);
 }

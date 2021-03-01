@@ -247,7 +247,7 @@
   </div>
 </div>
 
-<div id="contactForm" class="w3-container">
+<div id="contactForm" class="w3-container no-print">
   <h4>Kontaktformular für Objekt Nr. <span id="object_id"></span></h4>
   <div class="row" id="the_form" style="margin-top:10px;">
     <div class="w3-col m12">
@@ -313,7 +313,7 @@
   </div>
 </div>
 
-<div id="gallery" class="w3-container">
+<div id="gallery" class="w3-container no-print">
   <div class="w3-row">
     <div class="w3-col m2 w3-left">
       &nbsp;

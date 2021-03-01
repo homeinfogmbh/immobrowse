@@ -164,4 +164,5 @@ export function init (realEstate) {
     clearContactForm(realEstate);
     document.getElementById('submitContactForm').addEventListener('click', event => sendEmail(realEstate));
     document.getElementById('clearContactForm').addEventListener('click', event => clearContactForm(realEstate));
+    document.getElementById('btnContactForm').addEventListener('click', event => document.getElementById('contactForm').scrollIntoView());
 }
