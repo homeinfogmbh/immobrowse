@@ -325,7 +325,7 @@ immobrowse.Mailer = class {
                 response: response,
                 subject: subject,
                 text: body,
-                contentType: html ? 'application/html' : 'text/plain',
+                contentType: html ? 'text/html' : 'text/plain',
                 recipients: [recipient],
                 replyTo: replyTo
             },
