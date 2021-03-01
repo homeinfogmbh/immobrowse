@@ -2,7 +2,7 @@
 /**
 * Plugin Name: HOMEINFO ImmoBrowse
 * Description: Anzeige Ihrer HOMEINFO Immobilien auf Ihrer Website
-* Version: 1.1.6
+* Version: 2.0.0
 * Author: HOMEINFO - Digitale Informationssysteme GmbH
 * Author URI: https://www.homeinfo.de/
 * License: GPL v3 or later
@@ -72,31 +72,6 @@ function immobrowse_setup_css() {
 }
 
 function immobrowse_setup_js() {
-	$javaScripts = [
-		"jquery-3.5.1.min.js",
-		"immobrowse-dom.js",
-		"config.js",
-		"immobrowse.js"
-	];
-
-	if ( isset( $_GET['real_estate'] ) ) {
-		if ( isset( $_GET['print_expose'] ) ) {
-			array_push( $javaScripts, "print_expose.js" );
-		} else if ( isset( $_GET['print_floorplan'] ) ) {
-			array_push( $javaScripts, "print_floorplan.js" );
-		} else {
-			array_push( $javaScripts, "expose.js" );
-			array_push( $javaScripts, "gallery.js" );
-		}
-	} else {
-		array_push( $javaScripts, "list.js" );
-	}
-
-	foreach ( $javaScripts as $javaScript ) {
-		$javaScript = plugins_url( 'js/'.$javaScript, __FILE__ );
-		wp_enqueue_script( 'immobrowsejs-'.$javaScript, $javaScript );
-	}
-
 	wp_enqueue_script( 'immobrowsejs-recaptcha','https://www.google.com/recaptcha/api.js' );
 }
 
