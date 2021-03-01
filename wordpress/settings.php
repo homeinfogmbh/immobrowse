@@ -15,9 +15,8 @@ class MySettingsPage {
 		$this->options = get_option('ImmobrowseOptions');
 	}
 
-	//fuegt Einstellungsseite hinzu
+	// Add settings page
 	public function add_plugin_page() {
-		// This page will be under "Settings"
 		add_options_page(
 			'Settings Admin',
 			'HOMEINFO ImmoBrowse',
@@ -27,17 +26,16 @@ class MySettingsPage {
 		);
 	}
 
-	//Einstellungsseite befuellen
+	// Populate settings page
 	public function create_admin_page() {
 		echo '<div class="wrap"><h1>Homeinfo ImmoBrowse Einstellungen</h1>';
 
 		if ( isset( $_GET['settings-updated'] ) ) {
-			// add settings saved message with the class of "updated"
 			add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
 		}
 
 		echo '<form method="post" action="options.php">';
-		// This prints out all hidden setting fields
+		// Print out all hidden setting fields
 		settings_fields( 'ImmobrowseOptions' );
 		do_settings_sections( 'ImmobrowseSettingPage' );
 		submit_button();

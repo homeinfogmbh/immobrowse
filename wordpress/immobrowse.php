@@ -41,26 +41,16 @@ function immobrowse_shortcut() {
 		$content = "Datei ".$filepath." existiert nicht.";
 	}
 
-	$content =
-		"<script>
-		jQuery.noConflict();
-			var customer=".$options['customerId'].";
-			var homeinfo_recaptcha='".$options['recaptcha']."';
-			var homeinfo_baseurl='".plugins_url( '', __FILE__ )."/';
-			jQuery(document).ready(function($) {
-				$( \".ib-image-frame, .homeinfo-contact,#furtherImages\" ).on( \"click\", function() {
-					setTimeout(function(){
+	return "<script type="module">
+  import { init } from '../js/expose.mjs';
 
-						$( \".modal-backdrop\" ).hide();
-						$( \".modal\" ).css('z-index',99999);
+  const CUSTOMER = ".$options['customerId'].";
+  const RECAPTCHA = '".$options['recaptcha']."';
+  const BASE_URL = '".plugins_url( '', __FILE__ )."/';
 
-					}, 1000);
-				});
-			});
-		</script>
-		".$content;
-
-	return $content;
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+".$content;
 }
 
 // remove wp version param from any enqueued scripts

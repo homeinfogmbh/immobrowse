@@ -1,69 +1,45 @@
-<div class="container">
+<div class="w3-container">
   <div class="w3-row ib-header">
     <div class="w3-col m3">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-min" class="form-control ib-btn-filter-option" type="number" placeholder="Preis von">
-        </div>
-      </div>
+      <button id="ib-sort-rooms" class="w3-btn ib-btn-sort">Zimmer</button>
+      <button id="ib-sort-area" class="w3-btn ib-btn-sort">Fl&auml;che</button>
+      <button id="ib-sort-rent" class="w3-btn ib-btn-sort">Miete</button>
     </div>
-    <div class="w3-col m3">
-      <div class="item">
-        <div class="content">
-          <input id="ib-price-max" class="form-control ib-btn-filter-option" type="number" placeholder="Preis bis">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-price-min" class="w3-input ib-btn-filter-option" type="number" placeholder="Preis von">
     </div>
-    <div class="w3-col m3">
-      <div class="item">
-        <div class="content">
-          <input id="ib-area-min" class="form-control ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-price-max" class="w3-input ib-btn-filter-option" type="number" placeholder="Preis bis">
     </div>
-    <div class="w3-col m3">
-      <div class="item">
-        <div class="content">
-          <input id="ib-rooms-min" class="form-control ib-btn-filter-option" type="number" placeholder="Zimmer ab">
-        </div>
-      </div>
+    <div class="w3-col m2">
+      <input id="ib-area-min" class="w3-input ib-btn-filter-option" type="number" placeholder="Größe ab in m²">
+    </div>
+    <div class="w3-col m2">
+      <input id="ib-rooms-min" class="w3-input ib-btn-filter-option" type="number" placeholder="Zimmer ab">
+    </div>
+    <div class="col-md-1">
+      <button id="ib-extsearch-button" class="w3-btn">Erweitert</button>
     </div>
   </div>
-
-  <div class="w3-row ib-header" style="margin-top:-15px">
-    <div class="w3-col m12">
-      <div class="item">
-        <div class="content">
-          <button id="ib-sort-rooms" onclick="immobrowse.wordpress.toggleSorting('rooms');" class="btn btn-primary ib-btn-sort">Zimmer</button>
-          <button id="ib-sort-area" onclick="immobrowse.wordpress.toggleSorting('area');" class="btn btn-primary ib-btn-sort">Fläche</button>
-          <button id="ib-sort-rent" onclick="immobrowse.wordpress.toggleSorting('rent');" class="btn btn-primary ib-btn-sort">Miete</button>
-          <button id="ib-extsearch-button" class="btn btn-default">Erweitert</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="extendedSearch" class="w3-row ib-extsearch" style="display: none;">
-    <div class="w3-col m6" style="margin-left: 1em;">
-      <div class="item">
-        <div class="content">
-          <label><strong>Austattung</strong></label><br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-kitchen" onclick="immobrowse.wordpress.list();"> Einbauküche (EBK)<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-bathtub" onclick="immobrowse.wordpress.list();"> Badewanne<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-window" onclick="immobrowse.wordpress.list();"> Fenster im Bad<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-balcony" onclick="immobrowse.wordpress.list();"> Balkon<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-carspace" onclick="immobrowse.wordpress.list();"> Stellplatz<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-guestwc" onclick="immobrowse.wordpress.list();"> Gäste-WC<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-elevator" onclick="immobrowse.wordpress.list();"> Fahrstuhl<br>
-          <input type="checkbox" class="ib-filter-amenities-option" id="ib-filter-garden" onclick="immobrowse.wordpress.list();"> Gartennutzung<br>
-        </div>
-      </div>
-    </div>
-    <div class="w3-col m6">
-      <div class="item">
-        <div class="content">
-          <label><strong>Stadtteile</strong></label><br>
-          <div id="ib-districts"></div>
+  <div class="w3-row">
+    <div id="extendedSearch" class="ib-extsearch" style="display: none;">
+      <div class="w3-container">
+        <div class="w3-row">
+          <div class="w3-col s6">
+            <label><strong>Austattung</strong></label><br>
+            <input id="ib-filter-kitchen" type="checkbox" class="w3-check ib-filter-amenities-option"> Einbauküche (EBK)<br>
+            <input id="ib-filter-bathtub" type="checkbox" class="w3-check ib-filter-amenities-option"> Badewanne<br>
+            <input id="ib-filter-window" type="checkbox" class="w3-check ib-filter-amenities-option"> Fenster im Bad<br>
+            <input id="ib-filter-balcony" type="checkbox" class="w3-check ib-filter-amenities-option"> Balkon<br>
+            <input id="ib-filter-carspace" type="checkbox" class="w3-check ib-filter-amenities-option"> Stellplatz<br>
+            <input id="ib-filter-guestwc" type="checkbox" class="w3-check ib-filter-amenities-option"> Gäste-WC<br>
+            <input id="ib-filter-elevator" type="checkbox" class="w3-check ib-filter-amenities-option"> Fahrstuhl<br>
+            <input id="ib-filter-garden" type="checkbox" class="w3-check ib-filter-amenities-option"> Gartennutzung<br>
+          </div>
+          <div class="w3-col s6">
+            <label><strong>Stadtteile</strong></label><br>
+            <div id="ib-districts"></div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,34 +1,27 @@
-<div class="container">
+<div class="w3-container">
   <div id="header" class="w3-row ib-header no-print">
-    <div id="objectTitle" class="w3-col m6 ib-title">
-      Objekttitel
-    </div>
-    <div id="objectId" class="w3-col m6 ib-id">
-      Objekt ID
-    </div>
-  </div>
-  <div class="w3-row ib-header no-print">
-    <div id="objectAddress" class="w3-col m12 ib-address">
-      Objekt Adresse
-    </div>
-  </div>
-  <div class="w3-row ib-header no-print">
-    <div class="w3-col m4 ib-centered">
-      <button type="button" class="w3-button w3-green" onclick="immobrowse.wordpress.back();">
+    <div class="w3-col m2 ib-centered">
+      <button id="back" type="button" class="w3-btn">
         « Zur&uuml;ck
       </button>
     </div>
-    <div class="w3-col m4">
+    <div id="objectTitle" class="w3-col m5 ib-title">
+      Objekttitel
+    </div>
+    <div id="objectId" class="w3-col m2 ib-id">
+      Objekt ID
+    </div>
+    <div class="w3-col m1">
       <div class="ib-detail-print ib-centered">
-        <button type="button" class="w3-button w3-blue" onclick="immobrowse.wordpress.printExpose();">
-          Expose drucken
+        <button type="button" class="w3-btn w3-blue" onclick="print();">
+          Drucken
         </button>
       </div>
     </div>
-    <div class="w3-col m4">
-      <div class="ib-detail-print ib-centered">
-        <button type="button" class="w3-button w3-blue" onclick="immobrowse.wordpress.printGrundriss();">
-          Grundriss drucken
+    <div class="w3-col m2">
+      <div class="ib-detail-contactform ib-centered">
+        <button id="btnContactForm" type="button" class="w3-btn w3-green">
+          Kontaktformular
         </button>
       </div>
     </div>
@@ -36,17 +29,24 @@
   <div class="w3-row">
     <div id="expose" class="w3-col m12 ib-expose">
       <div class="w3-row">
-        <div class="w3-col s12">
+        <div class="w3-col s6">
           <div class="thumbnail">
             <div id="titleImageFrame" class="ib-image-frame">
-              <img src="[BASEDIR]img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
+              <img src="img/dummy.jpg" id="titleImage" alt="Titelbild" class="ib-framed-image">
             </div>
-
-            <div id="titleImageCaption" class="w3-center">
+            <div id="titleImageCaption" class="caption">
               Titelbild
             </div>
-
-            <div id="furtherImages" class="ib-further-images"></div>
+          </div>
+        </div>
+        <div class="w3-col s6">
+          <div class="thumbnail">
+            <div id="floorplanFrame" class="ib-image-frame">
+              <img src="img/dummy.jpg" id="floorplan" alt="Grundriss" class="ib-framed-image">
+            </div>
+            <div id="floorplanCaption" class="caption">
+              Grundriss
+            </div>
           </div>
         </div>
       </div>
@@ -147,19 +147,19 @@
           </div>
           <div id="energyConsumptionContainer" class="w3-row">
             <div class="w3-col s6 ib-price-caption">
-              Endenergie-<br />verbrauch
+              Endenergieverbrauch
             </div>
             <div id="energyConsumption" class="w3-col s6"></div>
           </div>
           <div id="energyDemandContainer" class="w3-row">
             <div class="w3-col s6 ib-price-caption">
-              Endenergie-<br />bedarf
+              Endenergiebedarf
             </div>
             <div id="energyDemand" class="w3-col s6"></div>
           </div>
           <div class="w3-row">
             <div class="w3-col s6 ib-price-caption">
-              Primär-<br />energie-<br />träger
+              Primärenergieträger
             </div>
             <div id="primaryEnergyCarrier" class="w3-col s6"></div>
           </div>
@@ -177,7 +177,7 @@
           <div id="amenitiesList" class="w3-row"></div>
         </div>
       </div>
-      <div id="descriptionContainer" class="w3-row ib-expose-data-row">
+      <div class="w3-row ib-expose-data-row">
         <div class="w3-col m12 ib-expose-data-col">
           <div class="w3-row ib-section-caption">
             Objektbeschreibung
@@ -185,7 +185,7 @@
           <div id="description" class="w3-row ib-justified"></div>
         </div>
       </div>
-      <div id="exposureContainer" class="w3-row ib-expose-data-row">
+      <div class="w3-row ib-expose-data-row">
         <div class="w3-col m12 ib-expose-data-col">
           <div class="w3-row ib-section-caption">
             Lagebeschreibung
@@ -193,7 +193,7 @@
           <div id="exposure" class="w3-row ib-justified"></div>
         </div>
       </div>
-      <div id="miscellaneaContainer" class="w3-row ib-expose-data-row">
+      <div class="w3-row ib-expose-data-row">
         <div class="w3-col m12 ib-expose-data-col">
           <div class="w3-row ib-section-caption">
             Sonstiges
@@ -201,8 +201,8 @@
           <div id="miscellanea" class="w3-row ib-justified"></div>
         </div>
       </div>
-      <div id="contactInformation" class="w3-row ib-expose-data-row">
-        <div class="w3-col m12 ib-expose-data-col">
+      <div class="w3-row ib-expose-data-row">
+        <div class="w3-col m6 ib-expose-data-col">
           <div class="w3-row ib-section-caption">
             Kontakt
           </div>
@@ -212,7 +212,7 @@
             </div>
             <div id="contactName" class="w3-col s6"></div>
           </div>
-          <div id="contactCompanyContainer" class="w3-row">
+          <div class="w3-row">
             <div class="w3-col s6 ib-price-caption">
               Firma
             </div>
@@ -230,7 +230,7 @@
             </div>
             <div id="contactPhone" class="w3-col s6"></div>
           </div>
-          <div id="contactWebsiteContainer" class="w3-row">
+          <div class="w3-row">
             <div class="w3-col s6 ib-price-caption">
               Website
             </div>
@@ -245,105 +245,111 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div id="contactForm" class="modal fade" role="dialog">
-  <div class="w3-modal">
-    <div class="w3-modal-content">
-      <div class="w3-container">
-        <div class="w3-row" id="the_form" style="margin-top:10px;">
-          <div class="w3-col m6">
-           <p><strong>Anrede</strong></p>
-             <div class="btn-group" data-toggle="buttons">
-               <label class="btn btn-default">
-                 <input type="radio" name="salutation" value="1">Herr
-               </label>
-               <label class="btn btn-default">
-                 <input type="radio" name="salutation" value="0">Frau
-               </label>
-             </div>
-          </div>
-          <div class="w3-col m6" id="contact_form_object_nr">
-            <p><strong>Objektnummer</strong></p>
-            <input type="text" class="form-control" id="object_id" disabled>
-          </div>
-          <div class="w3-row">
-            <div class="w3-col m12">&nbsp;</div>
-          </div>
-          <div class="w3-col m6">
-            <div class="form-group">
-              <label for="forename">Vorname</label>
-              <input type="text" class="form-control" id="forename" placeholder="Vorname*">
-            </div>
-          </div>
-          <div class="w3-col m6">
-            <div class="form-group">
-              <label for="surname">Nachname</label>
-              <input type="text" class="form-control" id="surname" placeholder="Nachname*">
-            </div>
-          </div>
-          <div class="w3-col m6">
-            <div class="form-group">
-              <label for="email">E-Mail Adresse</label>
-              <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse*">
-            </div>
-          </div>
-          <div class="w3-col m6">
-            <div class="form-group">
-              <label for="phone">Telefon</label>
-              <input type="text" class="form-control" id="phone" placeholder="Telefon">
-            </div>
-          </div>
-          <div class="w3-col m8">
-            <div class="form-group">
-              <label for="street">Straße</label>
-              <input type="text" class="form-control" id="street" placeholder="Straße">
-            </div>
-          </div>
-          <div class="w3-col m4">
-            <div class="form-group">
-              <label for="house_number">Haus-Nr.</label>
-              <input type="text" class="form-control" id="house_number" placeholder="Haus-Nr.">
-            </div>
-          </div>
-          <div class="w3-col m3">
-            <div class="form-group">
-              <label for="zip_code">PLZ</label>
-              <input type="text" class="form-control" id="zip_code" placeholder="PLZ">
-            </div>
-          </div>
-          <div class="w3-col m9">
-            <div class="form-group">
-              <label for="city">Ort</label>
-              <input type="text" class="form-control" id="city" placeholder="Ort">
-            </div>
-          </div>
-          <div class="w3-col m12">
-            <textarea class="form-control" rows="5" id="message" placeholder="Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.">Ich interessiere mich für Ihr Angebot. Bitte nehmen Sie Kontakt mit mir auf.</textarea>
-          </div>
-          <div class="w3-col m12" style="color:#979696; font-size:10px;">
-            Mit einem (*) gekennzeichnete Felder sind Pflichfelder
-          </div>
-          <div class="w3-col m12" style="margin-top:20px;">
-            <div class="g-recaptcha" data-sitekey="[RECAPTCHA]"></div>
-          </div>
+<div id="contactForm" class="w3-modal" role="dialog">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <h4>Kontaktformular für Objekt Nr. <span id="object_id"></span></h4>
+      <div class="w3-row w3-right">
+        <button id="btnCloseContactForm" type="button" class="w3-red">&times;</button>
+      </div>
+      <div class="row" id="the_form" style="margin-top:10px;">
+        <div class="w3-col m12">
+         <p><strong>Anrede</strong></p>
+           <div class="btn-group" data-toggle="buttons">
+             <input type="radio" class="w3-radio" name="gender" id="gender_female" value="0">
+             <label>Frau</label>
+             <input type="radio" class="w3-radio" name="gender" id="gender_male" value="1">
+             <label>Herr</label>
+             <input type="radio" class="w3-radio" name="gender" id="gender_diverse" value="2">
+             <label>Divers</label>
+           </div>
         </div>
-        <hr>
-        <div class="w3-row" id="contact_form_response" style="display:none;">
-          <hr>
-          <div class="w3-col m2">
-            <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
-          </div>
-          <div class="w3-col m9">
-            <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
-          </div>
+        <div class="w3-col m6">
+          <input type="text" class="w3-input" id="forename" placeholder="Vorname*">
+        </div>
+        <div class="w3-col m6">
+          <input type="text" class="w3-input" id="surname" placeholder="Nachname*">
+        </div>
+        <div class="w3-col m6">
+          <input type="email" class="w3-input" id="email" placeholder="E-Mail-Adresse*">
+        </div>
+        <div class="w3-col m6">
+          <input type="text" class="w3-input" id="phone" placeholder="Telefon">
+        </div>
+        <div class="w3-col m8">
+          <input type="text" class="w3-input" id="street" placeholder="Straße">
+        </div>
+        <div class="w3-col m4">
+          <input type="text" class="w3-input" id="house_number" placeholder="Haus-Nr.">
+        </div>
+        <div class="w3-col m3">
+          <input type="text" class="w3-input" id="zip_code" placeholder="PLZ">
+        </div>
+        <div class="w3-col m9">
+          <input type="text" class="w3-input" id="city" placeholder="Ort">
+        </div>
+        <div class="w3-col m12">
+          <textarea class="w3-input" rows="5" id="message"></textarea>
+        </div>
+        <div class="w3-col m12" style="color:#979696; font-size:10px;">
+          Mit einem (*) gekennzeichnete Felder sind Pflichfelder
+        </div>
+        <div class="w3-col m12" style="margin-top:20px;">
+          <div class="g-recaptcha" data-sitekey="6LctzhATAAAAADfc-ph7GHVYQ68y9lY4rYwV0Zft"></div>
         </div>
       </div>
-      <div class="modal-footer" style="visible:false;">
-        <input type="button" class="btn btn-default" id="clear_form" value="Zurücksetzen">
-        <input type="button" class="btn btn-success" id="send_form" value="Anfrage senden">
-        <img src="[BASEDIR]img/preloader.gif" id="loading" style="display:none;">
+      <hr>
+      <div class="w3-row" id="contact_form_response" style="display:none;">
+        <hr>
+        <div class="w3-col m2">
+          <i class="fa fa-check fa-4x" style="color:#5cb85c; margin-top:12px;"></i>
+        </div>
+        <div class="w3-col m9">
+          <h3>VIELEN DANK!<br>Ihre Anfrage wurde erfolgreich versandt.</h3>
+        </div>
+      </div>
+      <div class="w3-row">
+        <input id="clear_form" type="button" class="w3-btn w3-red" value="Zurücksetzen">
+        <input id="send_form" type="button" class="w3-btn w3-green" value="Anfrage senden">
+        <img src="img/preloader.gif" id="loading" style="display:none;">
         <span class="glyphicon glyphicon-ok-sign" id="done" style="color:#2CCB2F; display:none;"></span>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="gallery" class="w3-modal" role="dialog">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <div class="w3-row">
+        <div class="w3-col m2 w3-left">
+          &nbsp;
+        </div>
+        <div class="w3-col m8 w3-center">
+          <h4 id="galleryTitle" class="w3-center"></h4>
+        </div>
+        <div class="w3-col m2 w3-right">
+          <button id="btnCloseGallery" type="button" class="w3-btn w3-red w3-right">&times;</button>
+        </div>
+      </div>
+    <div class="ib-gallery-image-container">
+       <img id="galleryImage" class="w3-image" style="width:75%">
+    </div>
+    <div class="w3-row">
+      <div class="w3-col m4 w3-center">
+        <span id="galleryPrevious" class="ib-gallery-scroll-button">←</span>
+      </div>
+      <div class="w3-col m4 w3-center">
+        <span id="galleryIndex"></span>
+          /
+        <span id="galleryImages"></span>
+      </div>
+      <div class="w3-col m4 w3-center">
+        <span id="galleryNext" class="ib-gallery-scroll-button">→</span>
+      </div>
+    </div>
+    <div class="w3-row w3-center">
+      <small>Tipp: Benutzen Sie die Pfeiltasten zum Navigieren.</small>
     </div>
   </div>
 </div>
