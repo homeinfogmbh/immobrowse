@@ -67,11 +67,7 @@ function vc_remove_wp_ver_css_js( $src ) {
 	return $src;
 }
 
-add_filter( 'style_loader_src', array( $this, 'vc_remove_wp_ver_css_js' ), 9999 );
-add_filter( 'script_loader_src', array( $this, 'vc_remove_wp_ver_css_js' ), 9999 );
-add_action( 'wp_enqueue_scripts', array( $this, 'immobrowse_setup_js') );
-
-function immobrowse_setup_js() {
+function immobrowse_setup_scripts() {
 	foreach ( glob( plugin_dir_path( __FILE__ )."css/*.css") as $cssfile ){
 		$cssfile=basename($cssfile);
 		$cssClass=substr($cssfile, 0, -4);
@@ -97,4 +93,8 @@ function immobrowse_setup_js() {
 
 	wp_enqueue_script( 'immobrowsejs-recaptcha','https://www.google.com/recaptcha/api.js' );
 }
+
+add_filter( 'style_loader_src', 'vc_remove_wp_ver_css_js', 9999 );
+add_filter( 'script_loader_src', 'vc_remove_wp_ver_css_js', 9999 );
+add_action( 'wp_enqueue_scripts', 'immobrowse_setup_scripts' );
 ?>
