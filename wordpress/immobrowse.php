@@ -41,7 +41,7 @@ function immobrowse_shortcut() {
 		$content = "Datei ".$filepath." existiert nicht.";
 	}
 
-	return "<script type="module">
+	return "<script type=\"module\">
   import { init } from '../js/expose.mjs';
 
   const CUSTOMER = ".$options['customerId'].";
