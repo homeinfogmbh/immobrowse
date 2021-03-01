@@ -1302,10 +1302,8 @@ export class RealEstate {
         if (energiepass.baujahr != null && energiepass.baujahr != '') {
             energyCertificate.constructionYear = energiepass.baujahr;
         } else {
-            // Fall back to real estate's construction year.
-            if (this.constructionYear) {
+            if (this.constructionYear)
                 energyCertificate.constructionYear = this.constructionYear;
-            }
         }
 
         if (energiepass.primaerenergietraeger != null)
