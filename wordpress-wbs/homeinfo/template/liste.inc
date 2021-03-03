@@ -1,7 +1,3 @@
-<script type="module">
-  import { init } from '../js/list.mjs';
-  document.addEventListener('DOMContentLoaded', init);
-</script>
 <div class="container homeinfo">
   <div class="row row-centered ib-header">
     <div class="col-md-3">

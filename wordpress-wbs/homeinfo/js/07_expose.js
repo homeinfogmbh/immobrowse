@@ -192,15 +192,9 @@ immobrowse.wordpress.sendEmail = function() {
 
     const message = jQuery('#message').val().trim();
     const recipient = immobrowse.wordpress.realEstate.contact.email;
-    /*
-    const body = immobrowse.dom.contactEmail(
-        immobrowse.wordpress.realEstate, message, salutation, forename,
-        surname, phone, street, houseNumber, zipCode, city, member
-    ).outerHTML;
-    */
     const body = immobrowse.wordpress.createTextEmail(
-        immobrowse.wordpress.realEstate, message, salutation, forename,
-        surname, phone, street, houseNumber, zipCode, city, member
+        immobrowse.wordpress.realEstate, salutation, forename, surname, street,
+        houseNumber, zipCode, city, email, phone, member, message
     );
     immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email);
     grecaptcha.reset();
@@ -310,31 +304,22 @@ immobrowse.wordpress.render = function (realEstate) {
 
 
 immobrowse.wordpress.createTextEmail = function(
-        realEstate, message, salutation, forename, surname, phone, street,
-        houseNumber, zipCode, city, member) {
-    let text = 'Anfrage zu Objekt "' + realEstate.objectTitle + '"';
-    text += '\n';
-    text += '\n';
-    text += [realEstate.addressPreview, realEstate.cityPreview].join(' ');
-    text += '\n';
-    text += '\n';
-    text += [salutation, forename, surname].join(' ');
-    text += '\n';
-    text += '\n';
-    text += [street, houseNumber, zipCode, city].join(' ');
-    text += '\n';
-    text += '\n';
-    text += 'Tel.: ' + phone;
-    text += '\n';
-    text += '\n';
-    text += 'Mitglied: ' + (member ? 'Ja' : 'Nein');
-    text += '\n';
-    text += '\n';
-    text += 'hat folgende Anfrage an Sie:';
-    text += '\n';
-    text += '\n';
-    text += message;
-    return text;
+        realEstate, salutation, firstName, lastName, street, houseNumber,
+        zipCode, city, email, phone, member, message) {
+    const fields = [
+        ['Objekt', realEstate.objectId],
+        ['Anrede', salutation],
+        ['Vorname', firstName],
+        ['Nachname', lastName],
+        ['Strasse', street + ' ' + houseNumber],
+        ['PLZ', zipCode],
+        ['Ort', city],
+        ['E-Mail', email],
+        ['Telefon', phone],
+        ['Mitglied', member ? 'Ja' : 'Nein'],
+        ['Bemerkung', message]
+    ];
+    return fields.map(field => field.join(': ')).join('\n');
 };
 
 
