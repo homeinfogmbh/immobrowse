@@ -35,7 +35,7 @@ immobrowse.wordpress.imageGallery = null;
 immobrowse.wordpress.floorplanGallery = null;
 
 
-immobrowse.wordpress.printGrundriss = function (){
+immobrowse.wordpress.printGrundriss = function () {
     window.open('/immobrowse/printGrundriss.html?real_estate=' + immobrowse.wordpress.objectId);
 };
 
