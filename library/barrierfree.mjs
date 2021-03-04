@@ -22,14 +22,14 @@
 
 
 import { request } from 'https://javascript.homeinfo.de/requests.mjs';
-import { setValue, RealEstate, Filter } from './immobrowse.mjs';
+import { setValue, RealEstate as BaseRealEstate, Filter } from './immobrowse.mjs';
 
 
 /*
   Extended real estate with additional barrier
   freeness related properties and methods.
 */
-export class RealEstate extends RealEstate {
+export class RealEstate extends BaseRealEstate {
     constructor (json, portal) {
         super(json);
         this.portal = portal;
