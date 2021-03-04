@@ -1582,6 +1582,10 @@ export class List {
         this.realEstates = Array.from(realEstates);
     }
 
+    get empty () {
+        return !this.realEstates;
+    }
+
     /*
       Sorts real estates.
     */
