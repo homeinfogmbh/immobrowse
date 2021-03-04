@@ -1583,7 +1583,7 @@ export class List {
     }
 
     get empty () {
-        return !this.realEstates;
+        return this.realEstates.length == 0;
     }
 
     /*
