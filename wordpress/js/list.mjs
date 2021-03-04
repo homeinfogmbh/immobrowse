@@ -117,9 +117,8 @@ function list () {
     const filter = new Filter(filters());
     const list = new List(filter.filter(REAL_ESTATES));
 
-    if (SORTING.property != null) {
+    if (SORTING.property != null)
         list.sort(SORTING.property, SORTING.order);
-    }
 
     if (list.empty)
         document.getElementById('list').innerHTML = 'Keine Angebote gefunden.';
