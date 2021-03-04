@@ -22,7 +22,7 @@
 
 
 import { request } from 'https://javascript.homeinfo.de/requests.mjs';
-import { setValue, RealEstate as BaseRealEstate, Filter } from './immobrowse.mjs';
+import { setValue, RealEstate as BaseRealEstate, Filter as BaseFilter } from './immobrowse.mjs';
 
 
 /*
@@ -225,7 +225,7 @@ export class RealEstate extends BaseRealEstate {
 /*
   Extended filter for barrier freeness filering
 */
-export class Filter extends Filter {
+export class Filter extends BaseFilter {
     constructor (rules) {
         super(rules);
     }
