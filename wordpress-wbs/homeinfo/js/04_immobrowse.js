@@ -306,22 +306,22 @@ immobrowse.Mailer = class {
       Returns the respective Ajax call object.
     */
     _getAjax (response, subject, body, recipient, replyTo) {
-        const config = this.config;
         const successMsg = this.successMsg;
         const errorMsg = this.errorMsg;
+        const json = {
+            config: this.config,
+            response: response,
+            subject: subject,
+            text: body,
+            recipients: [recipient],
+            contentType: 'text/plain',
+            replyTo: replyTo
+        };
 
         return {
             url: 'https://hisecon.homeinfo.de',
             type: 'POST',
-            data: {
-                config: config,
-                response: response,
-                subject: subject,
-                text: body,
-                recipients: [recipient],
-                contentType: 'text/plain',
-                replyTo: replyTo
-            },
+            data: JSON.stringify(json),
             contentType: 'application/json',
             cache: false,
             success: function () {
