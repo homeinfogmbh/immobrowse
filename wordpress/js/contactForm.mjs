@@ -131,8 +131,7 @@ function getEmail (realEstate) {
 
     const subject = 'Anfrage zu Objekt Nr. ' + realEstate.objectId;
     const text = immoblueMessage(realEstate, contact, message);
-    //return new EMail(subject, text, [realEstate.contact.email]);
-    return new EMail(subject, text, ['r.neumann@homeinfo.de']);
+    return new EMail(subject, text, [realEstate.contact.email]);
 }
 
 
