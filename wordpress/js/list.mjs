@@ -121,7 +121,10 @@ function list () {
         list.sort(SORTING.property, SORTING.order);
     }
 
-    list.render(document.getElementById('list'));
+    if (list.empty)
+        document.getElementById('list').innerHTML = 'Keine Angebote gefunden.';
+    else
+        list.render(document.getElementById('list'));
 }
 
 
