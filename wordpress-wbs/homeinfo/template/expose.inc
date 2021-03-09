@@ -89,7 +89,7 @@
             <div class="col-xs-6 ib-price-caption">
               Genossenschaftsanteile
             </div>
-            <div id="securityDeposit" class="col-xs-6"></div>
+            <div id="securityDeposit" class="col-xs-6">600,- € + 20,- € Aufnahmegebühr</div>
           </div>
           <div class="row row-centered">
             <div class="col-xs-6 ib-price-caption">

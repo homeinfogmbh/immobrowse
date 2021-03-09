@@ -336,7 +336,6 @@ immobrowse.wordpress.initExpose = function () {
         serviceCharge: jQuery('#serviceCharge'),
         heatingCosts: jQuery('#heatingCosts'),
         heatingCostsInServiceCharge: jQuery('#heatingCostsInServiceCharge'),
-        securityDeposit: jQuery('#securityDeposit'),
         subjectToCommission: jQuery('#subjectToCommission'),
         livingArea: jQuery('#livingArea'),
         rooms: jQuery('#rooms'),
