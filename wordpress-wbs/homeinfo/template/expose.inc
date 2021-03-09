@@ -87,7 +87,7 @@
           </div>
           <div class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
-              Kaution / Genoss.-Ant.
+              Genossenschaftsanteile
             </div>
             <div id="securityDeposit" class="col-xs-6"></div>
           </div>
