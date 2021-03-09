@@ -363,6 +363,10 @@ immobrowse.wordpress.initExpose = function () {
             container: jQuery('#descriptionContainer'),
             value: jQuery('#description')
         },
+        amenities: {
+            container: jQuery('#amenitiesContainer'),
+            value: jQuery('#amenities')
+        },
         exposure: {
             container: jQuery('#exposureContainer'),
             value: jQuery('#exposure')

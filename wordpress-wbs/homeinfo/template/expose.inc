@@ -196,9 +196,17 @@
         </div>
         <div class="col-md-6 ib-expose-data-col">
           <div class="row row-centered ib-section-caption">
-            Ausstattung
+            Ausstattungsmerkmale
           </div>
           <div id="amenitiesList" class="row row-centered"></div>
+        </div>
+      </div>
+      <div id="amenitiesContainer" class="row row-centered ib-expose-data-row">
+        <div class="col-md-12 ib-expose-data-col">
+          <div class="row row-centered ib-section-caption">
+            Ausstattungsbeschreibung
+          </div>
+          <div id="amenities" class="row row-centered ib-justified"></div>
         </div>
       </div>
       <div id="descriptionContainer" class="row row-centered ib-expose-data-row">
