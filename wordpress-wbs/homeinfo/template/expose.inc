@@ -103,6 +103,12 @@
             </div>
             <div id="heatingCosts" class="col-xs-6"></div>
           </div>
+          <div class="row row-centered">
+            <div class="col-xs-6 ib-price-caption">
+              Wohnberechtigungsschein
+            </div>
+            <div id="councilFlat" class="col-xs-6"></div>
+          </div>
         </div>
         <div class="col-md-6 ib-expose-data-col">
           <div class="row row-centered ib-section-caption">
