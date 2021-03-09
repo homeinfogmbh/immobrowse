@@ -196,8 +196,24 @@ immobrowse.wordpress.sendEmail = function() {
         immobrowse.wordpress.realEstate, salutation, forename, surname, street,
         houseNumber, zipCode, city, email, phone, member, message
     );
-    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email);
+    immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email).then(
+        response => {
+            swal({
+                title: 'Nachricht gesendet.',
+                text: 'Ihre Nachricht wurde an die WBS Wuppertal gesendet.',
+                type: 'success'
+            });
+        },
+        response => {
+            swal({
+                title: 'Fehler.',
+                text: 'Leider ist beim Versenden Ihrer Nachricht ein Fehler aufgetreten.',
+                type: 'error'
+            });
+        }
+    );
     grecaptcha.reset();
+    jQuery('#contact').attr('style') == 'display: none;';
 };
 
 
