@@ -293,15 +293,10 @@
              </div>
           </div>
           <div class="col-md-3">
-           <p><strong>Mitglied</strong></p>
-             <div class="btn-group" data-toggle="buttons">
-               <label class="btn btn-default">
-                 <input type="radio" name="member" id="member_yes" value="1">Ja
-               </label>
-               <label class="btn btn-default">
-                 <input type="radio" name="member" id="member_no" value="0">Nein
-               </label>
-             </div>
+            <div class="form-group">
+              <label for="memberId">Mitgliedsnummer</label>
+              <input type="text" class="form-control" id="memberId" placeholder="Mitgliedsnummer*">
+            </div>
           </div>
           <div class="col-md-6" id="contact_form_object_nr">
             <p><strong>Objektnummer</strong></p>

@@ -51,6 +51,7 @@ immobrowse.wordpress.back = function () {
 
 immobrowse.wordpress.clearContactForm = function () {
     jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
+    jQuery('#memberId').val('');
     jQuery('#gender_female').click();
     jQuery('#forename').val('');
     jQuery('#surname').val('');
@@ -125,16 +126,7 @@ immobrowse.wordpress.sendEmail = function() {
         salutation = 'Frau';
     }
 
-    let member = jQuery('input:radio[name=\'member\']:checked').val();
-
-    if (member == 1) {
-        member = true;
-    } else if (member == 0) {
-        member = false;
-    } else {
-        member = null;
-    }
-
+    const memberId = jQuery('#memberId').val().trim();
     const phone = jQuery('#phone').val().trim();
 
     if (phone == '') {
@@ -194,7 +186,7 @@ immobrowse.wordpress.sendEmail = function() {
     const recipient = immobrowse.wordpress.realEstate.contact.email;
     const body = immobrowse.wordpress.createTextEmail(
         immobrowse.wordpress.realEstate, salutation, forename, surname, street,
-        houseNumber, zipCode, city, email, phone, member, message
+        houseNumber, zipCode, city, email, phone, memberId, message
     );
     immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email).then(
         response => {
