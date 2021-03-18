@@ -52,6 +52,7 @@ immobrowse.wordpress.back = function () {
 immobrowse.wordpress.clearContactForm = function () {
     jQuery('#object_id').attr('placeholder', jQuery('#objectId').html());
     jQuery('#memberId').val('');
+    jQuery('#tenantCount').val('');
     jQuery('#gender_female').click();
     jQuery('#forename').val('');
     jQuery('#surname').val('');
@@ -127,6 +128,7 @@ immobrowse.wordpress.sendEmail = function() {
     }
 
     const memberId = jQuery('#memberId').val().trim();
+    const tenantCount = jQuery('#tenantCount').val().trim();
     const phone = jQuery('#phone').val().trim();
 
     if (phone == '') {
@@ -186,7 +188,7 @@ immobrowse.wordpress.sendEmail = function() {
     const recipient = immobrowse.wordpress.realEstate.contact.email;
     const body = immobrowse.wordpress.createTextEmail(
         immobrowse.wordpress.realEstate, salutation, forename, surname, street,
-        houseNumber, zipCode, city, email, phone, memberId, message
+        houseNumber, zipCode, city, email, phone, memberId, tenantCount, message
     );
     immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email).then(
         response => {
@@ -313,7 +315,7 @@ immobrowse.wordpress.render = function (realEstate) {
 
 immobrowse.wordpress.createTextEmail = function(
         realEstate, salutation, firstName, lastName, street, houseNumber,
-        zipCode, city, email, phone, member, message) {
+        zipCode, city, email, phone, memberId, tenantCount, message) {
     const fields = [
         ['Objekt', realEstate.objectId],
         ['Anrede', salutation],
@@ -324,7 +326,9 @@ immobrowse.wordpress.createTextEmail = function(
         ['Ort', city],
         ['E-Mail', email],
         ['Telefon', phone],
-        ['Mitglied', member ? 'Ja' : 'Nein'],
+        ['Mitglied', ['', null, undefined].includes(memberId) ? 'Nein' : 'Ja'],
+        ['Mitgliedsnummer', memberId || '-'],
+        ['Personenanzahl', tenantCount],
         ['Bemerkung', message]
     ];
     return fields.map(field => field.join(': ')).join('\n');

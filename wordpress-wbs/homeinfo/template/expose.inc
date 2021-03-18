@@ -298,6 +298,12 @@
               <input type="text" class="form-control" id="memberId" placeholder="Mitgliedsnummer*">
             </div>
           </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="tenantCount">Personenanzahl</label>
+              <input type="number" class="form-control" id="tenantCount" placeholder="Personenanzahl*">
+            </div>
+          </div>
           <div class="col-md-6" id="contact_form_object_nr">
             <p><strong>Objektnummer</strong></p>
             <input type="text" class="form-control" id="object_id" disabled>
