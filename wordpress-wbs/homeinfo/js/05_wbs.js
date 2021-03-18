@@ -7,12 +7,37 @@
 var immobrowse = immobrowse ||  {};
 immobrowse.wbs = immobrowse.wbs || {};
 immobrowse.wbs.KATERNBERG_STREETS = ['Funckstr.', 'Katernberger Schulweg', 'Kruppstr.', 'Siemensstr.'];
+immobrowse.wbs.ZIP_CODES = {
+    'Oberbarmen': ['42277'],
+    'Barmen': ['42279', '42281', '42283', '42285'],
+    'Heckinghausen': ['42289'],
+    'Elberfeld': ['42105', '42107', '42117'],
+    'Langerfeld': ['42389'],
+    'Ronsdorf': ['42369'],
+    'Uellendahl-Katernberg': ['42113', '42115'],
+};
+
+
+/*
+    Matches a real estate against zip codes.
+*/
+immobrowse.wbs.matchZipCode = function (realEstate, district) {
+    const zipCodes = immobrowse.wbs.ZIP_CODES[district];
+
+    if (ziCodes)
+        return zipCodes.includes(realEstate.geo.plz);
+
+    return false;
+};
 
 
 /*
     Matches a real estate against a district.
 */
 immobrowse.wbs.match = function (realEstate, district) {
+    if (immobrowse.wbs.matchZipCode(realEstate, district))
+        return true;
+
     switch (district) {
     case 'Uellendahl-Katernberg':
         return immobrowse.wbs.KATERNBERG_STREETS.includes(realEstate.geo.strasse);
