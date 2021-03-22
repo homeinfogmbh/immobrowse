@@ -97,7 +97,7 @@
             </div>
             <div id="heatingCostsInServiceCharge" class="col-xs-6"></div>
           </div>
-          <div class="row row-centered">
+          <div id="heatingCostsContainer" class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
               Heizkosten
             </div>
