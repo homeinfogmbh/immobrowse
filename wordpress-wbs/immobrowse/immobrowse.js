@@ -1493,7 +1493,7 @@ immobrowse.RealEstate = class {
             return this.verwaltung_objekt.wbs_sozialwohnung;
         }
 
-        return null;
+        return false;
     }
 
     get constructionYear () {

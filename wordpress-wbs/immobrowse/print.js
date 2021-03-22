@@ -33,7 +33,10 @@ immobrowse.wbsWuppertal.print.getElements = function () {
         address: jQuery('#objectAddress'),
         coldRent: jQuery('#coldRent'),
         serviceCharge: jQuery('#serviceCharge'),
-        heatingCosts: jQuery('#heatingCosts'),
+        heatingCosts: {
+            container: jQuery('#heatingCostsContainer'),
+            value: jQuery('#heatingCosts')
+        },
         heatingCostsInServiceCharge: jQuery('#heatingCostsInServiceCharge'),
         securityDeposit: jQuery('#securityDeposit'),
         subjectToCommission: jQuery('#subjectToCommission'),
@@ -43,7 +46,10 @@ immobrowse.wbsWuppertal.print.getElements = function () {
         availableFrom: jQuery('#availableFrom'),
         councilFlat: jQuery('#councilFlat'),
         constructionYear: jQuery('#constructionYear'),
-        state: jQuery('#state'),
+        state: {
+            container: jQuery('#stateContainer'),
+            value: jQuery('#state')
+        },
         lastModernization: jQuery('#lastModernization'),
         energyCertificate: {
             type: jQuery('#energyCertificateType'),
@@ -84,7 +90,6 @@ immobrowse.wbsWuppertal.print.getElements = function () {
         amenitiesList: jQuery('#amenitiesList'),
         contact: {
             container: jQuery('#contactInformation'),
-            name: jQuery('#contactName'),
             company: {
                 container: jQuery('#contactCompanyContainer'),
                 value: jQuery('#contactCompany')
