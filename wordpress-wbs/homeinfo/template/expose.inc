@@ -144,7 +144,7 @@
             </div>
             <div id="constructionYear" class="col-xs-6"></div>
           </div>
-          <div class="row row-centered">
+          <div id="stateContainer" class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
               Zustand
             </div>

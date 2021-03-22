@@ -355,7 +355,10 @@ immobrowse.wordpress.initExpose = function () {
         availableFrom: jQuery('#availableFrom'),
         councilFlat: jQuery('#councilFlat'),
         constructionYear: jQuery('#constructionYear'),
-        state: jQuery('#state'),
+        state: {
+            container: jQuery('#stateContainer'),
+            value: jQuery('#state')
+        },
         energyCertificate: {
             type: jQuery('#energyCertificateType'),
             consumption: {
