@@ -33,7 +33,6 @@ immobrowse.wbsWuppertal.print.getElements = function () {
         address: jQuery('#objectAddress'),
         contact: {
             container: jQuery('#contactInformation'),
-            name: jQuery('#contactName'),
             company: {
                 container: jQuery('#contactCompanyContainer'),
                 value: jQuery('#contactCompany')
