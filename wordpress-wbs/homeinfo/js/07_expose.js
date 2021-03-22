@@ -410,7 +410,6 @@ immobrowse.wordpress.initExpose = function () {
         contact: {
             container: jQuery('#contactInformation'),
             button: jQuery('#btnContactForm'),
-            name: jQuery('#contactName'),
             company: {
                 container: jQuery('#contactCompanyContainer'),
                 value: jQuery('#contactCompany')

@@ -232,12 +232,6 @@
           <div class="row row-centered ib-section-caption">
             Kontakt
           </div>
-          <div class="row row-centered">
-            <div class="col-xs-6 ib-price-caption">
-              Name
-            </div>
-            <div id="contactName" class="col-xs-6"></div>
-          </div>
           <div id="contactCompanyContainer" class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
               Firma
