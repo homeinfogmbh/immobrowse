@@ -105,7 +105,7 @@
           </div>
           <div class="row row-centered">
             <div class="col-xs-6 ib-price-caption">
-              Wohnberechtigungsschein
+              Wohnberechtigungs-schein
             </div>
             <div id="councilFlat" class="col-xs-6"></div>
           </div>
