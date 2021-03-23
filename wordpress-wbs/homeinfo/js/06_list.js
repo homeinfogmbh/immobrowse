@@ -160,9 +160,13 @@ immobrowse.wordpress.list = function () {
 
 
 immobrowse.wordpress.render = function (realEstates) {
+    console.log('[DEBUG] Setting real estates.');
     immobrowse.wordpress.realEstates = realEstates;
+    console.log('[DEBUG] Rendering districts.');
     immobrowse.wordpress.renderDistricts(jQuery('#ib-districts'), immobrowse.districtElements(immobrowse.wordpress.realEstates));
+    console.log('[DEBUG] Listing real estates.');
     immobrowse.wordpress.list();
+    console.log('[DEBUG] Hiding loader.');
     jQuery('#loader').hide();
 };
 
@@ -170,7 +174,7 @@ immobrowse.wordpress.render = function (realEstates) {
 immobrowse.wordpress.initList = function () {
     // If customer is not set, bail out.
     if (typeof customer == 'undefined') {
-        console.log('Customer not set!');
+        console.log('[ERROR] Customer not set!');
         return;
     }
 
@@ -184,6 +188,7 @@ immobrowse.wordpress.initList = function () {
     jQuery('.ib-btn-filter-option').on('input', event => immobrowse.wordpress.list());
     jQuery('.ib-filter-amenities-option').click(event => immobrowse.wordpress.list());
     immobrowse.wordpress.listElement = jQuery('#list');
+    console.log('[DEBUG] Listing real estates.');
     immobrowse.RealEstate.list(customer).then(immobrowse.wordpress.render);
 };
 
