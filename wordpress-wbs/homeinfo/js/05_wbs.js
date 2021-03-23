@@ -58,9 +58,8 @@ immobrowse.wbs.filter = function (realEstates, district) {
     const result = [];
 
     for (const realEstate of realEstates) {
-        if (immobrowse.wbs.match(realEstate, district)) {
+        if (immobrowse.wbs.match(realEstate, district))
             result.push(realEstate);
-        }
     }
 
     return result;
@@ -75,9 +74,8 @@ immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
         const urlParams = new URLSearchParams(window.location.search);
         const district = urlParams.get('ortsteil');
 
-        if (district != null && district != ''){
+        if (district != null && district != '')
             return immobrowse.wbs.filter(realEstates, district);
-        }
     }
 
     return realEstates;
