@@ -19,24 +19,13 @@ immobrowse.wbs.ZIP_CODES = {
 
 
 /*
-    Matches a real estate against zip codes.
+    Matches a real estate against a district.
 */
-immobrowse.wbs.matchZipCode = function (realEstate, district) {
+immobrowse.wbs.match = function (realEstate, district) {
     const zipCodes = immobrowse.wbs.ZIP_CODES[district];
 
     if (ziCodes)
         return zipCodes.includes(realEstate.geo.plz);
-
-    return false;
-};
-
-
-/*
-    Matches a real estate against a district.
-*/
-immobrowse.wbs.match = function (realEstate, district) {
-    if (immobrowse.wbs.matchZipCode(realEstate, district))
-        return true;
 
     switch (district) {
     case 'Uellendahl-Katernberg':
