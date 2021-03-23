@@ -1,7 +1,7 @@
 /*
   list.js - ImmoBrowse list front end JavaScript
 
-  (C) 2017 HOMEINFO - Digitale Informationssysteme GmbH
+  (C) 2017-2021 HOMEINFO - Digitale Informationssysteme GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,11 +38,10 @@ immobrowse.wordpress.listElement = null;
 immobrowse.wordpress.toggleOrder = function () {
     const previousOrder = immobrowse.wordpress.sorting.order;
 
-    if (immobrowse.wordpress.sorting.order == 'descending') {
+    if (immobrowse.wordpress.sorting.order == 'descending')
         immobrowse.wordpress.sorting.order = 'ascending';
-    } else {
+    else
         immobrowse.wordpress.sorting.order = 'descending';
-    }
 
     return previousOrder;
 };
@@ -55,9 +54,8 @@ immobrowse.wordpress.toggleSorting = function (property) {
     immobrowse.wordpress.sorting.property = property;
 
     // Remove arrow symbol
-    if (previousIssuer != null) {
+    if (previousIssuer != null)
         previousIssuer.innerHTML = previousIssuer.innerHTML.slice(0, -1);
-    }
 
     switch (immobrowse.wordpress.sorting.order) {
     case 'ascending':
@@ -75,13 +73,10 @@ immobrowse.wordpress.toggleSorting = function (property) {
 immobrowse.wordpress.renderDistricts = function (districtsElement, districtElements) {
     districtsElement.html('');
 
-    for (const districtElement of districtElements) {
+    for (const districtElement of districtElements)
         districtsElement.append(districtElement);
-    }
 
-    jQuery('.ib-select-district').click(function() {
-        immobrowse.wordpress.list();
-    });
+    jQuery('.ib-select-district').click(event => immobrowse.wordpress.list());
 };
 
 
@@ -90,9 +85,8 @@ immobrowse.wordpress.selectedDistricts = function () {
     const checkboxes = document.getElementsByClassName('ib-select-district');
 
     for (const checkbox of checkboxes) {
-        if (checkbox.checked) {
+        if (checkbox.checked)
             districts.push(checkbox.getAttribute('name'));
-        }
     }
 
     return districts;
@@ -102,35 +96,31 @@ immobrowse.wordpress.selectedDistricts = function () {
 immobrowse.wordpress.filters = function () {
     let priceMax = jQuery('#ib-price-max').val();
 
-    if (! priceMax) {
+    if (! priceMax)
         priceMax = Infinity;
-    } else {
+    else
         priceMax = Number(homeinfo.str.comma2dot(priceMax));
-    }
 
     let priceMin = jQuery('#ib-price-min').val();
 
-    if (! priceMin) {
+    if (! priceMin)
         priceMin = 0;
-    } else {
+    else
         priceMin = Number(homeinfo.str.comma2dot(priceMin));
-    }
 
     let areaMin = jQuery('#ib-area-min').val();
 
-    if (! areaMin) {
+    if (! areaMin)
         areaMin = 0;
-    } else {
+    else
         areaMin = Number(homeinfo.str.comma2dot(areaMin));
-    }
 
     let roomsMin = jQuery('#ib-rooms-min').val();
 
-    if (! roomsMin) {
+    if (! roomsMin)
         roomsMin = 0;
-    } else {
+    else
         roomsMin = Number(homeinfo.str.comma2dot(roomsMin));
-    }
 
     return {
         types: immobrowse.config.types,
@@ -159,15 +149,13 @@ immobrowse.wordpress.list = function () {
     realEstates = immobrowse.wbs.districtFilteredRealEstates(realEstates);
     const list = new immobrowse.List(realEstates);
 
-    if (immobrowse.wordpress.sorting.property != null) {
+    if (immobrowse.wordpress.sorting.property != null)
         list.sort(immobrowse.wordpress.sorting.property, immobrowse.wordpress.sorting.order);
-    }
 
-    if (list.realEstates.length > 0) {
+    if (list.realEstates.length > 0)
         list.render(immobrowse.wordpress.listElement);
-    } else {
+    else
         immobrowse.wordpress.listElement.html('Keine Angebote vorhanden.');
-    }
 };
 
 
@@ -182,24 +170,19 @@ immobrowse.wordpress.render = function (realEstates) {
 immobrowse.wordpress.initList = function () {
     // If customer is not set, bail out.
     if (typeof customer == 'undefined') {
+        console.log('Customer not set!');
         return;
     }
 
-    jQuery('#ib-extsearch-button').click(function() {
+    jQuery('#ib-extsearch-button').click(event => {
         if (jQuery('#extendedSearch').attr('style') == 'display: none;')
             jQuery('#extendedSearch').slideDown();
         else
             jQuery('#extendedSearch').slideUp();
     });
 
-    jQuery('.ib-btn-filter-option').on('input', function() {
-        immobrowse.wordpress.list();
-    });
-
-    jQuery('.ib-filter-amenities-option').click(function() {
-        immobrowse.wordpress.list();
-    });
-
+    jQuery('.ib-btn-filter-option').on('input', event => immobrowse.wordpress.list());
+    jQuery('.ib-filter-amenities-option').click(event => immobrowse.wordpress.list());
     immobrowse.wordpress.listElement = jQuery('#list');
     immobrowse.RealEstate.list(customer).then(immobrowse.wordpress.render);
 };
