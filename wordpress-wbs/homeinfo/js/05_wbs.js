@@ -14,7 +14,7 @@ immobrowse.wbs.ZIP_CODES = {
     'Elberfeld': ['42105', '42107', '42117'],
     'Langerfeld': ['42389'],
     'Ronsdorf': ['42369'],
-    'Uellendahl-Katernberg': ['42113', '42115'],
+    'Uellendahl-Katernberg': ['42113', '42115']
 };
 
 
