@@ -143,19 +143,29 @@ immobrowse.wordpress.filters = function () {
 
 
 immobrowse.wordpress.list = function () {
+    console.log('[DEBUG] Initializing filter.');
     const filters = immobrowse.wordpress.filters();
+    console.log('[DEBUG] Instantiating filter.');
     const filter = new immobrowse.Filter(filters);
+    console.log('[DEBUG] Filtering real estates.');
     let realEstates = filter.filter(immobrowse.wordpress.realEstates);
+    console.log('[DEBUG] District-filtering real estates.');
     realEstates = immobrowse.wbs.districtFilteredRealEstates(realEstates);
+    console.log('[DEBUG] Initializing list.');
     const list = new immobrowse.List(realEstates);
 
-    if (immobrowse.wordpress.sorting.property != null)
+    if (immobrowse.wordpress.sorting.property != null) {
+        console.log('[DEBUG] Sorting real estates.');
         list.sort(immobrowse.wordpress.sorting.property, immobrowse.wordpress.sorting.order);
+    }
 
-    if (list.realEstates.length > 0)
+    if (list.realEstates.length > 0) {
+        console.log('[DEBUG] Rendering real estates.');
         list.render(immobrowse.wordpress.listElement);
-    else
+    } else {
+        console.log('[DEBUG] Rendering N/A message.');
         immobrowse.wordpress.listElement.html('Keine Angebote vorhanden.');
+    }
 };
 
 
@@ -188,7 +198,7 @@ immobrowse.wordpress.initList = function () {
     jQuery('.ib-btn-filter-option').on('input', event => immobrowse.wordpress.list());
     jQuery('.ib-filter-amenities-option').click(event => immobrowse.wordpress.list());
     immobrowse.wordpress.listElement = jQuery('#list');
-    console.log('[DEBUG] Listing real estates.');
+    console.log('[DEBUG] Retrieving real estates.');
     immobrowse.RealEstate.list(customer).then(immobrowse.wordpress.render);
 };
 
