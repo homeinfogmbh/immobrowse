@@ -29,7 +29,7 @@ immobrowse.wbs.ZIP_CODES = {
     'Barmen': ['42279', '42281', '42283', '42285'],
     'Heckinghausen': ['42289'],
     'Elberfeld': ['42105', '42107', '42117'],
-    'Langerfeld': ['42389'],
+    'Langerfeld-Beyenburg': ['42389'],
     'Ronsdorf': ['42369'],
     'Uellendahl-Katernberg': ['42113', '42115']
 };
