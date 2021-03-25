@@ -39,26 +39,19 @@ immobrowse.wbs.ZIP_CODES = {
     Matches a real estate against a district.
 */
 immobrowse.wbs.match = function (realEstate, district) {
-    console.log('[DEBUG] Getting ZIP codes for district.');
     const zipCodes = immobrowse.wbs.ZIP_CODES[district];
 
-    if (zipCodes && zipCodes.includes(realEstate.geo.plz)) {
-        console.log('[DEBUG] Matched real estate by ZIP code.');
+    if (zipCodes && zipCodes.includes(realEstate.geo.plz))
         return true;
-    }
 
     switch (district) {
     case 'Uellendahl-Katernberg':
-        console.log('[DEBUG] Checking for district "Uellendahl-Katernberg".');
         return immobrowse.wbs.KATERNBERG_STREETS.includes(realEstate.geo.strasse);
     case 'Elberfeld':
-        console.log('[DEBUG] Checking for district "Elberfeld".');
         return realEstate.geo.plz.startsWith('421');
     case 'Barmen':
-        console.log('[DEBUG] Checking for district "Barmen".');
         return realEstate.geo.plz.startsWith('422');
     default:
-        console.log('[DEBUG] Checking for realEstate.geo.regionaler_zusatz.');
         return realEstate.geo.regionaler_zusatz == district;
     }
 };
@@ -84,17 +77,12 @@ immobrowse.wbs.filter = function (realEstates, district) {
 */
 immobrowse.wbs.districtFilteredRealEstates = function (realEstates) {
     if (immobrowse.wordpress.selectedDistricts().length == 0) {
-        console.log('[DEBUG] Instantiating URL parameters.');
         const urlParams = new URLSearchParams(window.location.search);
-        console.log('[DEBUG] Getting "ortsteil" param.');
         const district = urlParams.get('ortsteil');
 
-        if (district != null && district != '') {
-            console.log('[DEBUG] Filtering by district.');
+        if (district != null && district != '')
             return immobrowse.wbs.filter(realEstates, district);
-        }
     }
 
-    console.log('[DEBUG] Returning real estates.');
     return realEstates;
 };
