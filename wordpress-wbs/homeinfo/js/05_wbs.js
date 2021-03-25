@@ -42,7 +42,7 @@ immobrowse.wbs.match = function (realEstate, district) {
     console.log('[DEBUG] Getting ZIP codes for district.');
     const zipCodes = immobrowse.wbs.ZIP_CODES[district];
 
-    if (ziCodes && zipCodes.includes(realEstate.geo.plz)) {
+    if (zipCodes && zipCodes.includes(realEstate.geo.plz)) {
         console.log('[DEBUG] Matched real estate by ZIP code.');
         return true;
     }
