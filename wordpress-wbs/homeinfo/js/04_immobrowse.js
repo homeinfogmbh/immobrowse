@@ -1916,7 +1916,7 @@ immobrowse.RealEstate = class {
                 immobrowse.dom.preview.addDataFieldCol(element, this.rooms || immobrowse.config.na, dataFields);
                 break;
             case 'area':
-                immobrowse.dom.preview.addDataFieldCol(element, this.area || immobrowse.config.na, dataFields);
+                immobrowse.dom.preview.addDataFieldCol(element, this.livingArea ? immobrowse.squareMeters(this.livingArea) : immobrowse.config.na, dataFields);
                 break;
             }
         }
