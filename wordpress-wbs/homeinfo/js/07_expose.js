@@ -190,6 +190,7 @@ immobrowse.wordpress.sendEmail = function() {
         immobrowse.wordpress.realEstate, salutation, forename, surname, street,
         houseNumber, zipCode, city, email, phone, memberId, tenantCount, message
     );
+    console.log('[DEBUG] Generated email body: ' + body);
     immobrowse.wordpress.mailer.send(response, 'Anfrage zu Objekt Nr. ' + immobrowse.wordpress.realEstate.objectId, body, recipient, email).then(
         response => {
             swal({
