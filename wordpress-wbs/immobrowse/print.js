@@ -50,7 +50,6 @@ immobrowse.wbsWuppertal.print.getElements = function () {
             container: jQuery('#stateContainer'),
             value: jQuery('#state')
         },
-        lastModernization: jQuery('#lastModernization'),
         energyCertificate: {
             type: jQuery('#energyCertificateType'),
             consumption: {
