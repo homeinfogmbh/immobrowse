@@ -47,10 +47,6 @@ immobrowse.wbs.match = function (realEstate, district) {
     switch (district) {
     case 'Uellendahl-Katernberg':
         return immobrowse.wbs.KATERNBERG_STREETS.includes(realEstate.geo.strasse);
-    case 'Elberfeld':
-        return realEstate.geo.plz.startsWith('421');
-    case 'Barmen':
-        return realEstate.geo.plz.startsWith('422');
     default:
         return realEstate.geo.regionaler_zusatz == district;
     }
