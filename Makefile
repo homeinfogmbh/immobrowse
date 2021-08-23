@@ -1,20 +1,5 @@
-.PHONY: backend frontend frontend-barrierfree frontend-immobit library
+.PHONY: install
 
-default:
-	@ echo "No default target to make"
-
-backend:
+install:
 	@ make -C backend
-
-frontend:
 	@ make -C frontend
-
-frontend-barrierfree:
-	@ make -C frontend-barrierfree
-
-frontend-immobit:
-	@ make -C frontend-immobit
-
-library:
-	@ install -dm 755 /srv/http/de/homeinfo/javascript/immobrowse
-	@ install -m 644 -t /srv/http/de/homeinfo/javascript/immobrowse/ library/*.mjs
