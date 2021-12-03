@@ -5,12 +5,10 @@ from uuid import uuid4
 from peewee import CharField, ForeignKeyField, Model
 
 from mdb import Customer
-from peeweeplus import MySQLDatabase
-
-from immobrowse.config import CONFIG
+from peeweeplus import MySQLDatabaseProxy
 
 
-DATABASE = MySQLDatabase.from_config(CONFIG['db'])
+DATABASE = MySQLDatabaseProxy('immobrowse')
 
 
 __all__ = ['AccessToken', 'Override']
