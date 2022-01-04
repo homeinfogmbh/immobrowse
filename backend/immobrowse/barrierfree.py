@@ -60,7 +60,7 @@ def get_list() -> JSON:
     except KeyError:
         return JSONMessage('Unknown portal.', status=400)
 
-    return JSON([re.to_dict(limit=True) for re in list_(portals)])
+    return JSON([re.to_json(limit=True) for re in list_(portals)])
 
 
 @APPLICATION.route('/expose/<int:ident>')
@@ -81,7 +81,7 @@ def get_expose(ident: int) -> Union[JSON, JSONMessage]:
 
     if all(barrierfree(immobilie), approve(immobilie, portals),
            immobilie.active):
-        return JSON(immobilie.to_dict(limit=True))
+        return JSON(immobilie.to_json(limit=True))
 
     return JSONMessage('No such real estate.', status=404)
 

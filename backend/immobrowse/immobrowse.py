@@ -60,7 +60,7 @@ def get_list(ident: int) -> Union[JSON, JSONMessage]:
     except Customer.DoesNotExist:
         return JSONMessage('No such customer.', status=404)
 
-    return JSON([re.to_dict(limit=True) for re in real_estates_of(customer)])
+    return JSON([re.to_json(limit=True) for re in real_estates_of(customer)])
 
 
 @APPLICATION.route('/expose/<int:ident>')
@@ -73,7 +73,7 @@ def get_expose(ident: int) -> Union[JSON, JSONMessage]:
         return JSONMessage('No such real estate.', status=404)
 
     if approve(immobilie) and immobilie.active:
-        return JSON(immobilie.to_dict(limit=True))
+        return JSON(immobilie.to_json(limit=True))
 
     return JSONMessage('No such real estate.', status=404)
 
