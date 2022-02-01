@@ -79,7 +79,7 @@ def get_expose(ident: int) -> Union[JSON, JSONMessage]:
 
 
 @APPLICATION.route('/attachment/<int:ident>')
-def get_attachment(ident: int) -> Union[JSON, JSONMessage]:
+def get_attachment(ident: int) -> Union[Binary, JSONMessage]:
     """Returns the respective attachment."""
 
     try:

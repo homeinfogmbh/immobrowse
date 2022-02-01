@@ -50,7 +50,7 @@ def list_(portals: Iterable[str]) -> Iterator[Immobilie]:
 
 
 @APPLICATION.route('/list')
-def get_list() -> JSON:
+def get_list() -> Union[JSON, JSONMessage]:
     """Returns the list of barrier-free real estates."""
 
     portal = request.args['portal']
@@ -87,7 +87,7 @@ def get_expose(ident: int) -> Union[JSON, JSONMessage]:
 
 
 @APPLICATION.route('/attachment/<int:ident>')
-def get_attachment(ident: int) -> Union[JSON, JSONMessage]:
+def get_attachment(ident: int) -> Union[Binary, JSONMessage]:
     """Returns the respective attachment."""
 
     portal = request.args['portal']
