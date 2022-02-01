@@ -30,7 +30,7 @@ def has_override(customer: Union[Customer, int]) -> bool:
 
 
 def approve(immobilie: Immobilie, override: Optional[bool] = None) -> bool:
-    """Chekcs whether the real estate is in any of the portals."""
+    """Checks whether the real estate is in any of the portals."""
 
     if override:
         return True
