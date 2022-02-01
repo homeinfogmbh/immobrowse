@@ -79,8 +79,11 @@ def get_expose(ident: int) -> Union[JSON, JSONMessage]:
     except Immobilie.DoesNotExist:
         return JSONMessage('No such real estate.', status=404)
 
-    if all(barrierfree(immobilie), approve(immobilie, portals),
-           immobilie.active):
+    if all([
+        barrierfree(immobilie),
+        approve(immobilie, portals),
+        immobilie.active
+    ]):
         return JSON(immobilie.to_json(limit=True))
 
     return JSONMessage('No such real estate.', status=404)
